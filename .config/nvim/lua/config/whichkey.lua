@@ -56,7 +56,7 @@ function M.setup()
 
     g = {
       name = "Git",
-      s = { "<cmd>Neogit<CR>", "Status" },
+      g = { "<cmd>LazyGit<CR>", "Status" },
     },
 
 		a = {

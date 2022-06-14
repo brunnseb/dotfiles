@@ -6,7 +6,9 @@ function M.setup()
     return
   end
 
-  neogit.setup {}
+  neogit.setup {
+		use_magit_keybindings = true
+	}
 end
 
 return M
