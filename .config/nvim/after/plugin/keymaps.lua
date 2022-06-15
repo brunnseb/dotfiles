@@ -41,34 +41,16 @@ keymap("n", "<Leader>ws", "<C-w>s", default_opts)
 keymap("n", "<Leader>wo", "<C-w>|", default_opts)
 keymap("n", "<Leader>w=", "<C-w>=", default_opts)
 
--- Spectre
-keymap("n", "<Leader>S", "<cmd>lua require('spectre').open()<CR>", default_opts)
-keymap("n", "<Leader>sw", "<cmd>lua require('spectre'open_visual({select_word=true})<CR>", default_opts)
-
--- LSP
-keymap("n", "<Leader>cx", "<cmd>TroubleToggle document_diagnostics<CR>", default_opts)
-keymap("n", "<Leader>cX", "<cmd>TroubleToggle workspace_diagnostics<CR>", default_opts)
-keymap("n", "<Leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>", default_opts)
-keymap("n", "<Leader>cD", "<cmd>TroubleToggle lsp_references<CR>", default_opts)
-keymap("n", "<Leader>ck", "<cmd>TroubleToggle lsp_type_definitions<CR>", default_opts)
-keymap("n", "<Leader>ca", "<cmd>CodeActionMenu<CR>", default_opts)
-keymap("n", "<Leader>co", "<cmd>TypescriptOrganizeImports<CR>", default_opts)
-keymap("n", "<Leader>cR", "<cmd>TypescriptRenameFile<CR>", default_opts)
-keymap("n", "<Leader>ci", "<cmd>TypescriptAddMissingImports<CR>", default_opts)
-keymap("n", "<Leader>cu", "<cmd>TypescriptRemoveUnused<CR>", default_opts)
-keymap("n", "<Leader>cA", "<cmd>TypescriptFixAll<CR>", default_opts)
-keymap("n", "<Leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", default_opts)
-
 -- Telescope
-keymap("n", "<Leader>,", "<cmd>Telescope buffers<CR>", default_opts)
-keymap("n", "<Leader><Leader>", "<cmd>Telescope find_files<CR>", default_opts)
-keymap("n", "<Leader>sp", "<cmd>Telescope grep_string<CR>", default_opts)
-keymap("n", "<Leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", default_opts)
-keymap("n", "<Leader>jl", "<cmd>Telescope jumplist<CR>", default_opts)
-keymap("n", "<Leader>yi", "<cmd>Telescope registers<CR>", default_opts)
+-- keymap("n", "<Leader>,", "<cmd>Telescope buffers<CR>", default_opts)
+-- keymap("n", "<Leader><Leader>", "<cmd>Telescope find_files<CR>", default_opts)
+-- keymap("n", "<Leader>sp", "<cmd>Telescope grep_string<CR>", default_opts)
+-- keymap("n", "<Leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", default_opts)
+-- keymap("n", "<Leader>jl", "<cmd>Telescope jumplist<CR>", default_opts)
+-- keymap("n", "<Leader>yi", "<cmd>Telescope registers<CR>", default_opts)
 
 -- Telescope project
-keymap("n", "<Leader>pp", "<cmd>lua require('telescope').extensions.project.project()<CR>", default_opts)
+-- keymap("n", "<Leader>pp", "<cmd>lua require('telescope').extensions.project.project()<CR>", default_opts)
 
 keymap("n", "gsj", "<cmd>HopLineAC<CR>", default_opts)
 keymap("n", "gsk", "<cmd>HopLineBC<CR>", default_opts)
@@ -77,18 +59,18 @@ keymap("v", "gsj", "<cmd>HopLineAC<CR>", default_opts)
 keymap("v", "gsk", "<cmd>HopLineBC<CR>", default_opts)
 keymap("v", "gs/", "<cmd>HopPattern<CR>", default_opts)
 -- Expand Region
-keymap("n", "gm", "<cmd>lua require('vi-viz').vizInit()<CR>", default_opts)
-keymap("x", "m", "<cmd>lua require('vi-viz').vizExpand()<CR>", default_opts)
-keymap("x", "n", "<cmd>lua require('vi-viz').vizContract()<CR>", default_opts)
+-- keymap("n", "gm", "<cmd>lua require('vi-viz').vizInit()<CR>", default_opts)
+-- keymap("x", "m", "<cmd>lua require('vi-viz').vizExpand()<CR>", default_opts)
+-- keymap("x", "n", "<cmd>lua require('vi-viz').vizContract()<CR>", default_opts)
 -- expand and contract by 1 char either side
-keymap("x", "l", "<cmd>lua require('vi-viz').vizExpand1Chr()<CR>", default_opts)
-keymap("x", "h", "<cmd>lua require('vi-viz').vizContract1Chr()<CR>", default_opts)
--- good use for the r key in visual mode
-keymap("x", "r", "<cmd>lua require('vi-viz').vizPattern()<CR>", default_opts)
--- nice to have to get dot repeat on single words
-keymap("x", "u", "<cmd>lua require('vi-viz').vizChange()<CR>", default_opts)
--- nice to have to insert before and after
-keymap("x", "ii", "<cmd>lua require('vi-viz').vizInsert()<CR>", default_opts)
-keymap("x", "aa", "<cmd>lua require('vi-viz').vizAppend()<CR>", default_opts)
+-- keymap("x", "l", "<cmd>lua require('vi-viz').vizExpand1Chr()<CR>", default_opts)
+-- keymap("x", "h", "<cmd>lua require('vi-viz').vizContract1Chr()<CR>", default_opts)
+-- -- good use for the r key in visual mode
+-- keymap("x", "r", "<cmd>lua require('vi-viz').vizPattern()<CR>", default_opts)
+-- -- nice to have to get dot repeat on single words
+-- keymap("x", "u", "<cmd>lua require('vi-viz').vizChange()<CR>", default_opts)
+-- -- nice to have to insert before and after
+-- keymap("x", "ii", "<cmd>lua require('vi-viz').vizInsert()<CR>", default_opts)
+-- keymap("x", "aa", "<cmd>lua require('vi-viz').vizAppend()<CR>", default_opts)
 -- Quit
 -- keymap("n", "q", ":close<CR>", default_opts)
