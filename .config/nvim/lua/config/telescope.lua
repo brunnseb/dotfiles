@@ -57,7 +57,7 @@ function M.setup()
 
 	telescope.setup({
 		defaults = {
-			file_ignore_patterns = { "cache", "m2", "node_modules", "build", "target", "dist", "*.lock" },
+			file_ignore_patterns = { "cache", "m2", "node_modules", "build", "target", "dist" },
 			buffer_previewer_maker = preview_maker,
 			mappings = {
 				i = {

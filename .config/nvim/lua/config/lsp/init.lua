@@ -3,7 +3,18 @@ local M = {}
 local servers = {
 	html = {},
 	jsonls = {},
-	eslint = {},
+	eslint = {
+		filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+			"vue",
+			"svelte",
+		},
+	},
 	sumneko_lua = {
 		settings = {
 			Lua = {
@@ -27,6 +38,7 @@ local servers = {
 			},
 		},
 	},
+	tailwindcss = {},
 	tsserver = {
 		-- Needed for inlayHints. Merge this table with your settings or copy
 		-- it from the source if you want to add your own init_options.

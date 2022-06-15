@@ -331,7 +331,16 @@ function M.setup()
 		})
 
 		-- Console.log statements
-		use({ "gaelph/logsitter.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
+		use({
+			"gaelph/logsitter.nvim",
+			requires = { "nvim-treesitter/nvim-treesitter" },
+			opt = true,
+			cmd = { "LogSitter" },
+			after = { "nvim-treesitter" },
+			config = function()
+				require("config.logsitter").setup()
+			end,
+		})
 
 		-- Comment
 		use({
