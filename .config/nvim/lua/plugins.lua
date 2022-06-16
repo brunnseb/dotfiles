@@ -41,6 +41,34 @@ function M.setup()
 	local function plugins(use)
 		use({ "wbthomason/packer.nvim" })
 
+		use({
+			"rcarriga/vim-ultest",
+			requires = { "vim-test/vim-test" },
+			opt = true,
+			keys = { "<leader>t" },
+			cmd = {
+				"TestNearest",
+				"TestFile",
+				"TestSuite",
+				"TestLast",
+				"TestVisit",
+				"Ultest",
+				"UltestNearest",
+				"UltestDebug",
+				"UltestLast",
+				"UltestSummary",
+			},
+			module = "ultest",
+			run = ":UpdateRemotePlugins",
+			config = function()
+				require("config.test").setup()
+			end,
+		})
+
+		use({ "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } })
+
+		use({ "mildred/vim-bufmru" })
+
 		use({ "nvim-lua/plenary.nvim", module = "plenary" })
 		---- UI
 		-- Colorscheme
@@ -176,8 +204,8 @@ function M.setup()
 		-- Treesitter
 		use({
 			"nvim-treesitter/nvim-treesitter",
-			opt = true,
-			event = "BufRead",
+			-- opt = true,
+			-- event = "BufRead",
 			run = ":TSUpdate",
 			config = function()
 				require("config.treesitter").setup()
@@ -185,6 +213,15 @@ function M.setup()
 			requires = {
 				{ "nvim-treesitter/nvim-treesitter-textobjects" },
 			},
+		})
+
+		use({ "p00f/nvim-ts-rainbow", requires = { "nvim-treesitter/nvim-treesitter" } })
+
+		use({
+			"nvim-treesitter/playground",
+			requires = { "nvim-treesitter/nvim-treesitter" },
+			opt = true,
+			after = { "nvim-treesitter" },
 		})
 
 		-- Diagnostics
@@ -224,8 +261,17 @@ function M.setup()
 		})
 
 		---- Utils
+		-- Import Cost
+		use({
+			"yardnsm/vim-import-cost",
+			run = "npm install --production",
+			config = function()
+				require("config.import-cost").setup()
+			end,
+		})
 		--Wordmotion
 		use({ "chaoren/vim-wordmotion" })
+
 		--fzf
 		use({
 			"ibhagwan/fzf-lua",
@@ -247,6 +293,11 @@ function M.setup()
 			"airblade/vim-rooter",
 		})
 
+		-- File types
+		use({
+			"nathom/filetype.nvim",
+		})
+
 		-- Avy replacement
 		use({
 			"phaazon/hop.nvim",
@@ -258,13 +309,13 @@ function M.setup()
 		})
 
 		-- Easy motion
-		use({
-			"ggandor/lightspeed.nvim",
-			keys = { "s", "S", "f", "F", "t", "T" },
-			config = function()
-				require("lightspeed").setup({})
-			end,
-		})
+		-- use({
+		-- 	"ggandor/lightspeed.nvim",
+		-- 	keys = { "s", "S", "f", "F", "t", "T" },
+		-- 	config = function()
+		-- 		require("lightspeed").setup({})
+		-- 	end,
+		-- })
 
 		-- End wise
 		use({
@@ -394,9 +445,25 @@ function M.setup()
 		})
 
 		-- Git
+		-- use({
+		-- 	"kdheepak/lazygit.nvim",
+		-- 	cmd = "LazyGit",
+		-- })
+		--
+		use({ "sindrets/diffview.nvim" })
+
 		use({
-			"kdheepak/lazygit.nvim",
-			cmd = "LazyGit",
+			"TimUntersberger/neogit",
+			requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+			config = function()
+				require("neogit").setup({
+					use_magit_keybindings = true,
+					auto_refresh = false,
+					integrations = {
+						diffview = true,
+					},
+				})
+			end,
 		})
 
 		-- Nvim-tree

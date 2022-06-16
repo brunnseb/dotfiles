@@ -30,7 +30,9 @@ local function keymappings(client, bufnr)
 			R = { "<cmd>TSLspRenameFile<CR>", "Rename File" },
 			d = { "<cmd>TroubleToggle lsp_definitions<CR>", "Trouble Definitions" },
 			k = { "<cmd>TroubleToggle lsp_type_definitions<CR>", "Trouble Type Definitions" },
-			o = { "<cmd>:TSLspOrganize<CR>", "Organize Imports" },
+			o = { "<cmd>TSLspOrganize<CR>", "Organize Imports" },
+			c = { "<cmd>ImportCost<CR>", "Show Import Cost" },
+			C = { "<cmd>ImportCostSingle<CR>", "Show Single Import Cost" },
 		},
 	}
 

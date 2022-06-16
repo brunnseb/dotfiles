@@ -13,21 +13,24 @@ function M.setup()
 	if PLUGINS.telescope.enabled then
 		keymaps_s = {
 			name = "Find",
-			f = { "<cmd>lua require('utils.finder').find_files()<cr>", "Files" },
-			d = { "<cmd>lua require('utils.finder').find_dotfiles()<cr>", "Dotfiles" },
-			b = { "<cmd>Telescope buffers<cr>", "Buffers" },
-			o = { "<cmd>Telescope oldfiles<cr>", "Old Files" },
-			g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
+			f = { "<cmd>Telescope git_files<cr>", "Files" },
+			d = {
+				'<cmd>lua require(\'telescope.builtin\').find_files({search_dirs = {"~/.doom.d", "~/.config/nvim", "~/.config/fish"},prompt_title = "<Dotfiles>"})<cr>',
+				"Dotfiles",
+			},
+			o = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Old Files" },
+			g = { "<cmd>Telescope live_grep hidden=true<cr>", "Live Grep" },
 			c = { "<cmd>Telescope commands<cr>", "Commands" },
 			r = { "<cmd>Telescope file_browser<cr>", "Browser" },
-			w = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current Buffer" },
+			b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current Buffer" },
 			e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+			p = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Project" },
 		}
 
 		keymaps_p = {
 			name = "Project",
-			p = { "<cmd>lua require'telescope'.extensions.project.project{}<cr>", "List" },
-			f = { "<cmd>Telescope repo list<cr>", "Find" },
+			p = { "<cmd>Telescope project theme=ivy<cr>", "List" },
+			f = { "<cmd>Telescope repo list theme=ivy<cr>", "Find" },
 			s = { "<cmd>wa<CR>", "Save" },
 		}
 	end
@@ -56,6 +59,14 @@ function M.setup()
 	local mappings = {
 		["q"] = { "<cmd>q!<CR>", "Quit" },
 
+		["."] = {
+			-- "<cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h'), theme = 'ivy' })<CR>",
+			"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy({cwd = vim.fn.expand('%:p:h')}))<CR>",
+			"Current Directory",
+		},
+
+		[","] = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" },
+
 		f = {
 			name = "File",
 			s = { "<cmd>update!<CR>", "Save" },
@@ -72,8 +83,8 @@ function M.setup()
 			name = "Buffer",
 			k = { "<cmd>bd!<Cr>", "Close current buffer" },
 			K = { "<cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
-			["["] = { "<cmd>bprevious<CR>", "Previous buffer" },
-			["]"] = { "<cmd>bnext<CR>", "Next buffer" },
+			["["] = { "<cmd>BufMRUPrev<CR>", "Previous buffer" },
+			["]"] = { "<cmd>BufMRUNext<CR>", "Next buffer" },
 		},
 
 		z = {
@@ -87,7 +98,7 @@ function M.setup()
 
 		g = {
 			name = "Git",
-			g = { "<cmd>LazyGit<CR>", "Status" },
+			g = { "<cmd>Neogit<CR>", "Status" },
 		},
 
 		a = {
@@ -105,6 +116,22 @@ function M.setup()
 		},
 
 		s = keymaps_s,
+		y = {
+			name = "Yank",
+			i = { "<cmd>Telescope registers<cr>", "Insert from register" },
+		},
+		t = {
+			name = "Test",
+			S = { "<cmd>UltestSummary<cr>", "Summary" },
+			a = { "<cmd>Ultest<cr>", "All" },
+			d = { "<cmd>UltestDebug<cr>", "Debug" },
+			f = { "<cmd>TestFile<cr>", "File" },
+			l = { "<cmd>TestLast<cr>", "Last" },
+			n = { "<cmd>TestNearest<cr>", "Nearest" },
+			o = { "<cmd>UltestOutput<cr>", "Output" },
+			s = { "<cmd>TestSuite<cr>", "Suite" },
+			v = { "<cmd>TestVisit<cr>", "Visit" },
+		},
 	}
 
 	whichkey.setup(conf)

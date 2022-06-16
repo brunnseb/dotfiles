@@ -75,7 +75,7 @@ function M.setup()
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 			["<C-e>"] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
-			["<CR>"] = cmp.mapping({
+			["<S-CR>"] = cmp.mapping({
 				i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
 				c = function(fallback)
 					if cmp.visible() then
@@ -85,34 +85,34 @@ function M.setup()
 					end
 				end,
 			}),
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
-				elseif has_words_before() then
-					cmp.complete()
-				else
-					fallback()
-				end
-			end, {
-				"i",
-				"s",
-				"c",
-			}),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif luasnip.jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-				end
-			end, {
-				"i",
-				"s",
-				"c",
-			}),
+			-- ["<Tab>"] = cmp.mapping(function(fallback)
+			-- 	if cmp.visible() then
+			-- 		cmp.select_next_item()
+			-- 	elseif luasnip.expand_or_jumpable() then
+			-- 		luasnip.expand_or_jump()
+			-- 	elseif has_words_before() then
+			-- 		cmp.complete()
+			-- 	else
+			-- 		fallback()
+			-- 	end
+			-- end, {
+			-- 	"i",
+			-- 	"s",
+			-- 	"c",
+			-- }),
+			-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+			-- 	if cmp.visible() then
+			-- 		cmp.select_prev_item()
+			-- 	elseif luasnip.jumpable(-1) then
+			-- 		luasnip.jump(-1)
+			-- 	else
+			-- 		fallback()
+			-- 	end
+			-- end, {
+			-- 	"i",
+			-- 	"s",
+			-- 	"c",
+			-- }),
 		},
 		sources = {
 			{ name = "nvim_lsp" },

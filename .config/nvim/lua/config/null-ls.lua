@@ -9,12 +9,11 @@ M.setup = function()
 	end
 
 	local format = null_ls.builtins.formatting
-	local diagnostic = null_ls.builtins.diagnostics
 	-- local diagnostic = null_ls.builtins.diagnostics
 
 	null_ls.setup({
 		sources = {
-			diagnostic.eslint,
+			-- diagnostic.eslint,
 			format.prettierd,
 			format.stylua,
 		},

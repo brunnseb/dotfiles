@@ -117,8 +117,8 @@ local function on_attach(client, bufnr)
 	-- Configure key mappings
 	require("config.lsp.keymaps").setup(client, bufnr)
 
-	-- Configure highlighting
-	require("config.lsp.highlighting").setup(client)
+	-- -- Configure highlighting
+	-- require("config.lsp.highlighting").setup(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -134,8 +134,8 @@ local opts = {
 	},
 }
 
--- Setup LSP handlers
-require("config.lsp.handlers").setup()
+-- -- Setup LSP handlers
+-- require("config.lsp.handlers").setup()
 
 function M.setup()
 	require("config.lsp.installer").setup(servers, opts)
