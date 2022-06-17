@@ -109,6 +109,9 @@ alias ip="ip -color"
 alias cat='bat --style header --style rules --style snip --style changes --style header'
 [ ! -x /usr/bin/yay ] && [ -x /usr/bin/paru ] && alias yay='paru'
 
+# Update maven version
+alias mvn-update-versions='mvn release:update-versions -DautoVersionSubmodules=true'
+
 # Common use
 alias grubup="sudo update-grub"
 alias fixpacman="sudo rm /var/lib/pacman/db.lck"
