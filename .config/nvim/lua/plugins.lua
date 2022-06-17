@@ -42,6 +42,21 @@ function M.setup()
 		use({ "wbthomason/packer.nvim" })
 
 		use({
+			"norcalli/nvim-colorizer.lua",
+			config = function()
+				require("colorizer").setup()
+			end,
+		})
+
+		use({
+			"~/.config/nvim/custom-plugins/catppuccin",
+			as = "catppuccin",
+			config = function()
+				require("catppuccin").setup()
+			end,
+		})
+
+		use({
 			"rcarriga/vim-ultest",
 			requires = { "vim-test/vim-test" },
 			opt = true,
@@ -72,10 +87,10 @@ function M.setup()
 		use({ "nvim-lua/plenary.nvim", module = "plenary" })
 		---- UI
 		-- Colorscheme
-		use({
-			"lalitmee/cobalt2.nvim",
-			requires = "tjdevries/colorbuddy.nvim",
-		})
+		-- use({
+		-- 	"lalitmee/cobalt2.nvim",
+		-- 	requires = "tjdevries/colorbuddy.nvim",
+		-- })
 
 		-- Startup screen
 		use({
@@ -220,8 +235,6 @@ function M.setup()
 		use({
 			"nvim-treesitter/playground",
 			requires = { "nvim-treesitter/nvim-treesitter" },
-			opt = true,
-			after = { "nvim-treesitter" },
 		})
 
 		-- Diagnostics

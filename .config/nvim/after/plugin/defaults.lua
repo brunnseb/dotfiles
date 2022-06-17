@@ -47,3 +47,8 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]])
+
+-- Load cholorscheme
+
+-- local catppuccin = require("catppuccin")
+vim.cmd([[colorscheme catppuccin]])
