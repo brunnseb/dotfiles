@@ -49,7 +49,7 @@ function M.setup()
 		})
 
 		use({
-			"~/.config/nvim/custom-plugins/catppuccin",
+			"brunnseb/catppuccin",
 			as = "catppuccin",
 			config = function()
 				require("catppuccin").setup()
