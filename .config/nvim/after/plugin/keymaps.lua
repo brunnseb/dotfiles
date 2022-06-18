@@ -2,6 +2,19 @@ local keymap = vim.api.nvim_set_keymap
 local default_opts = { noremap = true, silent = true }
 local expr_opts = { noremap = true, expr = true, silent = true }
 
+local Terminal = require("toggleterm.terminal").Terminal
+local magit = Terminal:new({
+	cmd = "emacs -e magit-status-here",
+	close_on_exit = true,
+	size = 0,
+})
+
+function magit_toggle()
+	magit:toggle()
+end
+
+keymap("n", "<Leader>gg", "<cmd>lua magit_toggle()<CR>", default_opts)
+
 -- Center search results
 keymap("n", "n", "nzz", default_opts)
 keymap("n", "N", "Nzz", default_opts)
@@ -51,3 +64,6 @@ keymap("n", "gs/", "<cmd>HopPattern<CR>", default_opts)
 keymap("v", "gsj", "<cmd>HopLineAC<CR>", default_opts)
 keymap("v", "gsk", "<cmd>HopLineBC<CR>", default_opts)
 keymap("v", "gs/", "<cmd>HopPattern<CR>", default_opts)
+
+-- Escape Terminal
+keymap("t", "jk", "<C-\\><C-n>", default_opts)

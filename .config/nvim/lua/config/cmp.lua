@@ -2,33 +2,33 @@ local M = {}
 
 vim.o.completeopt = "menu,menuone,noselect"
 
-local kind_icons = {
-	Text = "",
-	Method = "",
-	Function = "",
-	Constructor = "",
-	Field = "",
-	Variable = "",
-	Class = "ﴯ",
-	Interface = "",
-	Module = "",
-	Property = "ﰠ",
-	Unit = "",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-}
+-- local kind_icons = {
+-- 	Text = "",
+-- 	Method = "",
+-- 	Function = "",
+-- 	Constructor = "",
+-- 	Field = "",
+-- 	Variable = "",
+-- 	Class = "ﴯ",
+-- 	Interface = "",
+-- 	Module = "",
+-- 	Property = "ﰠ",
+-- 	Unit = "",
+-- 	Value = "",
+-- 	Enum = "",
+-- 	Keyword = "",
+-- 	Snippet = "",
+-- 	Color = "",
+-- 	File = "",
+-- 	Reference = "",
+-- 	Folder = "",
+-- 	EnumMember = "",
+-- 	Constant = "",
+-- 	Struct = "",
+-- 	Event = "",
+-- 	Operator = "",
+-- 	TypeParameter = "",
+-- }
 
 function M.setup()
 	local has_words_before = function()
@@ -41,6 +41,9 @@ function M.setup()
 
 	-- Auto pairs
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	-- Icons
+	local lspkind = require("lspkind")
+
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 	cmp.setup({
@@ -52,22 +55,28 @@ function M.setup()
 			end,
 		},
 		formatting = {
-			format = function(entry, vim_item)
-				-- Kind icons
-				vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-				-- Source
-				vim_item.menu = ({
-					nvim_lsp = "[LSP]",
-					buffer = "[Buffer]",
-					luasnip = "[Snip]",
-					nvim_lua = "[Lua]",
-					treesitter = "[Treesitter]",
-					path = "[Path]",
-					nvim_lsp_signature_help = "[Signature]",
-				})[entry.source.name]
-				return vim_item
-			end,
+			format = lspkind.cmp_format({
+				mode = "symbol_text", -- show only symbol annotations
+				maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+			}),
 		},
+		-- formatting = {
+		-- 	format = function(entry, vim_item)
+		-- 		-- Kind icons
+		-- 		vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+		-- 		-- Source
+		-- 		vim_item.menu = ({
+		-- 			nvim_lsp = "[LSP]",
+		-- 			buffer = "[Buffer]",
+		-- 			luasnip = "[Snip]",
+		-- 			nvim_lua = "[Lua]",
+		-- 			treesitter = "[Treesitter]",
+		-- 			path = "[Path]",
+		-- 			nvim_lsp_signature_help = "[Signature]",
+		-- 		})[entry.source.name]
+		-- 		return vim_item
+		-- 	end,
+		-- },
 		mapping = {
 			["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 			["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),

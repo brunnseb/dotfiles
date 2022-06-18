@@ -12,10 +12,10 @@ function M.setup()
 			end,
 		},
 
-		profile = {
-			enable = true,
-			threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
-		},
+		-- profile = {
+		-- 	enable = true,
+		-- 	threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+		-- },
 	}
 
 	-- Check if packer.nvim is installed
@@ -49,7 +49,8 @@ function M.setup()
 		})
 
 		use({
-			"brunnseb/catppuccin",
+			-- "brunnseb/catppuccin",
+			"~/Development/forks/catppuccin",
 			as = "catppuccin",
 			config = function()
 				require("catppuccin").setup()
@@ -81,8 +82,6 @@ function M.setup()
 		})
 
 		use({ "windwp/nvim-spectre", requires = { "nvim-lua/plenary.nvim" } })
-
-		use({ "mildred/vim-bufmru" })
 
 		use({ "nvim-lua/plenary.nvim", module = "plenary" })
 		---- UI
@@ -139,6 +138,10 @@ function M.setup()
 		})
 
 		---- LSP & Treesitter & Autocomplete
+		-- Cmp Icons
+		use({
+			"onsails/lspkind.nvim",
+		})
 		-- Cmp
 		use({
 			"hrsh7th/nvim-cmp",
@@ -190,32 +193,6 @@ function M.setup()
 			event = "BufRead",
 		})
 
-		-- Lsp Zero
-		-- use({
-		-- 	"VonHeikemen/lsp-zero.nvim",
-		-- 	requires = {
-		-- 		-- LSP Support
-		-- 		{ "neovim/nvim-lspconfig" },
-		-- 		{ "williamboman/nvim-lsp-installer" },
-		--
-		-- 		-- Autocompletion
-		-- 		{ "hrsh7th/nvim-cmp" },
-		-- 		{ "hrsh7th/cmp-buffer" },
-		-- 		{ "hrsh7th/cmp-path" },
-		-- 		{ "hrsh7th/cmp-cmdline" },
-		-- 		{ "saadparwaiz1/cmp_luasnip" },
-		-- 		{ "hrsh7th/cmp-nvim-lsp" },
-		-- 		{ "hrsh7th/cmp-nvim-lua" },
-		--
-		-- 		-- Snippets
-		-- 		{ "L3MON4D3/LuaSnip" },
-		-- 		{ "rafamadriz/friendly-snippets" },
-		-- 	},
-		-- 	config = function()
-		-- 		require("config.lsp").setup()
-		-- 	end,
-		-- })
-
 		-- Treesitter
 		use({
 			"nvim-treesitter/nvim-treesitter",
@@ -250,16 +227,6 @@ function M.setup()
 			end,
 		})
 
-		-- lspsaga.nvim
-		use({
-			"tami5/lspsaga.nvim",
-			event = "VimEnter",
-			cmd = { "Lspsaga" },
-			config = function()
-				require("lspsaga").setup({})
-			end,
-		})
-
 		-- Automated code formatting
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
@@ -277,6 +244,8 @@ function M.setup()
 		-- Import Cost
 		use({
 			"yardnsm/vim-import-cost",
+			opt = true,
+			cmd = "ImportCost",
 			run = "npm install --production",
 			config = function()
 				require("config.import-cost").setup()
@@ -306,6 +275,16 @@ function M.setup()
 			"airblade/vim-rooter",
 		})
 
+		-- Git gutter
+		use({
+			"airblade/vim-gitgutter",
+		})
+
+		-- Git utils
+		use({
+			"emmanueltouzery/agitator.nvim",
+		})
+
 		-- File types
 		use({
 			"nathom/filetype.nvim",
@@ -320,15 +299,6 @@ function M.setup()
 				require("config.hop").setup()
 			end,
 		})
-
-		-- Easy motion
-		-- use({
-		-- 	"ggandor/lightspeed.nvim",
-		-- 	keys = { "s", "S", "f", "F", "t", "T" },
-		-- 	config = function()
-		-- 		require("lightspeed").setup({})
-		-- 	end,
-		-- })
 
 		-- End wise
 		use({
@@ -371,11 +341,6 @@ function M.setup()
 			"stevearc/gkeep.nvim",
 			run = ":UpdateRemotePlugins",
 		})
-
-		-- -- Expand Region
-		-- use({
-		-- 	"olambo/vi-viz",
-		-- })
 
 		-- Better Escape
 		use({
@@ -452,31 +417,18 @@ function M.setup()
 		})
 
 		---- Tools
+		-- Toggle Terminal
+		use({
+			"akinsho/toggleterm.nvim",
+			tag = "v1.*",
+			config = function()
+				require("toggleterm").setup()
+			end,
+		})
+
 		-- Ranger
 		use({
 			"kevinhwang91/rnvimr",
-		})
-
-		-- Git
-		-- use({
-		-- 	"kdheepak/lazygit.nvim",
-		-- 	cmd = "LazyGit",
-		-- })
-		--
-		use({ "sindrets/diffview.nvim" })
-
-		use({
-			"TimUntersberger/neogit",
-			requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
-			config = function()
-				require("neogit").setup({
-					use_magit_keybindings = true,
-					auto_refresh = false,
-					integrations = {
-						diffview = true,
-					},
-				})
-			end,
 		})
 
 		-- Nvim-tree
@@ -492,14 +444,14 @@ function M.setup()
 		})
 
 		-- Markdown
-		use({
-			"iamcco/markdown-preview.nvim",
-			run = function()
-				vim.fn["mkdp#util#install"]()
-			end,
-			ft = "markdown",
-			cmd = { "MarkdownPreview" },
-		})
+		-- use({
+		-- 	"iamcco/markdown-preview.nvim",
+		-- 	run = function()
+		-- 		vim.fn["mkdp#util#install"]()
+		-- 	end,
+		-- 	ft = "markdown",
+		-- 	cmd = { "MarkdownPreview" },
+		-- })
 
 		if packer_bootstrap then
 			print("Restart Neovim required after installation!")

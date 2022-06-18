@@ -83,8 +83,8 @@ function M.setup()
 			name = "Buffer",
 			k = { "<cmd>bd!<Cr>", "Close current buffer" },
 			K = { "<cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
-			["["] = { "<cmd>BufMRUPrev<CR>", "Previous buffer" },
-			["]"] = { "<cmd>BufMRUNext<CR>", "Next buffer" },
+			["["] = { "<cmd>bprevious<CR>", "Previous buffer" },
+			["]"] = { "<cmd>bnext<CR>", "Next buffer" },
 		},
 
 		z = {
@@ -94,11 +94,6 @@ function M.setup()
 			s = { "<cmd>PackerSync<cr>", "Sync" },
 			S = { "<cmd>PackerStatus<cr>", "Status" },
 			u = { "<cmd>PackerUpdate<cr>", "Update" },
-		},
-
-		g = {
-			name = "Git",
-			g = { "<cmd>Neogit<CR>", "Status" },
 		},
 
 		a = {

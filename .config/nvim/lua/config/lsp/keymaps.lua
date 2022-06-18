@@ -26,7 +26,7 @@ local function keymappings(client, bufnr)
 			h = { "<cmd>TSLspToggleInlayHints<CR>", "Toggle Inlay Hints" },
 			i = { "<cmd>LspInfo<CR>", "Lsp Info" },
 			I = { "<cmd>TSLspImportAll<CR>", "Import All" },
-			r = { "<cmd>Lspsaga rename<CR>", "Rename" },
+			r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 			R = { "<cmd>TSLspRenameFile<CR>", "Rename File" },
 			d = { "<cmd>TroubleToggle lsp_definitions<CR>", "Trouble Definitions" },
 			k = { "<cmd>TroubleToggle lsp_type_definitions<CR>", "Trouble Type Definitions" },

@@ -76,6 +76,16 @@ function M.setup()
 				"--column",
 				"--hidden",
 			},
+			pickers = {
+				find_files = {
+					theme = "ivy",
+				},
+			},
+			extensions = {
+				project = {
+					theme = "ivy",
+				},
+			},
 			-- pickers = {
 			-- 	find_files = {
 			-- 		theme = "ivy",
