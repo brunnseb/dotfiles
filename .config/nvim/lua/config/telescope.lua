@@ -1,123 +1,56 @@
 local M = {}
 
--- Custom actions
-local transform_mod = require("telescope.actions.mt").transform_mod
-local nvb_actions = transform_mod({
-	file_path = function(prompt_bufnr)
-		-- Get selected entry and the file full path
-		local content = require("telescope.actions.state").get_selected_entry()
-		local full_path = content.cwd .. require("plenary.path").path.sep .. content.value
-
-		-- Yank the path to unnamed register
-		vim.fn.setreg('"', full_path)
-
-		-- Close the popup
-		require("utils").info("File path is yanked ")
-		require("telescope.actions").close(prompt_bufnr)
-	end,
-})
-
 function M.setup()
 	local actions = require("telescope.actions")
-	local telescope = require("telescope")
 
-	-- Custom previewer
-	-- local previewers = require("telescope.previewers")
-	-- local Job = require("plenary.job")
-	-- local preview_maker = function(filepath, bufnr, opts)
-	-- 	filepath = vim.fn.expand(filepath)
-	-- 	Job
-	-- 		:new({
-	-- 			command = "file",
-	-- 			args = { "--mime-type", "-b", filepath },
-	-- 			on_exit = function(j)
-	-- 				local mime_type = vim.split(j:result()[1], "/")[1]
-	--
-	-- 				if mime_type == "text" then
-	-- 					-- Check file size
-	-- 					vim.loop.fs_stat(filepath, function(_, stat)
-	-- 						if not stat then
-	-- 							return
-	-- 						end
-	-- 						if stat.size > 500000 then
-	-- 							return
-	-- 						else
-	-- 							previewers.buffer_previewer_maker(filepath, bufnr, opts)
-	-- 						end
-	-- 					end)
-	-- 				else
-	-- 					vim.schedule(function()
-	-- 						vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY FILE" })
-	-- 					end)
-	-- 				end
-	-- 			end,
-	-- 		})
-	-- 		:sync()
-	-- end
-
-	telescope.setup({
+	require("telescope").setup({
 		defaults = {
-			file_ignore_patterns = { "cache", "m2", "node_modules", "build", "target", "dist" },
-			-- buffer_previewer_maker = preview_maker,
+			-- Default configuration for telescope goes here:
+			-- config_key = value,
 			mappings = {
 				i = {
+					-- map actions.which_key to <C-h> (default: <C-/>)
+					-- actions.which_key shows the mappings for your picker,
+					-- e.g. git_{create, delete, ...}_branch for the git_branches picker
+					["<C-h>"] = "which_key",
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
 					["<C-n>"] = actions.cycle_history_next,
 					["<C-p>"] = actions.cycle_history_prev,
 				},
 			},
-			vimgrep_arguments = {
-				"rg",
-				"--color=never",
-				"--no-heading",
-				"--with-filename",
-				"--line-number",
-				"--column",
-				"--hidden",
+		},
+		pickers = {
+			find_files = {
+				theme = "ivy",
 			},
-			pickers = {
-				find_files = {
-					theme = "ivy",
+			buffers = {
+				theme = "ivy",
+				layout_config = {
+					height = 0.2,
 				},
 			},
-			extensions = {
-				project = {
-					theme = "ivy",
+			projects = {
+				theme = "ivy",
+				layout_config = {
+					height = 0.2,
 				},
 			},
-			-- pickers = {
-			-- 	find_files = {
-			-- 		theme = "ivy",
-			-- 		mappings = {
-			-- 			n = {
-			-- 				["y"] = nvb_actions.file_path,
-			-- 			},
-			-- 			i = {
-			-- 				["<C-y>"] = nvb_actions.file_path,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- 	git_files = {
-			-- 		theme = "dropdown",
-			-- 		mappings = {
-			-- 			n = {
-			-- 				["y"] = nvb_actions.file_path,
-			-- 			},
-			-- 			i = {
-			-- 				["<C-y>"] = nvb_actions.file_path,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
+		},
+		extensions = {
+			fzf = {
+				fuzzy = true, -- false will only do exact matching
+				override_generic_sorter = true, -- override the generic sorter
+				override_file_sorter = true, -- override the file sorter
+				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+				-- the default case_mode is "smart_case"
+			},
 		},
 	})
-
-	telescope.load_extension("fzf")
-	telescope.load_extension("project") -- telescope-project.nvim
-	telescope.load_extension("repo")
-	telescope.load_extension("file_browser")
-	telescope.load_extension("projects") -- project.nvim
+	-- To get fzf loaded and working with telescope, you need to call
+	-- load_extension, somewhere after setup function:
+	require("telescope").load_extension("fzf")
+	require("telescope").load_extension("project")
 end
 
 return M

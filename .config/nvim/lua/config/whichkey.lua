@@ -10,43 +10,6 @@ function M.setup()
 		},
 	}
 
-	if PLUGINS.telescope.enabled then
-		keymaps_s = {
-			name = "Find",
-			f = { "<cmd>Telescope git_files<cr>", "Files" },
-			d = {
-				'<cmd>lua require(\'telescope.builtin\').find_files({search_dirs = {"~/.doom.d", "~/.config/nvim", "~/.config/fish"},prompt_title = "<Dotfiles>"})<cr>',
-				"Dotfiles",
-			},
-			o = { "<cmd>Telescope oldfiles theme=ivy<cr>", "Old Files" },
-			g = { "<cmd>Telescope live_grep hidden=true<cr>", "Live Grep" },
-			c = { "<cmd>Telescope commands<cr>", "Commands" },
-			r = { "<cmd>Telescope file_browser<cr>", "Browser" },
-			b = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current Buffer" },
-			e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-			p = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Project" },
-		}
-
-		keymaps_p = {
-			name = "Project",
-			p = { "<cmd>Telescope project theme=ivy<cr>", "List" },
-			f = { "<cmd>Telescope repo list theme=ivy<cr>", "Find" },
-			s = { "<cmd>wa<CR>", "Save" },
-		}
-	end
-
-	if PLUGINS.fzf_lua.enabled then
-		keymaps_s = {
-			name = "Find",
-			f = { "<cmd>lua require('utils.finder').find_files()<cr>", "Files" },
-			b = { "<cmd>FzfLua buffers<cr>", "Buffers" },
-			o = { "<cmd>FzfLua oldfiles<cr>", "Old Files" },
-			g = { "<cmd>FzfLua live_grep<cr>", "Live Grep" },
-			c = { "<cmd>FzfLua commands<cr>", "Commands" },
-			e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-		}
-	end
-
 	local opts = {
 		mode = "n", -- Normal mode
 		prefix = "<leader>",
@@ -58,25 +21,16 @@ function M.setup()
 
 	local mappings = {
 		["q"] = { "<cmd>q!<CR>", "Quit" },
-
+		["<Leader>"] = { "<cmd>Telescope find_files<CR>", "Project files" },
+		[","] = { "<cmd>lua require('telescope.builtin').buffers({ previewer = false})<CR>", "Buffers" },
 		["."] = {
-			-- "<cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h'), theme = 'ivy' })<CR>",
-			"<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy({cwd = vim.fn.expand('%:p:h')}))<CR>",
-			"Current Directory",
+			"<cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.2 }, previewer = false })<CR>",
+			"Current directory",
 		},
-
-		[","] = { "<cmd>Telescope buffers theme=ivy<cr>", "Buffers" },
 
 		f = {
 			name = "File",
 			s = { "<cmd>update!<CR>", "Save" },
-		},
-
-		p = keymaps_p,
-
-		m = {
-			name = "Log",
-			l = { "<cmd>Logsitter<CR>", "Log" },
 		},
 
 		b = {
@@ -97,35 +51,17 @@ function M.setup()
 		},
 
 		a = {
-			name = "Ranger",
-			r = { "<cmd>RnvimrToggle<cr>", "Ranger" },
+			name = "Application",
+			r = { "<cmd>cd %:p:h | Nnn<cr>", "NNN" },
+			t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
 		},
 
-		w = {
-			name = "Window",
-			h = "Go to left window",
-		},
-
-		o = {
-			p = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-		},
-
-		s = keymaps_s,
-		y = {
-			name = "Yank",
-			i = { "<cmd>Telescope registers<cr>", "Insert from register" },
-		},
-		t = {
-			name = "Test",
-			S = { "<cmd>UltestSummary<cr>", "Summary" },
-			a = { "<cmd>Ultest<cr>", "All" },
-			d = { "<cmd>UltestDebug<cr>", "Debug" },
-			f = { "<cmd>TestFile<cr>", "File" },
-			l = { "<cmd>TestLast<cr>", "Last" },
-			n = { "<cmd>TestNearest<cr>", "Nearest" },
-			o = { "<cmd>UltestOutput<cr>", "Output" },
-			s = { "<cmd>TestSuite<cr>", "Suite" },
-			v = { "<cmd>TestVisit<cr>", "Visit" },
+		p = {
+			name = "Projects",
+			p = {
+				"<cmd>Telescope project theme=ivy layout_config={height=0.2}<CR>",
+				"Find Project",
+			},
 		},
 	}
 
