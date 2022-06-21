@@ -41,6 +41,152 @@ function M.setup()
 	local function plugins(use)
 		use({ "wbthomason/packer.nvim" })
 
+		-- Completion
+		use({
+			"hrsh7th/nvim-cmp",
+			event = "InsertEnter",
+			opt = true,
+			config = function()
+				require("config.cmp").setup()
+			end,
+			wants = { "LuaSnip" },
+			requires = {
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+				"hrsh7th/cmp-nvim-lua",
+				"ray-x/cmp-treesitter",
+				"hrsh7th/cmp-cmdline",
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lsp-signature-help",
+				-- "onsails/lspkind-nvim",
+				-- "hrsh7th/cmp-calc",
+				-- "f3fora/cmp-spell",
+				-- "hrsh7th/cmp-emoji",
+				{
+					"L3MON4D3/LuaSnip",
+					wants = { "friendly-snippets", "vim-snippets" },
+				},
+				"rafamadriz/friendly-snippets",
+				"honza/vim-snippets",
+			},
+		})
+
+		use({ "nvim-pack/nvim-spectre", module = "spectre", keys = { "<leader>s" } })
+
+		use({ "gaelph/logsitter.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
+
+		-- use({
+		-- 	"nvim-neotest/neotest",
+		-- 	requires = {
+		-- 		"nvim-lua/plenary.nvim",
+		-- 		"nvim-treesitter/nvim-treesitter",
+		-- 		"antoinemadec/FixCursorHold.nvim",
+		-- 		"haydenmeade/neotest-jest",
+		-- 	},
+		-- 	config = function()
+		-- 		require("neotest").setup({
+		-- 			adapters = {
+		-- 				require("neotest-jest")({
+		-- 					jestCommand = "yarn test",
+		-- 				}),
+		-- 			},
+		-- 		})
+		-- 	end,
+		-- })
+
+		use({
+			"kevinhwang91/nvim-bqf",
+			config = function()
+				require("bqf").setup({
+					func_map = {
+						nextfile = "<C-j>",
+						prevfile = "<C-k>",
+					},
+					preview = {
+						auto_preview = false,
+					},
+				})
+			end,
+		})
+
+		-- Git
+		use({
+			"lewis6991/gitsigns.nvim",
+			event = "BufReadPre",
+			wants = "plenary.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("config.gitsigns").setup()
+			end,
+		})
+		use({
+			"tpope/vim-fugitive",
+			opt = true,
+			commit = "92c73bb0507338441733198d630a1fe5e7fdac3a",
+			cmd = { "Git", "GBrowse", "Gdiffsplit", "Gvdiffsplit" },
+			requires = { "tpope/vim-rhubarb", "idanarye/vim-merginal" },
+			wants = { "vim-rhubarb" },
+		})
+
+		use({ "junegunn/gv.vim" })
+		use({
+			"akinsho/git-conflict.nvim",
+			cmd = {
+				"GitConflictChooseTheirs",
+				"GitConflictChooseOurs",
+				"GitConflictChooseBoth",
+				"GitConflictChooseNone",
+				"GitConflictNextConflict",
+				"GitConflictPrevConflict",
+				"GitConflictListQf",
+			},
+			config = function()
+				require("git-conflict").setup()
+			end,
+		})
+		-- use({
+		-- 	"tanvirtin/vgit.nvim",
+		-- 	requires = { "nvim-lua/plenary.nvim" },
+		-- 	cmd = { "VGit" },
+		-- 	config = function()
+		-- 		require("vgit").setup()
+		-- 	end,
+		-- })
+
+		-- Performance
+		use({ "lewis6991/impatient.nvim" })
+
+		-- Diffview
+		-- use({
+		-- 	"sindrets/diffview.nvim",
+		-- 	requires = "nvim-lua/plenary.nvim",
+		-- 	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
+		-- })
+
+		-- Notification
+		use({
+			"rcarriga/nvim-notify",
+			event = "BufReadPre",
+			config = function()
+				require("config.notify").setup()
+			end,
+		})
+
+		-- Essentials
+		use({ "andymass/vim-matchup", event = "CursorMoved" })
+		use({ "wellle/targets.vim", event = "CursorMoved" })
+		use({ "unblevable/quick-scope", event = "CursorMoved", disable = false })
+		use({ "google/vim-searchindex", event = "BufReadPre" })
+
+		use({
+			"chentoast/marks.nvim",
+			event = "BufReadPre",
+			config = function()
+				require("marks").setup({})
+			end,
+		})
+
 		use({
 			"ahmedkhalf/project.nvim",
 			event = "VimEnter",
@@ -71,28 +217,33 @@ function M.setup()
 				{ "williamboman/nvim-lsp-installer" },
 
 				-- Autocompletion
-				{ "hrsh7th/nvim-cmp" },
-				{ "hrsh7th/cmp-buffer" },
-				{ "hrsh7th/cmp-path" },
-				{ "saadparwaiz1/cmp_luasnip" },
-				{ "hrsh7th/cmp-nvim-lsp" },
-				{ "hrsh7th/cmp-nvim-lua" },
+				-- { "hrsh7th/nvim-cmp" },
+				-- { "hrsh7th/cmp-buffer" },
+				-- { "hrsh7th/cmp-path" },
+				-- { "saadparwaiz1/cmp_luasnip" },
+				-- { "hrsh7th/cmp-nvim-lsp" },
+				-- { "hrsh7th/cmp-nvim-lua" },
 
 				-- Snippets
 				{ "L3MON4D3/LuaSnip" },
 				{ "rafamadriz/friendly-snippets" },
+
+				{ "jose-elias-alvarez/nvim-lsp-ts-utils" },
+				{
+					"folke/trouble.nvim",
+					requires = "kyazdani42/nvim-web-devicons",
+					config = function()
+						require("trouble").setup({})
+					end,
+				},
+				{ "tami5/lspsaga.nvim" },
 			},
 			config = function()
 				require("config.lsp").setup()
 			end,
 		})
 
-		use({
-			"notjedi/nvim-rooter.lua",
-			config = function()
-				require("nvim-rooter").setup()
-			end,
-		})
+		-- use({ "airblade/vim-rooter" })
 
 		use({
 			"is0n/fm-nvim",
@@ -137,7 +288,6 @@ function M.setup()
 						vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]])
 					end,
 				},
-				{ "jose-elias-alvarez/nvim-lsp-ts-utils" },
 				{ "JoosepAlviste/nvim-ts-context-commentstring" },
 				{ "p00f/nvim-ts-rainbow" },
 			},
@@ -185,11 +335,6 @@ function M.setup()
 		use({
 			"mg979/vim-visual-multi",
 		})
-
-		-- Correct pwd
-		-- use({
-		-- 	"airblade/vim-rooter",
-		-- })
 
 		-- File types
 		use({

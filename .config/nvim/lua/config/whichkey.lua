@@ -28,9 +28,10 @@ function M.setup()
 			"Current directory",
 		},
 
-		f = {
-			name = "File",
-			s = { "<cmd>update!<CR>", "Save" },
+		a = {
+			name = "Application",
+			r = { "<cmd>cd %:p:h | Nnn<cr>", "NNN" },
+			t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
 		},
 
 		b = {
@@ -41,19 +42,36 @@ function M.setup()
 			["]"] = { "<cmd>bnext<CR>", "Next buffer" },
 		},
 
-		z = {
-			name = "Packer",
-			c = { "<cmd>PackerCompile<cr>", "Compile" },
-			i = { "<cmd>PackerInstall<cr>", "Install" },
-			s = { "<cmd>PackerSync<cr>", "Sync" },
-			S = { "<cmd>PackerStatus<cr>", "Status" },
-			u = { "<cmd>PackerUpdate<cr>", "Update" },
+		c = {
+			name = "Code",
+			a = { "<cmd>Lspsaga code_action<CR>", "Code Actions" },
+			r = { "<cmd>Lspsaga rename<CR>", "Rename" },
+			x = { "<cmd> TroubleToggle document_diagnostics<CR>", "Document Diagnostics" },
+			X = { "<cmd> TroubleToggle workspace_diagnostics<CR>", "Workspace Diagnostics" },
+			f = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
+			o = { "<cmd>TSLspOrganize<CR>", "Organize Imports" },
+			R = { "<cmd>TSLspRenameFile<CR>", "Rename File" },
+			h = { "<cmd>TSLspToggleInlayHints<CR>", "Toggle Inlay Hints" },
+			i = { "<cmd>TSLspImportAll<CR>", "Import All" },
+			D = { "<cmd>TroubleToggle lsp_references<CR>", "References" },
+			d = { "<cmd>TroubleToggle lsp_definitions<CR>", "Definitions" },
+			t = { "<cmd>TroubleToggle lsp_type_definitions<CR>", "Type" },
 		},
 
-		a = {
-			name = "Application",
-			r = { "<cmd>cd %:p:h | Nnn<cr>", "NNN" },
-			t = { "<cmd>ToggleTerm<CR>", "Toggle Terminal" },
+		f = {
+			name = "File",
+			s = { "<cmd>update!<CR>", "Save" },
+		},
+
+		g = {
+			name = "Git",
+			g = { "<cmd>Git<CR>", "Status" },
+			l = { "<cmd>GV<CR>", "Log" },
+		},
+
+		m = {
+			name = "Misc",
+			l = { "<cmd>lua require('logsitter').log(javascript)<CR>", "Log" },
 		},
 
 		p = {
@@ -62,6 +80,21 @@ function M.setup()
 				"<cmd>Telescope project theme=ivy layout_config={height=0.2}<CR>",
 				"Find Project",
 			},
+		},
+
+		s = {
+			name = "Search",
+			r = { "<cmd>lua require('spectre').open()<CR>", "Search & Replace" },
+			R = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>", "Search & Replace" },
+		},
+
+		z = {
+			name = "Packer",
+			c = { "<cmd>PackerCompile<cr>", "Compile" },
+			i = { "<cmd>PackerInstall<cr>", "Install" },
+			s = { "<cmd>PackerSync<cr>", "Sync" },
+			S = { "<cmd>PackerStatus<cr>", "Status" },
+			u = { "<cmd>PackerUpdate<cr>", "Update" },
 		},
 	}
 

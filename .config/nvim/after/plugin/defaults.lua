@@ -9,6 +9,7 @@ g.mapleader = " "
 g.maplocalleader = " "
 g.rnvimr_enable_picker = 1.
 g.gkeep_sync_dir = "~/gkeep"
+-- g.rooter_patterns = { "package.json", "pom.xml", ".project", ".git" }
 
 opt.guifont = { "Cascadia Code", ":h14" }
 opt.timeoutlen = 300 -- Time in milliseconds to wait for a mapped sequence to complete.
