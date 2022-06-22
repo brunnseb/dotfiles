@@ -9,6 +9,7 @@ g.mapleader = " "
 g.maplocalleader = " "
 g.rnvimr_enable_picker = 1.
 g.gkeep_sync_dir = "~/gkeep"
+g.user_emmet_leader_key = "<C-l>"
 -- g.rooter_patterns = { "package.json", "pom.xml", ".project", ".git" }
 
 opt.guifont = { "Cascadia Code", ":h14" }

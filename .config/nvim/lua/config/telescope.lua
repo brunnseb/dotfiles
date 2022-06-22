@@ -2,8 +2,9 @@ local M = {}
 
 function M.setup()
 	local actions = require("telescope.actions")
+	local telescope = require("telescope")
 
-	require("telescope").setup({
+	telescope.setup({
 		defaults = {
 			-- Default configuration for telescope goes here:
 			-- config_key = value,
@@ -47,10 +48,13 @@ function M.setup()
 			},
 		},
 	})
+	require("neoclip").setup()
+
 	-- To get fzf loaded and working with telescope, you need to call
 	-- load_extension, somewhere after setup function:
-	require("telescope").load_extension("fzf")
-	require("telescope").load_extension("project")
+	telescope.load_extension("fzf")
+	telescope.load_extension("project")
+	telescope.load_extension("neoclip")
 end
 
 return M

@@ -34,12 +34,31 @@ function M.setup()
 			})
 			vim.cmd([[packadd packer.nvim]])
 		end
-		vim.cmd("autocmd BufWritePost plugins.lua source <afile> | PackerCompile")
+		vim.cmd("autocmd bufwritepost plugins.lua source <afile> | PackerCompile")
 	end
 
 	-- Plugins
 	local function plugins(use)
 		use({ "wbthomason/packer.nvim" })
+
+		use({
+			"kkoomen/vim-doge",
+			run = ":call doge#install()",
+			-- config = function()
+			-- 	-- require("doge").setup()
+			-- 	-- require("config.doge").setup()
+			-- end,
+		})
+		use("adelarsq/neoline.vim")
+
+		use({
+			"romgrk/barbar.nvim",
+			requires = { "kyazdani42/nvim-web-devicons" },
+		})
+
+		use({ "mattn/emmet-vim" })
+
+		use({ "ggandor/lightspeed.nvim" })
 
 		-- Completion
 		use({
@@ -59,13 +78,12 @@ function M.setup()
 				"saadparwaiz1/cmp_luasnip",
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-nvim-lsp-signature-help",
-				-- "onsails/lspkind-nvim",
-				-- "hrsh7th/cmp-calc",
-				-- "f3fora/cmp-spell",
-				-- "hrsh7th/cmp-emoji",
 				{
 					"L3MON4D3/LuaSnip",
 					wants = { "friendly-snippets", "vim-snippets" },
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+					end,
 				},
 				"rafamadriz/friendly-snippets",
 				"honza/vim-snippets",
@@ -75,25 +93,6 @@ function M.setup()
 		use({ "nvim-pack/nvim-spectre", module = "spectre", keys = { "<leader>s" } })
 
 		use({ "gaelph/logsitter.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
-
-		-- use({
-		-- 	"nvim-neotest/neotest",
-		-- 	requires = {
-		-- 		"nvim-lua/plenary.nvim",
-		-- 		"nvim-treesitter/nvim-treesitter",
-		-- 		"antoinemadec/FixCursorHold.nvim",
-		-- 		"haydenmeade/neotest-jest",
-		-- 	},
-		-- 	config = function()
-		-- 		require("neotest").setup({
-		-- 			adapters = {
-		-- 				require("neotest-jest")({
-		-- 					jestCommand = "yarn test",
-		-- 				}),
-		-- 			},
-		-- 		})
-		-- 	end,
-		-- })
 
 		use({
 			"kevinhwang91/nvim-bqf",
@@ -145,24 +144,9 @@ function M.setup()
 				require("git-conflict").setup()
 			end,
 		})
-		-- use({
-		-- 	"tanvirtin/vgit.nvim",
-		-- 	requires = { "nvim-lua/plenary.nvim" },
-		-- 	cmd = { "VGit" },
-		-- 	config = function()
-		-- 		require("vgit").setup()
-		-- 	end,
-		-- })
 
 		-- Performance
 		use({ "lewis6991/impatient.nvim" })
-
-		-- Diffview
-		-- use({
-		-- 	"sindrets/diffview.nvim",
-		-- 	requires = "nvim-lua/plenary.nvim",
-		-- 	cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles" },
-		-- })
 
 		-- Notification
 		use({
@@ -200,8 +184,18 @@ function M.setup()
 			requires = {
 				{ "kyazdani42/nvim-web-devicons" },
 				{ "nvim-lua/plenary.nvim" },
+				{ "nvim-lua/popup.nvim" },
 				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 				{ "nvim-telescope/telescope-project.nvim" },
+				{
+					"AckslD/nvim-neoclip.lua",
+					requires = {
+						{ "tami5/sqlite.lua", module = "sqlite" },
+						-- config = function()
+						--   require("neoclip").setup()
+						-- end,
+					},
+				},
 			},
 			config = function()
 				require("config.telescope").setup()
@@ -216,16 +210,13 @@ function M.setup()
 				{ "neovim/nvim-lspconfig" },
 				{ "williamboman/nvim-lsp-installer" },
 
-				-- Autocompletion
-				-- { "hrsh7th/nvim-cmp" },
-				-- { "hrsh7th/cmp-buffer" },
-				-- { "hrsh7th/cmp-path" },
-				-- { "saadparwaiz1/cmp_luasnip" },
-				-- { "hrsh7th/cmp-nvim-lsp" },
-				-- { "hrsh7th/cmp-nvim-lua" },
-
 				-- Snippets
-				{ "L3MON4D3/LuaSnip" },
+				{
+					"L3MON4D3/LuaSnip",
+					config = function()
+						require("luasnip.loaders.from_vscode").lazy_load()
+					end,
+				},
 				{ "rafamadriz/friendly-snippets" },
 
 				{ "jose-elias-alvarez/nvim-lsp-ts-utils" },
@@ -242,8 +233,6 @@ function M.setup()
 				require("config.lsp").setup()
 			end,
 		})
-
-		-- use({ "airblade/vim-rooter" })
 
 		use({
 			"is0n/fm-nvim",
@@ -324,16 +313,21 @@ function M.setup()
 		})
 
 		--Wordmotion
-		use({ "chaoren/vim-wordmotion" })
+		use({
+			"chaoren/vim-wordmotion",
+			event = { "BufRead" },
+		})
 
 		--Surround
 		use({
 			"tpope/vim-surround",
+			event = { "BufRead" },
 		})
 
 		-- Multiple cursors
 		use({
 			"mg979/vim-visual-multi",
+			event = { "BufRead" },
 		})
 
 		-- File types
@@ -394,9 +388,6 @@ function M.setup()
 			end,
 		})
 
-		---- Search & Navigation
-		-- Telescope
-		--
 		---- Tools
 		-- Toggle Terminal
 		use({
