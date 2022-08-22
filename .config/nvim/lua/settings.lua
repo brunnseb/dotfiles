@@ -1,4 +1,5 @@
 local options = {
+  guifont        = { "Cascadia Code", ":h14" },
   clipboard      = "unnamed,unnamedplus",   --- Copy-paste between vim and everything else
   cmdheight      = 2,                       --- Give more space for displaying messages
   completeopt    = "menu,menuone,noselect", --- Better autocompletion
@@ -32,7 +33,6 @@ local options = {
   undofile       = true,                    --- Sets undo to file
   updatetime     = 100,                     --- Faster completion
   viminfo        = "'1000",                 --- Increase the size of file history
-  wildignore     = "*node_modules/**",      --- Don't search inside Node.js modules (works for gutentag)
   wrap           = false,                   --- Display long lines as just one line
   writebackup    = false,                   --- Not needed
   -- Neovim defaults
@@ -50,6 +50,7 @@ local options = {
 local globals = {
   mapleader                   = ' ',        --- Map leader key to SPC
   speeddating_no_mappings     = 1,          --- Disable default mappings for speeddating
+  gkeep_sync_dir              = "~/gkeep",
 }
 
 vim.opt.shortmess:append('c');
@@ -62,6 +63,12 @@ vim.opt.fillchars:append('fold: ');
 vim.opt.fillchars:append('foldopen: ');
 vim.opt.fillchars:append('foldsep: ');
 vim.opt.fillchars:append('foldclose:');
+
+vim.opt.wildignore:append("**/node_modules/*")
+vim.opt.wildignore:append("**/.git/*")
+vim.opt.wildignore:append("**/build/*")
+vim.opt.wildignore:append("**/dist/*")
+vim.opt.wildignore:append("**/target/*")
 
 for k, v in pairs(options) do
   vim.opt[k] = v

@@ -1,6 +1,9 @@
 local keymap = vim.keymap.set
 local silent = { silent = true }
 
+-- New line on enter
+keymap("n", "<CR>", "o<ESC>", silent)
+
 -- Hop
 keymap("n", "gsj", "<cmd>HopLineAC<CR>", silent)
 keymap("n", "gsk", "<cmd>HopLineBC<CR>", silent)

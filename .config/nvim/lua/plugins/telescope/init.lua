@@ -18,6 +18,23 @@ local git_icons = {
 }
 
 require('telescope').setup {
+  pickers = {
+    find_files = {
+      theme = "ivy",
+    },
+    buffers = {
+      theme = "ivy",
+      layout_config = {
+        height = 0.2,
+      },
+    },
+    projects = {
+      theme = "ivy",
+      layout_config = {
+        height = 0.2,
+      },
+    },
+  },
   defaults = {
     vimgrep_arguments = {
       'rg',
