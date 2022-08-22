@@ -20,6 +20,22 @@ return require("packer").startup({
 		use({ "kyazdani42/nvim-web-devicons" })
 		use({ "goolord/alpha-nvim", config = "require('plugins.alpha')" })
 
+		use({ "ton/vim-bufsurf" })
+		-- Essentials
+		use({ "andymass/vim-matchup", event = "CursorMoved" })
+		use({ "wellle/targets.vim", event = "CursorMoved" })
+		use({ "unblevable/quick-scope", event = "CursorMoved", disable = false })
+		use({ "google/vim-searchindex", event = "BufReadPre" })
+		use({ "chaoren/vim-wordmotion", event = "BufRead" })
+
+		use({
+			"chentoast/marks.nvim",
+			event = "BufReadPre",
+			config = function()
+				require("marks").setup({})
+			end,
+		})
+
 		-- Automated code formatting
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
@@ -92,15 +108,52 @@ return require("packer").startup({
 		})
 
 		-- Treesitter
-		use({ "nvim-treesitter/nvim-treesitter", config = "require('plugins.treesitter')" })
-		use({ "nvim-treesitter/nvim-treesitter-textobjects", after = { "nvim-treesitter" } })
-		use({ "nvim-treesitter/playground" })
-		use({ "RRethy/nvim-treesitter-textsubjects", after = { "nvim-treesitter" } })
 		use({
-			"m-demare/hlargs.nvim",
-			config = function()
-				require("hlargs").setup()
-			end,
+			"nvim-treesitter/nvim-treesitter",
+			config = "require('plugins.treesitter')",
+			requires = {
+				{
+					"nvim-treesitter/playground",
+				},
+				{
+					"nvim-treesitter/nvim-treesitter-textobjects",
+				},
+				{ "RRethy/nvim-treesitter-textsubjects" },
+				{
+					"windwp/nvim-autopairs",
+					run = "make",
+					config = function()
+						require("nvim-autopairs").setup({})
+					end,
+				},
+				{
+					"windwp/nvim-ts-autotag",
+					config = function()
+						require("nvim-ts-autotag").setup({ enable = true })
+					end,
+				},
+				{
+					"romgrk/nvim-treesitter-context",
+					config = function()
+						require("treesitter-context").setup({ enable = true })
+					end,
+				},
+				{
+					"mfussenegger/nvim-ts-hint-textobject",
+					config = function()
+						vim.cmd([[omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>]])
+						vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]])
+					end,
+				},
+				{ "JoosepAlviste/nvim-ts-context-commentstring" },
+				{ "p00f/nvim-ts-rainbow" },
+				{
+					"m-demare/hlargs.nvim",
+					config = function()
+						require("hlargs").setup()
+					end,
+				},
+			},
 		})
 
 		-- Navigating (Telescope/Tree/Refactor)
@@ -204,7 +257,11 @@ return require("packer").startup({
 		})
 		use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 		use({ "rcarriga/nvim-notify" })
-		use({ "vuki656/package-info.nvim", event = "BufEnter package.json", config = "require('plugins.package-info')" })
+		use({
+			"vuki656/package-info.nvim",
+			event = "BufEnter package.json",
+			config = "require('plugins.package-info')",
+		})
 		use({
 			"iamcco/markdown-preview.nvim",
 			run = "cd app && npm install",
@@ -234,7 +291,11 @@ return require("packer").startup({
 				require("shade").toggle()
 			end,
 		})
-		use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async", config = "require('plugins.nvim-ufo')" })
+		use({
+			"kevinhwang91/nvim-ufo",
+			requires = "kevinhwang91/promise-async",
+			config = "require('plugins.nvim-ufo')",
+		})
 
 		-- Snippets & Language & Syntax
 		use({
