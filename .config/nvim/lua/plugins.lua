@@ -271,10 +271,15 @@ return require("packer").startup({
 			ft = { "markdown" },
 		})
 		use({ "declancm/cinnamon.nvim", config = "require('plugins.cinnamon')" })
+
 		use({
-			"airblade/vim-rooter",
-			setup = function()
-				vim.g.rooter_patterns = EcoVim.plugins.rooter.patterns
+			"notjedi/nvim-rooter.lua",
+			config = function()
+				require("nvim-rooter").setup({
+					rooter_patterns = EcoVim.plugins.rooter.patterns,
+					trigger_patterns = { "*" },
+					manual = false,
+				})
 			end,
 		})
 		use({ "Shatur/neovim-session-manager", config = "require('plugins.session-manager')" })
