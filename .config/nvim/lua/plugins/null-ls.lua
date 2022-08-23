@@ -15,7 +15,7 @@ M.setup = function()
 		sources = {
 			-- diagnostic.eslint,
 			format.prettierd,
-			format.stylua,
+			-- format.stylua,
 		},
 		on_attach = function(client, bufnr)
 			local callback = function()

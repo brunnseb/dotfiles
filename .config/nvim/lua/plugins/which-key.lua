@@ -138,6 +138,7 @@ local normal_mode_mappings = {
 		d = { "<cmd>BufferOrderByDirectory<CR>", "Order by directory" },
 		f = { "<cmd>bfirst<CR>", "First buffer" },
 		k = { "<cmd>bp | sp | bn | bd<Cr>", "Close current buffer" },
+		K = { "<cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
 		l = { "<cmd>BufferCloseBuffersLeft<CR>", "Close Left" },
 		r = { "<cmd>BufferCloseBuffersRight<CR>", "Close Right" },
 		n = { "<cmd>BufferMoveNext<CR>", "Move next" },
@@ -226,6 +227,11 @@ local normal_mode_mappings = {
 		f = { "file" },
 		w = { "word" },
 		l = {
+			l = { "<cmd>SessionManager load_last_session<CR>", "Last session" },
+			s = { "<cmd>SessionManager load_session<CR>", "Session" },
+			c = { "<cmd>SessionManager load_current_dir_session<CR>", "Current dir session" },
+		},
+		p = {
 			"<cmd>lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh', '/Library/', '/%.cocoapods/'}}<CR>",
 			"list",
 		},
