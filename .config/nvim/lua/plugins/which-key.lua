@@ -148,14 +148,17 @@ local normal_mode_mappings = {
 	},
 
 	c = {
-		name = "LSP",
+		name = "Code",
 		a = { "code action" },
-		d = { "<cmd>TroubleToggle<CR>", "local diagnostics" },
-		D = { "<cmd>Telescope diagnostics wrap_results=true<CR>", "workspace diagnostics" },
+    d = {"<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition"},
+    D = {"<cmd>lua vim.lsp.buf.references({ includeDeclaration = false })<CR>", "goto references"},
 		f = { "format" },
 		l = { "line diagnostics" },
 		r = { "rename" },
+		R = {"<cmd>TypescriptRenameFile<CR>", "rename file" },
 		t = { "<cmd>LspToggleAutoFormat<CR>", "toggle format on save" },
+		x = { "<cmd>TroubleToggle<CR>", "local diagnostics" },
+		X = { "<cmd>Telescope diagnostics wrap_results=true<CR>", "workspace diagnostics" },
 	},
 
 	d = {
@@ -209,6 +212,12 @@ local normal_mode_mappings = {
 			w = "worktrees",
 			c = "create worktree",
 		},
+	},
+  
+	l = {
+		name = "LSP",
+    i = {"<cmd>LspInfo<CR>", "info"},
+    r = {"<cmd>LspRestart<CR>", "restart"},
 	},
 
 	m = {
