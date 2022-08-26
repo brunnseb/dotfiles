@@ -221,27 +221,41 @@ return require("packer").startup({
     })
 
     -- General
-    use({ "AndrewRadev/switch.vim" })
-    use({ "AndrewRadev/splitjoin.vim" })
-    use({ "numToStr/Comment.nvim", config = "require('plugins.comment')" })
-    use({ "LudoPinelli/comment-box.nvim" })
+    --    use({ "AndrewRadev/switch.vim" })
+    --    use({ "AndrewRadev/splitjoin.vim" })
+    -- use({ "numToStr/Comment.nvim", config = "require('plugins.comment')" })
+    -- Comment
+    use({
+      "terrortylor/nvim-comment",
+      opt = true,
+      keys = { "gc", "gcc", "gbc" },
+      config = function()
+        require("nvim_comment").setup()
+      end,
+    })
+
+    use({
+      'kkoomen/vim-doge',
+      run = ':call doge#install()'
+    })
+    --    use({ "LudoPinelli/comment-box.nvim" })
     use({ "akinsho/nvim-toggleterm.lua", branch = "main", config = "require('plugins.toggleterm')" })
-    use({ "tpope/vim-repeat" })
-    use({ "tpope/vim-speeddating" })
-    use({ "dhruvasagar/vim-table-mode" })
+    --    use({ "tpope/vim-repeat" })
+    --    use({ "tpope/vim-speeddating" })
+    --    use({ "dhruvasagar/vim-table-mode" })
     use({ "mg979/vim-visual-multi" })
-    use({ "junegunn/vim-easy-align" })
-    use({ "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" })
+    --    use({ "junegunn/vim-easy-align" })
+    -- use({ "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" })
     use({ "nacro90/numb.nvim", config = "require('plugins.numb')" })
     use({ "folke/todo-comments.nvim", config = "require('plugins.todo-comments')" })
-    use({ "folke/zen-mode.nvim", config = "require('plugins.zen')", disable = not EcoVim.plugins.zen.enabled })
-    use({
-      "folke/twilight.nvim",
-      config = function()
-        require("twilight").setup({})
-      end,
-      disable = not EcoVim.plugins.zen.enabled,
-    })
+    --    use({ "folke/zen-mode.nvim", config = "require('plugins.zen')", disable = not EcoVim.plugins.zen.enabled })
+    --    use({
+    --      "folke/twilight.nvim",
+    --      config = function()
+    --        require("twilight").setup({})
+    --      end,
+    --      disable = not EcoVim.plugins.zen.enabled,
+    --    })
     use({ "ggandor/lightspeed.nvim", config = "require('plugins.lightspeed')" })
     use({ "folke/which-key.nvim", config = "require('plugins.which-key')", event = "BufWinEnter" })
     use({
@@ -263,14 +277,14 @@ return require("packer").startup({
       event = "BufEnter package.json",
       config = "require('plugins.package-info')",
     })
-    use({
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      setup = function()
-        vim.g.mkdp_filetypes = { "markdown" }
-      end,
-      ft = { "markdown" },
-    })
+    -- use({
+    --   "iamcco/markdown-preview.nvim",
+    --   run = "cd app && npm install",
+    --   setup = function()
+    --     vim.g.mkdp_filetypes = { "markdown" }
+    --   end,
+    --   ft = { "markdown" },
+    -- })
     use({ "declancm/cinnamon.nvim", config = "require('plugins.cinnamon')" })
 
     use({
@@ -339,9 +353,9 @@ return require("packer").startup({
     })
 
     -- DAP
-    use({ "theHamsta/nvim-dap-virtual-text" })
-    use({ "rcarriga/nvim-dap-ui" })
-    use({ "mfussenegger/nvim-dap", config = "require('plugins.dap')" })
+    -- use({ "theHamsta/nvim-dap-virtual-text" })
+    -- use({ "rcarriga/nvim-dap-ui" })
+    -- use({ "mfussenegger/nvim-dap", config = "require('plugins.dap')" })
 
     if packer_bootstrap then
       require("packer").sync()

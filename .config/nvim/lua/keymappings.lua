@@ -15,6 +15,7 @@ keymap("n", "gs/", "<cmd>HopPattern<CR>", silent)
 keymap("v", "gsj", "<cmd>HopLineAC<CR>", silent)
 keymap("v", "gsk", "<cmd>HopLineBC<CR>", silent)
 keymap("v", "gs/", "<cmd>HopPattern<CR>", silent)
+keymap("v", "gcc", "<cmd>CommentToggle<CR>", silent)
 
 -- Window navigation
 keymap("n", "<Leader>wh", "<C-w>h", silent)
