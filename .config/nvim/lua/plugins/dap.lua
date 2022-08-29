@@ -107,16 +107,16 @@ vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', n
 vim.fn.sign_define('DapStopped', { text = '⭐️', texthl = '', linehl = '', numhl = '' })
 
 -- Keybindings
-vim.api.nvim_set_keymap("n", "<Leader>db", "<CMD>lua require('dap').toggle_breakpoint()<CR>",
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dc", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dd", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dh", "<CMD>lua require('dapui').eval()<CR>",
-  { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>di", "<CMD>lua require('dap').step_into()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>do", "<CMD>lua require('dap').step_out()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dO", "<CMD>lua require('dap').step_over()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>dt", "<CMD>lua require('dap').terminate()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>db", "<CMD>lua require('dap').toggle_breakpoint()<CR>",
+--   { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>dc", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>dd", "<CMD>lua require('dap').continue()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>dh", "<CMD>lua require('dapui').eval()<CR>",
+--   { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>di", "<CMD>lua require('dap').step_into()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>do", "<CMD>lua require('dap').step_out()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>dO", "<CMD>lua require('dap').step_over()<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>dt", "<CMD>lua require('dap').terminate()<CR>", { noremap = true, silent = true })
 
 -- NODE / TYPESCRIPT
 dap.adapters.node2 = {
@@ -130,6 +130,13 @@ dap.adapters.chrome = {
   type = 'executable',
   command = 'node',
   args = { vim.fn.stdpath "data" .. '/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js' };
+}
+
+-- Firefox
+dap.adapters.firefox = {
+  type = 'executable',
+  command = 'node',
+  args = { vim.fn.stdpath "data" .. '/mason/packages/firefox-debug-adapter/dist/adapter.bundle.js' };
 }
 
 -- Configurations
@@ -148,7 +155,8 @@ dap.configurations.javascript = {
 dap.configurations.javascript = {
   {
     type = 'chrome',
-    request = 'attach',
+    request = 'launch',
+    reAttach = true,
     program = '${file}',
     cwd = vim.fn.getcwd(),
     sourceMaps = true,
@@ -161,25 +169,40 @@ dap.configurations.javascript = {
 dap.configurations.javascriptreact = {
   {
     type = 'chrome',
-    request = 'attach',
+    request = 'launch',
+    reAttach = true,
     program = '${file}',
     cwd = vim.fn.getcwd(),
     sourceMaps = true,
     protocol = 'inspector',
     port = 9222,
     webRoot = '${workspaceFolder}'
+  }
+}
+dap.configurations.typescriptreact = {
+  {
+    name = 'Debug with Firefox',
+    type = 'firefox',
+    request = 'launch',
+    reAttach = true,
+    url = 'http://localhost:3000',
+    webRoot = '${workspaceFolder}',
+    firefoxExecutable = '/usr/bin/firefox-developer-edition',
+    skipFiles = { "${workspaceFolder}/node_modules/**", },
   }
 }
 
-dap.configurations.typescriptreact = {
-  {
-    type = 'chrome',
-    request = 'attach',
-    program = '${file}',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    port = 9222,
-    webRoot = '${workspaceFolder}'
-  }
-}
+-- dap.configurations.typescriptreact = {
+--   {
+--     type = 'firefox',
+--     request = 'launch',
+--     reAttach = true,
+--     program = '${file}',
+--     cwd = vim.fn.getcwd(),
+--     sourceMaps = true,
+--     protocol = 'inspector',
+--     port = 9222,
+--     webRoot = '${workspaceFolder}',
+--     runtimeExecutable = '/usr/bin/google-chrome-stable'
+--   }
+-- }

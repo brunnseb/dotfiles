@@ -192,10 +192,10 @@ return require("packer").startup({
     use({ "hrsh7th/cmp-path", after = "cmp-buffer" })
     use({ "hrsh7th/cmp-cmdline", after = "cmp-path" })
     use({ "hrsh7th/cmp-calc", after = "cmp-cmdline" })
-    use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", after = "cmp-calc" })
+    -- use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp", after = "cmp-calc" })
     use({
       "David-Kunz/cmp-npm",
-      after = "cmp-tabnine",
+      -- after = "cmp-tabnine",
       requires = "nvim-lua/plenary.nvim",
       config = "require('plugins.cmp-npm')",
     })
@@ -353,9 +353,9 @@ return require("packer").startup({
     })
 
     -- DAP
-    -- use({ "theHamsta/nvim-dap-virtual-text" })
-    -- use({ "rcarriga/nvim-dap-ui" })
-    -- use({ "mfussenegger/nvim-dap", config = "require('plugins.dap')" })
+    use({ "theHamsta/nvim-dap-virtual-text" })
+    use({ "rcarriga/nvim-dap-ui" })
+    use({ "mfussenegger/nvim-dap", config = "require('plugins.dap')" })
 
     if packer_bootstrap then
       require("packer").sync()

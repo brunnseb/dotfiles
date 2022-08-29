@@ -162,17 +162,18 @@ local normal_mode_mappings = {
     X = { "<cmd>Telescope diagnostics wrap_results=true<CR>", "workspace diagnostics" },
   },
 
+
   d = {
     name = "Debug",
     a = { "attach" },
-    b = { "breakpoint" },
-    c = { "continue" },
-    d = { "continue" },
-    h = { "visual hover" },
-    i = { "step into" },
-    o = { "step over" },
-    O = { "step out" },
-    t = { "terminate" },
+    b = { "<CMD>lua require('dap').toggle_breakpoint()<CR>", "breakpoint" },
+    c = { "<CMD>lua require('dap').continue()<CR>", "continue" },
+    d = { "<CMD>lua require('dap').continue()<CR>", "continue" },
+    h = { "<CMD>lua require('dapui').eval()<CR>", "visual hover" },
+    i = { "<CMD>lua require('dap').step_into()<CR>", "step into" },
+    o = { "<CMD>lua require('dap').step_out()<CR>", "step over" },
+    O = { "<CMD>lua require('dap').step_over()<CR>", "step out" },
+    t = { "<CMD>lua require('dap').terminate()<CR>", "terminate" },
   },
 
   f = {
