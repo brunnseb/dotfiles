@@ -1,17 +1,6 @@
-pcall(require, "impatient")
+require "user.options"
+require "user.keymaps"
+require "user.plugins"
+require "user.lsp.setup"
+require "user.colorscheme"
 
-require("internal.packer_commands")
-require("utils.globals")
-require("config")
-require("settings")
-require("colorscheme")
-require("keymappings")
-require("autocmds")
-require("functions")
-require("internal.cursorword")
-
-require("lsp._config")
-require("lsp.setup")
-require("lsp.functions")
-
-require("snippets.react")
