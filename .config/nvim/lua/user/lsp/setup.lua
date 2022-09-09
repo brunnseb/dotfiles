@@ -33,6 +33,7 @@ local lspconfig = require('lspconfig')
 local config = require('user.lsp.config')
 local tsserver = require('user.lsp.servers.tsserver')
 local sumneko = require('user.lsp.servers.tsserver')
+local json = require('user.lsp.servers.json')
 
 lspconfig['tsserver'].setup{
     on_attach = tsserver.on_attach,
@@ -46,5 +47,14 @@ lspconfig['tailwindcss'].setup{
 }
 
 lspconfig['sumneko_lua'].setup{
+  on_attach = config.on_attach,
+  flags = config.lsp_flags,
   sumneko.settings
 }
+
+lspconfig['jsonls'].setup{
+  on_attach = config.on_attach,
+  flags = config.lsp_flags,
+  settings = json.settings,
+}
+  setup = json.setup

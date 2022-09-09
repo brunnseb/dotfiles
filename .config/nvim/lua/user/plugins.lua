@@ -61,6 +61,7 @@ return packer.startup(function(use)
   use 'shaunsingh/nord.nvim'
 
   -- Lsp
+  use "b0o/schemastore.nvim"
   use { 
     "jose-elias-alvarez/nvim-lsp-ts-utils"
   }

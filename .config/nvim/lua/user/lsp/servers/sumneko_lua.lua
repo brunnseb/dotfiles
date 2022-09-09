@@ -19,6 +19,6 @@ M.settings = {
       enable = false,
     },
   },
-},
+}
 
 return M
