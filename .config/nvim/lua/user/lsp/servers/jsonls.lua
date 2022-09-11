@@ -1,4 +1,5 @@
 local M = {}
+local default = require('user.lsp.servers.default')
 
 M.settings = {
     json = {
@@ -14,5 +15,15 @@ M.setup = {
       },
     },
 }
+
+M.flags = default.lsp_flags
+
+M.on_attach = default.on_attach
+
+local capabilities = default.capabilities
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+M.capabilities = capabilities
 
 return M

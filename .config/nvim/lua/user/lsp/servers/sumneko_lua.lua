@@ -1,4 +1,5 @@
 local M = {}
+local default = require('user.lsp.servers.default')
 
 M.settings = {
   Lua = {
@@ -20,5 +21,11 @@ M.settings = {
     },
   },
 }
+
+M.flags = default.lsp_flags
+
+M.on_attach = default.on_attach
+
+M.capabilities = default.capabilities
 
 return M

@@ -1,10 +1,14 @@
-local config = require('user.lsp.config')
 local M = {}
+local default = require('user.lsp.servers.default')
 
 function M.on_attach(client, bufnr)
-  config.on_attach(client, bufnr)
+  default.on_attach(client, bufnr)
 
-  local ts_utils = require('nvim-lsp-ts-utils')
+  local status_ok, ts_utils = pcall(require, 'nvim-lsp-ts-utils')
+
+  if not status_ok then
+    return
+  end
 
   -- defaults
   ts_utils.setup({
@@ -39,6 +43,14 @@ function M.on_attach(client, bufnr)
 
   -- required to fix code action ranges and filter diagnostics
   ts_utils.setup_client(client)
+  -- no default maps, so you may want to define some here
+  local opts = { silent = true }
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>co", ":TSLspOrganize<CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>cR", ":TSLspRenameFile<CR>", opts)
 end
+
+M.flags = default.lsp_flags
+
+M.capabilities = default.capabilities
 
 return M

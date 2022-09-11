@@ -15,7 +15,7 @@ mason.setup {
 
 mason_lsp.setup {
   -- A list of servers to automatically install if they're not already installed
-  ensure_installed = { "bash-language-server", "css-lsp", "eslint-lsp", "graphql-language-service-cli", "html-lsp",
+  ensure_installed = { "bash-language-server", "css-lsp", "cssmodules-language-server", "eslint-lsp", "graphql-language-service-cli", "html-lsp",
     "json-lsp", "lua-language-server", "tailwindcss-language-server", "typescript-language-server",
     "firefox-debug-adapter", "node-debug2-adapter", "svelte-language-server", "sumneko_lua" },
 
@@ -30,31 +30,11 @@ mason_lsp.setup {
 }
 
 local lspconfig = require('lspconfig')
-local config = require('user.lsp.config')
-local tsserver = require('user.lsp.servers.tsserver')
-local sumneko = require('user.lsp.servers.tsserver')
-local json = require('user.lsp.servers.json')
+local default = require('user.lsp.servers.default')
 
-lspconfig['tsserver'].setup{
-    on_attach = tsserver.on_attach,
-    flags = config.lsp_flags,
-}
+local servers = {'tsserver', 'tailwindcss', 'sumneko_lua', 'jsonls', 'cssls', 'cssmodules_ls' }
 
-lspconfig['tailwindcss'].setup{
-  on_attach = config.on_attach,
-  flags = config.lsp_flags,
-  capabilities = config.capabilities
-}
+for _, v in pairs(servers) do
+  lspconfig[v].setup(require('user.lsp.servers.' .. v))
+end
 
-lspconfig['sumneko_lua'].setup{
-  on_attach = config.on_attach,
-  flags = config.lsp_flags,
-  sumneko.settings
-}
-
-lspconfig['jsonls'].setup{
-  on_attach = config.on_attach,
-  flags = config.lsp_flags,
-  settings = json.settings,
-}
-  setup = json.setup

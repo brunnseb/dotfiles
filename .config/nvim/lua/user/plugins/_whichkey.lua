@@ -84,6 +84,25 @@ local mappings = {
     k = { "<cmd>bp | sp | bn | bd<Cr>", "Close current buffer" },
     K = { "<cmd>%bd|e#|bd#<Cr>", "Delete all buffers" },
   },
+
+  c = {
+    name = "Code",
+    a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
+    d = "Definition",
+    D = "Reference",
+    i = "Implementation",
+    I = "Declaration",
+    R = "Rename file",
+    o = "Organize imports",
+    w = {
+      name = "Workspace",
+      a = "Add",
+      l = "List",
+      r = "Remove"
+    },
+    t = "Type definition",
+    f = "Format"
+  },
   f = {
     name = "File",
     s = { "<cmd>update!<CR>", "Save" },
@@ -115,3 +134,22 @@ local mappings = {
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
+
+-- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', '<space>cI', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>cwa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>cwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>cwl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<space>cD', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>cf', vim.lsp.buf.formatting, bufopts)
