@@ -62,6 +62,23 @@ return packer.startup(function(use)
       require('Comment').setup()
     end
   }
+  use({
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  })
+  use {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {
+        check_ts = true
+      }
+    end
+  }
 
   -- Statusline
   use({
@@ -169,6 +186,22 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig"
   }
   use { 'mrshmllow/document-color.nvim' }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {}
+    end
+  }
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      local saga = require("lspsaga")
+
+      saga.init_lsp_saga({})
+    end,
+  })
 
 
   -- Telescope
@@ -226,6 +259,11 @@ return packer.startup(function(use)
     after = "cmp-cmdline"
   }
   use { 'hrsh7th/cmp-nvim-lua', after = 'cmp-cmdline' }
+  use({ "saadparwaiz1/cmp_luasnip", after = "cmp-nvim-lua" })
+
+  -- Snippets
+  use({ "L3MON4D3/LuaSnip", requires = { "rafamadriz/friendly-snippets" } })
+
   -- Which Key
   use({
     "folke/which-key.nvim",

@@ -53,6 +53,10 @@ keymap("v", ">", ">gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 
+-- Lsp 
+
+keymap('n', 'K', "<cmd>Lspsaga hover_doc<CR>", opts)
+
 -- Telescope
 keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
 

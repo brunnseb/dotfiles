@@ -79,7 +79,8 @@ local opts = {
 }
 
 local mappings = {
-  ["<Leader>"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>", "Project files" },
+  ["<Leader>"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
+    "Project files" },
   [","] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
     "Buffers" },
   ["."] = {
@@ -94,14 +95,13 @@ local mappings = {
 
   c = {
     name = "Code",
-    D = "Reference",
-    I = "Declaration",
+    D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
     R = "Rename file",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
+    a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
     d = "Definition",
     f = "Format",
-    i = "Implementation",
     o = "Organize imports",
+    r = { "<cmd> Lspsaga rename <CR>", "Rename" },
     t = "Type definition",
     w = {
       name = "Workspace",
@@ -109,6 +109,8 @@ local mappings = {
       l = "List",
       r = "Remove"
     },
+    x = { "<cmd>TroubleToggle document_diagnostics<CR>", "Diagnostics" },
+    X = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Workspace diagnostics" },
   },
   d = {
     name = "Diffview",
@@ -163,10 +165,6 @@ which_key.register(mappings, opts)
 -- Mappings.
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 local bufopts = { noremap = true, silent = true, buffer = bufnr }
-vim.keymap.set('n', '<space>cI', vim.lsp.buf.declaration, bufopts)
-vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
 vim.keymap.set('n', '<space>cwa', vim.lsp.buf.add_workspace_folder, bufopts)
 vim.keymap.set('n', '<space>cwr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -174,7 +172,4 @@ vim.keymap.set('n', '<space>cwl', function()
   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 end, bufopts)
 vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
-vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
-vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-vim.keymap.set('n', '<space>cD', vim.lsp.buf.references, bufopts)
 vim.keymap.set('n', '<space>cf', vim.lsp.buf.formatting, bufopts)

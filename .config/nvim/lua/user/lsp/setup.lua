@@ -32,7 +32,7 @@ mason_lsp.setup {
 local lspconfig = require('lspconfig')
 local default = require('user.lsp.servers.default')
 
-local servers = {'tsserver', 'tailwindcss', 'sumneko_lua', 'jsonls', 'cssls', 'cssmodules_ls' }
+local servers = {'emmet_ls', 'tsserver', 'tailwindcss', 'sumneko_lua', 'jsonls', 'cssls', 'cssmodules_ls' }
 
 for _, v in pairs(servers) do
   lspconfig[v].setup(require('user.lsp.servers.' .. v))
