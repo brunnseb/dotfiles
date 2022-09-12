@@ -79,6 +79,13 @@ local opts = {
 }
 
 local mappings = {
+  ["<Leader>"] = { "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>", "Project files" },
+  [","] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
+    "Buffers" },
+  ["."] = {
+    "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
+    "Current directory",
+  },
   b = {
     name = "Buffer",
     k = { "<cmd>bp | sp | bn | bd<Cr>", "Close current buffer" },
@@ -87,25 +94,45 @@ local mappings = {
 
   c = {
     name = "Code",
-    a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action"},
-    d = "Definition",
     D = "Reference",
-    i = "Implementation",
     I = "Declaration",
     R = "Rename file",
+    a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
+    d = "Definition",
+    f = "Format",
+    i = "Implementation",
     o = "Organize imports",
+    t = "Type definition",
     w = {
       name = "Workspace",
       a = "Add",
       l = "List",
       r = "Remove"
     },
-    t = "Type definition",
-    f = "Format"
+  },
+  d = {
+    name = "Diffview",
   },
   f = {
     name = "File",
     s = { "<cmd>update!<CR>", "Save" },
+  },
+  g = {
+    name = "Git",
+    B = { "<cmd> lua require('agitator').git_blame_toggle()<CR>", "Blame file" },
+    b = { "<cmd> lua require('gitsigns').toggle_current_line_blame()<CR>", "Blame line" },
+    d = { "<cmd> lua require('gitsigns').diffthis()<CR>", "Diff file" },
+    f = { "<cmd> lua require('agitator').open_file_git_branch()<CR>", "Find file" },
+    g = { "<cmd>Neogit<CR>", "Status" },
+    h = {
+      name = "Hunk",
+      p = { "<cmd> lua require('gitsigns').preview_hunk()<CR>", "Preview" },
+      s = { "<cmd> lua require('gitsigns').stage_hunk()<CR>", "Stage" },
+      u = { "<cmd> lua require('gitsigns').undo_stage_hunk()<CR>", "Undo stage" },
+      r = { "<cmd> lua require('gitsigns').reset_hunk()<CR>", "Reset" },
+    },
+    s = { "<cmd> lua require('agitator').search_git_branch()<CR>", "Search in branch" },
+    t = { "<cmd> lua require('agitator').git_time_machine()<CR>", "Timemachine" },
   },
   o = {
     name = "Open",
@@ -113,22 +140,20 @@ local mappings = {
     r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" }
   },
   p = {
-    name = "Packer",
-    c = { "<cmd>PackerCompile<cr>", "Compile" },
-    i = { "<cmd>PackerInstall<cr>", "Install" },
-    s = { "<cmd>PackerSync<cr>", "Sync" },
-    S = { "<cmd>PackerStatus<cr>", "Status" },
-    u = { "<cmd>PackerUpdate<cr>", "Update" },
+    name = "Project",
+    p = { "<cmd>lua require'telescope'.extensions.repo.list(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.4 }, file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%qmk_firmware/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh', '/Library/', '/%.cocoapods/'}}))<CR>",
+      "List" },
+    s = { "wa", "Save all" }
   },
   w = {
     name = "Window",
-    h = { "<C-w>h", "go to left window"},
-    l = { "<C-w>l", "go to right window"},
-    j = { "<C-w>j", "go to bottom window"},
-    k = { "<C-w>k", "go to top window"},
-    c = { "<C-w>q", "close window"},
-    v = { "<C-w>v", "split vertical"},
-    s = { "<C-w>s", "split horizontal"},
+    c = { "<C-w>q", "close window" },
+    h = { "<C-w>h", "go to left window" },
+    j = { "<C-w>j", "go to bottom window" },
+    k = { "<C-w>k", "go to top window" },
+    l = { "<C-w>l", "go to right window" },
+    s = { "<C-w>s", "split horizontal" },
+    v = { "<C-w>v", "split vertical" },
   }
 }
 
@@ -136,20 +161,20 @@ which_key.setup(setup)
 which_key.register(mappings, opts)
 
 -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', '<space>cI', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>cwa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>cwr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>cwl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>cD', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>cf', vim.lsp.buf.formatting, bufopts)
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
+vim.keymap.set('n', '<space>cI', vim.lsp.buf.declaration, bufopts)
+vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+vim.keymap.set('n', '<space>cwa', vim.lsp.buf.add_workspace_folder, bufopts)
+vim.keymap.set('n', '<space>cwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+vim.keymap.set('n', '<space>cwl', function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+end, bufopts)
+vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
+vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
+vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+vim.keymap.set('n', '<space>cD', vim.lsp.buf.references, bufopts)
+vim.keymap.set('n', '<space>cf', vim.lsp.buf.formatting, bufopts)

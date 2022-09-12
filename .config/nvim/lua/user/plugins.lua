@@ -56,6 +56,51 @@ return packer.startup(function(use)
       require('user.plugins._nvim-rooter').setup()
     end,
   })
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  }
+
+  -- Statusline
+  use({
+    "NTBBloodbath/galaxyline.nvim",
+    -- your statusline
+    config = function()
+      require("galaxyline.themes.eviline")
+    end,
+    -- some optional icons
+    requires = { "kyazdani42/nvim-web-devicons", opt = true }
+  })
+
+  -- Git
+  use {
+    'TimUntersberger/neogit',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'sindrets/diffview.nvim'
+    },
+    config = function()
+      require('user.plugins._neogit').setup()
+    end
+  }
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('user.plugins._gitsigns').setup()
+    end
+  }
+  use({
+    "emmanueltouzery/agitator.nvim"
+  })
+  use {
+    'akinsho/git-conflict.nvim',
+    tag = "*",
+    config = function()
+      require('git-conflict').setup()
+    end
+  }
 
   -- Colorschemes
   use 'shaunsingh/nord.nvim'
@@ -108,6 +153,12 @@ return packer.startup(function(use)
     end
   })
   -- Lsp
+  use {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end
+  }
   use "b0o/schemastore.nvim"
   use {
     "jose-elias-alvarez/nvim-lsp-ts-utils"
@@ -121,10 +172,19 @@ return packer.startup(function(use)
 
 
   -- Telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } }
-  }
+  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+  use({
+    "nvim-telescope/telescope.nvim",
+    config = function()
+      require('user.plugins._telescope').setup()
+    end,
+    requires = {
+      { "nvim-lua/popup.nvim" },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim" },
+    },
+  })
+  use({ "cljoly/telescope-repo.nvim" })
 
   -- Treesitter
   use {
@@ -154,7 +214,6 @@ return packer.startup(function(use)
     after = 'nvim-cmp'
   })
 
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
     'tzachar/cmp-fuzzy-buffer',
     requires = { 'tzachar/fuzzy.nvim' },
