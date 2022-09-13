@@ -40,7 +40,7 @@ keymap("n", "gj", "*", opts)
 keymap("n", "gk", "#", opts)
 
 -- Insert --
--- Press jk fast to exit insert mode 
+-- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
@@ -53,9 +53,8 @@ keymap("v", ">", ">gv", opts)
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 
--- Lsp 
-
-keymap('n', 'K', "<cmd>Lspsaga hover_doc<CR>", opts)
+-- Lsp
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 
 -- Telescope
 keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
@@ -66,4 +65,3 @@ keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
