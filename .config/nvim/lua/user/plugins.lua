@@ -42,6 +42,9 @@ packer.init({
 return packer.startup(function(use)
 	-- My plugins here
 
+	-- Colorscheme creation
+	use({ "rktjmp/lush.nvim" })
+
 	-- Essentials
 	use({ "lewis6991/impatient.nvim" })
 	use({ "wbthomason/packer.nvim" }) -- Have packer manage itself
@@ -90,16 +93,37 @@ return packer.startup(function(use)
 	})
 	use({ "stevearc/dressing.nvim" })
 	use({ "mg979/vim-visual-multi" })
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	})
+	use({
+		"kevinhwang91/nvim-ufo",
+		requires = "kevinhwang91/promise-async",
+		config = function()
+			require("ufo").setup({
+				close_fold_kinds = {},
+			})
+		end,
+	})
 
 	-- Statusline
+	-- use({
+	-- 	"NTBBloodbath/galaxyline.nvim",
+	-- 	-- your statusline
+	-- 	config = function()
+	-- 		require("galaxyline.themes.eviline")
+	-- 	end,
+	-- 	-- some optional icons
+	-- 	requires = { "kyazdani42/nvim-web-devicons", opt = true },
+	-- })
 	use({
-		"NTBBloodbath/galaxyline.nvim",
-		-- your statusline
+		"windwp/windline.nvim",
 		config = function()
-			require("galaxyline.themes.eviline")
+			require("wlsample.bubble2")
 		end,
-		-- some optional icons
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
 	})
 
 	-- Git

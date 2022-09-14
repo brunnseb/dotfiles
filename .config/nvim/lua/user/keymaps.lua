@@ -42,8 +42,16 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Lsp
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+-- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+vim.keymap.set("n", "K", function()
+	local winid = require("ufo").peekFoldedLinesUnderCursor()
+	if not winid then
+		vim.lsp.buf.hover()
+	end
+end)
 keymap("n", "gd", "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", opts)
+keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", opts)
+keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded', max_width = 100 }})<CR>", opts)
 
 -- Telescope
 keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)

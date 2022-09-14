@@ -99,11 +99,12 @@ local mappings = {
 
 	c = {
 		name = "Code",
+		l = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", "Line diagnostics" },
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
-		R = "Rename file",
+		R = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
 		a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
-		f = "Format",
+		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
 		o = "Organize imports",
 		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 		t = "Type definition",
