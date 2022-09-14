@@ -1,16 +1,38 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = { silent = true }
+-- local term_opts = { silent = true }
 
 -- Shorten function name
+--
+--
+--
+--
+--
+--
+--
+--
+--
 local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
+
 vim.g.mapleader = " "
+
 vim.g.maplocalleader = " "
 
 -- Modes
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
+--
 --   normal_mode = "n",
 --   insert_mode = "i",
 --   visual_mode = "v",
@@ -19,6 +41,13 @@ vim.g.maplocalleader = " "
 --   command_mode = "c",
 
 -- Normal --
+-- Lsp
+keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+keymap("n", "gd", "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", opts)
+
+-- Telescope
+keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -39,11 +68,30 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "gj", "*", opts)
 keymap("n", "gk", "#", opts)
 
+keymap("n", "gs/", "<cmd>HopPattern<CR>", opts)
+keymap("n", "gsk", "<cmd>HopLineBC<CR>", opts)
+keymap("n", "gsj", "<cmd>HopLineAC<CR>", opts)
+
 -- Insert --
 -- Press jk fast to exit insert mode
 keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
+-- Hop
+keymap("v", "gs/", "<cmd>lua require('hop').hint_patterns()<CR>", opts)
+keymap(
+	"v",
+	"gsk",
+	"<cmd>lua require('hop').hint_lines({direction = require'hop.hint'.HintDirection.BEFORE_CURSOR})<CR>",
+	opts
+)
+keymap(
+	"v",
+	"gsj",
+	"<cmd>lua require('hop').hint_lines({direction = require'hop.hint'.HintDirection.AFTER_CURSOR})<CR>",
+	opts
+)
+
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
@@ -52,12 +100,6 @@ keymap("v", ">", ">gv", opts)
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-
--- Lsp
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-
--- Telescope
-keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
 
 -- Terminal --
 -- Better terminal navigation

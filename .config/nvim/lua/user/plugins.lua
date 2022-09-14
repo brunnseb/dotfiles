@@ -50,6 +50,15 @@ return packer.startup(function(use)
 	use({ "nathom/filetype.nvim" })
 	use({ "chaoren/vim-wordmotion", event = "BufRead" })
 	use({ "andymass/vim-matchup", event = "CursorMoved" })
+	use({ "jinh0/eyeliner.nvim" })
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2",
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	})
 	use({
 		"notjedi/nvim-rooter.lua",
 		config = function()
@@ -80,6 +89,7 @@ return packer.startup(function(use)
 		end,
 	})
 	use({ "stevearc/dressing.nvim" })
+	use({ "mg979/vim-visual-multi" })
 
 	-- Statusline
 	use({
@@ -105,6 +115,7 @@ return packer.startup(function(use)
 	})
 	use({
 		"lewis6991/gitsigns.nvim",
+		commit = "1e107c91c0c5e3ae72c37df8ffdd50f87fb3ebfa",
 		config = function()
 			require("user.plugins._gitsigns").setup()
 		end,
@@ -174,6 +185,7 @@ return packer.startup(function(use)
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		event = { "BufRead" },
+		commit = "cdef04dfad2d1a6d76f596ac63600e7430baaabe",
 		config = function()
 			require("user.plugins._null-ls").setup()
 		end,
@@ -181,12 +193,22 @@ return packer.startup(function(use)
 	use({
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget").setup()
+			require("fidget").setup({
+				align = {
+					bottom = false,
+				},
+				timer = {
+					task_decay = 3000,
+				},
+			})
 		end,
 	})
 	use("b0o/schemastore.nvim")
 	use({
-		"jose-elias-alvarez/nvim-lsp-ts-utils",
+		"jose-elias-alvarez/typescript.nvim",
+		config = function()
+			require("user.plugins._typescript").setup()
+		end,
 	})
 	use({
 		"williamboman/mason.nvim",

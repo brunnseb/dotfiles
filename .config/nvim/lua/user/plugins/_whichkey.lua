@@ -102,7 +102,7 @@ local mappings = {
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
 		R = "Rename file",
 		a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
-		d = "Definition",
+		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = "Format",
 		o = "Organize imports",
 		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
@@ -113,8 +113,8 @@ local mappings = {
 			l = "List",
 			r = "Remove",
 		},
-		x = { "<cmd>TroubleToggle document_diagnostics<CR>", "Diagnostics" },
-		X = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Workspace diagnostics" },
+		x = { "<cmd>Trouble document_diagnostics<CR>", "Diagnostics" },
+		X = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace diagnostics" },
 	},
 	d = {
 		name = "Diffview",
@@ -142,7 +142,7 @@ local mappings = {
 	},
 	o = {
 		name = "Open",
-		p = { "<cmd>NeoTreeReveal<CR>", "Neotree" },
+		p = { "<cmd>NeoTreeRevealToggle<CR>", "Neotree" },
 		r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" },
 	},
 	p = {
