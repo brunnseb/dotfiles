@@ -122,7 +122,10 @@ local mappings = {
 	},
 	f = {
 		name = "File",
-		s = { "<cmd>update!<CR>", "Save" },
+		s = {
+			"<cmd>update! | lua vim.notify(vim.api.nvim_buf_get_name(0).. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
+			"Save",
+		},
 	},
 	g = {
 		name = "Git",
