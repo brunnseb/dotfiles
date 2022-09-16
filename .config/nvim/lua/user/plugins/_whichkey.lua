@@ -105,7 +105,7 @@ local mappings = {
 		a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
-		o = "Organize imports",
+		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
 		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 		t = "Type definition",
 		w = {
@@ -179,7 +179,7 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 vim.keymap.set("n", "<space>cwa", vim.lsp.buf.add_workspace_folder, bufopts)
 vim.keymap.set("n", "<space>cwr", vim.lsp.buf.remove_workspace_folder, bufopts)
 vim.keymap.set("n", "<space>cwl", function()
-	print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	vim.ui.select(vim.lsp.buf.list_workspace_folders())
 end, bufopts)
 vim.keymap.set("n", "<space>ct", vim.lsp.buf.type_definition, bufopts)
 vim.keymap.set("n", "<space>cf", vim.lsp.buf.formatting, bufopts)

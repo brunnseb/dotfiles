@@ -139,7 +139,8 @@ return packer.startup(function(use)
 	})
 	use({
 		"lewis6991/gitsigns.nvim",
-		commit = "1e107c91c0c5e3ae72c37df8ffdd50f87fb3ebfa",
+		-- commit = "1e107c91c0c5e3ae72c37df8ffdd50f87fb3ebfa",
+		--
 		config = function()
 			require("user.plugins._gitsigns").setup()
 		end,

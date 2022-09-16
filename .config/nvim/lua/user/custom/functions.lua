@@ -8,4 +8,10 @@ function M.go_to_definition()
 	end
 end
 
+function M.organize_imports()
+	local typescript = require("typescript")
+	typescript.actions.removeUnused({ sync = true })
+	typescript.actions.organizeImports({ sync = true })
+end
+
 return M
