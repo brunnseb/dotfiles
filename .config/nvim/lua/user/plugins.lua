@@ -44,6 +44,7 @@ return packer.startup(function(use)
 
 	-- Colorscheme creation
 	use({ "rktjmp/lush.nvim" })
+	use({ "uga-rosa/ccc.nvim" })
 
 	-- Essentials
 	use({ "lewis6991/impatient.nvim" })
@@ -159,6 +160,16 @@ return packer.startup(function(use)
 	-- Colorschemes
 	use("shaunsingh/nord.nvim")
 	use({
+		"brunnseb/catppuccin",
+		-- "~/Development/forks/catppuccin",
+		as = "catppuccin",
+		config = function()
+			vim.g.catppuccin_flavour = "mocha"
+			require("catppuccin").setup()
+			vim.cmd([[colorscheme catppuccin]])
+		end,
+	})
+	use({
 		"sam4llis/nvim-tundra",
 		config = function()
 			require("nvim-tundra").setup({
@@ -202,8 +213,8 @@ return packer.startup(function(use)
 				},
 			})
 
-			vim.opt.background = "dark"
-			vim.cmd("colorscheme tundra")
+			-- vim.opt.background = "dark"
+			-- vim.cmd("colorscheme tundra")
 		end,
 	})
 	-- Lsp
@@ -218,14 +229,7 @@ return packer.startup(function(use)
 	use({
 		"j-hui/fidget.nvim",
 		config = function()
-			require("fidget").setup({
-				align = {
-					bottom = false,
-				},
-				timer = {
-					task_decay = 3000,
-				},
-			})
+			require("user.plugins._fidget").setup()
 		end,
 	})
 	use("b0o/schemastore.nvim")

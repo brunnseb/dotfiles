@@ -102,17 +102,17 @@ local mappings = {
 		l = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", "Line diagnostics" },
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
 		R = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
-		a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
+		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
 		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
 		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-		t = "Type definition",
+		t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition" },
 		w = {
 			name = "Workspace",
-			a = "Add",
-			l = "List",
-			r = "Remove",
+			a = { "<cmd>lua vim.lsp.buf.add_workspace_folder<CR>", "Add" },
+			r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder<CR>", "Remove" },
+			l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", "List" },
 		},
 		x = { "<cmd>Trouble document_diagnostics<CR>", "Diagnostics" },
 		X = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace diagnostics" },
@@ -171,15 +171,3 @@ local mappings = {
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
-
--- Mappings.
--- See `:help vim.lsp.*` for documentation on any of the below functions
-local bufopts = { noremap = true, silent = true, buffer = bufnr }
-vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-vim.keymap.set("n", "<space>cwa", vim.lsp.buf.add_workspace_folder, bufopts)
-vim.keymap.set("n", "<space>cwr", vim.lsp.buf.remove_workspace_folder, bufopts)
-vim.keymap.set("n", "<space>cwl", function()
-	vim.ui.select(vim.lsp.buf.list_workspace_folders())
-end, bufopts)
-vim.keymap.set("n", "<space>ct", vim.lsp.buf.type_definition, bufopts)
-vim.keymap.set("n", "<space>cf", vim.lsp.buf.formatting, bufopts)
