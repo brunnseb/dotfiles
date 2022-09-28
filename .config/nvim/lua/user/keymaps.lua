@@ -42,7 +42,7 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Lsp
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 
 keymap("n", "zk", "<cmd>lua require('ufo').peekFoldedLinesUnderCursor()<CR>", opts)
 

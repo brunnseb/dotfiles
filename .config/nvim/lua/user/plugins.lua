@@ -56,10 +56,20 @@ return packer.startup(function(use)
 	use({ "andymass/vim-matchup", event = "CursorMoved" })
 	use({ "jinh0/eyeliner.nvim" })
 	use({
+		"axelvc/template-string.nvim",
+		config = function()
+			require("template-string").setup({})
+		end,
+	})
+	use({
+
+		"kkoomen/vim-doge",
+		run = ":call doge#install()",
+	})
+	use({
 		"phaazon/hop.nvim",
 		branch = "v2",
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
 	})
@@ -77,11 +87,8 @@ return packer.startup(function(use)
 	})
 	use({
 		"kylechui/nvim-surround",
-		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
 		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
+			require("nvim-surround").setup({})
 		end,
 	})
 	use({
@@ -111,15 +118,6 @@ return packer.startup(function(use)
 	})
 
 	-- Statusline
-	-- use({
-	-- 	"NTBBloodbath/galaxyline.nvim",
-	-- 	-- your statusline
-	-- 	config = function()
-	-- 		require("galaxyline.themes.eviline")
-	-- 	end,
-	-- 	-- some optional icons
-	-- 	requires = { "kyazdani42/nvim-web-devicons", opt = true },
-	-- })
 	use({
 		"windwp/windline.nvim",
 		config = function()
@@ -128,20 +126,10 @@ return packer.startup(function(use)
 	})
 
 	-- Git
-	use({
-		"TimUntersberger/neogit",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"sindrets/diffview.nvim",
-		},
-		config = function()
-			require("user.plugins._neogit").setup()
-		end,
-	})
+	use({ "kdheepak/lazygit.nvim" })
+	use({ "sindrets/diffview.nvim" })
 	use({
 		"lewis6991/gitsigns.nvim",
-		-- commit = "1e107c91c0c5e3ae72c37df8ffdd50f87fb3ebfa",
-		--
 		config = function()
 			require("user.plugins._gitsigns").setup()
 		end,
@@ -158,7 +146,6 @@ return packer.startup(function(use)
 	})
 
 	-- Colorschemes
-	use("shaunsingh/nord.nvim")
 	use({
 		"brunnseb/catppuccin",
 		-- "~/Development/forks/catppuccin",
@@ -167,54 +154,6 @@ return packer.startup(function(use)
 			vim.g.catppuccin_flavour = "mocha"
 			require("catppuccin").setup()
 			vim.cmd([[colorscheme catppuccin]])
-		end,
-	})
-	use({
-		"sam4llis/nvim-tundra",
-		config = function()
-			require("nvim-tundra").setup({
-				transparent_background = false,
-				editor = {
-					search = {},
-					substitute = {},
-				},
-				syntax = {
-					booleans = { bold = true, italic = true },
-					comments = { bold = true, italic = true },
-					conditionals = {},
-					constants = { bold = true },
-					functions = {},
-					keywords = {},
-					loops = {},
-					numbers = { bold = true },
-					operators = { bold = true },
-					punctuation = {},
-					strings = {},
-					types = { italic = true },
-				},
-				diagnostics = {
-					errors = {},
-					warnings = {},
-					information = {},
-					hints = {},
-				},
-				plugins = {
-					lsp = true,
-					treesitter = true,
-					cmp = true,
-					context = true,
-					dbui = true,
-					gitsigns = true,
-					telescope = true,
-				},
-				overwrite = {
-					colors = {},
-					highlights = {},
-				},
-			})
-
-			-- vim.opt.background = "dark"
-			-- vim.cmd("colorscheme tundra")
 		end,
 	})
 	-- Lsp
@@ -245,6 +184,13 @@ return packer.startup(function(use)
 		"neovim/nvim-lspconfig",
 	})
 	use({ "mrshmllow/document-color.nvim" })
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({})
+		end,
+	})
 	use({
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -290,6 +236,8 @@ return packer.startup(function(use)
 			require("user.plugins._treesitter").setup()
 		end,
 	})
+
+	use({ "gaelph/logsitter.nvim", requires = { "nvim-treesitter/nvim-treesitter" } })
 
 	-- Completion
 	use({

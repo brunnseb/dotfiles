@@ -1,4 +1,5 @@
 local status_ok, which_key = pcall(require, "which-key")
+
 if not status_ok then
 	return
 end
@@ -99,6 +100,7 @@ local mappings = {
 
 	c = {
 		name = "Code",
+		c = { "<cmd>DogeGenerate<CR>", "Generate comment" },
 		l = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", "Line diagnostics" },
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
 		R = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
@@ -108,6 +110,7 @@ local mappings = {
 		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
 		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 		t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition" },
+		T = { "<cmd>TodoTelescope<CR>", "List todos" },
 		w = {
 			name = "Workspace",
 			a = { "<cmd>lua vim.lsp.buf.add_workspace_folder<CR>", "Add" },
@@ -123,7 +126,7 @@ local mappings = {
 	f = {
 		name = "File",
 		s = {
-			"<cmd>update! | lua vim.notify(vim.api.nvim_buf_get_name(0).. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
+			"<cmd>update! | lua vim.notify(vim.fn.expand('%:t').. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
 			"Save",
 		},
 	},
@@ -133,7 +136,7 @@ local mappings = {
 		b = { "<cmd> lua require('gitsigns').toggle_current_line_blame()<CR>", "Blame line" },
 		d = { "<cmd> lua require('gitsigns').diffthis()<CR>", "Diff file" },
 		f = { "<cmd> lua require('agitator').open_file_git_branch()<CR>", "Find file" },
-		g = { "<cmd>Neogit<CR>", "Status" },
+		g = { "<cmd>LazyGit<CR>", "Status" },
 		h = {
 			name = "Hunk",
 			p = { "<cmd> lua require('gitsigns').preview_hunk()<CR>", "Preview" },
@@ -143,6 +146,10 @@ local mappings = {
 		},
 		s = { "<cmd> lua require('agitator').search_git_branch()<CR>", "Search in branch" },
 		t = { "<cmd> lua require('agitator').git_time_machine()<CR>", "Timemachine" },
+	},
+	m = {
+		name = "Misc",
+		l = { "<cmd> lua require('logsitter').log()<CR>", "Log symbol" },
 	},
 	o = {
 		name = "Open",
@@ -156,6 +163,9 @@ local mappings = {
 			"List",
 		},
 		s = { "wa", "Save all" },
+	},
+	t = {
+		name = "Test",
 	},
 	w = {
 		name = "Window",

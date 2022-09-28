@@ -43,7 +43,13 @@ local options = {
 vim.opt.shortmess:append("c")
 vim.opt.fillchars:append({ eob = " " })
 
-vim.g.material_style = "palenight"
+-- Needed so current nvim instance is used to open file in lazygit
+vim.api.nvim_exec(
+	[[
+let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+]],
+	false
+)
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
