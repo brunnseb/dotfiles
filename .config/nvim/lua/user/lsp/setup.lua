@@ -14,19 +14,14 @@ mason.setup({
 
 mason_lsp.setup({
 	ensure_installed = {
-		"bash-language-server",
-		"css-lsp",
-		"cssmodules-language-server",
-		"eslint-lsp",
-		"graphql-language-service-cli",
-		"html-lsp",
-		"json-lsp",
-		"lua-language-server",
-		"tailwindcss-language-server",
-		"typescript-language-server",
-		"firefox-debug-adapter",
-		"node-debug2-adapter",
-		"svelte-language-server",
+		"bashls",
+		"cssls",
+		"cssmodules_ls",
+		"eslint",
+		"html",
+		"jsonls",
+		"tailwindcss",
+		"tsserver",
 		"sumneko_lua",
 	},
 
