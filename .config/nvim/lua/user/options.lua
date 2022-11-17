@@ -12,7 +12,6 @@ local options = {
 	foldenable = true,
 	foldlevel = 99, -- Using ufo provider need a large value, feel free to decrease the value
 	foldlevelstart = 99,
-	guifont = "monosp,ace:h17", -- the font used in graphical neovim applications,
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	mouse = "a", -- allow the mouse to be used in neovim
@@ -40,7 +39,7 @@ local options = {
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append("cS")
 vim.opt.fillchars:append({ eob = " " })
 
 -- Needed so current nvim instance is used to open file in lazygit
