@@ -1,6 +1,6 @@
-vim.opt.termguicolors = true -- Enable colors in terminal
-
-require("utils")
-require("config")
-require("plugins").setup()
--- require("colorbuddy").colorscheme("cobalt2")
+require("user.options")
+require("user.keymaps")
+require("user.plugins")
+require("user.lsp.setup")
+require("user.lsp.diagnostics")
+-- require("user.colorscheme")
