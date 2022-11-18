@@ -122,13 +122,43 @@ return packer.startup(function(use)
 		end,
 	})
 
-	-- -- Statusline
-	-- use({
-	-- 	"windwp/windline.nvim",
-	-- 	config = function()
-	-- 		require("wlsample.bubble2")
-	-- 	end,
-	-- })
+	-- Neorg
+	use({
+		"nvim-neorg/neorg",
+		run = ":Neorg sync-parsers",
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {},
+					["core.norg.dirman"] = {
+						config = {
+							workspaces = {
+								work = "~/Documents/neorg/work",
+								personal = "~/Documents/neorg/personal",
+								gtd = "~/Documents/neorg/gtd",
+							},
+						},
+					},
+					["core.gtd.base"] = {
+						config = {
+							workspace = "gtd",
+						},
+					}, -- ["core.norg.completion"] = {
+					-- 	config = { -- Note that this table is optional and doesn't need to be provided
+					-- 		engine = "nvim-cmp",
+					-- 	},
+					-- },
+					["core.norg.concealer"] = {},
+					["core.export"] = {},
+
+					["core.integrations.telescope"] = {}, -- Enable the telescope module
+				},
+			})
+		end,
+		requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
+	})
+
+	-- Statusline
 	use({
 		"akinsho/bufferline.nvim",
 		after = "catppuccin",

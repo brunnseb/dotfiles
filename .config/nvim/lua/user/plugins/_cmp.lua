@@ -30,6 +30,7 @@ function M.setup()
 			{ name = "nvim_lsp" },
 			{ name = "nvim-lua" },
 			{ name = "luasnip" },
+			-- { name = "neorg" },
 		}, {
 			{ name = "fuzzy_buffer" },
 		}),
