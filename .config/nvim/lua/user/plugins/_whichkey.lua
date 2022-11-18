@@ -153,7 +153,7 @@ local mappings = {
 	},
 	o = {
 		name = "Open",
-		p = { "<cmd>NeoTreeRevealToggle<CR>", "Neotree" },
+		p = { "<cmd>Neotree reveal_force_cwd<CR>", "Neotree" },
 		r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" },
 	},
 	p = {
@@ -176,6 +176,7 @@ local mappings = {
 		l = { "<C-w>l", "go to right window" },
 		s = { "<C-w>s", "split horizontal" },
 		v = { "<C-w>v", "split vertical" },
+		o = { "<C-w>o", "maximize current window" },
 	},
 }
 

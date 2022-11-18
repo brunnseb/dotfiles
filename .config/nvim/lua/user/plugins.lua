@@ -295,6 +295,10 @@ return packer.startup(function(use)
 							-- },
 							-- Neotree
 							NeoTreeNormal = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
+							NeoTreeActive = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
+							NeoTreeInactive = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
+							NeoTreeNormalActive = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
+							NeoTreeNormalInactive = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
 						}
 					end,
 				},
@@ -488,9 +492,6 @@ return packer.startup(function(use)
 			"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 		},
-		config = function()
-			require("user.plugins._neotree").setup()
-		end,
 	})
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
@@ -498,88 +499,3 @@ return packer.startup(function(use)
 		require("packer").sync()
 	end
 end)
-
--- BufferLineHintVisible xxx cterm= gui= guifg=#0088ff guibg=#1e3c53
--- BufferLineHintSelected xxx cterm=bold,italic gui=bold,italic guifg=#00c8a0 guibg=#21425b guisp=#00c8a0
--- BufferLineHintDiagnostic xxx cterm= gui= guifg=#0066bf guibg=#183144 guisp=#009678
--- BufferLineHintDiagnosticVisible xxx cterm= gui= guifg=#0066bf guibg=#1e3c53
--- BufferLineHintDiagnosticSelected xxx cterm=bold,italic gui=bold,italic guifg=#009678 guibg=#21425b guisp=#009678
--- BufferLineInfoVisible xxx cterm= gui= guifg=#0088ff guibg=#1e3c53
--- BufferLineInfoSelected xxx cterm=bold,italic gui=bold,italic guifg=#90ebed guibg=#21425b guisp=#90ebed
--- BufferLineInfoDiagnostic xxx cterm= gui= guifg=#0066bf guibg=#183144 guisp=#6cb0b1
--- BufferLineInfoDiagnosticVisible xxx cterm= gui= guifg=#0066bf guibg=#1e3c53
--- BufferLineInfoDiagnosticSelected xxx cterm=bold,italic gui=bold,italic guifg=#6cb0b1 guibg=#21425b guisp=#6cb0b1
--- BufferLineTabClose xxx cterm= gui= guifg=#0088ff guibg=#183144
--- BufferLineCloseButton xxx cterm= gui= guifg=#0088ff guibg=#183144
--- BufferLineCloseButtonVisible xxx cterm= gui= guifg=#0088ff guibg=#1e3c53
--- BufferLineCloseButtonSelected xxx cterm= gui= guifg=#e2effe guibg=#21425b
--- BufferLineBufferVisible xxx cterm= gui= guifg=#0088ff guibg=#1e3c53
--- BufferLineErrorSelected xxx cterm=bold,italic gui=bold,italic guifg=#d45a7e guibg=#21425b guisp=#d45a7e
--- BufferLineErrorDiagnostic xxx cterm= gui= guifg=#0066bf guibg=#183144 guisp=#9f435e
--- BufferLineErrorDiagnosticVisible xxx cterm= gui= guifg=#0066bf guibg=#1e3c53
--- BufferLineErrorDiagnosticSelected xxx cterm=bold,italic gui=bold,italic guifg=#9f435e guibg=#21425b guisp=#9f435e
--- BufferLineModifiedVisible xxx cterm= gui= guifg=#97ea88 guibg=#1e3c53
--- BufferLineModifiedSelected xxx cterm= gui= guifg=#97ea88 guibg=#21425b
--- BufferLineDuplicateSelected xxx cterm=italic gui=italic guifg=#0081f2 guibg=#21425b
--- BufferLineDuplicateVisible xxx cterm=italic gui=italic guifg=#0081f2 guibg=#1e3c53
--- BufferLineDuplicate xxx cterm=italic gui=italic guifg=#0081f2 guibg=#183144
--- BufferLinePick xxx cterm=bold,italic gui=bold,italic guifg=#d45a7e guibg=#183144
--- BufferLineSeparatorVisible xxx cterm= gui= guifg=#122432 guibg=#1e3c53
--- BufferLineTabSeparator xxx cterm= gui= guifg=#122432 guibg=#183144
--- BufferLineTabSeparatorSelected xxx cterm= gui= guifg=#122432 guibg=#21425b
--- BufferLineIndicatorVisible xxx cterm= gui= guifg=#1e3c53 guibg=#1e3c53
--- BufferLinePickSelected xxx cterm=bold,italic gui=bold,italic guifg=#d45a7e guibg=#21425b
--- BufferLinePickVisible xxx cterm=bold,italic gui=bold,italic guifg=#d45a7e guibg=#1e3c53
--- BufferLineOffsetSeparator xxx guifg=#00c8a0
--- BufferLineWarningSelected xxx cterm=bold,italic gui=bold,italic guifg=#ffd701 guibg=#21425b guisp=#ffd701
--- BufferLineWarningDiagnostic xxx cterm= gui= guifg=#0066bf guibg=#183144 guisp=#bfa100
--- BufferLineWarningDiagnosticVisible xxx cterm= gui= guifg=#0066bf guibg=#1e3c53
--- BufferLineWarningDiagnosticSelected xxx cterm=bold,italic gui=bold,italic guifg=#bfa100 guibg=#21425b guisp=#bfa100
--- BufferLineHint xxx cterm= gui= guifg=#0088ff guibg=#183144 guisp=#00c8a0
--- BufferLineModified xxx cterm= gui= guifg=#97ea88 guibg=#183144
--- BufferLineBackground xxx cterm= gui= guifg=#0088ff guibg=#183144
--- BufferLineWarning xxx cterm= gui= guifg=#0088ff guibg=#183144 guisp=#ffd701
--- BufferLineSeparatorSelected xxx cterm= gui= guifg=#122432 guibg=#21425b
--- BufferLineError xxx cterm= gui= guifg=#0088ff guibg=#183144 guisp=#d45a7e
--- BufferLineNumbersSelected xxx cterm=bold,italic gui=bold,italic guifg=#e2effe guibg=#21425b
--- BufferLineNumbersVisible xxx cterm= gui= guifg=#0088ff guibg=#1e3c53
---
---
--- NeoTreeNormalNC xxx links to NormalNC
--- NeoTreeSignColumn xxx links to SignColumn
--- NeoTreeStatusLine xxx links to StatusLine
--- NeoTreeStatusLineNC xxx links to StatusLineNC
--- NeoTreeVertSplit xxx links to VertSplit
--- NeoTreeWinSeparator xxx links to WinSeparator
--- NeoTreeEndOfBuffer xxx links to EndOfBuffer
--- NeoTreeFloatBorder xxx links to FloatBorder
--- NeoTreeFloatTitle xxx guifg=#e2effe
--- NeoTreeTitleBar xxx guifg=#1e3b52 guibg=#0088ff
--- NeoTreeBufferNumber xxx links to SpecialChar
--- NeoTreeDimText xxx guifg=#505050
--- NeoTreeMessage xxx gui=italic guifg=#505050
--- NeoTreeFadeText1 xxx guifg=#626262
--- NeoTreeFadeText2 xxx guifg=#444444
--- NeoTreeDotfile xxx guifg=#626262
--- NeoTreeHiddenByName xxx links to NeoTreeDotfile
--- NeoTreeCursorLine xxx links to CursorLine
--- NeoTreeFileIcon xxx links to NeoTreeDirectoryIcon
--- NeoTreeFileName xxx cleared
--- NeoTreeFilterTerm xxx links to SpecialChar
--- NeoTreeRootName xxx gui=bold,italic
--- NeoTreeExpander xxx links to NeoTreeDimText
--- NeoTreeModified xxx guifg=#d7d787
--- NeoTreeWindowsHidden xxx links to NeoTreeDotfile
--- NeoTreePreview xxx links to Search
--- NeoTreeGitAdded xxx links to GitSignsAdd
--- NeoTreeGitDeleted xxx links to GitSignsDelete
--- NeoTreeGitConflict xxx gui=bold,italic guifg=#ff8700
--- NeoTreeGitIgnored xxx links to NeoTreeDotfile
--- NeoTreeGitRenamed xxx links to NeoTreeGitModified
--- NeoTreeGitStaged xxx links to NeoTreeGitAdded
--- NeoTreeGitUnstaged xxx links to NeoTreeGitConflict
--- NeoTreeGitUntracked xxx gui=italic guifg=#ff8700
--- NeoTreeTabActive xxx gui=bold
--- NeoTreeTabInactive xxx guifg=#777777 guibg=#141414
--- NeoTreeTabSeparatorActive xxx guifg=#0a0a0a
--- NeoTreeTabSeparatorInactive xxx guifg=#101010 guibg=#141414
