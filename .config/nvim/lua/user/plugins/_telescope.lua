@@ -34,8 +34,10 @@ function M.setup()
 				},
 				prompt_position = "top",
 			},
+			entry_prefix = " ",
+			prompt_prefix = " ",
+			selection_caret = " ",
 			file_sorter = require("telescope.sorters").get_fzy_sorter,
-			prompt_prefix = " 🔍 ",
 			color_devicons = true,
 
 			git_icons = git_icons,
