@@ -127,33 +127,7 @@ return packer.startup(function(use)
 		"nvim-neorg/neorg",
 		run = ":Neorg sync-parsers",
 		config = function()
-			require("neorg").setup({
-				load = {
-					["core.defaults"] = {},
-					["core.norg.dirman"] = {
-						config = {
-							workspaces = {
-								work = "~/Documents/neorg/work",
-								personal = "~/Documents/neorg/personal",
-								gtd = "~/Documents/neorg/gtd",
-							},
-						},
-					},
-					["core.gtd.base"] = {
-						config = {
-							workspace = "gtd",
-						},
-					}, -- ["core.norg.completion"] = {
-					-- 	config = { -- Note that this table is optional and doesn't need to be provided
-					-- 		engine = "nvim-cmp",
-					-- 	},
-					-- },
-					["core.norg.concealer"] = {},
-					["core.export"] = {},
-
-					["core.integrations.telescope"] = {}, -- Enable the telescope module
-				},
-			})
+			require("user.plugins._neorg").setup()
 		end,
 		requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
 	})
@@ -194,7 +168,6 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({ "michaeldyrynda/carbon" })
 	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
@@ -202,16 +175,7 @@ return packer.startup(function(use)
 			require("user.plugins._catppuccin").setup()
 		end,
 	})
-	-- use({
-	-- 	-- "brunnseb/catppuccin",
-	-- 	"~/Development/catppuccin",
-	-- 	as = "catppuccin",
-	-- 	config = function()
-	-- 		vim.g.catppuccin_flavour = "mocha"
-	-- 		require("catppuccin").setup()
-	-- 		vim.cmd([[colorscheme catppuccin]])
-	-- 	end,
-	-- })
+
 	-- Lsp
 	use({
 		"jose-elias-alvarez/null-ls.nvim",

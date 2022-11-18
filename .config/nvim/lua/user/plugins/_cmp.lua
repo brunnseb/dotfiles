@@ -30,9 +30,6 @@ function M.setup()
 			{ name = "nvim_lsp" },
 			{ name = "nvim-lua" },
 			{ name = "luasnip" },
-			-- { name = "neorg" },
-		}, {
-			{ name = "fuzzy_buffer" },
 		}),
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
