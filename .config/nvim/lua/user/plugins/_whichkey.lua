@@ -166,6 +166,10 @@ local mappings = {
 	},
 	t = {
 		name = "Test",
+		r = { "<cmd> lua require('neotest').run.run()<CR>", "Run tests" },
+		f = { "<cmd> lua require('neotest').run.run(vim.fn.expand('%'))<CR>", "Run file" },
+		s = { "<cmd> lua require('neotest').summary.toggle()<CR>", "Toggle test summary" },
+		o = { "<cmd> lua require('neotest').output_panel.toggle()<CR>", "Show test output" },
 	},
 	w = {
 		name = "Window",
