@@ -122,6 +122,46 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+			"haydenmeade/neotest-jest",
+		},
+		config = function()
+			require("neotest").setup({
+				icons = {
+					child_indent = "│",
+					child_prefix = "├",
+					collapsed = "─",
+					expanded = "╮",
+					failed = "✖",
+					final_child_indent = " ",
+					final_child_prefix = "╰",
+					non_collapsible = "─",
+					passed = "✔",
+					running = "🗘",
+					running_animated = { "/", "|", "\\", "-", "/", "|", "\\", "-" },
+					skipped = "ﰸ",
+					unknown = "?",
+				},
+				adapters = {
+					require("neotest-jest")({
+						jestCommand = "pnpm test -- --passWithNoTests",
+						-- jestConfigFile = "custom.jest.config.ts",
+						-- env = { CI = true },
+						cwd = function()
+							print("path " .. vim.fn.expand("%:p:h"))
+							return vim.fn.expand("%:p:h")
+						end,
+					}),
+				},
+			})
+		end,
+	})
+
 	-- -- Statusline
 	-- use({
 	-- 	"windwp/windline.nvim",
