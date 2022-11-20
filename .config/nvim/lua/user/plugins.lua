@@ -116,9 +116,7 @@ return packer.startup(function(use)
 		"kevinhwang91/nvim-ufo",
 		requires = "kevinhwang91/promise-async",
 		config = function()
-			require("ufo").setup({
-				close_fold_kinds = {},
-			})
+			require("user.plugins._ufo").setup()
 		end,
 	})
 	-- Neotest
@@ -171,9 +169,27 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"folke/twilight.nvim",
+		config = function()
+			require("twilight").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	})
+	use({
+		"folke/zen-mode.nvim",
+		requires = "folke/twilight.nvim",
+		config = function()
+			require("user.plugins._zen").setup()
+		end,
+	})
+
 	-- Git
+	use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
 	use({ "kdheepak/lazygit.nvim" })
-	use({ "sindrets/diffview.nvim" })
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -250,7 +266,9 @@ return packer.startup(function(use)
 		config = function()
 			local saga = require("lspsaga")
 
-			saga.init_lsp_saga({})
+			saga.init_lsp_saga({
+				custom_kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+			})
 		end,
 	})
 
@@ -340,6 +358,9 @@ return packer.startup(function(use)
 			"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 		},
+		config = function()
+			require("user.plugins._neotree").setup()
+		end,
 	})
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

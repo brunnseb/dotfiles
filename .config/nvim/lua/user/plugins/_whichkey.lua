@@ -146,6 +146,8 @@ local mappings = {
 		},
 		s = { "<cmd> lua require('agitator').search_git_branch()<CR>", "Search in branch" },
 		t = { "<cmd> lua require('agitator').git_time_machine()<CR>", "Timemachine" },
+		["]"] = { "<cmd> lua require('gitsigns').next_hunk()<CR>", "Next hunk" },
+		["["] = { "<cmd> lua require('gitsigns').prev_hunk()<CR>", "Previous hunk" },
 	},
 	m = {
 		name = "Misc",
@@ -182,6 +184,7 @@ local mappings = {
 		v = { "<C-w>v", "split vertical" },
 		o = { "<C-w>o", "maximize current window" },
 	},
+	z = { "<cmd>ZenMode<CR>", "Zen Mode" },
 }
 
 which_key.setup(setup)

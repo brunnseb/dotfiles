@@ -5,6 +5,18 @@ function M.setup()
 
 	require("catppuccin").setup({
 		flavour = "macchiato", -- mocha, macchiato, frappe, latte
+		integrations = {
+			gitsigns = true,
+			hop = true,
+			mason = true,
+			neotree = true,
+			neotest = true,
+			cmp = true,
+			notify = true,
+			treesitter_context = true,
+			ts_rainbow = true,
+			lsp_trouble = true,
+		},
 		highlight_overrides = {
 			macchiato = function(macchiato)
 				return {
@@ -77,24 +89,7 @@ function M.setup()
 						style = { "bold" },
 					}, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand oucp.
 					VertSplit = { fg = macchiato.teal },
-					-- BufferLine
-					-- BufferLineFill = { bg = util.darken(macchiato.base, 0.8) },
-					-- BufferLineBufferSelected = {
-					-- 	bg = macchiato.base,
-					-- 	style = { "bold,italic" },
-					-- }, -- current
-					-- BufferLineIndicatorSelected = {
-					-- 	bg = macchiato.teal,
-					-- },
-					-- -- -- separators
-					-- BufferLineSeparator = {
-					-- 	bg = util.darken(macchiato.base, 0.8),
-					-- 	fg = util.darken(macchiato.base, 0.8),
-					-- },
-					-- BufferLineSeparatorSelected = {
-					-- 	bg = macchiato.base,
-					-- 	fg = macchiato.base,
-					-- },
+					Folded = { bg = util.darken(macchiato.base, 0.9) },
 					-- Neotree
 					NeoTreeNormal = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
 					NeoTreeActive = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
