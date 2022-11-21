@@ -120,9 +120,6 @@ local mappings = {
 		x = { "<cmd>Trouble document_diagnostics<CR>", "Diagnostics" },
 		X = { "<cmd>Trouble workspace_diagnostics<CR>", "Workspace diagnostics" },
 	},
-	d = {
-		name = "Diffview",
-	},
 	f = {
 		name = "File",
 		s = {
@@ -157,6 +154,7 @@ local mappings = {
 		name = "Open",
 		p = { "<cmd>Neotree reveal_force_cwd<CR>", "Neotree" },
 		r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" },
+		t = { "<cmd>lua require('telescope').extensions.vstask.tasks()<CR>", "Tasks" },
 	},
 	p = {
 		name = "Project",

@@ -152,6 +152,13 @@ return packer.startup(function(use)
 		end,
 		requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
 	})
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+		config = function()
+			require("user.plugins._term").setup()
+		end,
+	})
 
 	-- Statusline
 	use({
@@ -215,6 +222,36 @@ return packer.startup(function(use)
 		end,
 	})
 
+	use({
+		"EthanJWright/vs-tasks.nvim",
+		requires = {
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("user.plugins._tasks").setup()
+		end,
+	})
+	-- DAP
+	-- use({
+	-- 	"theHamsta/nvim-dap-virtual-text",
+	-- 	config = function()
+	-- 		require("user.plugins._dap").virtual.setup()
+	-- 	end,
+	-- })
+	-- use({
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	config = function()
+	-- 		require("user.plugins._dap").ui.setup()
+	-- 	end,
+	-- })
+	-- use({
+	-- 	"mfussenegger/nvim-dap",
+	-- 	config = function()
+	-- 		require("user.plugins._dap").dap.setup()
+	-- 	end,
+	-- })
 	-- Lsp
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
