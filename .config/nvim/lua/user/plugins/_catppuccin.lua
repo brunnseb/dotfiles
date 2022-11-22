@@ -16,6 +16,8 @@ function M.setup()
 			treesitter_context = true,
 			ts_rainbow = true,
 			lsp_trouble = true,
+			which_key = false,
+			telescope = false,
 		},
 		highlight_overrides = {
 			macchiato = function(macchiato)
@@ -155,6 +157,19 @@ function M.setup()
 					TelescopeResultsDiffDelete = {
 						fg = macchiato.pink,
 					},
+
+					WhichKeyBorder = {
+						fg = util.darken(macchiato.base, 0.8),
+						bg = util.darken(macchiato.base, 0.8),
+					},
+					WhichKeyFloat = {
+						bg = util.darken(macchiato.base, 0.8),
+						fg = macchiato.text,
+					},
+					WhichKey = { fg = macchiato.teal },
+					WhichKeyGroup = { fg = macchiato.lavender },
+					WhichKeySeparator = { fg = macchiato.yellow },
+					WhichKeyDesc = { fg = macchiato.blue },
 				}
 			end,
 		},
