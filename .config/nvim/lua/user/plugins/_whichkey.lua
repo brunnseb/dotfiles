@@ -150,11 +150,14 @@ local mappings = {
 		name = "Misc",
 		l = { "<cmd> lua require('logsitter').log()<CR>", "Log symbol" },
 	},
+	n = { "<cmd>Neorg keybind norg<CR>", "Neorg keybinds" },
 	o = {
 		name = "Open",
+		a = { "<cmd>Neorg gtd views<CR>", "Neorg views" },
 		p = { "<cmd>Neotree reveal_force_cwd<CR>", "Neotree" },
 		r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" },
 		t = { "<cmd>lua require('telescope').extensions.vstask.tasks()<CR>", "Tasks" },
+		x = { "<cmd>Telescope neorg find_project_tasks<CR>", "Find project tasks" },
 	},
 	p = {
 		name = "Project",
@@ -182,6 +185,7 @@ local mappings = {
 		v = { "<C-w>v", "split vertical" },
 		o = { "<C-w>o", "maximize current window" },
 	},
+	X = { "<cmd>Neorg gtd capture<CR>", "Capture" },
 	z = { "<cmd>ZenMode<CR>", "Zen Mode" },
 }
 
