@@ -58,7 +58,7 @@ return packer.startup(function(use)
 	use({ "kyazdani42/nvim-web-devicons" })
 	use({ "nathom/filetype.nvim" })
 	use({ "chaoren/vim-wordmotion", event = "BufRead" })
-	use({ "andymass/vim-matchup", event = "CursorMoved" })
+	use({ "andymass/vim-matchup" })
 	use({ "jinh0/eyeliner.nvim" })
 	use({
 		"axelvc/template-string.nvim",

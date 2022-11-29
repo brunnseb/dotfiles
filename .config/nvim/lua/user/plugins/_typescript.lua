@@ -16,6 +16,7 @@ function M.setup()
 			fallback = true,
 		},
 		server = vim.tbl_deep_extend("force", default_options, {
+			single_file_support = true,
 			root_dir = function(filename, _)
 				return helpers.compose_root_dir(
 					{ "tsconfig.json", "jsconfig.json", "*.ts", "*.js", "*.tsx", "*.jsx" },
