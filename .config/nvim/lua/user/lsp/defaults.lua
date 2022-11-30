@@ -1,6 +1,8 @@
 local M = {}
 
 function M.on_attach(client, bufnr)
+	local ih = require("lsp-inlayhints")
+	ih.on_attach(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 

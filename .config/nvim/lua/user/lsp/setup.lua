@@ -58,17 +58,17 @@ mason_lsp.setup_handlers({
 					"postcss.config.ts",
 				}, filename)
 			end,
-      settings = {
-        tailwindCSS = {
-          experimental = {
-            configFile = {
-              ["apps/portal/tailwind.config.js"] = "apps/portal/**",
-              ["apps/public-forms/tailwind.config.js"] = "apps/public-forms/**",
-              ["libs/cockpit-core/tailwind.config.js"] = {"apps/cockpit/**","libs/**" }
-            }
-          }
-        }
-      }
+			settings = {
+				tailwindCSS = {
+					experimental = {
+						configFile = {
+							["apps/portal/tailwind.config.js"] = "apps/portal/**",
+							["apps/public-forms/tailwind.config.js"] = "apps/public-forms/**",
+							["libs/cockpit-core/tailwind.config.js"] = { "apps/cockpit/**", "libs/**" },
+						},
+					},
+				},
+			},
 		}))
 	end,
 

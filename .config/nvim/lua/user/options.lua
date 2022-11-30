@@ -39,7 +39,7 @@ local options = {
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 }
 
-vim.opt.shortmess:append("cS")
+vim.opt.shortmess:append("cSs")
 vim.opt.fillchars:append({ eob = " " })
 
 -- Needed so current nvim instance is used to open file in lazygit

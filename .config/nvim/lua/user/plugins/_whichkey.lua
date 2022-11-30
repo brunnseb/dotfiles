@@ -108,7 +108,6 @@ local mappings = {
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
 		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
-		r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
 		t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition" },
 		T = { "<cmd>TodoTelescope<CR>", "List todos" },
 		w = {
@@ -123,7 +122,8 @@ local mappings = {
 	f = {
 		name = "File",
 		s = {
-			"<cmd>update! | lua vim.notify(vim.fn.expand('%:t').. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
+			-- "<cmd>update! | lua vim.notify(vim.fn.expand('%:t').. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
+			"<cmd>update! <CR>",
 			"Save",
 		},
 	},

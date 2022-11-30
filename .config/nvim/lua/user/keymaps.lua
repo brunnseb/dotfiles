@@ -21,8 +21,10 @@ vim.g.maplocalleader = " "
 -- Normal --
 -- Lsp
 keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-
 keymap("n", "zk", "<cmd>lua require('ufo').peekFoldedLinesUnderCursor()<CR>", opts)
+vim.keymap.set("n", "<leader>cr", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
 
 keymap("n", "gd", "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", opts)
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", opts)
