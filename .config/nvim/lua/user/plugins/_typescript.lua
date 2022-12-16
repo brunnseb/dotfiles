@@ -13,7 +13,7 @@ function M.setup()
 		disable_commands = false,
 		debug = false,
 		go_to_source_definition = {
-			fallback = false,
+			fallback = true,
 		},
 		server = vim.tbl_deep_extend("force", default_options, {
 			single_file_support = true,

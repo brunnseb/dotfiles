@@ -58,7 +58,8 @@ local setup = {
 	},
 	ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
 	hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-	show_help = true, -- show help message on the command line when the popup is visible
+	show_help = false, -- show help message on the command line when the popup is visible
+	show_keys = false,
 	triggers = "auto", -- automatically setup triggers
 	-- triggers = {"<leader>"} -- or specify a list manually
 	triggers_blacklist = {
@@ -108,6 +109,7 @@ local mappings = {
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
 		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
+		s = { "<cmd>SymbolsOutline<CR>", "Symbols" },
 		t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition" },
 		T = { "<cmd>TodoTelescope<CR>", "List todos" },
 		w = {
@@ -123,7 +125,7 @@ local mappings = {
 		name = "File",
 		s = {
 			-- "<cmd>update! | lua vim.notify(vim.fn.expand('%:t').. ' successfully saved', vim.log.levels.INFO, { timeout = 500, title = 'Info' })<CR>",
-			"<cmd>update! <CR>",
+			"<cmd>:silent update! <CR>",
 			"Save",
 		},
 	},
