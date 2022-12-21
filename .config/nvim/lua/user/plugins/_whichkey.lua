@@ -108,6 +108,7 @@ local mappings = {
 		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
 		d = { "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
+		i = { "<cmd>lua require('lsp-inlayhints').toggle()<CR>", "Toggle inlay hints" },
 		o = { "<cmd>lua require('user.custom.functions').organize_imports()<CR>", "Organize imports" },
 		s = { "<cmd>SymbolsOutline<CR>", "Symbols" },
 		t = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Type definition" },
