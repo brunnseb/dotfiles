@@ -30,6 +30,7 @@ function M.setup()
 			{ name = "nvim_lsp" },
 			{ name = "nvim-lua" },
 			{ name = "luasnip" },
+			{ name = "nvim_lsp_signature_help", keyword_length = 3 },
 		}),
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),

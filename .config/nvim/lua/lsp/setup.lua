@@ -29,8 +29,8 @@ mason_lsp.setup({
 })
 
 local lspconfig = require("lspconfig")
-local default_options = require("user.lsp.defaults")
-local helpers = require("user.lsp.helpers")
+local default_options = require("lsp.defaults")
+local helpers = require("lsp.helpers")
 
 mason_lsp.setup_handlers({
 	function(server_name)
@@ -116,18 +116,16 @@ mason_lsp.setup_handlers({
 			settings = {
 				Lua = {
 					runtime = {
-						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
 						version = "LuaJIT",
+						path = runtime_path,
 					},
 					diagnostics = {
-						-- Get the language server to recognize the `vim` global
 						globals = { "vim" },
 					},
 					workspace = {
-						-- Make the server aware of Neovim runtime files
 						library = vim.api.nvim_get_runtime_file("", true),
+						checkThirdParty = false,
 					},
-					-- Do not send telemetry data containing a randomized but unique identifier
 					telemetry = {
 						enable = false,
 					},
@@ -149,5 +147,18 @@ mason_lsp.setup_handlers({
 				}, filename)
 			end,
 		}))
+	end,
+})
+vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = "LspAttach_inlayhints",
+	callback = function(args)
+		if not (args.data and args.data.client_id) then
+			return
+		end
+
+		local bufnr = args.buf
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		require("lsp-inlayhints").on_attach(client, bufnr)
 	end,
 })

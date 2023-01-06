@@ -14,7 +14,7 @@ M.setup = function()
 	null_ls.setup({
 		sources = {
 			-- diagnostic.eslint,
-			format.prettierd,
+			format.prettier,
 			format.stylua,
 		},
 		on_attach = function(client, bufnr)
@@ -24,7 +24,7 @@ M.setup = function()
 					filter = function(client)
 						return client.name == "null-ls"
 					end,
-  				})
+				})
 			end
 
 			if client.supports_method("textDocument/formatting") then

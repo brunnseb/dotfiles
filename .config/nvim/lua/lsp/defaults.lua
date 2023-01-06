@@ -1,8 +1,6 @@
 local M = {}
 
 function M.on_attach(client, bufnr)
-	local ih = require("lsp-inlayhints")
-	ih.on_attach(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -31,7 +29,7 @@ capabilities.textDocument.colorProvider = {
 local cmp_nvim_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 
 if cmp_nvim_lsp_ok then
-	capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+	capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 end
 
 M.capabilities = capabilities

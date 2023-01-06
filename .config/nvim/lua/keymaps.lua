@@ -4,11 +4,11 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+-- keymap("", "<Space>", "<Nop>", opts)
 
-vim.g.mapleader = " "
+-- vim.g.mapleader = " "
 
-vim.g.maplocalleader = " "
+-- vim.g.maplocalleader = " "
 
 -- Modes
 --   normal_mode = "n",
@@ -26,12 +26,12 @@ vim.keymap.set("n", "<leader>cr", function()
 	return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
 
-keymap("n", "gd", "<cmd>lua require('user.custom.functions').go_to_definition()<CR>", opts)
+keymap("n", "gd", "<cmd>lua require('custom.functions').go_to_definition()<CR>", opts)
 keymap("n", "]g", "<cmd>lua vim.diagnostic.goto_next({ float = { border = 'rounded', max_width = 100 }})<CR>", opts)
 keymap("n", "[g", "<cmd>lua vim.diagnostic.goto_prev({ float = { border = 'rounded', max_width = 100 }})<CR>", opts)
 
 -- Telescope
-keymap("n", "<S-p>", "<CMD>lua require('user.custom.multi-rg')()<CR>", opts)
+keymap("n", "<S-p>", "<CMD>lua require('custom.multi-rg')()<CR>", opts)
 
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
