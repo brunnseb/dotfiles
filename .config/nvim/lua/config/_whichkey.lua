@@ -160,7 +160,9 @@ local mappings = {
 		p = { "<cmd>Neotree reveal_force_cwd<CR>", "Neotree" },
 		r = { "<cmd>NnnPicker %:p:h<CR>", "Nnn" },
 		t = { "<cmd>lua require('telescope').extensions.vstask.tasks()<CR>", "Tasks" },
+		u = { "<cmd>Telescope undo<cr>", "Undo" },
 		x = { "<cmd>Telescope neorg find_project_tasks<CR>", "Find project tasks" },
+		v = { "<cmd>Telescope registers<CR>", "Registers" },
 	},
 	p = {
 		name = "Project",

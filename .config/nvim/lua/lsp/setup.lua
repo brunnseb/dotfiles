@@ -31,6 +31,7 @@ mason_lsp.setup({
 local lspconfig = require("lspconfig")
 local default_options = require("lsp.defaults")
 local helpers = require("lsp.helpers")
+require("neodev").setup({})
 
 mason_lsp.setup_handlers({
 	function(server_name)
@@ -128,6 +129,9 @@ mason_lsp.setup_handlers({
 					},
 					telemetry = {
 						enable = false,
+					},
+					completion = {
+						callSnippet = "Replace",
 					},
 				},
 			},
