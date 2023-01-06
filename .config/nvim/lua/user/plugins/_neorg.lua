@@ -13,11 +13,11 @@ function M.setup()
 					},
 				},
 			},
-			["core.gtd.base"] = {
-				config = {
-					workspace = "gtd",
-				},
-			},
+			-- ["core.gtd.base"] = {
+			-- 	config = {
+			-- 		workspace = "gtd",
+			-- 	},
+			-- },
 			["core.norg.concealer"] = {},
 			["core.export"] = {},
 
