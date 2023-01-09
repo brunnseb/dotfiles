@@ -247,9 +247,22 @@ return {
 	},
 	{
 		"kevinhwang91/nvim-ufo",
+		event = "BufReadPost",
 		dependencies = { "kevinhwang91/promise-async" },
 		config = function()
 			require("config._ufo").setup()
+		end,
+	},
+	{
+		"utilyre/barbecue.nvim",
+		event = "BufReadPost",
+		dependencies = {
+			"neovim/nvim-lspconfig",
+			"SmiteshP/nvim-navic",
+			"kyazdani42/nvim-web-devicons",
+		},
+		config = function()
+			require("barbecue").setup()
 		end,
 	},
 
