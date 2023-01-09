@@ -3,6 +3,7 @@ return {
 	-- UI
 
 	{
+		"goolord/alpha-nvim",
 		lazy = false,
 		dependencies = { "kyazdani42/nvim-web-devicons" },
 		config = function()
@@ -257,7 +258,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
-			"p00f/nvim-ts-rainbow",
+			"mrjones2014/nvim-ts-rainbow",
 			"windwp/nvim-ts-autotag",
 			"nvim-treesitter/playground",
 		},
@@ -316,6 +317,44 @@ return {
 	},
 
 	-- UTILS
+
+	{
+		"jackMort/ChatGPT.nvim",
+		cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions" },
+		config = function()
+			require("chatgpt").setup({
+				-- optional configuration
+			})
+		end,
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
+	{
+		"anuvyklack/windows.nvim",
+		cmd = {
+			"WindowsMaximize",
+			"WindowsMaximizeVertically",
+			"WindowsMaximizeHorizontally",
+			"WindowsEqualize",
+			"WindowsEnableAutowidth",
+			"WindowsDisableAutowidth",
+			"WindowsToggleAutowidth",
+		},
+		dependencies = {
+			"anuvyklack/middleclass",
+			"anuvyklack/animation.nvim",
+		},
+		config = function()
+			vim.o.winwidth = 10
+			vim.o.winminwidth = 10
+			vim.o.equalalways = false
+			require("windows").setup()
+		end,
+	},
+
 	{
 		"folke/which-key.nvim",
 		keys = "<space>",

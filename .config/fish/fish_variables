@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export OPENAI_API_KEY:sk\x2dL0j7Vcc8cFTQoZQSF6zfT3BlbkFJCVtf0luzkV6yFKBNuZzy
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
@@ -23,6 +24,7 @@ SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrbl
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_escape_delay_ms:200
 SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow\x1e\x2di
@@ -30,7 +32,6 @@ SETUVAR fish_pager_color_prefix:cyan\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_user_paths:/home/brunnseb/\x2elocal/share/neovim/bin
-SETUVAR fish_escape_delay_ms:200
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute
