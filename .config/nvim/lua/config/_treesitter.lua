@@ -53,13 +53,13 @@ function M.setup()
 			},
 		},
 		indent = {
-			enable = false,
+			enable = true,
 		},
 		rainbow = {
 			enable = true,
 			extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-			colors = {}, -- table of hex strings
-			termcolors = {}, -- table of colour name strings
+			-- colors = {}, -- table of hex strings
+			-- termcolors = {}, -- table of colour name strings
 		},
 		autotag = {
 			enable = true,

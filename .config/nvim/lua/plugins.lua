@@ -39,19 +39,6 @@ return {
 		end,
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufReadPre",
-		config = function()
-			require("config._blankline").setup()
-		end,
-	},
-	-- {
-	-- 	"folke/twilight.nvim",
-	-- 	config = function()
-	-- 		require("twilight").setup({})
-	-- 	end,
-	-- },
-	{
 		"folke/zen-mode.nvim",
 		cmd = { "ZenMode" },
 		dependencies = { "folke/twilight.nvim" },
@@ -185,12 +172,13 @@ return {
 	-- TODO: Use Saga for other stuff like outline etc
 	{
 		"glepnir/lspsaga.nvim",
-		cmd = { "Lspsaga" },
+		event = "BufRead",
 		config = function()
-			local saga = require("lspsaga")
-
-			saga.init_lsp_saga({
-				custom_kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+			require("lspsaga").setup({
+				ui = {
+					colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
+					kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
+				},
 			})
 		end,
 	},
@@ -257,12 +245,15 @@ return {
 			"kyazdani42/nvim-web-devicons",
 		},
 		config = function()
-			require("barbecue").setup()
+			require("barbecue").setup({
+				theme = "catppuccin",
+			})
 		end,
 	},
 
 	-- TREESITTER
 
+	-- { "mrjones2014/nvim-ts-rainbow", lazy = false },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
@@ -372,7 +363,6 @@ return {
 	},
 	{
 		"numToStr/Comment.nvim",
-		keys = { "gc" },
 		event = { "BufRead" },
 		config = true,
 	},
