@@ -67,6 +67,18 @@ return {
 		},
 	},
 	-- { "stevearc/dressing.nvim" },
+	{
+		"onsails/lspkind.nvim",
+	},
+	{
+		"roobert/tailwindcss-colorizer-cmp.nvim",
+		-- optionally, override the default options:
+		config = function()
+			require("tailwindcss-colorizer-cmp").setup({
+				color_square_width = 2,
+			})
+		end,
+	},
 	{ "mrshmllow/document-color.nvim", event = "BufRead" },
 	{
 		"norcalli/nvim-colorizer.lua",
@@ -168,7 +180,6 @@ return {
 			"folke/neodev.nvim",
 		},
 	},
-
 	-- TODO: Use Saga for other stuff like outline etc
 	{
 		"glepnir/lspsaga.nvim",
@@ -309,6 +320,8 @@ return {
 			{ "hrsh7th/cmp-path" },
 			{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 			{ "saadparwaiz1/cmp_luasnip" },
+			{ "onsails/lspkind.nvim" },
+			{ "roobert/tailwindcss-colorizer-cmp.nvim" },
 		},
 		config = function()
 			require("config._cmp").setup()
@@ -316,7 +329,31 @@ return {
 	},
 
 	-- UTILS
-
+	-- {
+	-- 	"barrett-ruth/import-cost.nvim",
+	-- 	event = "BufReadPost",
+	-- 	build = "sh install.sh yarn",
+	-- 	config = true,
+	-- },
+	{
+		"asiryk/auto-hlsearch.nvim",
+		tag = "1.0.0",
+		event = "BufRead",
+		config = function()
+			require("auto-hlsearch").setup()
+		end,
+	},
+	{
+		"roobert/search-replace.nvim",
+		event = "BufRead",
+		config = function()
+			require("search-replace").setup({
+				-- optionally override defaults
+				default_replace_single_buffer_options = "gcI",
+				default_replace_multi_buffer_options = "egcI",
+			})
+		end,
+	},
 	{
 		"jackMort/ChatGPT.nvim",
 		cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions" },

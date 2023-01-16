@@ -1,6 +1,16 @@
 local M = {}
 
 function M.setup()
+	local tail_col_cmp_ok, tailwindcss_colorizer_cmp = pcall(require, "tailwindcss-colorizer-cmp")
+	if not tail_col_cmp_ok then
+		return
+	end
+
+	local lspkind_ok, lspkind = pcall(require, "lspkind")
+	if not lspkind_ok then
+		return
+	end
+
 	local status_ok, cmp = pcall(require, "cmp")
 	if not status_ok then
 		return
@@ -8,7 +18,6 @@ function M.setup()
 
 	local snip_status_ok, luasnip = pcall(require, "luasnip")
 	if not snip_status_ok then
-		print("not ok")
 		return
 	end
 
@@ -32,6 +41,24 @@ function M.setup()
 			{ name = "luasnip" },
 			{ name = "nvim_lsp_signature_help", keyword_length = 3 },
 		}),
+		formatting = {
+			fields = {
+				cmp.ItemField.Menu,
+				cmp.ItemField.Abbr,
+				cmp.ItemField.Kind,
+			},
+			format = lspkind.cmp_format({
+				mode = "symbol_text",
+				menu = {
+					buffer = "[BUF]",
+					nvim_lsp = "[LSP]",
+					nvim_lua = "[LUA]",
+					path = "[PATH]",
+					luasnip = "[SNIP]",
+				},
+				before = tailwindcss_colorizer_cmp.formatter,
+			}),
+		},
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
 			["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
