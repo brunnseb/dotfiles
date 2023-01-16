@@ -12,12 +12,12 @@ return {
 	},
 	{
 		"catppuccin/nvim",
+		lazy = false,
 		name = "catppuccin",
 		config = function()
 			require("config._catppuccin").setup()
 		end,
 		build = ":CatppuccinCompile",
-		lazy = false,
 	},
 	{
 		"kyazdani42/nvim-web-devicons",
@@ -45,12 +45,12 @@ return {
 			require("config._blankline").setup()
 		end,
 	},
-	{
-		"folke/twilight.nvim",
-		config = function()
-			require("twilight").setup({})
-		end,
-	},
+	-- {
+	-- 	"folke/twilight.nvim",
+	-- 	config = function()
+	-- 		require("twilight").setup({})
+	-- 	end,
+	-- },
 	{
 		"folke/zen-mode.nvim",
 		cmd = { "ZenMode" },
@@ -79,10 +79,11 @@ return {
 			"rcarriga/nvim-notify",
 		},
 	},
-	{ "stevearc/dressing.nvim" },
-	{ "mrshmllow/document-color.nvim" },
+	-- { "stevearc/dressing.nvim" },
+	{ "mrshmllow/document-color.nvim", event = "BufRead" },
 	{
 		"norcalli/nvim-colorizer.lua",
+		event = "BufRead",
 		config = function()
 			require("colorizer").setup({
 				"*",
@@ -94,11 +95,15 @@ return {
 
 	{
 		"nvim-telescope/telescope.nvim",
-		lazy = false,
+		event = "BufReadPre",
+		-- lazy = false,
 		dependencies = {
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			{
 				"debugloop/telescope-undo.nvim",
+			},
+			{
+				"cljoly/telescope-repo.nvim",
 			},
 		},
 		config = function()
@@ -106,8 +111,7 @@ return {
 		end,
 	},
 
-	{ "cljoly/telescope-repo.nvim" },
-	{ "nvim-pack/nvim-spectre" },
+	-- { "nvim-pack/nvim-spectre" },
 	{
 		"karb94/neoscroll.nvim",
 		keys = { "<C-u>", "<C-d>", "gg", "G" },
@@ -118,7 +122,8 @@ return {
 	{
 		"phaazon/hop.nvim",
 		branch = "v2",
-		lazy = false,
+		event = "BufRead",
+		-- lazy = false,
 		-- cmd = { "HopPattern", "HopLineBC", "HopLineAC" },
 		config = function()
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
@@ -128,6 +133,7 @@ return {
 	-- GIT
 
 	{ "kdheepak/lazygit.nvim", cmd = { "LazyGit" } },
+	-- TODO: Add event/cmd/keys?
 	{
 		"emmanueltouzery/agitator.nvim",
 	},
@@ -151,6 +157,7 @@ return {
 
 	{
 		"akinsho/git-conflict.nvim",
+		-- TODO: Add other commands, is this package even needed?
 		cmd = { "GitConflictListQf" },
 		config = true,
 	},
@@ -175,6 +182,7 @@ return {
 		},
 	},
 
+	-- TODO: Use Saga for other stuff like outline etc
 	{
 		"glepnir/lspsaga.nvim",
 		cmd = { "Lspsaga" },
@@ -202,9 +210,11 @@ return {
 			require("config._null-ls").setup()
 		end,
 	},
+	-- TODO: Add event?
 	{ "b0o/schemastore.nvim" },
 	{
 		"jose-elias-alvarez/typescript.nvim",
+		event = { "BufReadPre" },
 		config = function()
 			require("config._typescript").setup()
 		end,
@@ -363,17 +373,20 @@ return {
 	{
 		"numToStr/Comment.nvim",
 		keys = { "gc" },
+		event = { "BufRead" },
 		config = true,
 	},
 	{
 		"kylechui/nvim-surround",
-		lazy = false,
+		event = { "BufRead" },
+		-- TODO: Use keys?
 		-- keys = { "S", "ys", "ds", "cs" },
 		config = true,
 	},
-	{ "mattn/emmet-vim" },
+	{ "mattn/emmet-vim", event = "BufReadPost" },
 	{
 		"abecodes/tabout.nvim",
+		keys = { "<Tab>" },
 		config = function()
 			require("tabout").setup({
 				tabkey = "<Tab>",
@@ -383,10 +396,10 @@ return {
 	{ "lewis6991/impatient.nvim", lazy = false },
 	{ "nathom/filetype.nvim", lazy = false },
 	{ "chaoren/vim-wordmotion", event = "BufRead" },
-	{ "andymass/vim-matchup" },
-	{ "jinh0/eyeliner.nvim" },
+	{ "andymass/vim-matchup", event = "BufRead" },
 	{
 		"axelvc/template-string.nvim",
+		event = "BufRead",
 		config = function()
 			require("template-string").setup({})
 		end,
@@ -394,6 +407,7 @@ return {
 	{
 
 		"kkoomen/vim-doge",
+		event = "BufRead",
 		build = ":call doge#install()",
 	},
 	{
@@ -405,6 +419,7 @@ return {
 	},
 	{
 		"windwp/nvim-autopairs",
+		event = "BufRead",
 		config = function()
 			require("nvim-autopairs").setup({
 				check_ts = true,
@@ -413,16 +428,17 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
-		cmd = { "TodoTelescope" },
+		event = "BufRead",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("todo-comments").setup({})
 		end,
 	},
-	{ "gaelph/logsitter.nvim", dependencies = { "nvim-treesitter/nvim-treesitter" } },
-	{ "mg979/vim-visual-multi" },
+	{ "gaelph/logsitter.nvim", event = "BufRead", dependencies = { "nvim-treesitter/nvim-treesitter" } },
+	{ "mg979/vim-visual-multi", event = "BufRead" },
 	{
 		"nvim-neorg/neorg",
+		cmd = { "Neorg" },
 		build = ":Neorg sync-parsers",
 		config = function()
 			require("config._neorg").setup()
@@ -431,6 +447,7 @@ return {
 	},
 	{
 		"akinsho/toggleterm.nvim",
+		keys = { "<F12>" },
 		version = "*",
 		config = function()
 			require("config._term").setup()
@@ -438,6 +455,7 @@ return {
 	},
 	{
 		"EthanJWright/vs-tasks.nvim",
+		event = "BufRead",
 		dependencies = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
@@ -452,6 +470,7 @@ return {
 
 	{
 		"nvim-neotest/neotest",
+		event = "BufRead",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",

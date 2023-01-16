@@ -105,7 +105,7 @@ local mappings = {
 		l = { "<cmd>lua vim.diagnostic.open_float({ border = 'rounded', max_width = 100 })<CR>", "Line diagnostics" },
 		D = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
 		R = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
-		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
+		a = { "<cmd>Lspsaga code_action<CR>", "Code action" },
 		d = { "<cmd>lua require('custom.functions').go_to_definition()<CR>", "Definition" },
 		f = { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", "Format" },
 		i = { "<cmd>lua require('lsp-inlayhints').toggle()<CR>", "Toggle inlay hints" },

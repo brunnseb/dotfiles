@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-	local default_options = require("user.lsp.defaults")
-	local helpers = require("user.lsp.helpers")
+	local default_options = require("lsp.defaults")
+	local helpers = require("lsp.helpers")
 	local status_ok, typescript = pcall(require, "typescript")
 
 	if not status_ok then

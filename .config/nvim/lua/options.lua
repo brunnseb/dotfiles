@@ -32,7 +32,7 @@ local options = {
 	swapfile = false, -- creates a swapfile
 	tabstop = 2, -- insert 2 spaces for a tab
 	termguicolors = true, -- set term gui colors (most terminals support this)
-	timeoutlen = 100, -- time to wait for a mapped sequence to complete (in milliseconds)
+	timeoutlen = 250, -- time to wait for a mapped sequence to complete (in milliseconds)
 	undofile = true, -- enable persistent undo
 	updatetime = 300, -- faster completion (4000ms default)
 	wrap = false, -- display lines as one long line
@@ -53,6 +53,8 @@ let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
+
+vim.g.user_emmet_leader_key = "<C-,>"
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])

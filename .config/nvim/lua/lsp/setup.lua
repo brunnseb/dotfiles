@@ -86,6 +86,18 @@ mason_lsp.setup_handlers({
 			capabilities = {
 				textDocument = { completion = { completionItem = { snippetSupport = true } } },
 			},
+			settings = {
+				scss = {
+					lint = {
+						unknownAtRules = "ignore",
+					},
+				},
+				css = {
+					lint = {
+						unknownAtRules = "ignore",
+					},
+				},
+			},
 		}))
 	end,
 
