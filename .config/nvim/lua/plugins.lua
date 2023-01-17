@@ -355,6 +355,18 @@ return {
 		end,
 	},
 	{
+		"vinnymeller/swagger-preview.nvim",
+		event = "BufRead",
+		config = function()
+			require("swagger-preview").setup({
+				-- The port to run the preview server on
+				port = 8000,
+				-- The host to run the preview server on
+				host = "localhost",
+			})
+		end,
+	},
+	{
 		"jackMort/ChatGPT.nvim",
 		cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions" },
 		config = function()
