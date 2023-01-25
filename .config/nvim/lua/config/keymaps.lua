@@ -16,17 +16,42 @@ end
 map(
   "n",
   "<leader>,",
-  "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>"
+  "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
+  { desc = "Buffers" }
 )
 map(
   "n",
   "<leader>.",
-  "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>"
+  "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
+  { desc = "Files in current directory" }
 )
 
 -- Files
 map("n", "<leader>fc", "<cmd>e $MYVIMRC <CR>", { desc = "Config" })
 map("n", "<leader>fs", "<cmd>update!<CR>", { desc = "Save File" })
+
+-- Buffer
+map("n", "<leader>bK", "<cmd>%bd|e#|bd#<Cr>", { desc = "Delete all buffers" })
+
+-- Window
+map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
+map("n", "<leader>wj", "<C-w>j", { desc = "Go to right window" })
+map("n", "<leader>wk", "<C-w>k", { desc = "Go to top window" })
+map("n", "<leader>wl", "<C-w>l", { desc = "Go to bottom window" })
+map("n", "<leader>wH", "<C-w>H", { desc = "Move window to left" })
+map("n", "<leader>wJ", "<C-w>J", { desc = "Move window to right" })
+map("n", "<leader>wK", "<C-w>K", { desc = "Move window up" })
+map("n", "<leader>wL", "<C-w>L", { desc = "Move window down" })
+
+map("n", "<leader>wS", "<cmd>WindowsMaximizeVertically<CR>", { desc = "maximize vertically" })
+map("n", "<leader>ws", "<C-w>s", { desc = "split horizontal" })
+map("n", "<leader>wV", "<cmd>WindowsMaximizeHorizontally<CR>", { desc = "maximize horizontally" })
+map("n", "<leader>wv", "<C-w>v", { desc = "split vertical" })
+map("n", "<leader>wo", "<C-w>o", { desc = "maximize current window" })
+map("n", "<leader>wO", "<cmd>WindowsMaximize<CR>", { desc = "maximize current window" })
+
+-- Misc
+map("n", "<leader>ml", "<cmd> lua require('logsitter').log()<CR>", { desc = "Log symbol" })
 
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
