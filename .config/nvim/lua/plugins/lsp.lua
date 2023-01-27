@@ -1,4 +1,13 @@
 return {
+  {
+    "glepnir/lspsaga.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = function(_, opts)
+      opts.rename = {
+        quit = "<esc>",
+      }
+    end,
+  },
   { "mrshmllow/document-color.nvim", config = true },
   {
 
@@ -32,7 +41,21 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "mrshmllow/document-color.nvim" },
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] =
+        { "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
+      keys[#keys + 1] = { "<leader>cD", "<cmd>Lspsaga lsp_finder<cr>", desc = "Finder" }
+      keys[#keys + 1] = { "K", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover Doc" }
+      keys[#keys + 1] = { "<leader>cd", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek definition" }
+      keys[#keys + 1] = { "<leader>ct", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type definition" }
+      keys[#keys + 1] = { "<leader>cr", "<cmd>Lspsaga rename ++project<cr>", desc = "Rename", has = "rename" }
+      keys[#keys + 1] = { "<leader>cl", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Line diagnostics" }
+      keys[#keys + 1] = { "gd", "<cmd>Lspsaga goto_definition<cr>", desc = "Goto Definition" }
+      keys[#keys + 1] = { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Next Diagnostic" }
+      keys[#keys + 1] = { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Previous Diagnostic" }
+    end,
+    dependencies = { "mrshmllow/document-color.nvim", "glepnir/lspsaga.nvim" },
     opts = {
       servers = {
         tailwindcss = {

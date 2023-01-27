@@ -47,15 +47,14 @@ return {
       require("windows").setup()
     end,
   },
-  -- {
-  --   "notjedi/nvim-rooter.lua",
-  --   lazy = false,
-  --   config = function()
-  --     require("nvim-rooter").setup({
-  --       rooter_patterns = { "=cockpit-portal", ".vscode", ".git" },
-  --       trigger_patterns = { "*" },
-  --       manual = false,
-  --     })
-  --   end,
-  -- },
+  {
+    "notjedi/nvim-rooter.lua",
+    config = function()
+      require("nvim-rooter").setup({
+        rooter_patterns = { "=cockpit-portal", "lazy-lock.json", ".vscode", ".git" },
+        trigger_patterns = { "*" },
+        manual = false,
+      })
+    end,
+  },
 }

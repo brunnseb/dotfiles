@@ -42,16 +42,28 @@ map("n", "<leader>wH", "<C-w>H", { desc = "Move window to left" })
 map("n", "<leader>wJ", "<C-w>J", { desc = "Move window to right" })
 map("n", "<leader>wK", "<C-w>K", { desc = "Move window up" })
 map("n", "<leader>wL", "<C-w>L", { desc = "Move window down" })
-
 map("n", "<leader>wS", "<cmd>WindowsMaximizeVertically<CR>", { desc = "maximize vertically" })
 map("n", "<leader>ws", "<C-w>s", { desc = "split horizontal" })
 map("n", "<leader>wV", "<cmd>WindowsMaximizeHorizontally<CR>", { desc = "maximize horizontally" })
 map("n", "<leader>wv", "<C-w>v", { desc = "split vertical" })
 map("n", "<leader>wo", "<C-w>o", { desc = "maximize current window" })
 map("n", "<leader>wO", "<cmd>WindowsMaximize<CR>", { desc = "maximize current window" })
+map("n", "<leader>wp", function()
+  local picked_window_id = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+  vim.api.nvim_set_current_win(picked_window_id)
+end, { desc = "Pick a window" })
 
 -- Misc
 map("n", "<leader>ml", "<cmd> lua require('logsitter').log()<CR>", { desc = "Log symbol" })
+
+-- Neotest
+map("n", "<leader>tr", "<cmd> lua require('neotest').run.run()<CR>", { desc = "Run tests" })
+map("n", "<leader>tf", "<cmd> lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { desc = "Run file" })
+map("n", "<leader>ts", "<cmd> lua require('neotest').summary.toggle()<CR>", { desc = "Toggle Summary" })
+map("n", "<leader>to", "<cmd> lua require('neotest').output_panel.toggle()<CR>", { desc = "Show Output" })
+
+-- Neotree
+map("n", "<leader>E", "<cmd>Neotree focus<CR>", { desc = "Focus Neotree" })
 
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
