@@ -65,6 +65,22 @@ map("n", "<leader>to", "<cmd> lua require('neotest').output_panel.toggle()<CR>",
 -- Neotree
 map("n", "<leader>E", "<cmd>Neotree focus<CR>", { desc = "Focus Neotree" })
 
+-- Telescope
+map("n", "<leader>su", "<cmd>Telescope undo<cr>", { desc = "Undo" })
+map("n", "<leader>sv", "<cmd>Telescope registers<cr>", { desc = "Registers" })
+
+-- Project
+map(
+  "n",
+  "<leader>pp",
+  "<cmd>lua require'telescope'.extensions.repo.list(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.4 }, file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%qmk_firmware/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh', '/Library/', '/%.cocoapods/'}}))<CR>",
+  { desc = "List Repos" }
+)
+map("n", "<leader>ps", "wa", { desc = "Save all" })
+
+-- Zen
+map("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Zen" })
+
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
 -- map("n", "<A-,>", "<cdm>lua require('sj').prev_match()<CR>")

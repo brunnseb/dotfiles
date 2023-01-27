@@ -338,4 +338,24 @@ return {
     end,
     build = ":CatppuccinCompile",
   },
+  {
+    "folke/zen-mode.nvim",
+    cmd = { "ZenMode" },
+    dependencies = { "folke/twilight.nvim" },
+    opts = function(_, opts)
+      opts.window = {
+        backdrop = 0.8,
+      }
+      opts.plugins = {
+        gitsigns = { enabled = true },
+        kitty = {
+          enabled = true,
+          font = "+3", -- font size increment
+        },
+      }
+      opts.on_open = function()
+        require("gitsigns").toggle_signs()
+      end
+    end,
+  },
 }

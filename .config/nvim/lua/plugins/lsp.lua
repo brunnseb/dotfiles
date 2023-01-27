@@ -1,4 +1,28 @@
+local function compose_root_dir(pattern, filename)
+  local lspconfig = require("lspconfig")
+  local root
+  -- in order of preference:
+  -- * git repository root
+  -- * pattern
+  -- * package.json root
+  -- * node_modules root
+  root = lspconfig.util.find_git_ancestor(filename)
+  root = root or lspconfig.util.root_pattern(unpack(pattern))(filename)
+  root = root or lspconfig.util.find_package_json_ancestor(filename)
+  root = root or lspconfig.util.find_node_modules_ancestor("tsconfig.json")(filename)
+  return root
+end
+
 return {
+
+  {
+    "folke/neoconf.nvim",
+    opts = {
+      import = {
+        vscode = false,
+      },
+    },
+  },
   {
     "glepnir/lspsaga.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -58,6 +82,18 @@ return {
     dependencies = { "mrshmllow/document-color.nvim", "glepnir/lspsaga.nvim" },
     opts = {
       servers = {
+        eslint = {
+          root_dir = function(filename, _)
+            return compose_root_dir({
+              ".eslintrc",
+              ".eslintrc.js",
+              ".eslintrc.cjs",
+              ".eslintrc.yaml",
+              ".eslintrc.yml",
+              ".eslintrc.json",
+            }, filename)
+          end,
+        },
         tailwindcss = {
           capabilities = {
             textDocument = {
@@ -67,18 +103,29 @@ return {
               },
             },
           },
-          settings = {
-            tailwindCSS = {
-              experimental = {
-                configFile = {
-                  ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
-                  ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
-                  ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
-                  ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
-                },
-              },
-            },
-          },
+          root_dir = function(filename, _)
+            return compose_root_dir({
+              "tailwind.config.json",
+              "tailwind.config.ts",
+              "tailwind.config.js",
+              "tailwind.config.cjs",
+              "postcss.config.js",
+              "postcss.config.cjs",
+              "postcss.config.ts",
+            }, filename)
+          end,
+          -- settings = {
+          --   tailwindCSS = {
+          --     experimental = {
+          --       configFile = {
+          --         ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
+          --         ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
+          --         ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
+          --         ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
+          --       },
+          --     },
+          --   },
+          -- },
         },
         cssls = {
           capabilities = {
@@ -129,6 +176,9 @@ return {
               )
             end
           end)
+          opts.root_dir = function(filename, _)
+            return compose_root_dir({ "tsconfig.json", "jsconfig.json", "*.ts", "*.js", "*.tsx", "*.jsx" }, filename)
+          end
           require("typescript").setup({ server = opts })
           return true
         end,

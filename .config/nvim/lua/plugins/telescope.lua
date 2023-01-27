@@ -3,6 +3,7 @@ return {
     "nvim-telescope/telescope.nvim",
     keys = {
       { "<leader>,", false },
+      { "<leader><space>", "<leader>fF", remap = true, desc = "Find Files (cwd)" },
     },
     dependencies = {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
