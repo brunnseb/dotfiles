@@ -129,7 +129,13 @@ return {
         },
         cssls = {
           capabilities = {
-            textDocument = { completion = { completionItem = { snippetSupport = true } } },
+            textDocument = {
+              completion = { completionItem = { snippetSupport = true } },
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
           },
           settings = {
             scss = {
@@ -179,6 +185,16 @@ return {
           opts.root_dir = function(filename, _)
             return compose_root_dir({ "tsconfig.json", "jsconfig.json", "*.ts", "*.js", "*.tsx", "*.jsx" }, filename)
           end
+
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+          capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          }
+
+          opts.capabilities = capabilities
+
           require("typescript").setup({ server = opts })
           return true
         end,

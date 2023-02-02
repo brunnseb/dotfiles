@@ -81,6 +81,14 @@ map("n", "<leader>ps", "wa", { desc = "Save all" })
 -- Zen
 map("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Zen" })
 
+-- Ufo
+map("n", "zk", function()
+  local winid = require("ufo").peekFoldedLinesUnderCursor()
+  if not winid then
+    vim.lsp.buf.hover()
+  end
+end, { desc = "Peek fold" })
+
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
 -- map("n", "<A-,>", "<cdm>lua require('sj').prev_match()<CR>")
