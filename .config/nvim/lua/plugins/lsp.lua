@@ -75,6 +75,7 @@ return {
       keys[#keys + 1] = { "<leader>ct", "<cmd>lua vim.lsp.buf.type_definition()<cr>", desc = "Type definition" }
       keys[#keys + 1] = { "<leader>cr", "<cmd>Lspsaga rename ++project<cr>", desc = "Rename", has = "rename" }
       keys[#keys + 1] = { "<leader>cl", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Line diagnostics" }
+      keys[#keys + 1] = { "<leader>cs", "<cmd>Lspsaga outline<cr>", desc = "Outline" }
       keys[#keys + 1] = { "gd", "<cmd>Lspsaga goto_definition<cr>", desc = "Goto Definition" }
       keys[#keys + 1] = { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Next Diagnostic" }
       keys[#keys + 1] = { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Previous Diagnostic" }
