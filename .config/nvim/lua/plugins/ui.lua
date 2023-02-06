@@ -1,5 +1,48 @@
 return {
   {
+    "folke/tokyonight.nvim",
+    opts = function(_, opts)
+      opts.on_highlights = function(hl, c)
+        local prompt = "#2d3149"
+
+        hl.TabFill = { bg = "#122432" }
+        hl.TabLineHead = { bg = "#FF6CA4", fg = "#1A3549" }
+        hl.TabLineSel = { bg = "#00C8A0", fg = "#122432", style = "italic,bold" }
+        hl.TabLineIn = { bg = "#1A3549", fg = "#E2EFFE" }
+
+        hl.TelescopeNormal = {
+          bg = c.bg_dark,
+          fg = c.fg_dark,
+        }
+        hl.TelescopeBorder = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+        hl.TelescopePromptNormal = {
+          bg = prompt,
+        }
+        hl.TelescopePromptBorder = {
+          bg = prompt,
+          fg = prompt,
+        }
+        hl.TelescopePromptTitle = {
+          bg = prompt,
+          fg = prompt,
+        }
+        hl.TelescopePreviewTitle = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+        hl.TelescopeResultsTitle = {
+          bg = c.bg_dark,
+          fg = c.bg_dark,
+        }
+      end
+
+      return opts
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
       -- Cobalt Colors

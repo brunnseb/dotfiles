@@ -34,6 +34,7 @@ return {
 
       require("ufo").setup({
         fold_virt_text_handler = handler,
+        ---@diagnostic disable-next-line: assign-type-mismatch
         close_fold_kinds = { "imports", "comment" },
       })
       -- buffer scope handler
@@ -62,9 +63,6 @@ return {
     "kylechui/nvim-surround",
     config = true,
   },
-  { "ggandor/lightspeed.nvim", opts = {
-    ignore_case = true,
-  } },
   { "andymass/vim-matchup" },
   { "mg979/vim-visual-multi" },
   {

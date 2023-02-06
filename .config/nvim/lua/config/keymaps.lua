@@ -57,10 +57,17 @@ end, { desc = "Pick a window" })
 map("n", "<leader>ml", "<cmd> lua require('logsitter').log()<CR>", { desc = "Log symbol" })
 
 -- Neotest
-map("n", "<leader>tr", "<cmd> lua require('neotest').run.run()<CR>", { desc = "Run tests" })
-map("n", "<leader>tf", "<cmd> lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { desc = "Run file" })
-map("n", "<leader>ts", "<cmd> lua require('neotest').summary.toggle()<CR>", { desc = "Toggle Summary" })
-map("n", "<leader>to", "<cmd> lua require('neotest').output_panel.toggle()<CR>", { desc = "Show Output" })
+map("n", "<leader>Tr", "<cmd> lua require('neotest').run.run()<CR>", { desc = "Run tests" })
+map("n", "<leader>Tf", "<cmd> lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { desc = "Run file" })
+map("n", "<leader>Ts", "<cmd> lua require('neotest').summary.toggle()<CR>", { desc = "Toggle Summary" })
+map("n", "<leader>To", "<cmd> lua require('neotest').output_panel.toggle()<CR>", { desc = "Show Output" })
+
+-- Tabs
+map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "New tab" })
+map("n", "<leader>tl", "<cmd>tabn<CR>", { desc = "Next tab" })
+map("n", "<leader>th", "<cmd>tabp<CR>", { desc = "Previous tab" })
+map("n", "<leader>td", "<cmd>tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>tr", "<cmd>TabRename<CR>", { desc = "Rename tab" })
 
 -- Neotree
 map("n", "<leader>E", "<cmd>Neotree focus<CR>", { desc = "Focus Neotree" })
@@ -87,7 +94,7 @@ map("n", "zk", function()
   if not winid then
     vim.lsp.buf.hover()
   end
-end, { desc = "Peek fold" })
+end)
 
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
