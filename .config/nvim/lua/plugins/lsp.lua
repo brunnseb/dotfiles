@@ -57,6 +57,7 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
+          nls.builtins.formatting.eslint_d,
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
         },
