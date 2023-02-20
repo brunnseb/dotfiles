@@ -100,7 +100,8 @@
           },
           "hyprland/window": {
               "format": "{}",
-              "separate-outputs": true
+              "separate-outputs": true,
+              "max-length": 50 
           },
           "custom/power": {
             "tooltip": false,
