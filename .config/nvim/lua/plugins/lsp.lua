@@ -48,6 +48,7 @@ return {
         "css-lsp",
         "cssmodules-language-server",
         "eslint-lsp",
+        "bash-language-server",
       },
     },
   },

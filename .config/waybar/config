@@ -1,0 +1,119 @@
+        {
+          "layer": "top",
+          "position": "top",
+          "modules-left": [
+            "wlr/workspaces"
+          ],
+          "modules-center": ["hyprland/window"],
+          "modules-right": [
+            "pulseaudio",
+            "network",
+            "backlight",
+            "battery",
+            "custom/notification",
+            "clock",
+            "tray",
+            "custom/power"
+          ],
+          "wlr/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": "" 
+            }, 
+            "on-click": "activate"
+          },
+          "custom/notification": {
+            "tooltip": false,
+            "format": "{icon}",
+            "format-icons": {
+              "notification": "<span foreground='#D45A7E'><sup><big></big></sup></span>",
+              "none": "",
+              "dnd-notification": "<span foreground='#D45A7E'><sup><big></big></sup></span>",
+              "dnd-none": ""
+            },
+            "return-type": "json",
+            "exec-if": "which swaync-client",
+            "exec": "swaync-client -swb",
+            "on-click": "swaync-client -t -sw",
+            "on-click-right": "swaync-client -d -sw",
+            "escape": true
+          },
+          "pulseaudio": {
+            "format": " {icon} ",
+            "format-muted": "ﱝ",
+            "format-icons": [
+              "奄",
+              "奔",
+              "墳"
+            ],
+            "tooltip": true,
+            "tooltip-format": "{volume}%"
+          },
+          "network": {
+            "format-wifi": " ",
+            "format-disconnected": "睊",
+            "format-ethernet": " ",
+            "tooltip": true,
+            "tooltip-format": "{signalStrength}%"
+          },
+          "backlight": {
+            "device": "intel_backlight",
+            "format": "{icon}",
+            "format-icons": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "tooltip": true,
+            "tooltip-format": "{percent}%"
+          },
+          "battery": {
+            "states": {
+              "warning": 30,
+              "critical": 15
+            },
+            "format": "{icon}",
+            "format-charging": "",
+            "format-plugged": "",
+            "format-icons": [
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "tooltip": true,
+            "tooltip-format": "{capacity}%"
+          },
+          "hyprland/window": {
+              "format": "{}",
+              "separate-outputs": true
+          },
+          "custom/power": {
+            "tooltip": false,
+            "on-click": "wlogout",
+            "format": "襤"
+          },
+          "clock": {
+            "tooltip-format": "<small>{calendar}</small>",
+            "format-alt": "{:%d%m%Y}",
+            "format": "{:%H:%M}"
+          },
+          "tray": {
+            "icon-size": 24,
+            "spacing": 10
+          }
+        }
