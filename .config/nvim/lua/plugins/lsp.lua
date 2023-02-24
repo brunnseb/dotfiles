@@ -46,7 +46,6 @@ return {
         "json-lsp",
         "tailwindcss-language-server",
         "css-lsp",
-        "cssmodules-language-server",
         "eslint-lsp",
         "bash-language-server",
       },
