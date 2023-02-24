@@ -96,6 +96,15 @@ map("n", "zk", function()
   end
 end)
 
+-- Navigate to occurence
+map("n", "gj", "*", { desc = "Next occurence" })
+map("n", "gk", "#", { desc = "Previous occurence" })
+
+-- Hop
+map("n", "gs/", "<cmd>HopPattern<CR>", { desc = "Hop Pattern" })
+map("n", "gsk", "<cmd>HopLineBC<CR>", { desc = "Hop Line Up" })
+map("n", "gsj", "<cmd>HopLineAC<CR>", { desc = "Hop Line Down" })
+
 -- Motion
 -- map("n", "s", "<cmd>lua require('sj').run()<CR>")
 -- map("n", "<A-,>", "<cdm>lua require('sj').prev_match()<CR>")

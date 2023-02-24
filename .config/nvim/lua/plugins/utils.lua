@@ -1,4 +1,5 @@
 return {
+  { "phaazon/hop.nvim", branch = "v2", config = true },
   {
     "kevinhwang91/nvim-ufo",
     event = "BufReadPost",
