@@ -18,9 +18,19 @@
           "wlr/workspaces": {
             "format": "{icon}",
             "format-icons": {
-                "default": "" 
+                "default": "" ,
+                "1": "➊ " ,
+                "2": "➋ " ,
+                "3": "➌ " ,
+                "4": "➍ " ,
+                "5": "➎ " ,
+                "6": "➏ " ,
+                "7": "➐ " ,
+                "8": "➑ " ,
+                "9": "➒ " ,
+                "0": "🄌 " ,
             }, 
-            "on-click": "activate"
+            "on-click": "activate",
           },
           "custom/notification": {
             "tooltip": false,

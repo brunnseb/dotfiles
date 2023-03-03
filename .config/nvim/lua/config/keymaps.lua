@@ -26,6 +26,14 @@ map(
   { desc = "Files in current directory" }
 )
 
+-- Live grep
+map(
+  "n",
+  "<leader>/",
+  "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+  { desc = "Live grep" }
+)
+
 -- Files
 map("n", "<leader>fc", "<cmd>e $MYVIMRC <CR>", { desc = "Config" })
 map("n", "<leader>fs", "<cmd>update!<CR>", { desc = "Save File" })
