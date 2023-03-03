@@ -21,6 +21,9 @@ return {
       matchup = {
         enable = true,
       },
+      rainbow = {
+        enable = true,
+      },
     },
   },
 }

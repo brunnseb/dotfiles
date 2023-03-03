@@ -166,7 +166,7 @@ return {
   },
   {
     "catppuccin/nvim",
-    enabled = false,
+    -- enabled = false,
     name = "catppuccin",
     config = function()
       local util = require("catppuccin.utils.colors")
@@ -377,8 +377,9 @@ return {
           booleans = { "italic" },
         },
       })
-      vim.api.nvim_command("colorscheme catppuccin-macchiato")
+      -- vim.api.nvim_command("colorscheme catppuccin-macchiato")
     end,
+    cmd = "Catppuccin",
     build = ":CatppuccinCompile",
   },
   {
