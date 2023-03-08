@@ -247,6 +247,7 @@ return {
         ["<leader>f"] = { name = "+file/find" },
         ["<leader>g"] = { name = "+git" },
         ["<leader>gh"] = { name = "+hunks" },
+        ["<leader>j"] = { name = "+portal" },
         ["<leader>m"] = { name = "+misc" },
         ["<leader>p"] = { name = "+project" },
         ["<leader>q"] = { name = "+quit/session" },

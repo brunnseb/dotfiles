@@ -1,4 +1,11 @@
 return {
+  {
+    "cbochs/grapple.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    "cbochs/portal.nvim",
+  },
   { "phaazon/hop.nvim", branch = "v2", config = true },
   {
     "kevinhwang91/nvim-ufo",
