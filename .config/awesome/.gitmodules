@@ -1,0 +1,24 @@
+[submodule "bling"]
+	path = external/bling
+	url = https://github.com/BlingCorp/bling
+[submodule "layout-machi"]
+	path = external/layout-machi
+	url = https://github.com/xinhaoyuan/layout-machi
+[submodule "color"]
+	path = external/color
+	url = https://github.com/andOrlando/color
+[submodule "xml2lua"]
+	path = external/xml2lua
+	url = https://github.com/manoelcampos/xml2lua
+[submodule "json"]
+	path = external/json
+	url = https://github.com/rxi/json.lua
+[submodule "dbus_proxy"]
+	path = external/dbus_proxy
+	url = https://github.com/stefano-m/lua-dbus_proxy
+[submodule "async"]
+	path = external/async
+	url = https://github.com/sclu1034/async.lua
+[submodule "filesystem"]
+	path = external/filesystem
+	url = https://github.com/sclu1034/lgi-async-extra
