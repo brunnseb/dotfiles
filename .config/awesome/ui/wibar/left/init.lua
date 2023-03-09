@@ -25,12 +25,12 @@ awful.screen.connect_for_each_screen(function(s)
 		bg = beautiful.colors.background,
 		widget = {
 			widget = wibox.container.place,
-			valign = "bottom",
+			valign = "top",
 			forced_width = dpi(65),
 			{
 
 				widget = wibox.container.margin,
-				bottom = dpi(130),
+				top = dpi(65),
 				taglist(s),
 			},
 		},

@@ -225,7 +225,7 @@ local function dont_disturb()
 end
 
 local function screenshot()
-	local widget = button(beautiful.icons.palette, "Screenshot", function()
+	local widget = button(beautiful.icons.screenshot, "Screenshot", function()
 		screenshot_popup:toggle()
 	end)
 

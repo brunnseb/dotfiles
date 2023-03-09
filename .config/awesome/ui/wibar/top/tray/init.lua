@@ -155,6 +155,19 @@ local function volume()
 	return widget
 end
 
+local function sys_tray()
+	local widget = wibox.widget({
+		widget = wibox.container.margin,
+		margins = dpi(25),
+		{
+			widget = wibox.widget.systray,
+			horizontal = false,
+		},
+	})
+
+	return widget
+end
+
 local function custom_tray()
 	local layout = wibox.widget({
 		layout = wibox.layout.fixed.horizontal,
@@ -202,7 +215,7 @@ end
 local function new()
 	return wibox.widget({
 		layout = wibox.layout.fixed.horizontal,
-		system_tray(),
+		sys_tray(),
 		custom_tray(),
 	})
 end
