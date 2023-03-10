@@ -192,6 +192,10 @@ local apps = {
 	rockstar_games_launcer = {
 		name = "Rockstar Games Launcher",
 	},
+	ulauncher = {
+		name = "ulauncher",
+		class = "Ulauncher",
+	},
 	rocket_league = {
 		class = "steam_app_252950",
 	},
@@ -299,7 +303,7 @@ ruled.client.connect_signal("request::rules", function()
 			honor_workarea = true,
 			honor_padding = true,
 			maximized = false,
-			titlebars_enabled = false,
+			titlebars_enabled = true,
 			maximized_horizontal = false,
 			maximized_vertical = false,
 			placement = awful.placement.centered,
@@ -386,6 +390,15 @@ ruled.client.connect_signal("request::rules", function()
 		-- properties = { floating = true, width = awful.screen.focused().geometry.width * 0.55, height = awful.screen.focused().geometry.height * 0.65 }
 	})
 
+	-- Ulauncher
+	ruled.client.append_rule({
+		rule = {
+			class = apps.ulauncher.class,
+		},
+		properties = {
+			titlebars_enabled = false,
+		},
+	})
 	-- Pavucontrol
 	ruled.client.append_rule({
 		rule = {
@@ -393,6 +406,7 @@ ruled.client.connect_signal("request::rules", function()
 		},
 		properties = {
 			floating = true,
+			titlebars_enabled = false,
 			width = awful.screen.focused().geometry.width * 0.45,
 			height = awful.screen.focused().geometry.height * 0.8,
 		},
