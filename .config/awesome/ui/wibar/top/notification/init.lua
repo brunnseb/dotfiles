@@ -5,6 +5,7 @@
 local wibox = require("wibox")
 local widgets = require("ui.widgets")
 local notification_panel = require("ui.panels.notification")
+local notifications_daemon = require("daemons.system.notifications")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
 
@@ -21,14 +22,27 @@ local function new()
 			id = "button",
 			forced_width = dpi(50),
 			forced_height = dpi(50),
-			icon = beautiful.icons.notification,
-			on_normal_bg = beautiful.icons.notification.color,
+			icon = beautiful.icons.bell,
+			color = beautiful.colors.white,
+			text_normal_bg = beautiful.colors.white,
 			text_on_normal_bg = beautiful.colors.transparent,
 			on_release = function()
 				notification_panel:toggle()
 			end,
 		},
 	})
+
+	notifications_daemon:connect_signal("new", function()
+		widget:get_children_by_id("button")[1]:set_icon(beautiful.icons.bell_ringing)
+		widget:get_children_by_id("button")[1]:set_color(beautiful.colors.red)
+		widget:get_children_by_id("button")[1]:set_text_normal_bg(beautiful.colors.red)
+	end)
+
+	notifications_daemon:connect_signal("empty", function()
+		widget:get_children_by_id("button")[1]:set_icon(beautiful.icons.bell)
+		widget:get_children_by_id("button")[1]:set_color(beautiful.colors.white)
+		widget:get_children_by_id("button")[1]:set_text_normal_bg(beautiful.colors.white)
+	end)
 
 	notification_panel:connect_signal("visibility", function(self, visibility)
 		if visibility == true then
