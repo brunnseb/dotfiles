@@ -18,23 +18,6 @@ local theme = {}
 
 local function colors()
 	local colors = theme_daemon:get_active_colorscheme_colors()
-	-- local colors = {
-	-- 	"#21425b",
-	-- 	"#D45A7E",
-	-- 	"#00C8A0",
-	-- 	"#FFD701",
-	-- 	"#0088FF",
-	-- 	"#7F6ABE",
-	-- 	"#90EBED",
-	-- 	"#1A3549",
-	-- 	"#E2EFFE",
-	-- 	"#FF6CA4",
-	-- 	"#97EA88",
-	-- 	"#FF9D03",
-	-- 	"#006dcc",
-	-- 	"#dc8a78",
-	-- 	"#84DCC6",
-	-- }
 
 	theme.colors = {
 		red = colors[2],
@@ -229,7 +212,7 @@ local function icons()
 		bell = { icon = "" },
 		router = { icon = "︁" },
 		message = { icon = "︁" },
-		xmark = { icon = "" },
+		xmark = { icon = "" },
 		microchip = { icon = "" },
 		disc_drive = { icon = "" },
 		gear = { icon = "" },
@@ -250,7 +233,7 @@ local function icons()
 		arrow_rotate_right = { icon = "" },
 		table_layout = { icon = "" },
 		tag = { icon = "" },
-		xmark_fw = { icon = "" },
+		xmark_fw = { icon = "" },
 		clouds = { icon = "" },
 		circle_check = { icon = "" },
 		laptop_code = { icon = "" },

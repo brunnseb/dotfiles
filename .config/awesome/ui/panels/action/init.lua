@@ -18,7 +18,6 @@ local path = ...
 local header = require(path .. ".header")
 local dashboard = require(path .. ".dashboard")
 local info = require(path .. ".info")
--- local media = require(path .. ".media")
 
 local function seperator()
 	return wibox.widget({
@@ -46,7 +45,6 @@ local function new()
 			seperator(),
 			info,
 			seperator(),
-			-- media,
 		},
 	})
 

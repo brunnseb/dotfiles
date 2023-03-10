@@ -1,40 +1,11 @@
 local awful = require("awful")
 local widgets = require("ui.widgets")
 local helpers = require("helpers")
--- local system_daemon = require("daemons.system.system")
--- local capi = {
--- 	client = client,
--- }
-
--- if DEBUG ~= true and helpers.misc.is_restart() == false then
--- 	require(... .. ".popups.loading")
--- end
-
--- local welcome_app = require("ui.apps.welcome")
--- local theme_app = require("ui.apps.theme")
-
--- capi.client.connect_signal("scanned", function()
---     if system_daemon:is_new_version() or system_daemon:does_need_setup() then
---         welcome_app:toggle()
---
---         welcome_app:connect_signal("visibility", function(self, visible)
---             if visible == false then
---                 theme_app:toggle()
---             end
---         end)
---     end
--- end)
-
--- require(... .. ".desktop")
--- require(... .. ".popups.brightness")
 require(... .. ".popups.keyboard_layout")
--- require(... .. ".popups.volume")
 require(... .. ".notifications")
--- require(... .. ".titlebar")
 require(... .. ".wibar")
 
 local action_panel = require(... .. ".panels.action")
--- local info_panel = require(... .. ".panels.info")
 local notification_panel = require(... .. ".panels.notification")
 local power_popup = require(... .. ".popups.power")
 local lock_popup = require(... .. ".popups.lock")
@@ -53,7 +24,6 @@ local capi = {
 capi.client.connect_signal("property::fullscreen", function(c)
 	if c.fullscreen then
 		action_panel:hide()
-		-- info_panel:hide()
 		notification_panel:hide()
 		cpu_popup:hide()
 		ram_popup:hide()
@@ -67,7 +37,6 @@ end)
 capi.client.connect_signal("focus", function(c)
 	if c.fullscreen then
 		action_panel:hide()
-		-- info_panel:hide()
 		notification_panel:hide()
 		cpu_popup:hide()
 		ram_popup:hide()
@@ -91,12 +60,6 @@ action_panel:connect_signal("visibility", function(self, visible)
 		bluetooth_popup:hide()
 	end
 end)
-
--- info_panel:connect_signal("visibility", function(self, visible)
--- 	if visible == true then
--- 		power_popup:hide()
--- 	end
--- end)
 
 notification_panel:connect_signal("visibility", function(self, visible)
 	if visible == true then

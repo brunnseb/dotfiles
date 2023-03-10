@@ -2,6 +2,8 @@
 -- @author https://github.com/Kasper24
 -- @copyright 2021-2022 Kasper24
 -------------------------------------------
+local naughty = require("naughty")
+local awful = require("awful")
 local wibox = require("wibox")
 local widgets = require("ui.widgets")
 local screenshot_popup = require("ui.apps.screenshot")
@@ -24,6 +26,22 @@ local setmetatable = setmetatable
 local dashboard = {
 	mt = {},
 }
+
+local function createEscapeKeyGrabber(callback)
+	return {
+		grabber = function(mod, key, event)
+			if event == "release" then
+				return
+			end
+			if key == "Escape" and callback ~= nil then
+				callback()
+			end
+		end,
+		cleanup = function(grabber)
+			awful.keygrabber.stop(grabber)
+		end,
+	}
+end
 
 local function arrow_button(icon, text, on_icon_release, on_arrow_release)
 	local icon = wibox.widget({
@@ -197,10 +215,16 @@ local function theme()
 		theme_popup:toggle()
 	end)
 
+	local keygrabber = createEscapeKeyGrabber(function()
+		theme_popup:toggle()
+	end)
+
 	theme_popup:connect_signal("visibility", function(self, visible)
 		if visible == true then
+			awful.keygrabber.run(keygrabber.grabber)
 			widget:turn_on("Theme")
 		else
+			keygrabber.cleanup(keygrabber.grabber)
 			widget:turn_off("Theme")
 		end
 	end)
@@ -229,10 +253,16 @@ local function screenshot()
 		screenshot_popup:toggle()
 	end)
 
+	local keygrabber = createEscapeKeyGrabber(function()
+		screenshot_popup:toggle()
+	end)
+
 	screenshot_popup:connect_signal("visibility", function(self, visible)
 		if visible == true then
+			awful.keygrabber.run(keygrabber.grabber)
 			widget:turn_on("Screenshot")
 		else
+			keygrabber.cleanup(keygrabber.grabber)
 			widget:turn_off("Screenshot")
 		end
 	end)
@@ -246,6 +276,20 @@ local function record()
 			record_popup:show()
 		else
 			record_daemon:stop_video()
+		end
+	end)
+
+	local keygrabber = createEscapeKeyGrabber(function()
+		record_popup:hide()
+	end)
+
+	record_popup:connect_signal("visibility", function(self, visible)
+		if visible == true then
+			awful.keygrabber.run(keygrabber.grabber)
+			widget:turn_on("Stop")
+		else
+			keygrabber.cleanup(keygrabber.grabber)
+			widget:turn_off("Record")
 		end
 	end)
 

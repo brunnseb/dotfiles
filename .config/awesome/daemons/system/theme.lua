@@ -1039,7 +1039,6 @@ local function new()
 
 	scan_wallpapers(ret)
 	watch_wallpaper_changes(ret)
-	-- setup_profile_image(ret)
 
 	return ret
 end

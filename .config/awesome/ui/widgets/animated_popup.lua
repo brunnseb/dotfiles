@@ -9,79 +9,92 @@ local beautiful = require("beautiful")
 local helpers = require("helpers")
 local dpi = beautiful.xresources.apply_dpi
 
+local capi = {
+	awesome = awesome,
+	client = client,
+}
+
 local animated_popup = {
-    mt = {}
+	mt = {},
 }
 
 function animated_popup:show(value, reshow)
-    if self.state == true and reshow ~= true then
-        return
-    end
-    self.state = true
+	if self.state == true and reshow ~= true then
+		return
+	end
+	self.state = true
 
-    self.animation.pos = 1
-    self.animation.easing = helpers.animation.easing.outExpo
-    if self.method == "forced_height" then
-        self.animation:set(value or self.maximum_height)
-    else
-        self.animation:set(value or self.maximum_width)
-    end
-    self.visible = true
-    self:emit_signal("visibility", true)
+	self.animation.pos = 1
+	self.animation.easing = helpers.animation.easing.outExpo
+	if self.method == "forced_height" then
+		self.animation:set(value or self.maximum_height)
+	else
+		self.animation:set(value or self.maximum_width)
+	end
+	self.visible = true
+	self:emit_signal("visibility", true)
 end
 
 function animated_popup:hide()
-    if self.state == false then
-        return
-    end
-    self.state = false
+	if self.state == false then
+		return
+	end
+	self.state = false
 
-    self.animation.easing = helpers.animation.easing.inExpo
-    self.animation:set(1)
-    self:emit_signal("visibility", false)
+	self.animation.easing = helpers.animation.easing.inExpo
+	self.animation:set(1)
+	self:emit_signal("visibility", false)
 end
 
 function animated_popup:toggle()
-    if self.animation.state == true then
-        return
-    end
-    if self.visible == false then
-        self:show()
-    else
-        self:hide()
-    end
+	if self.animation.state == true then
+		return
+	end
+	if self.visible == false then
+		self:show()
+	else
+		self:hide()
+	end
 end
 
 local function new(args)
-    args = args or {}
+	args = args or {}
 
-    local ret = pwidget(args)
-    gtable.crush(ret, animated_popup, true)
+	local ret = pwidget(args)
+	gtable.crush(ret, animated_popup, true)
 
-    ret.method = "forced_" .. (args.animate_method or "height")
+	ret.method = "forced_" .. (args.animate_method or "height")
 
-    ret.state = false
-    ret.animation = helpers.animation:new{
-        pos = 1,
-        easing = helpers.animation.easing.outExpo,
-        duration = 0.8,
-        update = function(_, pos)
-            ret.widget[ret.method] = dpi(pos)
-        end,
-        signals = {
-            ["ended"] = function()
-                if ret.state == false then
-                    ret.visible = false
-                end
-            end
-        }
-    }
+	ret.state = false
+	ret.animation = helpers.animation:new({
+		pos = 1,
+		easing = helpers.animation.easing.outExpo,
+		duration = 0.8,
+		update = function(_, pos)
+			ret.widget[ret.method] = dpi(pos)
+		end,
+		signals = {
+			["ended"] = function()
+				if ret.state == false then
+					ret.visible = false
+				end
+			end,
+		},
+	})
 
-    return ret
+	capi.awesome.connect_signal("root::pressed", function()
+		ret:hide()
+	end)
+
+	capi.client.connect_signal("button::press", function()
+		ret:hide()
+	end)
+
+	return ret
 end
 
 function animated_popup.mt:__call(...)
-    return new(...)
+	return new(...)
 end
 
 return setmetatable(animated_popup, animated_popup.mt)

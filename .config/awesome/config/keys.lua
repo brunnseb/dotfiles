@@ -6,14 +6,8 @@ local awful = require("awful")
 local screenshot_widget = require("ui.apps.screenshot")
 local main_menu = require("ui.popups.main_menu")
 local power_popup = require("ui.popups.power")
--- local app_launcher = require("ui.popups.app_launcher")
 local hotkeys_popup = require("ui.popups.hotkeys")
--- local window_switcher = require("ui.popups.window_switcher")
 local layout_switcher = require("ui.popups.layout_switcher")
--- local playerctl_daemon = require("daemons.system.playerctl")
--- local audio_daemon = require("daemons.hardware.audio")
--- local brightness_daemon = require("daemons.system.brightness")
--- local rgb_daemon = require("daemons.hardware.rgb")
 local theme_daemon = require("daemons.system.theme")
 local screenshot_daemon = require("daemons.system.screenshot")
 local helpers = require("helpers")
@@ -398,44 +392,7 @@ capi.client.connect_signal("request::default_keybindings", function()
 					awful.client.focus.bydirection("right")
 				end
 			end,
-		}), -- Focus next
-		-- awful.key({
-		-- 	modifiers = { keys.mod },
-		-- 	key = "j",
-		-- 	group = "client",
-		-- 	description = "focus next",
-		-- 	on_press = function()
-		-- 		awful.client.focus.byidx(1)
-		-- 	end,
-		-- }), -- Focus previous
-		-- awful.key({
-		-- 	modifiers = { keys.mod },
-		-- 	key = "k",
-		-- 	group = "client",
-		-- 	description = "focus previous",
-		-- 	on_press = function()
-		-- 		awful.client.focus.byidx(-1)
-		-- 	end,
-		-- }),
-		-- Swap with next
-		-- awful.key({
-		-- 	modifiers = { keys.mod, keys.shift },
-		-- 	key = "k",
-		-- 	group = "client",
-		-- 	description = "swap with next",
-		-- 	on_press = function()
-		-- 		awful.client.swap.byidx(1)
-		-- 	end,
-		-- }), -- Swap with previous
-		-- awful.key({
-		-- 	modifiers = { keys.mod, keys.shift },
-		-- 	key = "j",
-		-- 	group = "client",
-		-- 	description = "swap with previous",
-		-- 	on_press = function()
-		-- 		awful.client.swap.byidx(-1)
-		-- 	end,
-		-- }),
+		}),
 		-- Swap focused client with master
 		awful.key({
 			modifiers = { keys.mod, keys.shift },
@@ -725,33 +682,6 @@ awful.keyboard.append_global_keybindings({ -- View desktop
 --  Media
 -- =============================================================================
 awful.keyboard.append_global_keybindings({ -- Toogle media
-	-- awful.key({
-	-- 	modifiers = {},
-	-- 	key = "XF86AudioPlay",
-	-- 	group = "media",
-	-- 	description = "toggle media",
-	-- 	on_press = function()
-	-- 		playerctl_daemon:play_pause()
-	-- 	end,
-	-- }), -- Previous media
-	-- awful.key({
-	-- 	modifiers = {},
-	-- 	key = "XF86AudioPrev",
-	-- 	group = "media",
-	-- 	description = "previous media",
-	-- 	on_press = function()
-	-- 		playerctl_daemon:previous()
-	-- 	end,
-	-- }), -- Next media
-	-- awful.key({
-	-- 	modifiers = {},
-	-- 	key = "XF86AudioNext",
-	-- 	group = "media",
-	-- 	description = "next media",
-	-- 	on_press = function()
-	-- 		playerctl_daemon:next()
-	-- 	end,
-	-- }), -- Raise volume
 	awful.key({
 		modifiers = {},
 		key = "XF86AudioRaiseVolume",
@@ -825,15 +755,6 @@ awful.keyboard.append_global_keybindings({ -- Toogle media
 			screenshot_daemon:pick_color()
 		end,
 	}),
-	-- awful.key({
-	-- 	modifiers = { keys.mod, keys.ctrl },
-	-- 	key = "w",
-	-- 	group = "media",
-	-- 	description = "openrgb wpgtk script",
-	-- 	on_press = function()
-	-- 		rgb_daemon:sync_colors_script(true)
-	-- 	end,
-	-- }),
 })
 
 -- =============================================================================
@@ -850,15 +771,7 @@ awful.mouse.append_global_mousebindings({
 })
 
 awful.keyboard.append_global_keybindings({ -- Toggle app launcher
-	-- awful.key({
-	-- 	modifiers = { keys.mod },
-	-- 	key = "d",
-	-- 	group = "ui",
-	-- 	description = "toggle app launcher",
-	-- 	on_press = function()
-	-- 		app_launcher:show()
-	-- 	end,
-	-- }), -- Toggle exit screen
+	-- Toggle exit screen
 	awful.key({
 		modifiers = { keys.mod },
 		key = "Escape",
@@ -892,105 +805,8 @@ awful.keyboard.append_global_keybindings({ -- Toggle app launcher
 	}),
 })
 
--- awful.keygrabber({
---
--- 	keybindings = {
--- 		-- awful.key({
--- 		-- 	modifiers = { keys.alt },
--- 		-- 	key = "Escape",
--- 		-- 	on_press = function()
--- 		-- 		window_switcher:hide()
--- 		-- 	end,
--- 		-- }),
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "n",
--- 			on_press = function()
--- 				if capi.client.focus then
--- 					capi.client.focus.minimized = true
--- 				end
--- 			end,
--- 		}),
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "N",
--- 			on_press = function()
--- 				if awful.client.restore() then
--- 					capi.client.focus = awful.client.restore()
--- 				end
--- 			end,
--- 		}),
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "q",
--- 			on_press = function()
--- 				if capi.client.focus then
--- 					capi.client.focus:kill()
--- 				end
--- 			end,
--- 		}),
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "Tab",
--- 			on_press = function()
--- 				switcher.switch(1, "Mod1", "Alt_L", "Shift", "Tab")
--- 			end,
--- 		}),
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "Left",
--- 			on_press = function()
--- 				switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
--- 			end,
--- 		}),
--- 		-- awful.key({
--- 		-- 	modifiers = { keys.alt },
--- 		-- 	key = "Right",
--- 		-- 	on_press = function()
--- 		-- 		window_switcher:cycle_clients(true)
--- 		-- 	end,
--- 		-- }),
--- 	-- 	awful.key({
--- 	-- 		modifiers = { keys.alt },
--- 	-- 		key = "h",
--- 	-- 		on_press = function()
--- 	-- 			window_switcher:cycle_clients(false)
--- 	-- 		end,
--- 	-- 	}),
--- 	-- 	awful.key({
--- 	-- 		modifiers = { keys.alt },
--- 	-- 		key = "l",
--- 	-- 		on_press = function()
--- 	-- 			window_switcher:cycle_clients(true)
--- 	-- 		end,
--- 	-- 	}),
--- 	-- },
--- 	root_keybindings = {
--- 		awful.key({
--- 			modifiers = { keys.alt },
--- 			key = "Tab",
--- 			on_press = function() end,
--- 		}),
--- 	},
--- 	stop_key = keys.alt,
--- 	stop_event = "release",
--- 	start_callback = function()
--- 		window_switcher:show()
--- 	end,
--- 	stop_callback = function()
--- 		window_switcher:hide()
--- 	end,
--- })
-
 awful.keygrabber({
 	keybindings = {
-		-- awful.key({
-		-- 	modifiers = { keys.mod },
-		-- 	key = "e",
-		-- 	on_press = function()
-		-- 		layout_switcher:cycle_layouts(false)
-		-- 	end,
-		-- }),
 		awful.key({
 			modifiers = { keys.mod },
 			key = "e",
@@ -1000,11 +816,6 @@ awful.keygrabber({
 		}),
 	},
 	root_keybindings = {
-		-- awful.key({
-		-- 	modifiers = { keys.alt },
-		-- 	key = "a",
-		-- 	on_press = function() end,
-		-- }),
 		awful.key({
 			modifiers = { keys.mod },
 			key = "e",

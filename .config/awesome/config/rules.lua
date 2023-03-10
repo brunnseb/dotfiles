@@ -5,10 +5,6 @@
 local awful = require("awful")
 local gtimer = require("gears.timer")
 local ruled = require("ruled")
--- local picom_daemon = require("daemons.system.picom")
-local theme_daemon = require("daemons.system.theme")
--- local ncmpcpp_titlebar = require("ui.titlebar.ncmpcpp")
-local helpers = require("helpers")
 local capi = {
 	awesome = awesome,
 	client = client,

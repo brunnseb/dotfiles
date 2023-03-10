@@ -146,28 +146,10 @@ local function new()
 	local ret = gobject({})
 	gtable.crush(ret, apps, true)
 	ret.scratchpads = {}
-
-	-- ret:new("vivaldi", "b", "vivaldi-stable", "Vivaldi-stable")
-	-- ret:new("vscode", "e", "code", "Code")
-	-- ret:new("lazygit", "g", "kitty --class gitqlient lazygit", "gitqlient", {
-	--     run_or_raise = false
-	-- })
-	-- ret:new("kotatogram", "t", "kotatogram-desktop", "KotatogramDesktop")
-	-- ret:new("discord", "d", "discocss", "discord")
-	-- ret:new("ncmpcpp", "n", "kitty --class mopidy ncmpcpp", "mopidy")
-	-- ret:new("spotify", "s", "spotify", "Spotify")
-	-- ret:new("openrgb", "o", "openrgb", "openrgb")
-	-- ret:new("artemis", "a", "artemis", "artemis.ui.exe")
-	-- ret:new("ranger", "f", "kitty --class ranger ranger", "ranger", {
-	--     run_or_raise = false
-	-- })
 	ret:new("kitty", "Return", "kitty", "kitty", {
 		launch_modifiers = { keys.mod },
 		run_or_raise = false,
 	})
-	-- ret:new("gnome-system-monitor", "Delete", "gnome-system-monitor", "Gnome-system-monitor", {
-	-- 	launch_modifiers = { keys.ctrl, keys.alt },
-	-- })
 
 	return ret
 end

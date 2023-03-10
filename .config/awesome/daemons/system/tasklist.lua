@@ -4,7 +4,6 @@
 -------------------------------------------
 local lgi = require("lgi")
 local Gio = lgi.Gio
--- local Gdk = lgi.require("Gdk", "3.0")
 local DesktopAppInfo = Gio.DesktopAppInfo
 local AppInfo = Gio.AppInfo
 local awful = require("awful")
@@ -17,7 +16,6 @@ local floor = math.floor
 local string = string
 local table = table
 local ipairs = ipairs
--- local pairs = pairs
 local math = math
 local capi = {
 	awesome = awesome,
