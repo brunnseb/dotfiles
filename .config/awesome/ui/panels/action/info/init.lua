@@ -92,7 +92,7 @@ local function progress_bar(icon, on_release)
 end
 
 local function cpu()
-	local widget = progress_bar(beautiful.icons.microchip, function()
+	local widget = progress_bar(beautiful.icons.cpu, function()
 		cpu_popup:toggle()
 	end)
 
@@ -120,7 +120,7 @@ local function ram()
 end
 
 local function disk()
-	local widget = progress_bar(beautiful.icons.disc_drive, function()
+	local widget = progress_bar(beautiful.icons.database, function()
 		disk_popup:toggle()
 	end)
 

@@ -161,7 +161,7 @@ local function bluetooth()
 end
 
 local function airplane_mode()
-	local widget = button(beautiful.icons.airplane.on, "Airplane Mode", function()
+	local widget = button(beautiful.icons.plane, "Airplane Mode", function()
 		radio_daemon:toggle()
 	end)
 
