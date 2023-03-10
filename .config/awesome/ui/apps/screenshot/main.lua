@@ -65,7 +65,7 @@ local function new(self, layout)
 		color_picker_button:turn_off()
 	end, true)
 
-	screen_button = button(beautiful.icons.computer, "Screen", function()
+	screen_button = button(beautiful.icons.desktop, "Screen", function()
 		screenshot_daemon:set_screenshot_method("screen")
 		selection_button:turn_off()
 		screen_button:turn_on()

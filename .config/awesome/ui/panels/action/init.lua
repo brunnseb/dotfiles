@@ -15,7 +15,7 @@ local capi = {
 local instance = nil
 
 local path = ...
-local header = require(path .. ".header")
+-- local header = require(path .. ".header")
 local dashboard = require(path .. ".dashboard")
 local info = require(path .. ".info")
 
@@ -39,8 +39,8 @@ local function new()
 			scrollbar_width = dpi(0),
 			scrollbar_spacing = 0,
 			step = 300,
-			header,
-			seperator(),
+			-- header,
+			-- seperator(),
 			dashboard,
 			seperator(),
 			info,
