@@ -31,6 +31,21 @@ local keys = {
 }
 
 -- =============================================================================
+--  Apps
+-- =============================================================================
+awful.keyboard.append_global_keybindings({ -- restart awesomewm
+	awful.key({
+		modifiers = { keys.mod },
+		key = "c",
+		group = "apps",
+		description = "Firefox Developer Edition",
+		on_press = function()
+			awful.spawn("firefox-developer-edition")
+		end,
+	}), -- quit awesomewm
+})
+
+-- =============================================================================
 --  Awesome
 -- =============================================================================
 awful.keyboard.append_global_keybindings({ -- restart awesomewm
