@@ -211,7 +211,7 @@ local function icons()
 		keyboard = { color = theme.colors.cyan, icon = "" },
 		brightness = { color = theme.colors.cyan, icon = "" },
 		circle_exclamation = { color = theme.colors.cyan, icon = "︁" },
-		router = { color = theme.colors.cyan, icon = "︁" },
+		router = { color = theme.colors.cyan, icon = "" },
 		message = { icon = "︁" },
 		xmark = { color = theme.colors.cyan, icon = "" },
 		microchip = { color = theme.colors.cyan, icon = "" },

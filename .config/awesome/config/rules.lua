@@ -11,6 +11,9 @@ local capi = {
 }
 
 local apps = {
+	avizo = {
+		class = "Avizo-service",
+	},
 	kitty = {
 		command = "kitty",
 		class = "kitty",
@@ -397,6 +400,17 @@ ruled.client.connect_signal("request::rules", function()
 		},
 		properties = {
 			titlebars_enabled = false,
+		},
+	})
+
+	-- Avizo service
+	ruled.client.append_rule({
+		rule = {
+			class = apps.avizo.class,
+		},
+		properties = {
+			titlebars_enabled = false,
+			raise = true,
 		},
 	})
 	-- Pavucontrol
