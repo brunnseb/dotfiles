@@ -6,7 +6,7 @@ local awful = require("awful")
 local gobject = require("gears.object")
 local gtable = require("gears.table")
 local gtimer = require("gears.timer")
-local notification_daemon = require("daemons.system.notifications")
+-- local notification_daemon = require("daemons.system.notifications")
 local helpers = require("helpers")
 local filesystem = require("external.filesystem")
 local capi = {
@@ -49,7 +49,6 @@ function system:reboot()
 end
 
 function system:suspend()
-	self:lock()
 	awful.spawn("systemctl suspend", false)
 end
 
@@ -58,19 +57,20 @@ function system:exit()
 end
 
 function system:lock()
-	notification_daemon:block_on_locked()
-	self:emit_signal("lock")
+	-- notification_daemon:block_on_locked()
+	awful.spawn("betterlockscreen -l dimblur")
+	-- self:emit_signal("lock")
 end
 
-function system:unlock(password)
-	local pam_auth = pam:auth_current_user(password)
-	if pam_auth then
-		notification_daemon:unblock_on_unlocked()
-		self:emit_signal("unlock")
-	else
-		self:emit_signal("wrong_password")
-	end
-end
+-- function system:unlock(password)
+-- 	local pam_auth = pam:auth_current_user(password)
+-- 	if pam_auth then
+-- 		notification_daemon:unblock_on_unlocked()
+-- 		self:emit_signal("unlock")
+-- 	else
+-- 		self:emit_signal("wrong_password")
+-- 	end
+-- end
 
 local function new()
 	local ret = gobject({})

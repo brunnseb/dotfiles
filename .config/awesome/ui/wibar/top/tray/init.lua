@@ -128,13 +128,13 @@ local function custom_tray()
 		widgets.battery_icon(),
 	})
 
-	local startup = true
-	upower_daemon:connect_signal("battery::update", function()
-		if startup == true then
-			layout:add(widgets.battery_icon())
-			startup = false
-		end
-	end)
+	-- local startup = true
+	-- upower_daemon:connect_signal("battery::update", function()
+	-- 	if startup == true then
+	-- 		layout:add(widgets.battery_icon())
+	-- 		startup = false
+	-- 	end
+	-- end)
 
 	local widget = wibox.widget({
 		widget = wibox.container.margin,

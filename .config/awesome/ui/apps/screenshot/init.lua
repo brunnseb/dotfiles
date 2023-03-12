@@ -2,14 +2,11 @@
 -- @author https://github.com/Kasper24
 -- @copyright 2021-2022 Kasper24
 -------------------------------------------
-local ruled = require("ruled")
 local wibox = require("wibox")
-local widgets = require("ui.widgets")
 local app = require("ui.apps.app")
 local beautiful = require("beautiful")
 local screenshot_daemon = require("daemons.system.screenshot")
 local dpi = beautiful.xresources.apply_dpi
-local naughty = require("naughty")
 local capi = {
 	awesome = awesome,
 }
@@ -49,11 +46,6 @@ local function new()
 
 	return app
 end
-
-naughty.notification({
-	title = "title",
-	message = "Key ",
-})
 
 if not instance then
 	instance = new()

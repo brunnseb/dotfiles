@@ -8,7 +8,7 @@ require(... .. ".wibar")
 local action_panel = require(... .. ".panels.action")
 local notification_panel = require(... .. ".panels.notification")
 local power_popup = require(... .. ".popups.power")
-local lock_popup = require(... .. ".popups.lock")
+-- local lock_popup = require(... .. ".popups.lock")
 local cpu_popup = require(... .. ".panels.action.info.cpu")
 local ram_popup = require(... .. ".panels.action.info.ram")
 local disk_popup = require(... .. ".panels.action.info.disk")
@@ -71,7 +71,7 @@ end)
 power_popup:connect_signal("visibility", function(self, visible)
 	if visible == true then
 		action_panel:hide()
-		info_panel:hide()
+		-- info_panel:hide()
 		notification_panel:hide()
 	end
 end)
@@ -151,13 +151,13 @@ power_popup:connect_signal("visibility", function(visibility)
 	end
 end)
 
-lock_popup:connect_signal("visibility", function(visibility)
-	for s in capi.screen do
-		if visibility and s ~= awful.screen.focused() then
-			s.screen_mask.visible = true
-		end
-		if visibility == false then
-			s.screen_mask.visible = false
-		end
-	end
-end)
+-- lock_popup:connect_signal("visibility", function(visibility)
+-- 	for s in capi.screen do
+-- 		if visibility and s ~= awful.screen.focused() then
+-- 			s.screen_mask.visible = true
+-- 		end
+-- 		if visibility == false then
+-- 			s.screen_mask.visible = false
+-- 		end
+-- 	end
+-- end)

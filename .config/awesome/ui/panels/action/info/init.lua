@@ -159,20 +159,21 @@ end
 local function battery()
 	local widget = progress_bar(beautiful.icons.battery.full)
 
+	local icons = {
+		[0] = beautiful.icons.battery.quarter,
+		[1] = beautiful.icons.battery.half,
+		[2] = beautiful.icons.battery.three_quarter,
+		[3] = beautiful.icons.battery.full,
+		[4] = beautiful.icons.battery.bolt,
+		[5] = beautiful.icons.battery.bolt,
+	}
+
 	upower_daemon:connect_signal("battery::update", function(self, value)
 		if value.percentage == nil then
 			widget:set_icon(beautiful.icons.battery.quarter)
 			widget:set_value(10)
 		else
-			if value.percentage <= 25 then
-				widget:set_icon(beautiful.icons.battery.quarter)
-			elseif value.percentage <= 50 then
-				widget:set_icon(beautiful.icons.battery.half)
-			elseif value.percentage <= 75 then
-				widget:set_icon(beautiful.icons.battery.three_quarter)
-			else
-				widget:set_icon(beautiful.icons.battery.full)
-			end
+			widget:set_icon(icons[value.state])
 
 			widget:set_value(value.percentage)
 		end
