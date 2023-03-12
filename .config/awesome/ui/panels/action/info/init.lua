@@ -26,10 +26,10 @@ local info = {
 	mt = {},
 }
 
-local function progress_bar(icon, on_release)
+local function progress_bar(icon, on_release, value)
 	local progress_bar = wibox.widget({
 		widget = widgets.progressbar,
-		forced_width = dpi(450),
+		forced_width = dpi(390),
 		forced_height = dpi(10),
 		shape = helpers.ui.rrect(),
 		max_value = 100,
@@ -82,6 +82,17 @@ local function progress_bar(icon, on_release)
 
 	function widget:set_value(value)
 		progress_bar.value = value
+		if on_release == nil then
+			local val = wibox.widget({
+				widget = wibox.widget.textbox,
+				align = "center",
+				valign = "center",
+				markup = "<b>" .. value .. "%</b>",
+				font = "sans 11",
+				text_normal_bg = beautiful.colors.on_background,
+			})
+			widget:add(val)
+		end
 	end
 
 	function widget:set_icon(new_icon)
