@@ -98,11 +98,12 @@ local function icons()
 			off = { color = theme.colors.cyan, icon = "", font = "Nerd Font Mono " },
 		},
 		battery = {
-			bolt = { color = theme.colors.cyan, icon = "" },
-			quarter = { color = theme.colors.cyan, icon = "" },
-			half = { color = theme.colors.cyan, icon = "" },
-			three_quarter = { color = theme.colors.cyan, icon = "" },
-			full = { color = theme.colors.cyan, icon = "" },
+			[0] = { color = theme.colors.cyan, icon = "" },
+			[1] = { color = theme.colors.cyan, icon = "" },
+			[2] = { color = theme.colors.cyan, icon = "" },
+			[3] = { color = theme.colors.cyan, icon = "" },
+			[4] = { color = theme.colors.cyan, icon = "" },
+			[5] = { color = theme.colors.cyan, icon = "" },
 		},
 		volume = {
 			off = { color = theme.colors.cyan, icon = "" },

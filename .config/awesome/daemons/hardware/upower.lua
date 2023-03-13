@@ -6,6 +6,7 @@ local UPower = require("lgi").require("UPowerGlib")
 local gobject = require("gears.object")
 local gtable = require("gears.table")
 local gtimer = require("gears.timer")
+local naughty = require("naughty")
 
 local upower = {}
 local instance = nil
@@ -57,6 +58,7 @@ local function new()
 	-- 	device.on_notify = function(device)
 	-- 		if device.model ~= "" and device.model ~= nil then
 	-- 			ret:emit_signal("device::update", device)
+	-- 			ret:emit_signal("device::update::state", device)
 	-- 		end
 	-- 	end
 	-- end
@@ -66,12 +68,25 @@ local function new()
 	ret._private.device.on_notify = function(device)
 		if device.model ~= "" and device.model ~= nil then
 			ret._private.battery.percentage = device.percentage
+
+			if device.state == UPower_States.Discharging then
+				ret._private.battery.time_to_full = 0
+				if device.time_to_empty ~= nil and device.time_to_empty > 0 then
+					ret._private.battery.time_to_empty = device.time_to_empty
+				end
+			else
+				ret._private.battery.time_to_empty = 0
+				if device.time_to_full ~= nil and device.time_to_full > 0 then
+					ret._private.battery.time_to_full = device.time_to_full
+				end
+			end
+
 			if device.state == UPower_States.Discharging then
 				if device.percentage > 90 then
 					ret._private.battery.state = Battery_States.Full
-				elseif device.percentage > 75 then
+				elseif device.percentage > 66 then
 					ret._private.battery.state = Battery_States.High
-				elseif device.percentage >= 50 then
+				elseif device.percentage >= 33 then
 					ret._private.battery.state = Battery_States.Medium
 				else
 					ret._private.battery.state = Battery_States.Low
@@ -82,18 +97,20 @@ local function new()
 				ret._private.battery.state = Battery_States.Charging
 			end
 
+			ret:emit_signal("battery::update", ret._private.battery)
+
 			if ret._private.battery.state ~= ret._private.battery.last_state then
 				ret._private.battery.last_state = ret._private.battery.state
-				ret:emit_signal("battery::update", ret._private.battery)
+				ret:emit_signal("battery::update::state", ret._private.battery)
 			end
 		end
 	end
 
-	gtimer.delayed_call(function()
-		if ret._private.device.model ~= "" and ret._private.device.model ~= nil then
-			ret:emit_signal("battery::update", ret._private.battery)
-		end
-	end)
+	-- gtimer.delayed_call(function()
+	-- 	if ret._private.device.model ~= "" and ret._private.device.model ~= nil then
+	-- 		ret:emit_signal("battery::update::state", ret._private.battery)
+	-- 	end
+	-- end)
 
 	return ret
 end

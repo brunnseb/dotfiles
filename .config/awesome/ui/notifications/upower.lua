@@ -21,7 +21,7 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.quarter,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Running low at " .. device.percentage .. "%",
 		})
@@ -32,7 +32,7 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.half,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Battery is at " .. device.percentage .. "%",
 		})
@@ -43,7 +43,7 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.three_quarter,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Battery is at " .. device.percentage .. "%",
 		})
@@ -54,7 +54,7 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.full,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Battery is at " .. device.percentage .. "%",
 		})
@@ -64,7 +64,7 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.bolt,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Fully charged!",
 		})
@@ -74,14 +74,14 @@ local function notification(title, device)
 			app_font_icon = beautiful.icons.car_battery,
 			app_icon = "battery",
 			app_name = "UPower",
-			font_icon = beautiful.icons.battery.bolt,
+			font_icon = beautiful.icons.battery[device.state],
 			title = title,
 			text = "Charging",
 		})
 	end
 end
 
-upower_daemon:connect_signal("battery::update", function(self, device)
+upower_daemon:connect_signal("battery::update::state", function(self, device)
 	notification("Battery Status", device)
 end)
 

@@ -55,13 +55,24 @@ awful.keyboard.append_global_keybindings({ -- restart awesomewm
 		group = "awesome",
 		description = "reload",
 		on_press = capi.awesome.restart,
-	}), -- quit awesomewm
+	}),
 	awful.key({
-		modifiers = { keys.alt },
+		modifiers = { keys.mod },
 		key = "Escape",
 		group = "awesome",
-		description = "quit",
-		on_press = capi.awesome.quit,
+		description = "lock",
+		on_press = function()
+			awful.spawn.with_shell("betterlockscreen -l dimblur")
+		end,
+	}),
+	awful.key({
+		modifiers = { keys.mod, "Shift" },
+		key = "Delete",
+		group = "awesome",
+		description = "toggle exit screen",
+		on_press = function()
+			power_popup:show()
+		end,
 	}),
 })
 
@@ -786,16 +797,7 @@ awful.mouse.append_global_mousebindings({
 })
 
 awful.keyboard.append_global_keybindings({ -- Toggle app launcher
-	-- Toggle exit screen
-	awful.key({
-		modifiers = { keys.mod },
-		key = "Escape",
-		group = "ui",
-		description = "toggle exit screen",
-		on_press = function()
-			power_popup:show()
-		end,
-	}), -- Toggle hotkeys
+	-- Toggle hotkeys
 	awful.key({
 		modifiers = { keys.mod },
 		key = "F1",
@@ -809,13 +811,6 @@ awful.keyboard.append_global_keybindings({ -- Toggle app launcher
 		key = "Tab",
 		on_press = function()
 			switcher.switch(1, "Mod1", "Alt_L", "Shift", "Tab")
-		end,
-	}),
-	awful.key({
-		modifiers = { keys.alt },
-		key = "Left",
-		on_press = function()
-			switcher.switch(-1, "Mod1", "Alt_L", "Shift", "Tab")
 		end,
 	}),
 })

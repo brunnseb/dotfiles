@@ -17,13 +17,21 @@ local upower_daemon = require("daemons.hardware.upower")
 local audio_daemon = require("daemons.hardware.audio")
 local brightness_daemon = require("daemons.system.brightness")
 local helpers = require("helpers")
-local gdebug = require("gears.debug")
 local dpi = beautiful.xresources.apply_dpi
 local setmetatable = setmetatable
 local tonumber = tonumber
 
 local info = {
 	mt = {},
+}
+
+local Battery_States = {
+	Low = 0,
+	Medium = 1,
+	High = 2,
+	Full = 3,
+	Charging = 4,
+	Fully_charged = 5,
 }
 
 local function progress_bar(icon, on_release, value)
@@ -99,6 +107,11 @@ local function progress_bar(icon, on_release, value)
 		icon:get_children_by_id("icon")[1]:set_icon(new_icon)
 	end
 
+	function widget:set_color(new_color)
+		icon:get_children_by_id("icon")[1]:set_color(new_color)
+		progress_bar:set_color(new_color)
+	end
+
 	return widget
 end
 
@@ -168,25 +181,63 @@ local function temperature()
 end
 
 local function battery()
-	local widget = progress_bar(beautiful.icons.battery.full)
+	local progress_bar = progress_bar(beautiful.icons.battery[3])
 
-	local icons = {
-		[0] = beautiful.icons.battery.quarter,
-		[1] = beautiful.icons.battery.half,
-		[2] = beautiful.icons.battery.three_quarter,
-		[3] = beautiful.icons.battery.full,
-		[4] = beautiful.icons.battery.bolt,
-		[5] = beautiful.icons.battery.bolt,
-	}
+	local remaining_time = wibox.widget({
+		widget = wibox.widget.textbox,
+		align = "center",
+		valign = "center",
+		font = "sans 13",
+	})
 
-	upower_daemon:connect_signal("battery::update", function(self, value)
-		if value.percentage == nil then
-			widget:set_icon(beautiful.icons.battery.quarter)
-			widget:set_value(10)
+	local widget = wibox.widget({
+		layout = wibox.layout.fixed.vertical,
+		forced_height = dpi(120),
+		progress_bar,
+		remaining_time,
+	})
+
+	local function get_time_string(time)
+		local hours = nil
+		local minutes = nil
+		local time_string = ""
+		if time > 3600 then
+			hours = math.floor(time / 3600)
+		end
+		minutes = math.floor((time - (hours * 3600)) / 60)
+
+		if hours ~= nil then
+			time_string = hours .. " Hours "
+		end
+
+		return time_string .. minutes .. " Minutes"
+	end
+
+	upower_daemon:connect_signal("battery::update", function(self, device)
+		if device.time_to_empty ~= nil and device.time_to_empty > 0 then
+			remaining_time:set_text("Remaining time: " .. get_time_string(device.time_to_empty))
+		elseif device.time_to_full ~= nil and device.time_to_full > 0 then
+			remaining_time:set_text("Time until full: " .. get_time_string(device.time_to_full))
 		else
-			widget:set_icon(icons[value.state])
+			remaining_time:set_text("")
+		end
 
-			widget:set_value(value.percentage)
+		if device.percentage == nil then
+			progress_bar:set_value(10)
+		else
+			if device.percentage < 15 then
+				progress_bar:set_color(beautiful.colors.red)
+			end
+
+			progress_bar:set_value(math.floor(device.percentage))
+		end
+	end)
+
+	upower_daemon:connect_signal("battery::update::state", function(self, value)
+		if value.percentage == nil then
+			progress_bar:set_icon(beautiful.icons.battery[0])
+		else
+			progress_bar:set_icon(beautiful.icons.battery[value.state])
 		end
 	end)
 

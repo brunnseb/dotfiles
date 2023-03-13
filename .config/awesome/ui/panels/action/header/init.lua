@@ -111,7 +111,7 @@ local function new()
 	})
 
 	local startup = true
-	upower_daemon:connect_signal("battery::update", function(self, device)
+	upower_daemon:connect_signal("battery::update::state", function(self, device)
 		if startup == true then
 			info:insert(5, battery)
 			startup = false

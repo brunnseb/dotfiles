@@ -21,28 +21,25 @@ local Battery_States = {
 	Fully_charged = 5,
 }
 
-local icons = {
-	[0] = beautiful.icons.battery.quarter,
-	[1] = beautiful.icons.battery.half,
-	[2] = beautiful.icons.battery.three_quarter,
-	[3] = beautiful.icons.battery.full,
-	[4] = beautiful.icons.battery.bolt,
-	[5] = beautiful.icons.battery.bolt,
-}
-
 local function new()
 	local widget = wibox.widget({
 		widget = twidget,
 		halign = "center",
-		icon = beautiful.icons.battery.full,
+		icon = beautiful.icons.battery[Battery_States.Full],
 		size = 17,
 		color = beautiful.colors.white,
 		text_normal_bg = beautiful.colors.white,
 		text_on_normal_bg = beautiful.colors.transparent,
 	})
 
+	upower_daemon:connect_signal("battery::update::state", function(self, device)
+		widget:set_icon(beautiful.icons.battery[device.state])
+	end)
+
 	upower_daemon:connect_signal("battery::update", function(self, device)
-		widget:set_icon(icons[device.state])
+		if device.percentage < 15 then
+			widget:set_color(beautiful.colors.red)
+		end
 	end)
 
 	return widget
