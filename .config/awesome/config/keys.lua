@@ -11,12 +11,24 @@ local layout_switcher = require("ui.popups.layout_switcher")
 local theme_daemon = require("daemons.system.theme")
 local screenshot_daemon = require("daemons.system.screenshot")
 local helpers = require("helpers")
-local bling = require("external.bling")
+-- local bling = require("external.bling")
 local machi = require("external.layout-machi")
 local revelation = require("revelation")
 local switcher = require("awesome-switcher")
 local notification_panel = require("ui.panels.notification")
 local action_panel = require("ui.panels.action")
+-- local machina = require("external.machina")()
+-- local machina_methods = require("external.machina.methods")
+-- local focus_by_direction = machina_methods.focus_by_direction
+-- local shift_by_direction = machina_methods.shift_by_direction
+-- local expand_horizontal = machina_methods.expand_horizontal
+-- local shuffle = machina_methods.shuffle
+-- local my_shifter = machina_methods.my_shifter
+-- local expand_vertical = machina_methods.expand_vertical
+-- local move_to = machina_methods.move_to
+-- local toggle_always_on = machina_methods.toggle_always_on
+-- local teleport_client = machina_methods.teleport_client
+-- local align_floats = machina_methods.align_floats
 
 -- TODO: Move to theme and set all correct settings
 switcher.settings.preview_box_bg = "#dddddd00"
@@ -418,7 +430,7 @@ capi.client.connect_signal("request::default_keybindings", function()
 			description = "focus previous",
 			on_press = function()
 				local layout = awful.layout.getname()
-				if layout == "max" then
+				if layout == "max" or layout == "mstab" then
 					awful.client.focus.byidx(-1)
 				else
 					awful.client.focus.bydirection("left")
@@ -432,7 +444,7 @@ capi.client.connect_signal("request::default_keybindings", function()
 			description = "focus next",
 			on_press = function()
 				local layout = awful.layout.getname()
-				if layout == "max" then
+				if layout == "max" or layout == "mstab" then
 					awful.client.focus.byidx(1)
 				else
 					awful.client.focus.bydirection("right")
@@ -602,6 +614,103 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 		on_press = function()
 			machi.default_editor.start_interactive()
 		end,
+
+		-- machina
+		-- awful.key({ keys.mod }, "[", shuffle("backward")),
+		-- awful.key({ keys.mod }, "]", shuffle("forward")),
+		--▨ move
+
+		-- awful.key( keys.mod}, "Tab", focus_by_index("backward")),
+		-- awful.key( keys.mod, "Shift"}, "Tab", focus_by_index("forward")),
+
+		-- awful.key({ keys.mod }, ";", align_floats("right")),
+		-- awful.key({ keys.mod, "Shift" }, ";", align_floats("left")),
+		--▨ alignment
+
+		-- 	awful.key({ keys.mod }, "x", function()
+		-- 		c = client.focus or nil
+		-- 		if not c then
+		-- 			return
+		-- 		end
+		-- 		if c.floating then
+		-- 			c.minimized = true
+		-- 			return
+		-- 		end
+		-- 		shuffle("backward")(c)
+		-- 	end),
+		--
+		-- 	awful.key({ keys.mod, "Shift" }, "x", function()
+		-- 		c = client.focus or nil
+		-- 		if not c then
+		-- 			return
+		-- 		end
+		-- 		if c.floating then
+		-- 			c.minimized = true
+		-- 			return
+		-- 		end
+		-- 		shuffle("forward")(c)
+		-- 	end),
+		-- 	--▨ shuffle
+		--
+		-- 	awful.key({ keys.mod, "Shift" }, "[", my_shifter("backward")),
+		-- 	awful.key({ keys.mod, "Shift" }, "]", my_shifter("forward")),
+		-- 	--▨ move
+		--
+		-- 	awful.key({ keys.mod, "Control" }, "[", my_shifter("backward", "swap")),
+		-- 	awful.key({ keys.mod, "Control" }, "]", my_shifter("forward", "swap")),
+		-- 	--▨ swap
+		--
+		-- 	awful.key({ keys.mod }, "'", function()
+		-- 		naughty.notify({ text = inspect(client.focus.transient_for) })
+		-- 	end),
+		-- 	--▨ shuffle
+		--
+		-- 	awful.key({ keys.mod }, "j", focus_by_direction("left")),
+		-- 	awful.key({ keys.mod }, "k", focus_by_direction("down")),
+		-- 	awful.key({ keys.mod }, "l", focus_by_direction("right")),
+		-- 	awful.key({ keys.mod }, "i", focus_by_direction("up")),
+		-- 	--▨ focus
+		--
+		-- 	awful.key({ keys.mod, "Shift" }, "j", shift_by_direction("left")),
+		-- 	awful.key({ keys.mod, "Shift" }, "l", shift_by_direction("right")),
+		-- 	awful.key({ keys.mod, "Shift" }, "k", shift_by_direction("down")),
+		-- 	awful.key({ keys.mod, "Shift" }, "i", shift_by_direction("up")),
+		-- 	--▨ move
+		--
+		-- 	awful.key({ keys.mod, "Control" }, "j", shift_by_direction("left", "swap")),
+		-- 	awful.key({ keys.mod, "Control" }, "l", shift_by_direction("right", "swap")),
+		-- 	awful.key({ keys.mod, "Control" }, "k", shift_by_direction("down", "swap")),
+		-- 	awful.key({ keys.mod, "Control" }, "i", shift_by_direction("up", "swap")),
+		-- 	--▨ swap
+		--
+		-- 	awful.key({ keys.mod }, "Insert", move_to("top-left")),
+		-- 	awful.key({ keys.mod }, "Delete", move_to("bottom-left")),
+		-- 	awful.key({ keys.mod }, "u", expand_horizontal("center")),
+		-- 	awful.key({ keys.mod }, "Home", expand_horizontal("center")),
+		-- 	awful.key({ keys.mod }, "Page_Up", move_to("top-right")),
+		-- 	awful.key({ keys.mod }, "Page_Down", move_to("bottom-right")),
+		-- 	--▨ move (positional)
+		--
+		-- 	awful.key({ keys.mod, "Shift" }, "Insert", expand_horizontal("left")),
+		-- 	awful.key({ keys.mod, "Shift" }, "End", toggle_always_on),
+		-- 	awful.key({ keys.mod, "Shift" }, "Home", move_to("center")),
+		-- 	awful.key({ keys.mod, "Shift" }, "Page_Up", expand_horizontal("right")),
+		-- 	awful.key({ keys.mod, "Shift" }, "Page_Down", expand_vertical),
+		-- 	--▨ expand (neighbor)
+		--
+		-- 	awful.key({ keys.mod }, "End", function(c)
+		-- 		client.focus.maximized_vertical = false
+		-- 		client.focus.maximized_horizontal = false
+		-- 		awful.client.floating.toggle()
+		-- 	end), --|toggle floating status
+		--
+		-- 	awful.key({ keys.mod }, "Left", focus_by_direction("left")),
+		-- 	awful.key({ keys.mod }, "Down", focus_by_direction("down")),
+		-- 	awful.key({ keys.mod }, "Right", focus_by_direction("right")),
+		-- 	awful.key({ keys.mod }, "Up", focus_by_direction("up")),
+		-- 	--▨ focus
+		--
+		-- 	awful.key({ keys.mod }, "o", teleport_client),
 	}), -- layout-machi - Switch between windows for a machi layout
 	awful.key({
 		modifiers = { keys.mod },
