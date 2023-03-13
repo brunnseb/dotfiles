@@ -15,6 +15,8 @@ local bling = require("external.bling")
 local machi = require("external.layout-machi")
 local revelation = require("revelation")
 local switcher = require("awesome-switcher")
+local notification_panel = require("ui.panels.notification")
+local action_panel = require("ui.panels.action")
 
 -- TODO: Move to theme and set all correct settings
 switcher.settings.preview_box_bg = "#dddddd00"
@@ -38,17 +40,35 @@ awful.keyboard.append_global_keybindings({ -- restart awesomewm
 		modifiers = { keys.mod },
 		key = "c",
 		group = "apps",
-		description = "Firefox Developer Edition",
+		description = "launch Firefox Developer Edition",
 		on_press = function()
 			awful.spawn("firefox-developer-edition")
 		end,
-	}), -- quit awesomewm
+	}),
 })
 
 -- =============================================================================
 --  Awesome
 -- =============================================================================
 awful.keyboard.append_global_keybindings({ -- restart awesomewm
+	awful.key({
+		modifiers = { keys.mod },
+		key = "i",
+		group = "awesome",
+		description = "toggle action panel",
+		on_press = function()
+			action_panel:toggle()
+		end,
+	}),
+	awful.key({
+		modifiers = { keys.mod },
+		key = "v",
+		group = "awesome",
+		description = "toggle notification panel",
+		on_press = function()
+			notification_panel:toggle()
+		end,
+	}),
 	awful.key({
 		modifiers = { keys.mod, keys.shift },
 		key = "r",
@@ -270,7 +290,7 @@ capi.client.connect_signal("request::default_keybindings", function()
 		}), -- Move and resize to center
 		awful.key({
 			modifiers = { keys.mod, keys.shift },
-			key = "c",
+			key = "space",
 			group = "client",
 			description = "move and resize to center",
 			on_press = function(c)
@@ -281,18 +301,18 @@ capi.client.connect_signal("request::default_keybindings", function()
 				)
 			end,
 		}), -- Center a client
-		awful.key({
-			modifiers = { keys.mod },
-			key = "c",
-			group = "client",
-			description = "move to center",
-			on_press = function(c)
-				awful.placement.centered(c, {
-					honor_workarea = true,
-					honor_padding = true,
-				})
-			end,
-		}), -- Move up
+		-- awful.key({
+		-- 	modifiers = { keys.mod },
+		-- 	key = "c",
+		-- 	group = "client",
+		-- 	description = "move to center",
+		-- 	on_press = function(c)
+		-- 		awful.placement.centered(c, {
+		-- 			honor_workarea = true,
+		-- 			honor_padding = true,
+		-- 		})
+		-- 	end,
+		-- }), -- Move up
 		awful.key({
 			modifiers = { keys.mod, keys.shift },
 			key = "k",
@@ -329,50 +349,50 @@ capi.client.connect_signal("request::default_keybindings", function()
 				helpers.client.move(c, "right")
 			end,
 		}), -- Resize up
-		awful.key({
-			modifiers = { keys.mod, keys.ctrl },
-			key = "k",
-			group = "client",
-			description = "resize up",
-			on_press = function(c)
-				if c.can_resize ~= false then
-					helpers.client.resize(c, "up")
-				end
-			end,
-		}), -- Resize down
-		awful.key({
-			modifiers = { keys.mod, keys.ctrl },
-			key = "j",
-			group = "client",
-			description = "resize down",
-			on_press = function(c)
-				if c.can_resize ~= false then
-					helpers.client.resize(c, "down")
-				end
-			end,
-		}), -- Resize left
-		awful.key({
-			modifiers = { keys.mod, keys.ctrl },
-			key = "h",
-			group = "client",
-			description = "resize left",
-			on_press = function(c)
-				if c.can_resize ~= false then
-					helpers.client.resize(c, "left")
-				end
-			end,
-		}), -- Resize right
-		awful.key({
-			modifiers = { keys.mod, keys.ctrl },
-			key = "l",
-			group = "client",
-			description = "resize right",
-			on_press = function(c)
-				if c.can_resize ~= false then
-					helpers.client.resize(c, "right")
-				end
-			end,
-		}), -- Focus up
+		-- awful.key({
+		-- 	modifiers = { keys.mod, keys.ctrl },
+		-- 	key = "k",
+		-- 	group = "client",
+		-- 	description = "resize up",
+		-- 	on_press = function(c)
+		-- 		if c.can_resize ~= false then
+		-- 			helpers.client.resize(c, "up")
+		-- 		end
+		-- 	end,
+		-- }), -- Resize down
+		-- awful.key({
+		-- 	modifiers = { keys.mod, keys.ctrl },
+		-- 	key = "j",
+		-- 	group = "client",
+		-- 	description = "resize down",
+		-- 	on_press = function(c)
+		-- 		if c.can_resize ~= false then
+		-- 			helpers.client.resize(c, "down")
+		-- 		end
+		-- 	end,
+		-- }), -- Resize left
+		-- awful.key({
+		-- 	modifiers = { keys.mod, keys.ctrl },
+		-- 	key = "h",
+		-- 	group = "client",
+		-- 	description = "resize left",
+		-- 	on_press = function(c)
+		-- 		if c.can_resize ~= false then
+		-- 			helpers.client.resize(c, "left")
+		-- 		end
+		-- 	end,
+		-- }), -- Resize right
+		-- awful.key({
+		-- 	modifiers = { keys.mod, keys.ctrl },
+		-- 	key = "l",
+		-- 	group = "client",
+		-- 	description = "resize right",
+		-- 	on_press = function(c)
+		-- 		if c.can_resize ~= false then
+		-- 			helpers.client.resize(c, "right")
+		-- 		end
+		-- 	end,
+		-- }), -- Focus up
 		awful.key({
 			modifiers = { keys.mod },
 			key = "k",
@@ -429,16 +449,16 @@ capi.client.connect_signal("request::default_keybindings", function()
 				c:swap(awful.client.getmaster())
 			end,
 		}), -- Go back in history
-		awful.key({
-			modifiers = { keys.mod },
-			key = "Tab",
-			group = "client",
-			description = "go back in history",
-			on_press = function(c)
-				awful.client.focus.history.previous()
-				c:raise()
-			end,
-		}), -- Jump to urgent
+		-- awful.key({
+		-- 	modifiers = { keys.mod },
+		-- 	key = "Tab",
+		-- 	group = "client",
+		-- 	description = "go back in history",
+		-- 	on_press = function(c)
+		-- 		awful.client.focus.history.previous()
+		-- 		c:raise()
+		-- 	end,
+		-- }), -- Jump to urgent
 		awful.key({
 			modifiers = { keys.mod, keys.shift },
 			key = "u",
@@ -446,33 +466,33 @@ capi.client.connect_signal("request::default_keybindings", function()
 			description = "jump to urgent",
 			on_press = awful.client.urgent.jumpto,
 		}), -- Bling-tabbed - pick client to add to tab group
-		awful.key({
-			modifiers = { keys.alt },
-			key = "t",
-			group = "client",
-			description = "pick client to add to tab group",
-			on_press = function(c)
-				bling.module.tabbed.pick()
-			end,
-		}), -- Bling-tabbed - iterate through tabbing group
-		awful.key({
-			modifiers = { keys.mod },
-			key = "]",
-			group = "client",
-			description = "iterate through tabbing group",
-			on_press = function(c)
-				bling.module.tabbed.iter()
-			end,
-		}), -- Bling-tabbed - remove focused client from tabbing group
-		awful.key({
-			modifiers = { keys.mod },
-			key = "[",
-			group = "client",
-			description = "remove focused client from tabbing group",
-			on_press = function(c)
-				bling.module.tabbed.pop()
-			end,
-		}),
+		-- awful.key({
+		-- 	modifiers = { keys.alt },
+		-- 	key = "t",
+		-- 	group = "client",
+		-- 	description = "pick client to add to tab group",
+		-- 	on_press = function(c)
+		-- 		bling.module.tabbed.pick()
+		-- 	end,
+		-- }), -- Bling-tabbed - iterate through tabbing group
+		-- awful.key({
+		-- 	modifiers = { keys.mod },
+		-- 	key = "]",
+		-- 	group = "client",
+		-- 	description = "iterate through tabbing group",
+		-- 	on_press = function(c)
+		-- 		bling.module.tabbed.iter()
+		-- 	end,
+		-- }), -- Bling-tabbed - remove focused client from tabbing group
+		-- awful.key({
+		-- 	modifiers = { keys.mod },
+		-- 	key = "[",
+		-- 	group = "client",
+		-- 	description = "remove focused client from tabbing group",
+		-- 	on_press = function(c)
+		-- 		bling.module.tabbed.pop()
+		-- 	end,
+		-- }),
 	})
 end)
 
@@ -539,8 +559,8 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 		end,
 	}), -- Increase number of master clients
 	awful.key({
-		modifiers = { keys.mod, keys.shift },
-		key = "h",
+		modifiers = { keys.mod, keys.ctrl },
+		key = "j",
 		group = "layout",
 		description = "increase number of master clients",
 		on_press = function()
@@ -548,8 +568,8 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 		end,
 	}), -- Decrase number of master clients
 	awful.key({
-		modifiers = { keys.mod, keys.shift },
-		key = "l",
+		modifiers = { keys.mod, keys.ctrl },
+		key = "k",
 		group = "layout",
 		description = "decrease number of master clients",
 		on_press = function()
@@ -558,7 +578,7 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 	}), -- Increase number of columns
 	awful.key({
 		modifiers = { keys.mod, keys.ctrl },
-		key = "h",
+		key = "l",
 		group = "layout",
 		description = "increase number of columns",
 		on_press = function()
@@ -567,7 +587,7 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 	}), -- Decrease number of columns
 	awful.key({
 		modifiers = { keys.mod, keys.ctrl },
-		key = "l",
+		key = "h",
 		group = "layout",
 		description = "decrease number of columns",
 		on_press = function()
@@ -615,7 +635,7 @@ awful.keyboard.append_global_keybindings({ -- View desktop
 		on_press = function()
 			awful.tag.viewnext()
 		end,
-	}), -- Focus left
+	}), -- Revelation
 	awful.key({
 		modifiers = { keys.mod },
 		key = "a",
@@ -648,7 +668,7 @@ awful.keyboard.append_global_keybindings({ -- View desktop
 		end,
 	}), -- Toggle tag
 	awful.key({
-		modifiers = { keys.mod, keys.alt },
+		modifiers = { keys.alt },
 		keygroup = "numrow",
 		description = "toggle tag",
 		group = "tag",
@@ -819,7 +839,7 @@ awful.keygrabber({
 	keybindings = {
 		awful.key({
 			modifiers = { keys.mod },
-			key = "e",
+			key = "Tab",
 			on_press = function()
 				layout_switcher:cycle_layouts(true)
 			end,
@@ -828,7 +848,7 @@ awful.keygrabber({
 	root_keybindings = {
 		awful.key({
 			modifiers = { keys.mod },
-			key = "e",
+			key = "Tab",
 			on_press = function() end,
 		}),
 	},
