@@ -16,11 +16,16 @@ return {
     -- Telescope
     ["<leader>,"] = {
       "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
-      desc = "Buffers",
+      desc = "Open buffers",
     },
     ["<leader>."] = {
       "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
       desc = "Files in current directory",
+    },
+    -- Kill
+    ["<leader>kn"] = {
+      function() require("notify").dismiss { silent = true, pending = true } end,
+      desc = "Delete all Notifications",
     },
     -- Windows
     ["<leader>w"] = false,
@@ -74,4 +79,5 @@ return {
     -- setting a mapping to false will disable it
     -- ["<esc>"] = false,
   },
+}
 }
