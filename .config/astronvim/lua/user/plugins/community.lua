@@ -4,6 +4,8 @@ return {
   -- example of imporing a plugin, comment out to use it or add your own
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
 
+  -- Color
+  { import = "astrocommunity.color.modes-nvim" },
   -- Colorschemes
   { import = "astrocommunity.colorscheme.tokyonight" },
   { import = "astrocommunity.colorscheme.catppuccin" },
@@ -99,6 +101,10 @@ return {
               ["@constructor.ts"] = { fg = macchiato.teal },
               -- JSON
               ["@label.json"] = { fg = macchiato.yellow },
+              -- LSP
+              LspReferenceRead = { bg = util.darken(macchiato.teal, 0.5) },
+              LspReferenceWrite = { bg = util.darken(macchiato.teal, 0.5) },
+              LspReferenceText = { bg = util.darken(macchiato.teal, 0.5) },
               -- Core
               Comment = { fg = macchiato.blue, style = { "italic" } },
               Cursor = { fg = macchiato.text, bg = macchiato.pink }, -- character under the cursor
@@ -114,9 +120,12 @@ return {
               }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand oucp.
               VertSplit = { fg = macchiato.teal },
               Folded = { bg = util.darken(macchiato.base, 0.9) },
+              -- Indent Blankline
+              IndentBlanklineChar = { fg = util.lighten(macchiato.base, 0.9) },
+              IndentBlanklineContextChar = { fg = macchiato.pink },
               -- Neotree
-              NeoTreeNormal = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
-              NeoTreeNormalNC = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.8) },
+              NeoTreeNormal = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.6) },
+              NeoTreeNormalNC = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.6) },
               TelescopeTitle = { fg = macchiato.pink },
               TelescopeMatching = { fg = macchiato.pink },
               TelescopeBorder = {
@@ -246,6 +255,7 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
+  { import = "astrocommunity.editing-support.nvim-ts-rainbow2" },
   -- File explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- Markdown

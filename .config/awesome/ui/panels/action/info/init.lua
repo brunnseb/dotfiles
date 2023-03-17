@@ -25,15 +25,6 @@ local info = {
 	mt = {},
 }
 
-local Battery_States = {
-	Low = 0,
-	Medium = 1,
-	High = 2,
-	Full = 3,
-	Charging = 4,
-	Fully_charged = 5,
-}
-
 local function progress_bar(icon, on_release, value)
 	local progress_bar = wibox.widget({
 		widget = widgets.progressbar,
@@ -72,6 +63,17 @@ local function progress_bar(icon, on_release, value)
 		},
 	})
 
+	local val = wibox.widget({
+		widget = wibox.widget.textbox,
+		align = "center",
+		valign = "center",
+		text = "",
+		font = "sans 11",
+		text_normal_bg = beautiful.colors.on_background,
+	})
+
+	widget:add(val)
+
 	if on_release ~= nil then
 		local arrow = wibox.widget({
 			widget = widgets.button.text.normal,
@@ -85,21 +87,12 @@ local function progress_bar(icon, on_release, value)
 			end,
 		})
 		widget:add(arrow)
-		progress_bar.forced_width = dpi(390)
 	end
 
 	function widget:set_value(value)
 		progress_bar.value = value
 		if on_release == nil then
-			local val = wibox.widget({
-				widget = wibox.widget.textbox,
-				align = "center",
-				valign = "center",
-				markup = "<b>" .. value .. "%</b>",
-				font = "sans 11",
-				text_normal_bg = beautiful.colors.on_background,
-			})
-			widget:add(val)
+			val.text = value .. "%"
 		end
 	end
 
