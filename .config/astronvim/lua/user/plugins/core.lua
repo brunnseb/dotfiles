@@ -20,6 +20,7 @@ return {
       return opts
     end,
   },
+  { "phaazon/hop.nvim", event = "BufRead", config = true },
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
   --

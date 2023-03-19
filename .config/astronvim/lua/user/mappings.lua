@@ -65,15 +65,23 @@ return {
     -- UI toggles
     ["<leader>uz"] = { "<cmd>ZenMode<cr>", desc = "toggle Zen mode" },
     -- Ufo
-
     ["zk"] = {
       function()
         local winid = require("ufo").peekFoldedLinesUnderCursor()
         if not winid then vim.lsp.buf.hover() end
       end,
     },
+    -- Hop
+    ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
+    ["gsk"] = { "<cmd>HopLineBC<CR>", desc = "Hop Line Up" },
+    ["gsj"] = { "<cmd>HopLineAC<CR>", desc = "Hop Line Down" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+  },
+  v = {
+    ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
+    ["gsk"] = { "<cmd>HopLineBC<CR>", desc = "Hop Line Up" },
+    ["gsj"] = { "<cmd>HopLineAC<CR>", desc = "Hop Line Down" },
   },
   t = {
     -- setting a mapping to false will disable it
