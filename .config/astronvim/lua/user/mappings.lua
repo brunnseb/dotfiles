@@ -75,6 +75,8 @@ return {
     ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
     ["gsk"] = { "<cmd>HopLineBC<CR>", desc = "Hop Line Up" },
     ["gsj"] = { "<cmd>HopLineAC<CR>", desc = "Hop Line Down" },
+    -- Neotree
+    ["<leader>E"] = { "<cmd>Neotree focus<CR>", desc = "Explorer focus" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
   },
