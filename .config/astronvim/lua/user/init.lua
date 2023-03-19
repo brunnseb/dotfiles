@@ -20,10 +20,55 @@ return {
   colorscheme = "catppuccin",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = false,
+    virtual_text = true,
     virtual_lines = true,
     update_in_insert = true,
   },
+  icons = {
+    ActiveLSP = "",
+    ActiveTS = " ",
+    BufferClose = "",
+    DapBreakpoint = "",
+    DapBreakpointCondition = "",
+    DapBreakpointRejected = "",
+    DapLogPoint = "",
+    DapStopped = "",
+    DefaultFile = "",
+    Diagnostic = "",
+    DiagnosticError = "",
+    DiagnosticHint = "",
+    DiagnosticInfo = "",
+    DiagnosticWarn = "",
+    Ellipsis = "",
+    FileModified = "",
+    FileReadOnly = "",
+    FoldClosed = "",
+    FoldOpened = "",
+    FolderClosed = "",
+    FolderEmpty = "",
+    FolderOpen = "",
+    Git = "",
+    GitAdd = "",
+    GitBranch = "",
+    GitChange = "",
+    GitConflict = "",
+    GitDelete = "",
+    GitIgnored = "",
+    GitRenamed = "",
+    GitStaged = "",
+    GitUnstaged = "",
+    GitUntracked = "",
+    LSPLoaded = "",
+    LSPLoading1 = "",
+    LSPLoading2 = "",
+    LSPLoading3 = "",
+    MacroRecording = "",
+    Paste = "",
+    Search = "",
+    Selected = "",
+    TabClose = "",
+  },
+  plugins = {},
   lsp = {
     -- customize lsp formatting options
     formatting = {
@@ -38,16 +83,41 @@ return {
         },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
+        "tsserver",
         -- "sumneko_lua",
       },
-      timeout_ms = 1000, -- default format timeout
+      timeout_ms = 2000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
     },
     -- enable servers that you already have installed without mason
     servers = {
-      -- "pyright"
+      -- "tailwindcss",
+    },
+    config = {
+      tailwindcss = {
+        capabilities = {
+          textDocument = {
+            completion = { completionItem = { snippetSupport = true } },
+            colorProvider = {
+              dynamicRegistration = true,
+            },
+          },
+        },
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              configFile = {
+                ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
+                ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
+                ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
+                ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
+              },
+            },
+          },
+        },
+      },
     },
   },
   -- set up UI icons

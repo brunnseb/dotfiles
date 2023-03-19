@@ -8,6 +8,9 @@ return {
   n = {
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
+    -- Disable
+    ["<leader>c"] = false,
+    ["<leader>C"] = false,
     -- Navigate to occurence
     ["gj"] = { "*", desc = "Next occurence" },
     ["gk"] = { "#", desc = "Previous occurence" },

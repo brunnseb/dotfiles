@@ -22,7 +22,7 @@ return {
           leap = true,
           markdown = true,
           overseer = true,
-          lsp_trouble = true,
+          lsp_trouble = false,
           ts_rainbow2 = true,
           gitsigns = true,
           hop = true,
@@ -243,13 +243,23 @@ return {
         enabled = false,
       }
 
+      opts.routes = {
+        {
+          filter = {
+            min_height = 20,
+            cmdline = ":NoiceConfig",
+          },
+          view = "split",
+        },
+      }
+
       return opts
     end,
   },
   -- Debugging
   { import = "astrocommunity.debugging.nvim-bqf" },
   -- Diagnostics
-  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
+  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- Editor
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
