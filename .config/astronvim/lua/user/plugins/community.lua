@@ -260,7 +260,7 @@ return {
   -- Debugging
   { import = "astrocommunity.debugging.nvim-bqf" },
   -- Diagnostics
-  -- { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
+  { import = "astrocommunity.diagnostics.lsp_lines-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   -- Editor
   { import = "astrocommunity.editing-support.todo-comments-nvim" },

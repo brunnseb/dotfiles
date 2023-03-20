@@ -20,8 +20,8 @@ return {
   colorscheme = "catppuccin",
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
-    virtual_text = true,
-    virtual_lines = true,
+    virtual_text = false,
+    virtual_lines = { only_current_line = true },
     update_in_insert = true,
   },
   lsp = {

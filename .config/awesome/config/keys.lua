@@ -614,7 +614,6 @@ awful.keyboard.append_global_keybindings({ -- Add padding
 		on_press = function()
 			machi.default_editor.start_interactive()
 		end,
-
 		-- machina
 		-- awful.key({ keys.mod }, "[", shuffle("backward")),
 		-- awful.key({ keys.mod }, "]", shuffle("forward")),

@@ -199,6 +199,14 @@ local apps = {
 		name = "ulauncher",
 		class = "Ulauncher",
 	},
+	onboard = {
+		name = "onboard",
+		class = "Onboard",
+	},
+	florence = {
+		name = "florence",
+		class = "Florence",
+	},
 	rocket_league = {
 		class = "steam_app_252950",
 	},
@@ -391,6 +399,28 @@ ruled.client.connect_signal("request::rules", function()
 			role = "GtkFileChooserDialog",
 		},
 		-- properties = { floating = true, width = awful.screen.focused().geometry.width * 0.55, height = awful.screen.focused().geometry.height * 0.65 }
+	})
+
+	-- Onboard
+	ruled.client.append_rule({
+		rule = {
+			class = apps.onboard.class,
+		},
+		properties = {
+			titlebars_enabled = false,
+			focusable = false,
+		},
+	})
+
+	-- Florence
+	ruled.client.append_rule({
+		rule = {
+			class = apps.florence.class,
+		},
+		properties = {
+			floating = true,
+			titlebars_enabled = false,
+		},
 	})
 
 	-- Ulauncher
