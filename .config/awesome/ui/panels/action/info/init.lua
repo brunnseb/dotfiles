@@ -220,6 +220,8 @@ local function battery()
 		else
 			if device.percentage < 15 then
 				progress_bar:set_color(beautiful.colors.red)
+			else
+				progress_bar:set_color(beautiful.colors.cyan)
 			end
 
 			progress_bar:set_value(math.floor(device.percentage))

@@ -39,6 +39,8 @@ local function new()
 	upower_daemon:connect_signal("battery::update", function(self, device)
 		if device.percentage < 15 then
 			widget:set_color(beautiful.colors.red)
+		else
+			widget:set_color(beautiful.colors.white)
 		end
 	end)
 

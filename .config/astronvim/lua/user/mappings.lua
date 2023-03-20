@@ -11,6 +11,7 @@ return {
     -- Disable
     ["<leader>c"] = false,
     ["<leader>C"] = false,
+    ["<leader>o"] = false,
     -- Navigate to occurence
     ["gj"] = { "*", desc = "Next occurence" },
     ["gk"] = { "#", desc = "Previous occurence" },
