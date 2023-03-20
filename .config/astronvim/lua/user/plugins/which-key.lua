@@ -6,7 +6,7 @@ return {
       return opts
     end,
     config = function(plugin, opts)
-      require "plugins.configs.which-key"(plugin, opts)
+      require "plugins.configs.which-key" (plugin, opts)
       local wk = require "which-key"
 
       wk.register({

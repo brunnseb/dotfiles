@@ -30,6 +30,11 @@ return {
       function() require("notify").dismiss { silent = true, pending = true } end,
       desc = "Delete all Notifications",
     },
+    -- Typescript
+
+    ["<leader>lo"] = { "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+    ["<leader>lF"] = { "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+    ["<leader>lu"] = { "<cmd>TypescriptRemoveUnused<CR>", desc = "Remove Unused" },
     -- Windows
     ["<leader>w"] = false,
     ["<leader>wd"] = { "<C-W>c", desc = "Delete window" },
