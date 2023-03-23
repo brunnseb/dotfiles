@@ -265,7 +265,7 @@ local apps = {
 	},
 	record = {
 		command = "",
-		class = "Record",
+		class = "Recorder",
 	},
 	theme = {
 		command = "",
@@ -412,13 +412,32 @@ ruled.client.connect_signal("request::rules", function()
 		},
 	})
 
-	-- Florence
+	-- Theme
 	ruled.client.append_rule({
 		rule = {
-			class = apps.florence.class,
+			class = apps.theme.class,
 		},
 		properties = {
-			floating = true,
+			titlebars_enabled = false,
+		},
+	})
+
+	-- Record
+	ruled.client.append_rule({
+		rule = {
+			class = apps.record.class,
+		},
+		properties = {
+			titlebars_enabled = false,
+		},
+	})
+
+	-- Screenshot
+	ruled.client.append_rule({
+		rule = {
+			class = apps.screenshot.class,
+		},
+		properties = {
 			titlebars_enabled = false,
 		},
 	})
