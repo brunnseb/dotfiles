@@ -32,7 +32,6 @@ return {
       desc = "Delete all Notifications",
     },
     -- Typescript
-
     ["<leader>lo"] = { "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
     ["<leader>lF"] = { "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
     ["<leader>lu"] = { "<cmd>TypescriptRemoveUnused<CR>", desc = "Remove Unused" },
@@ -73,6 +72,7 @@ return {
     },
     -- UI toggles
     ["<leader>uz"] = { "<cmd>ZenMode<cr>", desc = "toggle Zen mode" },
+    ["<leader>uI"] = { "<cmd>IndentBlanklineToggle<cr>", desc = "toggle indent blankline" },
     -- Ufo
     ["zk"] = {
       function()

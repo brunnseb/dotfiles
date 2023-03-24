@@ -33,6 +33,6 @@ nice()
 require("config")
 require("ui")
 
-if DEBUG ~= true then
-	-- require("daemons.system.persistent"):enable()
-end
+-- if DEBUG ~= true then
+-- 	require("daemons.system.persistent"):enable()
+-- end

@@ -22,7 +22,7 @@ return {
   diagnostics = {
     virtual_text = false,
     virtual_lines = { only_current_line = true },
-    update_in_insert = true,
+    update_in_insert = false,
   },
   lsp = {
     -- customize lsp formatting options
@@ -51,6 +51,17 @@ return {
       -- "tailwindcss",
     },
     config = {
+      tsserver = {
+        cmd = {
+          "typescript-language-server",
+          "--stdio",
+          "--tsserver-path",
+          "/home/brunnseb/.volta/tools/shared/typescript/lib/tsserver.js",
+        },
+        init_options = {
+          maxTsServerMemory = 8192,
+        },
+      },
       -- tailwindcss = {
       --   settings = {
       --     tailwindCSS = {

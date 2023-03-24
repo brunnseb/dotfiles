@@ -48,18 +48,18 @@ local COLOR_PICKER_SCRIPT_PATH = filesystem.filesystem.get_awesome_config_dir("s
 -- local DEFAULT_PROFILE_IMAGE_PATH = filesystem.filesystem.get_awesome_config_dir("assets/images") .. "profile.png"
 
 local PICTURES_MIMETYPES = {
-	["application/pdf"] = "lximage", -- AI
-	["image/x-ms-bmp"] = "lximage", -- BMP
-	["application/postscript"] = "lximage", -- EPS
-	["image/gif"] = "lximage", -- GIF
+	["application/pdf"] = "lximage",               -- AI
+	["image/x-ms-bmp"] = "lximage",                -- BMP
+	["application/postscript"] = "lximage",        -- EPS
+	["image/gif"] = "lximage",                     -- GIF
 	["application/vnd.microsoft.icon"] = "lximage", -- ICo
-	["image/jpeg"] = "lximage", -- JPEG
-	["image/jp2"] = "lximage", -- JPEG 2000
-	["image/png"] = "lximage", -- PNG
-	["image/vnd.adobe.photoshop"] = "lximage", -- PSD
-	["image/svg+xml"] = "lximage", -- SVG
-	["image/tiff"] = "lximage", -- TIFF
-	["image/webp"] = "lximage", -- webp
+	["image/jpeg"] = "lximage",                    -- JPEG
+	["image/jp2"] = "lximage",                     -- JPEG 2000
+	["image/png"] = "lximage",                     -- PNG
+	["image/vnd.adobe.photoshop"] = "lximage",     -- PSD
+	["image/svg+xml"] = "lximage",                 -- SVG
+	["image/tiff"] = "lximage",                    -- TIFF
+	["image/webp"] = "lximage",                    -- webp
 }
 
 local function distance(hex_src, hex_tgt)
@@ -168,7 +168,7 @@ local function generate_colorscheme(self, wallpaper, reset, light)
 					hex = colors[index - 8],
 				})
 				colors[index] =
-					helpers.color.pywal_alter_brightness(colors[index - 8], (sign * color.l * 0.3) / 255, added_sat)
+						helpers.color.pywal_alter_brightness(colors[index - 8], (sign * color.l * 0.3) / 255, added_sat)
 			end
 
 			colors[9] = helpers.color.pywal_alter_brightness(colors[1], sign * 0.098039216)
@@ -436,12 +436,12 @@ local function generate_templates(self)
 							else
 								awful.spawn.with_shell(
 									RUN_AS_ROOT_SCRIPT_PATH
-										.. " 'cp -r "
-										.. WAL_CACHE_PATH
-										.. name
-										.. " "
-										.. path
-										.. "'"
+									.. " 'cp -r "
+									.. WAL_CACHE_PATH
+									.. name
+									.. " "
+									.. path
+									.. "'"
 								)
 							end
 						end
@@ -492,9 +492,9 @@ local function mountain_wallpaper(self, screen)
 				from = { 0, 0 },
 				to = { 0, 100 },
 				stops = {
-					{ 0, beautiful.colors.random_accent_color(colors) },
+					{ 0,    beautiful.colors.random_accent_color(colors) },
 					{ 0.75, beautiful.colors.random_accent_color(colors) },
-					{ 1, beautiful.colors.random_accent_color(colors) },
+					{ 1,    beautiful.colors.random_accent_color(colors) },
 				},
 			},
 		},
@@ -528,9 +528,9 @@ local function digital_sun_wallpaper(self, screen)
 				from = { 0, 0 },
 				to = { 0, height },
 				stops = {
-					{ 0, colors[1] },
+					{ 0,    colors[1] },
 					{ 0.75, colors[9] },
-					{ 1, colors[1] },
+					{ 1,    colors[1] },
 				},
 			}))
 			cr:paint()
@@ -822,7 +822,7 @@ function theme:set_colorscheme(colorscheme)
 	self:save_colorscheme()
 
 	reload_awesome_colorscheme()
-	install_gtk_theme()
+	-- install_gtk_theme()
 	generate_templates(self)
 	generate_sequences(self:get_active_colorscheme_colors())
 end

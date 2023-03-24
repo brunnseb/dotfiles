@@ -5,8 +5,8 @@ CONFIG=$LOC/rc.lua
 
 # Save the current session so persistent won't try to restore some previous session
 # sleep enough time so it actually saves to disk
-awesome-client 'require("daemons.system.persistent"):save()'
-sleep 1.5
+# awesome-client 'require("daemons.system.persistent"):save()'
+# sleep 1.5
 
 echo "Started Xephyer on :1"
 Xephyr -br -ac -noreset -screen 1920x1080 :1 &

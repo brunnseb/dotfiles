@@ -57,20 +57,8 @@ function system:exit()
 end
 
 function system:lock()
-	-- notification_daemon:block_on_locked()
 	awful.spawn("betterlockscreen -l dimblur")
-	-- self:emit_signal("lock")
 end
-
--- function system:unlock(password)
--- 	local pam_auth = pam:auth_current_user(password)
--- 	if pam_auth then
--- 		notification_daemon:unblock_on_unlocked()
--- 		self:emit_signal("unlock")
--- 	else
--- 		self:emit_signal("wrong_password")
--- 	end
--- end
 
 local function new()
 	local ret = gobject({})
@@ -78,19 +66,19 @@ local function new()
 
 	ret._private = {}
 
-	gtimer.poller({
-		timeout = 60,
-		callback = function()
-			awful.spawn.easy_async("neofetch packages", function(packages_count)
-				packages_count = helpers.string.trim(packages_count:gsub("packages", ""))
-
-				awful.spawn.easy_async("neofetch uptime", function(uptime)
-					uptime = helpers.string.trim(uptime:gsub("time", ""):gsub("up  ", ""))
-					ret:emit_signal("update", packages_count, uptime)
-				end)
-			end)
-		end,
-	})
+	-- gtimer.poller({
+	-- 	timeout = 60,
+	-- 	callback = function()
+	-- 		awful.spawn.easy_async("neofetch packages", function(packages_count)
+	-- 			packages_count = helpers.string.trim(packages_count:gsub("packages", ""))
+	--
+	-- 			awful.spawn.easy_async("neofetch uptime", function(uptime)
+	-- 				uptime = helpers.string.trim(uptime:gsub("time", ""):gsub("up  ", ""))
+	-- 				ret:emit_signal("update", packages_count, uptime)
+	-- 			end)
+	-- 		end)
+	-- 	end,
+	-- })
 
 	return ret
 end
