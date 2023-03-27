@@ -21,6 +21,8 @@ local capi = {
 	awesome = awesome,
 	root = root,
 	client = client,
+	screen = screen,
+	tag = tag,
 }
 
 local RUN_AS_ROOT_SCRIPT_PATH = filesystem.filesystem.get_awesome_config_dir("scripts") .. "run-as-root.sh"
@@ -29,51 +31,59 @@ local tasklist = {}
 local instance = nil
 
 local function update_positions(self)
-	local pos = 0
-	local pos_without_pinned_apps = 0
-	for _, pinned_app in ipairs(self._private.pinned_apps_with_userdata) do
-		if #helpers.client.find({ class = pinned_app.class }) == 0 then
-			self:emit_signal("pinned_app::pos", pinned_app, pos)
-			pos = pos + 1
-		else
-			self:emit_signal("pinned_app::removed", pinned_app)
+	for _, screen in ipairs(self._private.screen) do
+		local pos = 0
+		local pos_without_pinned_apps = 0
+		for _, pinned_app in ipairs(screen.pinned_apps_with_userdata) do
+			if #helpers.client.find({ class = pinned_app.class }) == 0 then
+				self:emit_signal("pinned_app::pos", pinned_app, pos)
+				pos = pos + 1
+			else
+				self:emit_signal("pinned_app::removed", pinned_app)
+			end
 		end
-	end
-	for index, client in ipairs(self._private.clients) do
-		if client.managed then
-			self:emit_signal("client::pos", self._private.clients[index], pos, pos_without_pinned_apps)
-			pos_without_pinned_apps = pos_without_pinned_apps + 1
-			pos = pos + 1
+		for _, client in ipairs(screen.all_clients) do
+			if client.managed then
+				self:emit_signal("client::pos", client, pos, pos_without_pinned_apps)
+				pos_without_pinned_apps = pos_without_pinned_apps + 1
+				pos = pos + 1
+			end
 		end
 	end
 end
 
 local function sort_clients(self)
-	self._private.clients = capi.client.get()
+	self._private.screen = capi.screen
 
-	table.sort(self._private.clients, function(a, b)
-		if a.first_tag == nil then
-			return false
-		elseif b.first_tag == nil then
-			return true
-		end
+	for _, screen in ipairs(self._private.screen) do
+		-- screen.pinned_apps = helpers.settings["pinned-apps"]
+		screen.pinned_apps = {}
+		screen.pinned_apps_with_userdata = {}
 
-		if a.first_tag == b.first_tag then
-			if a.floating ~= b.floating then
-				return not a.floating
-			elseif a.maximized ~= b.maximized then
-				return a.maximized
-			elseif a.fullscreen ~= b.fullscreen then
-				return a.maximized
-			else
-				local a_data = self:idx(a)
-				local b_data = self:idx(b)
-				return a_data.col + a_data.idx < b_data.col + b_data.idx
+		table.sort(screen.all_clients, function(a, b)
+			if a.first_tag == nil then
+				return false
+			elseif b.first_tag == nil then
+				return true
 			end
-		else
-			return a.first_tag.index < b.first_tag.index
-		end
-	end)
+
+			if a.first_tag == b.first_tag or a.first_tag.selected and b.first_tag.selected then
+				if a.floating ~= b.floating then
+					return not a.floating
+				elseif a.maximized ~= b.maximized then
+					return a.maximized
+				elseif a.fullscreen ~= b.fullscreen then
+					return a.maximized
+				else
+					local a_data = self:idx(a)
+					local b_data = self:idx(b)
+					return a_data.col + a_data.idx < b_data.col + b_data.idx
+				end
+			else
+				return a.first_tag.index < b.first_tag.index
+			end
+		end)
+	end
 end
 
 local function on_pinned_app_added(self, pinned_app)
@@ -88,12 +98,13 @@ local function on_pinned_app_added(self, pinned_app)
 	function cloned_pinned_app:run()
 		awful.spawn(cloned_pinned_app.exec)
 	end
+
 	function cloned_pinned_app:run_as_root()
 		awful.spawn.with_shell(RUN_AS_ROOT_SCRIPT_PATH .. " " .. cloned_pinned_app.exec)
 	end
 
 	self:emit_signal("pinned_app::added", cloned_pinned_app)
-	table.insert(self._private.pinned_apps_with_userdata, cloned_pinned_app)
+	table.insert(self._private.screen[pinned_app.screen.index].pinned_apps_with_userdata, cloned_pinned_app)
 	update_positions(self)
 end
 
@@ -125,7 +136,7 @@ function tasklist:idx(client)
 		return
 	end
 
-	local clients = capi.client.get()
+	local clients = capi.screen[client.screen.index].all_clients
 	local idx = nil
 	for k, cl in ipairs(clients) do
 		if cl == client then
@@ -260,9 +271,11 @@ function tasklist:get_font_icon(...)
 end
 
 function tasklist:is_app_pinned(class)
-	for _, pinned_app in ipairs(self._private.pinned_apps) do
-		if class == pinned_app.class then
-			return true
+	for _, screen in ipairs(self._private.screen) do
+		for _, pinned_app in ipairs(screen.pinned_apps) do
+			if class == pinned_app.class then
+				return true
+			end
 		end
 	end
 
@@ -278,28 +291,26 @@ function tasklist:add_pinned_app(client)
 			name = client.name,
 			exec = stdout,
 		}
-		table.insert(self._private.pinned_apps, pinned_app)
-		helpers.settings["pinned-apps"] = self._private.pinned_apps
+		table.insert(self._private.screen[pinned_app.screen.index].pinned_apps, pinned_app)
+		-- helpers.settings["pinned-apps"] = self._private.pinned_apps
 		on_pinned_app_added(self, pinned_app)
 	end)
 end
 
 function tasklist:remove_pinned_app(class)
-	for index, pinned_app in ipairs(self._private.pinned_apps) do
-		if pinned_app.class == class then
-			self:emit_signal("pinned_app::removed", self._private.pinned_apps_with_userdata[index])
-			table.remove(self._private.pinned_apps_with_userdata, index)
-			table.remove(self._private.pinned_apps, index)
-			break
+	for _, screen in ipairs(self._private.screen) do
+		for index, pinned_app in ipairs(screen.pinned_apps) do
+			if pinned_app.class == class then
+				self:emit_signal("pinned_app::removed", screen.pinned_apps_with_userdata[index])
+				table.remove(screen.pinned_apps_with_userdata, index)
+				table.remove(screen.pinned_apps, index)
+				break
+			end
 		end
 	end
 
-	helpers.settings["pinned-apps"] = self._private.pinned_apps
+	-- helpers.settings["pinned-apps"] = self._private.pinned_apps
 	update_positions(self)
-end
-
-function tasklist:get_clients()
-	return self._private.clients
 end
 
 local function new()
@@ -307,9 +318,7 @@ local function new()
 	gtable.crush(ret, tasklist, true)
 
 	ret._private = {}
-	ret._private.clients = {}
-	ret._private.pinned_apps = helpers.settings["pinned-apps"]
-	ret._private.pinned_apps_with_userdata = {}
+	ret._private.screen = {}
 
 	capi.client.connect_signal("scanned", function()
 		capi.client.connect_signal("request::manage", function(client)
@@ -320,10 +329,18 @@ local function new()
 			on_client_added(ret, client)
 		end
 
-		for _, pinned_app in ipairs(ret._private.pinned_apps) do
-			on_pinned_app_added(ret, pinned_app)
+		for _, screen in ipairs(ret._private.screen) do
+			for _, pinned_app in ipairs(screen.pinned_apps) do
+				on_pinned_app_added(ret, pinned_app)
+			end
 		end
 	end)
+
+	-- capi.tag.connect_signal("property::selected", function(tag)
+	-- 	if tag.selected then
+	-- 		on_client_updated(ret)
+	-- 	end
+	-- end)
 
 	capi.client.connect_signal("request::unmanage", function(client)
 		on_client_removed(ret, client)

@@ -21,7 +21,9 @@ echo "Xephyr live on $DISPLAY PID=$XEPHYER_PID"
 
 echo "Starting awesome on $DISPLAY using: $CONFIG"
 echo
-awesome -c ~/.config/awesome/rc-debug.lua
+awesome -c ~/.config/awesome/rc-debug.lua 
+# awesome-client 'screen[1]:fake_resize(0, 0, 960, 1080)'
+# awesome-client 'screen.fake_add(960, 0, 960, 1080)'
 echo
 echo "awesome exitied - killing Xephyer:"
 kill $XEPHYER_PID
