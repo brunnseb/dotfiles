@@ -15,7 +15,27 @@ local tray = require(path .. ".tray")
 local time = require(path .. ".time")
 local notification = require(path .. ".notification")
 
+local capi = {
+	screen = screen,
+}
+
 awful.screen.connect_for_each_screen(function(s)
+	local function panels()
+		if s.index == capi.screen.primary.index then
+			return {
+				widget = wibox.container.place,
+				halign = "right",
+				{
+					layout = wibox.layout.fixed.horizontal,
+					tray(),
+					notification(),
+				},
+			}
+		else
+			return nil
+		end
+	end
+
 	-- Using popup instead of the wibar widget because it has some edge case bugs with detecting mouse input correctly
 	s.top_wibar = widgets.popup({
 		screen = s,
@@ -29,24 +49,14 @@ awful.screen.connect_for_each_screen(function(s)
 			{
 				layout = wibox.layout.fixed.horizontal,
 				spacing = dpi(15),
-				-- start(),
 				{
-
 					widget = wibox.container.margin,
 					left = dpi(65),
 					tasklist(s),
 				},
 			},
 			time(),
-			{
-				widget = wibox.container.place,
-				halign = "right",
-				{
-					layout = wibox.layout.fixed.horizontal,
-					tray(),
-					notification(),
-				},
-			},
+			panels(),
 		},
 	})
 	s.top_wibar:struts({

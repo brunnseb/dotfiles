@@ -147,14 +147,3 @@ power_popup:connect_signal("visibility", function(self, visible)
 		end
 	end
 end)
-
--- lock_popup:connect_signal("visibility", function(visibility)
--- 	for s in capi.screen do
--- 		if visibility and s ~= awful.screen.focused() then
--- 			s.screen_mask.visible = true
--- 		end
--- 		if visibility == false then
--- 			s.screen_mask.visible = false
--- 		end
--- 	end
--- end)

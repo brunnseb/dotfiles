@@ -178,6 +178,24 @@ end)
 capi.client.connect_signal("request::default_keybindings", function()
 	awful.keyboard.append_client_keybindings({ -- Close client
 		awful.key({
+			modifiers = { keys.shift, keys.alt },
+			key = "l",
+			group = "screen",
+			description = "move client to the next screen",
+			on_press = function(c)
+				c:move_to_screen(c.screen.index + 1)
+			end,
+		}), -- Focus the previous screen
+		awful.key({
+			modifiers = { keys.shift, keys.alt },
+			key = "h",
+			group = "screen",
+			description = "move client to the previous screen",
+			on_press = function(c)
+				c:move_to_screen(c.screen.index - 1)
+			end,
+		}),
+		awful.key({
 			modifiers = { keys.mod, keys.shift },
 			key = "q",
 			group = "client",
@@ -957,7 +975,8 @@ awful.keygrabber({
 		awful.key({
 			modifiers = { keys.mod },
 			key = "Tab",
-			on_press = function() end,
+			on_press = function()
+			end,
 		}),
 	},
 	stop_key = keys.mod,

@@ -2,6 +2,7 @@
 -- @author https://github.com/Kasper24
 -- @copyright 2021-2022 Kasper24
 -------------------------------------------
+local awful = require("awful")
 local gtable = require("gears.table")
 local wibox = require("wibox")
 local pwidget = require("ui.widgets.popup")
@@ -23,6 +24,7 @@ function animated_popup:show(value, reshow)
 		return
 	end
 	self.state = true
+	self.screen = awful.screen.focused()
 
 	self.animation.pos = 1
 	self.animation.easing = helpers.animation.easing.outExpo
