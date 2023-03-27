@@ -5,7 +5,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local widgets = require("ui.widgets")
-local task_preview = require("ui.popups.task_preview")
 local beautiful = require("beautiful")
 local tasklist_daemon = require("daemons.system.tasklist")
 local helpers = require("helpers")
@@ -108,20 +107,7 @@ local function client_widget(client)
 			icon = client.font_icon,
 			on_normal_bg = client.font_icon.color,
 			text_on_normal_bg = beautiful.colors.transparent,
-			on_hover = function(self)
-				task_preview:show(client, {
-					wibox = awful.screen.focused().top_wibar,
-					widget = self,
-					offset = {
-						y = dpi(70),
-					},
-				})
-			end,
-			on_leave = function()
-				task_preview:hide()
-			end,
 			on_release = function()
-				task_preview:hide()
 				menu:hide()
 
 				if client.minimized == false then
@@ -141,7 +127,6 @@ local function client_widget(client)
 				end
 			end,
 			on_secondary_release = function(self)
-				task_preview:hide()
 				menu:toggle({
 					wibox = awful.screen.focused().top_wibar,
 					widget = self,
