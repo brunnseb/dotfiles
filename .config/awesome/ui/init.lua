@@ -69,7 +69,6 @@ end)
 power_popup:connect_signal("visibility", function(self, visible)
 	if visible == true then
 		action_panel:hide()
-		-- info_panel:hide()
 		notification_panel:hide()
 	end
 end)
@@ -138,12 +137,12 @@ awful.screen.connect_for_each_screen(function(s)
 	s.screen_mask = widgets.screen_mask(s)
 end)
 
-power_popup:connect_signal("visibility", function(visibility)
+power_popup:connect_signal("visibility", function(self, visible)
 	for s in capi.screen do
-		if visibility and s ~= awful.screen.focused() then
+		if visible and s ~= awful.screen.focused() then
 			s.screen_mask.visible = true
 		end
-		if visibility == false then
+		if visible == false then
 			s.screen_mask.visible = false
 		end
 	end
