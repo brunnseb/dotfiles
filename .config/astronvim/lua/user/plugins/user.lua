@@ -15,11 +15,6 @@ return {
     config = true,
   },
   {
-    "andymass/vim-matchup",
-    event = "User AstroFile",
-  },
-  { "mg979/vim-visual-multi", event = "User AstroFile" },
-  {
     "anuvyklack/windows.nvim",
     cmd = {
       "WindowsMaximize",
