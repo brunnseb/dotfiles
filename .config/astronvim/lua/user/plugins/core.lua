@@ -32,6 +32,20 @@ return {
     end,
   },
   {
+    "nvim-telescope/telescope.nvim",
+    opts = function(_, opts)
+      opts.defaults.mappings = {
+        i = {
+          ["<C-h>"] = require("telescope.actions").to_fuzzy_refine,
+          ["<C-n>"] = require("telescope.actions").cycle_history_next,
+          ["<C-p>"] = require("telescope.actions").cycle_history_prev,
+          ["<C-j>"] = require("telescope.actions").move_selection_next,
+          ["<C-k>"] = require("telescope.actions").move_selection_previous,
+        },
+      }
+    end,
+  },
+  {
     "onsails/lspkind.nvim",
     opts = function(_, opts)
       -- use codicons preset

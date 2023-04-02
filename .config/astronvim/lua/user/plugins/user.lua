@@ -2,13 +2,14 @@ return {
   -- You can also add new plugins here as well:
   -- Add plugins, the lazy syntax
   -- "andweeb/presence.nvim",
-  { "phaazon/hop.nvim",       branch = "v2",           config = true, event = "User AstroFile" },
+  { "phaazon/hop.nvim", branch = "v2", config = true, event = "User AstroFile" },
   { "chaoren/vim-wordmotion", event = "User AstroFile" },
   {
     "axelvc/template-string.nvim",
     event = "User AstroFile",
     config = function() require("template-string").setup {} end,
   },
+  { "mg979/vim-visual-multi", event = "User AstroFile" },
   { "Pocco81/DAPInstall.nvim" },
   {
     "kylechui/nvim-surround",
