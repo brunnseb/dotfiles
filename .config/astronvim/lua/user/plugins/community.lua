@@ -284,4 +284,23 @@ return {
   { import = "astrocommunity.syntax.hlargs-nvim" },
   -- Test
   { import = "astrocommunity.test.neotest" },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "marilari88/neotest-vitest",
+    },
+    opts = function(_, opts)
+      opts.adapters = {
+        require "neotest-vitest" {
+          -- vitestCommand = "vitest run",
+          -- cwd = function()
+          --   print("path " .. vim.fn.expand "%:p:h")
+          --   return vim.fn.expand "%:p:h"
+          -- end,
+        },
+      }
+
+      return opts
+    end,
+  },
 }
