@@ -32,6 +32,33 @@ return {
     end,
   },
   {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require "dap"
+      dap.adapters.firefox = {
+        type = "executable",
+        command = "node",
+        args = { os.getenv "HOME" .. "/path/to/vscode-firefox-debug/dist/adapter.bundle.js" },
+      }
+
+      dap.configurations.typescriptreact = {
+
+        {
+          name = "Chrome attach",
+          type = "chrome",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}",
+          skipFiles = { "node_modules/**/*", "**/*.mjs", "**/*.cjs", "**/*.d.ts" },
+        },
+      }
+    end,
+  },
+  {
     "nvim-telescope/telescope.nvim",
     opts = function(_, opts)
       opts.defaults.mappings = {

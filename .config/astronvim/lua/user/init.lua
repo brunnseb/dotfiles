@@ -1,3 +1,5 @@
+vim.lsp.set_log_level "debug"
+
 return {
   -- Configure AstroNvim updates
   updater = {
@@ -39,7 +41,7 @@ return {
       },
       disabled = { -- disable formatting capabilities for the listed language servers
         "tsserver",
-        -- "sumneko_lua",
+        "sumneko_lua",
       },
       timeout_ms = 2000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
