@@ -8,6 +8,7 @@ return {
   { import = "astrocommunity.color.modes-nvim" },
   -- Colorschemes
   { import = "astrocommunity.colorscheme.tokyonight" },
+  { import = "astrocommunity.colorscheme.nightfox" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   {
     -- further customize the options set by the community
@@ -59,8 +60,8 @@ return {
               ["@function"] = { fg = macchiato.sky },
               ["@function.builtin"] = { fg = macchiato.yellow },
               ["@function.macro"] = { fg = macchiato.teal },
-              ["@include"] = { fg = macchiato.yellow },
-              ["@keyword"] = { fg = macchiato.yellow },
+              ["@include"] = { fg = macchiato.yellow, style = { "italic" } },
+              ["@keyword"] = { fg = macchiato.yellow, style = { "italic" } },
               ["@keyword.function"] = { fg = macchiato.mauve },
               ["@keyword.operator"] = { fg = macchiato.peach },
               ["@keyword.return"] = { fg = macchiato.pink },
@@ -123,6 +124,11 @@ return {
               -- Indent Blankline
               IndentBlanklineChar = { fg = util.lighten(macchiato.base, 0.9) },
               IndentBlanklineContextChar = { fg = macchiato.pink },
+              -- Inlay Hints
+              LspInlayHint = {
+                fg = macchiato.surface0,
+                style = { "italic" },
+              },
               -- Neotree
               NeoTreeNormal = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.6) },
               NeoTreeNormalNC = { fg = macchiato.text, bg = util.darken(macchiato.base, 0.6) },
