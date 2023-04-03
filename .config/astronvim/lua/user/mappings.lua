@@ -73,6 +73,7 @@ return {
     -- UI toggles
     ["<leader>uz"] = { "<cmd>ZenMode<cr>", desc = "toggle Zen mode" },
     ["<leader>uI"] = { "<cmd>IndentBlanklineToggle<cr>", desc = "toggle indent blankline" },
+    ["<leader>ul"] = { "<cmd>LspLensToggle<cr>", desc = "toggle lsp lens" },
     -- Ufo
     ["zk"] = {
       function()
