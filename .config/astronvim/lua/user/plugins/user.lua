@@ -9,7 +9,7 @@ return {
     config = {
       inlay_hints = {
         parameter_hints = {
-          show = false,
+          show = true,
           prefix = " ◀ ",
           separator = ", ",
           remove_colon_start = false,

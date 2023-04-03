@@ -250,6 +250,10 @@ return {
         enabled = false,
       }
 
+      opts.lsp.signature = {
+        -- enabled = false,
+      }
+
       opts.routes = {
         {
           filter = {
