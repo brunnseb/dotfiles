@@ -276,7 +276,7 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
-  { import = "astrocommunity.editing-support.nvim-ts-rainbow2" },
+  -- { import = "astrocommunity.editing-support.nvim-ts-rainbow2" },
   -- File explorer
   { import = "astrocommunity.file-explorer.oil-nvim" },
   -- Markdown

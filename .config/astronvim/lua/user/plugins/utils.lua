@@ -1,4 +1,5 @@
 return {
+  { "lambdalisue/suda.vim", event = "VeryLazy" },
   {
     "notjedi/nvim-rooter.lua",
     lazy = false,
