@@ -20,8 +20,4 @@ return {
       return config -- return final config table
     end,
   },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    enabled = false,
-  },
 }

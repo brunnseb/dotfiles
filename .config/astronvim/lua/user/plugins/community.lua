@@ -259,12 +259,6 @@ return {
           filter = { event = "notify", find = "No information available" },
           opts = { skip = true },
         },
-        {
-          filter = {
-            min_height = 20,
-          },
-          view = "split",
-        },
       }
 
       return opts
