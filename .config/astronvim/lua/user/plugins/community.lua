@@ -242,6 +242,7 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.yaml" },
   -- Utility
+  { import = "astrocommunity.utility.neodim" },
   { import = "astrocommunity.utility.noice-nvim" },
   {
     "folke/noice.nvim",
@@ -288,6 +289,19 @@ return {
   -- Project
   { import = "astrocommunity.project.neoconf-nvim" },
   { import = "astrocommunity.project.nvim-spectre" },
+  -- Scrolling
+  {
+    import = "astrocommunity.scrolling.cinnamon-nvim",
+  },
+  {
+    "cinnamon.nvim",
+    opts = function(_, opts)
+      opts.extra_keymaps = true
+      opts.default_delay = 3
+
+      return opts
+    end,
+  },
   -- Syntax
   { import = "astrocommunity.syntax.hlargs-nvim" },
   -- Test
