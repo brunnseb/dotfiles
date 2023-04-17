@@ -2,13 +2,13 @@
 
 # Get Volume
 get_volume() {
-	status=`amixer get Master | tail -n1 | grep -wo 'on'`
+	mute=`pamixer --get-mute`
 
-	if [[ "$status" == "on" ]]; then
-		volume=`amixer get Master | tail -n1 | awk -F ' ' '{print $5}' | tr -d '[]'`
-		echo "$volume"
-	else
+	if [[ "$mute" = true ]]; then
 		echo "Mute"
+	else
+		volume=`pamixer --get-volume`
+		echo "$volume"
 	fi
 }
 
@@ -16,9 +16,11 @@ get_volume() {
 get_icon() {
 	vol="$(get_volume)"
 	current="${vol%%%}"
-	status=`amixer get Master | tail -n1 | grep -wo 'on'`
+	mute=`pamixer --get-mute`
 
-	if [[ "$status" == "on" ]]; then
+	if [[ "$mute" = true  ]]; then
+		echo "images/icons/volume/mute.png"
+	else
 		if [[ "$current" -eq "0" ]]; then
 			echo "images/icons/volume/mute.png"
 		elif [[ ("$current" -ge "0") && ("$current" -le "30") ]]; then
@@ -28,29 +30,27 @@ get_icon() {
 		elif [[ ("$current" -ge "60") && ("$current" -le "100") ]]; then
 			echo "images/icons/volume/volume.png"
 		fi
-	else
-		echo "images/icons/volume/mute.png"
 	fi
 }
 
 # Increase Volume
 inc_volume() {
-	amixer -Mq set Master,0 5%+ unmute
+	pamixer --increase 5 --unmute
 }
 
 # Decrease Volume
 dec_volume() {
-	amixer -Mq set Master,0 5%- unmute
+	pamixer --decrease 5 --unmute
 }
 
 # Toggle Mute
 toggle_mute() {
-	status=`amixer get Master | tail -n1 | grep -wo 'on'`
+	mute=`pamixer --get-mute`
 
-	if [[ "$status" == "on" ]]; then
-		amixer set Master toggle
+	if [[ "$mute" = true  ]]; then
+		pamixer --unmute
 	else
-		amixer set Master toggle
+		pamixer --mute
 	fi
 }
 
