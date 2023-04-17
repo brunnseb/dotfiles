@@ -65,8 +65,8 @@
 ;; resources
 (defwindow resources
            :monitor 0
-           :geometry (geometry :x "1420px"
-                               :y "100px"
+           :geometry (geometry :x "1700px"
+                               :y "15px"
                                :width "480px"
                                :height "200px"
                                :anchor "top left")
@@ -77,8 +77,8 @@
 ;; powermenu
 (defwindow logout
            :monitor 0
-           :geometry (geometry :x "1420px"
-                               :y "320px"
+           :geometry (geometry :x "1700px"
+                               :y "235px"
                                :width "80px"
                                :height "80px"
                                :anchor "top left")
@@ -88,8 +88,8 @@
 
 (defwindow suspend
            :monitor 0
-           :geometry (geometry :x "1520px"
-                               :y "320px"
+           :geometry (geometry :x "1800px"
+                               :y "235px"
                                :width "80px"
                                :height "80px"
                                :anchor "top left")
@@ -99,8 +99,8 @@
 
 (defwindow lock
            :monitor 0
-           :geometry (geometry :x "1620px"
-                               :y "320px"
+           :geometry (geometry :x "1900px"
+                               :y "235px"
                                :width "80px"
                                :height "80px"
                                :anchor "top left")
@@ -110,8 +110,8 @@
 
 (defwindow reboot
            :monitor 0
-           :geometry (geometry :x "1720px"
-                               :y "320px"
+           :geometry (geometry :x "2000px"
+                               :y "235px"
                                :width "80px"
                                :height "80px"
                                :anchor "top left")
@@ -121,8 +121,8 @@
 
 (defwindow shutdown
            :monitor 0
-           :geometry (geometry :x "1820px"
-                               :y "320px"
+           :geometry (geometry :x "2100px"
+                               :y "235px"
                                :width "80px"
                                :height "80px"
                                :anchor "top left")
@@ -133,8 +133,8 @@
 ;; quotes
 (defwindow quotes
            :monitor 0
-           :geometry (geometry :x "1420px"
-                               :y "420px"
+           :geometry (geometry :x "1700px"
+                               :y "335px"
                                :width "480px"
                                :height "100px"
                                :anchor "top left")

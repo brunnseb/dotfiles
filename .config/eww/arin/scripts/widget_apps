@@ -22,12 +22,12 @@ elif [[ "$1" == "--rd" ]]; then
 	firefox --new-tab "https://reddit.com"
 
 elif [[ "$1" == "--ml" ]]; then
-	firefox --new-tab "https://mail.google.com"
+	swaync-client -t 
 
 elif [[ "$1" == "--pow" ]]; then
 	xfce4-power-manager-settings &
 
 elif [[ "$1" == "--nm" ]]; then
-	networkmanager_dmenu
+	nm-connection-editor
 
 fi

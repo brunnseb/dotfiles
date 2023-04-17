@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Get Volume
+get_notification_count() {
+	echo `swaync-client -c`
+}
+
+
+# Execute accordingly
+get_notification_count

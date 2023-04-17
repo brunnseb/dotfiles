@@ -11,6 +11,7 @@
 	background-color: #F5EEE6;
 	border: 1px solid #161616;
 	border-radius: 12px;
+	padding: 0 20px;
 }
 
 /** Icons ***********************************/
@@ -28,15 +29,30 @@
 	min-width: 40px;
 }
 
+.workspaces {
+	padding: 20px 0;
+}
+
+.top_bar {
+	padding: 0 15px;
+}
+
 .workspace {
-	background-color: #C04364;
 	color: #ffffff;
 	border: 2px solid #161616;
 	border-radius: 16px;
-	font-size : 14px;
-	padding: 0px 6px 0px 6px;
-	margin: -2px 0px 0px 0px;
+	font-size : 24px;
+	padding: 0px 8px;
 	font-weight : bold;
+
+	&.occupied {
+		background-color: green;
+	}
+
+	 &.current {
+	background-color: #C04364;
+	}
+	
 }
 
 /** Clock ********************************************/

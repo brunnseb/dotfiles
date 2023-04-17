@@ -1,0 +1,13 @@
+
+#!/bin/bash
+
+# Get Volume
+get_brightness() {
+  brightness=`brightnessctl g`
+  percent=`expr "$brightness" / 192`
+  
+	echo "$percent"%
+}
+
+# Execute accordingly
+get_brightness

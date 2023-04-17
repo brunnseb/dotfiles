@@ -5,9 +5,6 @@
 
 ;; ** Variables ***********************************************************************
 
-;; Workspace vars
-(defpoll WMS :interval "1s" `wmctrl -d | grep '*' | cut -d ' ' -f13`)
-
 ;; Time vars
 (defpoll TIME :interval "5s" `date +\"%I:%M %p\"`)
 (defpoll DATE :interval "5s" `date +\"%A, %B %d\"`)
@@ -24,11 +21,14 @@
 (defpoll STATUS :interval "1s" `scripts/music_info --status`)
 
 ;; Mail vars
-(defpoll MAILS :interval "5m" `scripts/mails`)
+(defpoll MAILS :interval "1s" `scripts/notifications`)
 
 ;; Battery vars
 (defpoll BATICON :interval "1m" `scripts/battery --icon`)
 (defpoll BATPERC :interval "1m" `scripts/battery --perc`)
+
+;; Brightness vars
+(defpoll BRIGHTNESS :interval "1s" `scripts/brightness`)
 
 ;; Volume vars
 (defpoll VOLICON :interval "1s" `scripts/volume --icon`)
@@ -46,15 +46,14 @@
 
 ;; search
 (defwidget search []  
-		(box :class "dockbox" :width 180    
+		(box :class "dockbox"     
 			(box :orientation "h" :spacing 30 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
 				(button :style "background-image: url('images/icons/search.svg');" :class "genicon" :onclick "scripts/widget_search --search")
-				(button :style "background-image: url('images/icons/dashboard.svg');" :class "genicon" :onclick "scripts/widget_search --menu")
-				(label :class "workspace" :halign "start" :text WMS))))
+				(button :style "background-image: url('images/icons/dashboard.svg');" :class "genicon" :onclick "scripts/widget_search --menu"))))
 
 ;; apps
 (defwidget apps [] 
-		(box :class "dockbox" :width 400
+		(box :class "dockbox" 
 			(box :orientation "h" :spacing 15 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "scripts/widget_apps --tr")
 				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "scripts/widget_apps --ff")
@@ -66,7 +65,7 @@
 
 ;; weather
 (defwidget weather [] 
-		(box :class "dockbox" :width 300
+		(box :class "dockbox"
 			(box :class "clockbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
 				(label :class "time" :halign "start" :wrap "true" :limit-width 25 :text TIME)
 				(label :class "date" :halign "start" :wrap "true" :limit-width 25 :text DATE))
@@ -90,8 +89,8 @@
 ;; system
 (defwidget system [] 
 		(box :class "dockbox" 
-			(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" :width 580
-				(button :onclick "scripts/widget_apps --ml"
+			(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(button 
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('images/icons/gmail.png');" :class "trayicon")
 							(label :class "mails" :halign "start" :text MAILS)))
@@ -99,6 +98,10 @@
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${BATICON}');" :class "trayicon")
 							(label :class "infotext" :halign "start" :text BATPERC)))
+				(button :onclick "scripts/widget_apps --pow"
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('images/icons/brightness.png');" :class "trayicon")
+							(label :class "infotext" :halign "start" :text BRIGHTNESS)))
 				(button :onclick "scripts/volume --toggle"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${VOLICON}');" :class "trayicon")
@@ -140,15 +143,49 @@
 (system)))
 
 (defwidget bar []
-	(centerbox :class "eww_bar" 
+	(centerbox :class "top_bar"  
 (left_bar)
 (center_bar)
 (right_bar)))
 
-;; ** Windows *************************************************************************
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/arin/scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
+    (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
+      (for workspace in workspaces
+        (button :onclick "hyprctl dispatch workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "○" : ""}")
+        )
+      )
+    )
+  )
 
-;; search
-(defwindow search
+;; Bar Widgets ;;
+(defwidget ws_bar []
+	(box :class "eww_bar" 
+		 :orientation "v" 
+		 :vexpand "false" 
+		 :hexpand "false"
+(workspaces)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Window Section's							 ;;	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bar Windows ;;
+(defwindow left_bar
+	:exclusive true
+	:geometry (geometry :x "15px" 
+						:y "0" 
+						:anchor "left center"
+						:width "60px")
+	:monitor 0
+	:stacking "fg"
+	:windowtype "dock"
+	:hexpand "false"
+	:vexpand "false"
+(ws_bar))
+
+(defwindow top_bar 
            :monitor 0
            :geometry (geometry :x "0px"
                                :y "15px"
@@ -162,61 +199,3 @@
 					 :exclusive true
 (bar))
 
-;; ;; apps
-;; (defwindow apps
-;;            :monitor 0
-;;            :geometry (geometry :x "230px"
-;;                                :y "20px"
-;;                                :width "400px"
-;;                                :height "60px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :reserve (struts :distance "80px" :side "top")
-;;            :windowtype "dock"
-;;            :wm-ignore false 
-;; (apps))
-;;
-;; ;; weather
-;; (defwindow weather
-;;            :monitor 0
-;;            :geometry (geometry :x "660px"
-;;                                :y "20px"
-;;                                :width "300px"
-;;                                :height "60px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :reserve (struts :distance "80px" :side "top")
-;;            :windowtype "dock"
-;;            :wm-ignore false 
-;; (weather))
-;;
-;; ;; music
-;; (defwindow music
-;;            :monitor 0
-;;            :geometry (geometry :x "990px"
-;;                                :y "20px"
-;;                                :width "400px"
-;;                                :height "60px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :reserve (struts :distance "80px" :side "top")
-;;            :windowtype "dock"
-;;            :wm-ignore false 
-;; 					 :exclusive true
-;; (music))
-;;
-;; ;; system
-;; (defwindow system
-;;            :monitor 0
-;;            :geometry (geometry :x "1420px"
-;;                                :y "20px"
-;;                                :width "480px"
-;;                                :height "60px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :reserve (struts :distance "80px" :side "top")
-;;            :windowtype "dock"
-;;            :wm-ignore false 
-;; 					 :exclusive true
-;;           
-;; (system))
