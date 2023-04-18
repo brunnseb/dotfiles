@@ -16,7 +16,7 @@ return {
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
-    config = {
+    opts = {
       inlay_hints = {
         parameter_hints = {
           show = true,

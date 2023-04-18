@@ -1,5 +1,3 @@
-vim.lsp.set_log_level "debug"
-
 return {
   -- Configure AstroNvim updates
   updater = {
@@ -88,20 +86,21 @@ return {
           },
         },
       },
-      -- tailwindcss = {
-      --   settings = {
-      --     tailwindCSS = {
-      --       experimental = {
-      --         configFile = {
-      --           ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
-      --           ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
-      --           ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
-      --           ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
+      tailwindcss = {
+        autostart = false,
+        -- settings = {
+        --   tailwindCSS = {
+        --     experimental = {
+        --       configFile = {
+        --         ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
+        --         ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
+        --         ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
+        --         ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
+        --       },
+        --     },
+        --   },
+        -- },
+      },
     },
   },
   -- set up UI icons
