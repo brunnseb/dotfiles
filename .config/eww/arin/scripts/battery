@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Get battery info
-CHARGE="$(upower -i $(upower -e | grep 'BAT') | grep -E  'state|to full|percentage' | awk -F ':' 'NR==1 {print $2}')"
-BATTERY="$(upower -i $(upower -e | grep 'BAT') | grep -E 'state|to full|percentage' | awk -F ':' 'NR==2 {print $2}' | tr -d \%,)"
+CHARGE="$(upower -i $(upower -e | grep 'BAT') | grep -E  'state' | awk -F ':' 'NR==1 {print $2}')"
+BATTERY="$(upower -i $(upower -e | grep 'BAT') | grep -E 'percentage' | awk -F ':' 'NR==1 {print $2}' | tr -d \%,)"
 
 main() {
 	if [[ ($CHARGE = "charging") && ($BATTERY -lt "100") ]]; then

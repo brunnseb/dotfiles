@@ -281,7 +281,7 @@ return {
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
-  { import = "astrocommunity.motion.vim-matchup" },
+  -- { import = "astrocommunity.motion.vim-matchup" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.portal-nvim" },

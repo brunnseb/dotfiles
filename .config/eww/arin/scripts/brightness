@@ -4,7 +4,9 @@
 # Get Volume
 get_brightness() {
   brightness=`brightnessctl g`
-  percent=`expr "$brightness" / 192`
+  max=`brightnessctl m`
+  ratio=`expr "$max" / 100`
+  percent=`expr "$brightness" / "$ratio"`
   
 	echo "$percent"%
 }

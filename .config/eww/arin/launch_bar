@@ -13,7 +13,9 @@ fi
 run_eww() {
 	${EWW} --config "$CFG" open-many \
 		   top_bar \
-		   left_bar
+		   left_bar \
+		   top_bar_2 \
+		   left_bar_2 \
 		   # apps \
 		   # weather \
 		   # music \
