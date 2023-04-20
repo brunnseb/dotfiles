@@ -3,6 +3,6 @@ Encoding=UTF-8
 Version=1.0
 Type=Application
 Terminal=false
-Exec=toggle-vpn.sh SUISA
+Exec=/home/brunnseb/.local/bin/toggle-vpn.sh SUISA
 Icon=/usr/share/icons/Tela/symbolic/status/network-vpn-symbolic.svg
 Name=VPN SUISA
