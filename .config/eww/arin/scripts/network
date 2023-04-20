@@ -1,0 +1,52 @@
+#!/bin/bash
+
+get_status () {
+  IS_ACTIVATING="$(nmcli -f state c show --active | grep 'activating')"
+
+  if [[ -z "$IS_ACTIVATING" ]]; then
+    echo "Connected"
+  else
+    echo "Connecting"
+  fi
+}
+
+get_vpn () {
+    IS_VPN=false
+  
+    for i in $(nmcli -f type c show --active) ; do
+      if [ "$i" = "vpn" ]; then
+        IS_VPN=true
+      fi
+    done
+  
+    if [ "$IS_VPN" = true ]; then
+      echo "images/icons/system/locked.png"
+    else
+      echo "images/icons/system/unlocked.png"
+    fi
+  }
+
+get_type () {
+  TYPE="wifi"
+  for i in $(nmcli -f type c show --active) ; do
+    if [ "$i" = "ethernet" ]; then
+      TYPE="ethernet"
+    fi
+  done
+
+    if [ "$TYPE" = "ethernet" ]; then
+      echo "images/icons/system/ethernet.png"
+    else
+      echo "images/icons/system/wifi.png"
+    fi
+}
+
+
+if [[ $1 == '--status' ]]; then
+	get_status
+elif [[ $1 == '--icon' ]]; then
+	get_type
+elif [[ $1 == '--vpn' ]]; then
+	get_vpn
+fi
+

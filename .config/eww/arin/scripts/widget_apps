@@ -28,6 +28,6 @@ elif [[ "$1" == "--pow" ]]; then
 	xfce4-power-manager-settings &
 
 elif [[ "$1" == "--nm" ]]; then
-	nm-connection-editor
+	networkmanager_dmenu
 
 fi
