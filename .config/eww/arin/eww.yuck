@@ -6,26 +6,17 @@
 ;; ** Variables ***********************************************************************
 
 ;; Time vars
-(defpoll TIME :interval "5s" `date +\"%I:%M %p\"`)
-(defpoll DATE :interval "5s" `date +\"%A, %B %d\"`)
+(defpoll TIME :interval "10s" `date +\"%I:%M %p\"`)
+(defpoll DATE :interval "10s" `date +\"%A, %B %d\"`)
 
 ;; Weather vars
 (defpoll ICON :interval "15m" `scripts/weather_info --icon`)
 (defpoll TEMP :interval "15m" `scripts/weather_info --temp`)
 (defpoll HEX :interval "15m" `scripts/weather_info --hex`)
 
-;; Music vars
-(defpoll SONG :interval "1s" `scripts/music_info --song`)
-(defpoll ARTIST :interval "1s" `scripts/music_info --artist`)
-(defpoll COVER :interval "1s" `scripts/music_info --cover`)
-(defpoll STATUS :interval "1s" `scripts/music_info --status`)
-
-;; Mail vars
-(defpoll MAILS :interval "1s" `scripts/notifications`)
-
 ;; Battery vars
-(defpoll BATICON :interval "1m" `scripts/battery --icon`)
-(defpoll BATPERC :interval "1m" `scripts/battery --perc`)
+(defpoll BATICON :interval "2m" `scripts/battery --icon`)
+(defpoll BATPERC :interval "2m" `scripts/battery --perc`)
 
 ;; Brightness vars
 (defpoll BRIGHTNESS :interval "1s" `scripts/brightness`)
@@ -42,6 +33,13 @@
 ;; User
 (defvar IMAGE "images/profile.jpg")
 (defpoll USER :interval "10m" `whoami`)
+
+;; Notifications
+(deflisten notifications :initial "0" "bash ~/.config/eww/arin/scripts/notifications")
+
+;; Workspaces
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace")
 
 ;; ** Widgets *************************************************************************
 
@@ -74,19 +72,6 @@
 				(label :class "weathericon" :style "color: ${HEX};" :text ICON)
 				(label :class "weathertemp" :text TEMP))))
 
-;; music
-(defwidget music [] 
-		(box :class "dockbox" :width 400
-			(box :orientation "h" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
-				(box :class "album_art" :vexpand "false" :hexpand "false" :style "background-image: url('${COVER}');")
-				(box :class "musicbox" :orientation "v" :spacing 0 :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
-					(label :class "song" :halign "start" :wrap "false" :limit-width 20 :text SONG)
-					(label :class "artist" :halign "start" :wrap "false" :limit-width 20 :text ARTIST)))
-			(box :class "musicbuttons" :orientation "h" :spacing 10 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
-				(button :style "background-image: url('images/icons/music/previous-button.png');" :class "trackbutton" :onclick "scripts/music_info --prev")
-				(button :style "background-image: url('${STATUS}');" :class "playbutton" :onclick "scripts/music_info --toggle")
-				(button :style "background-image: url('images/icons/music/next-button.png');" :class "trackbutton" :onclick "scripts/music_info --next"))))
-
 ;; system
 (defwidget system [] 
 		(box :class "dockbox" 
@@ -94,7 +79,7 @@
 				(button 
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('images/icons/gmail.png');" :class "trayicon")
-							(label :class "mails" :halign "start" :text MAILS)))
+							(label :class "mails" :halign "start" :text notifications)))
 				(button :onclick "scripts/widget_apps --pow"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${BATICON}');" :class "trayicon")
@@ -152,13 +137,11 @@
 (center_bar)
 (right_bar)))
 
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace")
 (defwidget workspaces []
   (eventbox :onscroll "bash ~/.config/eww/arin/scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
     (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
       (for workspace in workspaces
-        (button :onclick "hyprctl dispatch workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "" : " "}")
+        (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "" : " "}")
         )
       )
     )
