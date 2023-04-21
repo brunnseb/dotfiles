@@ -1,0 +1,4 @@
+plugins = [
+    { git = "https://github.com/Duckonaut/split-monitor-workspaces", branch = "main", name = "split-monitor-workspaces" },
+    { git = "https://github.com/zakk4223/hyprNStack", branch = "main", name = "hypr-n-stack" },
+]

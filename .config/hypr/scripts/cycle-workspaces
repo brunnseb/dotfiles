@@ -1,0 +1,26 @@
+#! /bin/bash
+
+CURRENT_WORKSPACE=`hyprctl monitors | grep active | awk '{print $3}'`
+NEXT_WORKSPACE=$(("$CURRENT_WORKSPACE" + 1))
+PREVIOUS_WORKSPACE=$(("$CURRENT_WORKSPACE" - 1))
+MIN=1
+MAX=10
+
+
+if [ "$1" = "prev" ]; then
+  if [ "$CURRENT_WORKSPACE" -eq "$MIN" ]; then
+    `hyprctl dispatch split-workspace "$MAX"`
+  else
+    `hyprctl dispatch split-workspace "$PREVIOUS_WORKSPACE"`
+  fi
+else
+  if [ "$CURRENT_WORKSPACE" -eq "$MAX" ]; then
+    `hyprctl dispatch split-workspace "$MIN"`
+  else
+    `hyprctl dispatch split-workspace "$NEXT_WORKSPACE"`
+  fi
+fi
+
+
+
+
