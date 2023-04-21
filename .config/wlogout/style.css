@@ -1,0 +1,47 @@
+* {
+	background-image: none;
+}
+window {
+	background-color: #F0E9E1;
+}
+
+button {
+	background-position: center;
+  background-repeat: no-repeat;
+	background-size: 132px;
+	min-height: 48px;
+	min-width: 48px;
+	background-color: #E1DCD2;
+	border-radius: 24px;
+	border: 5px solid #161616;
+	margin: 72px;
+}
+
+button:focus, button:active, button:hover {
+	background-color: #c04364;
+	outline-style: none;
+}
+
+#lock {
+    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-lock.png"));
+}
+
+#logout {
+    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-exit.png"));
+}
+
+#suspend {
+    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-sleep.png"));
+}
+
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"), url("/usr/local/share/wlogout/icons/hibernate.png"));
+}
+
+#shutdown {
+    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/shutdown.png"));
+}
+
+#reboot {
+    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-reboot.png"));
+}
