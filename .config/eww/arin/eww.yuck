@@ -25,11 +25,6 @@
 (defpoll VOLICON :interval "1s" `scripts/volume --icon`)
 (defpoll VOLUME :interval "1s" `scripts/volume --get`)
 
-;; Network
-(defpoll WIFIICON :interval "10s" `scripts/network --icon`)
-(defpoll NETSTAT :interval "10s" `scripts/network --status`)
-(defpoll VPN :interval "10s" `scripts/network --vpn`)
-
 ;; User
 (defvar IMAGE "images/profile.jpg")
 (defpoll USER :interval "10m" `whoami`)
@@ -38,8 +33,13 @@
 (deflisten notifications :initial "0" "bash ~/.config/eww/arin/scripts/notifications")
 
 ;; Workspaces
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace")
+(deflisten workspaces_0 :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces 0")
+(deflisten workspaces_1 :initial "[]" "bash ~/.config/eww/arin/scripts/get-workspaces 1")
+(deflisten current_workspace_0 :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace 0")
+(deflisten current_workspace_1 :initial "1" "bash ~/.config/eww/arin/scripts/get-active-workspace 1")
+
+;; Network
+(deflisten network :initial "images/icons/system/no-wifi.png" "bash ~/.config/eww/arin/scripts/network")
 
 ;; ** Widgets *************************************************************************
 
@@ -94,11 +94,7 @@
 							(label :class "infotext" :halign "start" :text VOLUME)))
 				(button :onclick "scripts/widget_apps --nm"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('${WIFIICON}');" :class "trayicon")
-							(label :class "infotext" :halign "start" :text NETSTAT)))
-				(button :onclick "scripts/widget_apps --nm"
-					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('${VPN}');" :class "trayicon")))
+						(box :style "background-image: url('${network}');" :class "trayicon")))
 				(button :onclick "sidedar/toggle_sidebar"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${IMAGE}');" :class "face")
@@ -137,23 +133,41 @@
 (center_bar)
 (right_bar)))
 
-(defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/arin/scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
+(defwidget workspaces_0 []
+  (eventbox :onscroll "bash ~/.config/eww/arin/scripts/change-active-workspace {} ${current_workspace_0}" :class "dockbox"
     (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
-      (for workspace in workspaces
-        (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "" : " "}")
+    (label :text current_workspace_0)
+      (for workspace in workspaces_0
+        (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace_0 ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace_0 ? "" : workspace.windows > 0 ? "" : " "}")
+        )
+      )
+    )
+  )
+
+(defwidget workspaces_1 []
+  (eventbox :onscroll "bash ~/.config/eww/arin/scripts/change-active-workspace {} ${current_workspace_1}" :class "dockbox"
+    (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
+      (for workspace in workspaces_1
+        (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace_1 ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace_1 ? "" : workspace.windows > 0 ? "" : " "}")
         )
       )
     )
   )
 
 ;; Bar Widgets ;;
-(defwidget ws_bar []
+(defwidget ws_bar_0 []
 	(box :class "eww_bar" 
 		 :orientation "v" 
 		 :vexpand "false" 
 		 :hexpand "false"
-(workspaces)))
+(workspaces_0 )))
+
+(defwidget ws_bar_1 []
+	(box :class "eww_bar" 
+		 :orientation "v" 
+		 :vexpand "false" 
+		 :hexpand "false"
+(workspaces_1)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;							Window Section's							 ;;	
@@ -170,7 +184,7 @@
 	:windowtype "dock"
 	:hexpand "false"
 	:vexpand "false"
-(ws_bar))
+(ws_bar_0))
 
 (defwindow top_bar 
            :monitor 0
@@ -198,7 +212,7 @@
 	:windowtype "dock"
 	:hexpand "false"
 	:vexpand "false"
-(ws_bar))
+(ws_bar_1))
 
 (defwindow top_bar_2 
            :monitor 1

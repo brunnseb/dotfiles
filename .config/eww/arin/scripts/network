@@ -1,52 +1,60 @@
 #!/bin/bash
 
-get_status () {
-  IS_ACTIVATING="$(nmcli -f state c show --active | grep 'activating')"
+WIFI="disconnected"
+ETHERNET="disconnected"
+VPN="disconnected"
 
-  if [[ -z "$IS_ACTIVATING" ]]; then
-    echo "Connected"
-  else
-    echo "Connecting"
-  fi
-}
-
-get_vpn () {
-    IS_VPN=false
-  
+initialize () {
     for i in $(nmcli -f type c show --active) ; do
       if [ "$i" = "vpn" ]; then
-        IS_VPN=true
+        VPN="connected"
+      elif [ "$i" = "wifi" ]; then
+        WIFI="connected"
+      elif [ "$i" = "ethernet" ];then
+        ETHERNET="connected"
       fi
     done
-  
-    if [ "$IS_VPN" = true ]; then
-      echo "images/icons/system/locked.png"
-    else
-      echo "images/icons/system/unlocked.png"
-    fi
-  }
+}
 
-get_type () {
-  TYPE="wifi"
-  for i in $(nmcli -f type c show --active) ; do
-    if [ "$i" = "ethernet" ]; then
-      TYPE="ethernet"
-    fi
-  done
+parse_output () {
+   interface=$(echo "$1" | awk -F ':' '{print $1;}' )
+   status=$(echo "$1" | awk -F ':' '{gsub(/ /, "", $0);print $2}' | awk -F '(' '{print $1}' )
 
-    if [ "$TYPE" = "ethernet" ]; then
-      echo "images/icons/system/ethernet.png"
-    else
-      echo "images/icons/system/wifi.png"
-    fi
+   if [ "$interface" = "wlan0" ]; then
+     WIFI="$status"
+   elif [ "$interface" = "vpn0" ]; then
+     if [ "$status" = "connected" ]; then
+      VPN="$status"
+     elif [ "$status" = "connectionprofileremoved" ]; then
+      VPN="disconnected"
+     fi
+   fi
+
+   if [ "$VPN" = "connected" ]; then
+     if [ "$ETHERNET" = "connected" ]; then
+       echo "images/icons/system/locked.png"
+     elif [ "$WIFI" = "connected" ]; then
+       echo "images/icons/system/locked.png"
+     fi
+   else
+     if [ "$ETHERNET" = "connected" ]; then
+       echo "images/icons/system/ethernet.png"
+     elif [ "$WIFI" = "connected" ]; then
+       echo "images/icons/system/wifi.png"
+     else
+       echo "images/icons/system/no-wifi.png"
+     fi
+   fi
 }
 
 
-if [[ $1 == '--status' ]]; then
-	get_status
-elif [[ $1 == '--icon' ]]; then
-	get_type
-elif [[ $1 == '--vpn' ]]; then
-	get_vpn
-fi
+monitor () {
+  nmcli m  | while read -r line; do
+	   parse_output "$line"
+  done
+}
+
+
+initialize
+monitor
 

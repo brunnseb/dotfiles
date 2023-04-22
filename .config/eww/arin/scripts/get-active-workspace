@@ -1,4 +1,14 @@
 #!/bin/bash
-hyprctl monitors -j | jq --raw-output .[0].activeWorkspace.id
+#
+MULTIPLIER="$(( 10 * $1 ))"
+MIN=`expr 1 + $MULTIPLIER`
+MAX=`expr 10 + $MULTIPLIER`
+ACTIVE_WORKSPACE=$( hyprctl monitors -j | jq --raw-output .[$1].activeWorkspace.id )
 
-socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^workspace>>' | stdbuf -o0 awk -F '>>|,' '{print $2}'
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^workspace>>' | while read -r line; do
+  NEW_WORKSPACE=$(echo "$line"  | stdbuf -o0 awk -F '>>|,' '{print $2}')
+  if [ "$NEW_WORKSPACE" -le "$MAX" ] && [ "$NEW_WORKSPACE" -ge "$MIN" ]; then
+    ACTIVE_WORKSPACE="$NEW_WORKSPACE"
+  fi
+  echo "$ACTIVE_WORKSPACE"
+done  
