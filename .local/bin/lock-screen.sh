@@ -9,10 +9,27 @@ swaylock \
 	--indicator-thickness 7 \
 	--effect-blur 7x5 \
 	--effect-vignette 0.5:0.5 \
-	--ring-color bb00cc \
-	--key-hl-color 880033 \
+	--key-hl-color 67D4F1 \
 	--line-color 00000000 \
-	--inside-color 00000088 \
+	--inside-color 00000000 \
 	--separator-color 00000000 \
+	--text-color f5eee6 \
+	--ring-color 00000000 \
+	--text-wrong-color f5eee6 \
+	--ring-wrong-color FD6B85 \
+	--inside-wrong-color 00000000 \
+	--line-wrong-color 00000000 \
+	--text-clear-color f5eee6 \
+	--ring-clear-color f1A6EE \
+	--inside-clear-color 00000000 \
+	--line-clear-color 00000000 \
+	--text-ver-color f5eee6 \
+	--ring-ver-color 00C8A0 \
+	--inside-ver-color 00000000 \
+	--line-ver-color 00000000 \
+	--text-caps-lock-color FF9D03 \
+	--ring-caps-lock-color f5eee6 \
+	--inside-caps-lock-color 00000000 \
+	--line-caps-lock-color 00000000 \
 	--grace 2 \
 	--fade-in 0.2
