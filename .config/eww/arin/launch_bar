@@ -9,17 +9,19 @@ if [[ ! `pidof eww` ]]; then
 	sleep 1
 fi
 
+
 ## Open widgets 
 run_eww() {
-	${EWW} --config "$CFG" open-many \
-		   top_bar \
-		   left_bar \
-		   top_bar_2 \
-		   left_bar_2 \
-		   # apps \
-		   # weather \
-		   # music \
-		   # system
+	for monitor in $( hyprctl monitors -j | jq  '[.[] | .id]' | jq -r @sh ) 
+	do
+		${EWW} --config "$CFG" open \
+		   	 top_bar \
+		   	 --screen "$monitor"
+		
+		${EWW} --config "$CFG" open \
+		   	 left_bar \
+		   	 --screen "$monitor"
+	done
 }
 
 ## Launch or close widgets accordingly

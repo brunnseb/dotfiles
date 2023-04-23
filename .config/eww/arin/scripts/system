@@ -4,22 +4,20 @@ CFG="$HOME/.config/eww/arin/sidedar"
 EWW=`which eww`
 
 close_eww() {
-	${EWW} --config "$CFG" close resources logout suspend lock reboot shutdown quotes
+	${EWW} --config "$CFG" close resources 
 }
 
 ## Options #############################################
 if  [[ $1 = "--lock" ]]; then
 	close_eww
-    betterlockscreen --lock
+    ~/.local/bin/lock-screen.sh
 
 elif  [[ $1 = "--logout" ]]; then
 	close_eww
-    #openbox --exit
-    berryc quit
 
 elif  [[ $1 = "--suspend" ]]; then
 	close_eww
-	amixer set Master mute
+	pamixer --mute
 	systemctl suspend
 
 elif  [[ $1 = "--reboot" ]]; then

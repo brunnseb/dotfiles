@@ -179,7 +179,6 @@
 						:y "0" 
 						:anchor "left center"
 						:width "60px")
-	:monitor 0
 	:stacking "fg"
 	:windowtype "dock"
 	:hexpand "false"
@@ -187,7 +186,6 @@
 (ws_bar_0))
 
 (defwindow top_bar 
-           :monitor 0
            :geometry (geometry :x "0px"
                                :y "15px"
                                :width "100%"
@@ -201,29 +199,28 @@
 (bar))
 
 
-(defwindow left_bar_2
-	:exclusive true
-	:geometry (geometry :x "15px" 
-						:y "0" 
-						:anchor "left center"
-						:width "60px")
-	:monitor 1
-	:stacking "fg"
-	:windowtype "dock"
-	:hexpand "false"
-	:vexpand "false"
-(ws_bar_1))
-
-(defwindow top_bar_2 
-           :monitor 1
-           :geometry (geometry :x "0px"
-                               :y "15px"
-                               :width "100%"
-                               :height "60px"
-                               :anchor "top center")
-           :stacking "fg"
-           :reserve (struts :distance "80px" :side "top")
-           :windowtype "dock"
-           :wm-ignore false 
-					 :exclusive true
-(bar))
+;; (defwindow left_bar_2
+;; 	:exclusive true
+;; 	:geometry (geometry :x "15px" 
+;; 						:y "0" 
+;; 						:anchor "left center"
+;; 						:width "60px")
+;; 	:monitor 1
+;; 	:stacking "fg"
+;; 	:windowtype "dock"
+;; 	:hexpand "false"
+;; 	:vexpand "false"
+;; (ws_bar_1))
+;;
+;; (defwindow top_bar_2 
+;;            :geometry (geometry :x "0px"
+;;                                :y "15px"
+;;                                :width "100%"
+;;                                :height "60px"
+;;                                :anchor "top center")
+;;            :stacking "fg"
+;;            :reserve (struts :distance "80px" :side "top")
+;;            :windowtype "dock"
+;;            :wm-ignore false 
+;; 					 :exclusive true
+;; (bar))

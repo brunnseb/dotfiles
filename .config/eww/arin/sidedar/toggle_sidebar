@@ -13,14 +13,10 @@ fi
 
 ## Open widgets 
 run_eww() {
-	${EWW} --config "$CFG" open-many \
+	monitor=$( hyprctl monitors -j | jq  '.[] | select(.focused = true) | .id'  )
+	${EWW} --config "$CFG" open \
 			resources \
-			logout \
-			suspend \
-			lock \
-			reboot \
-			shutdown \
-			quotes
+			--screen "$monitor"
 }
 
 ## Launch or close widgets accordingly
@@ -28,6 +24,6 @@ if [[ ! -f "$FILE" ]]; then
 	touch "$FILE"
 	run_eww
 else
-	${EWW} --config "$CFG" close resources logout suspend lock reboot shutdown quotes
+	${EWW} --config "$CFG" close resources 
 	rm "$FILE"
 fi
