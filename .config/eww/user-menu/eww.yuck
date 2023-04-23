@@ -77,9 +77,9 @@
 ;; resources
 (defwindow user-menu_0
            :monitor 0
-           :geometry (geometry :x "15px"
-                               :y "15px"
-                               :width "508px"
+           :geometry (geometry :x "16px"
+                               :y "16px"
+                               :width "525px"
                                :height "200px"
                                :anchor "top right")
            :stacking "fg"
@@ -89,9 +89,9 @@
 
 (defwindow user-menu_1
            :monitor 1
-           :geometry (geometry :x "15px"
-                               :y "15px"
-                               :width "508px"
+           :geometry (geometry :x "16px"
+                               :y "16px"
+                               :width "525px"
                                :height "200px"
                                :anchor "top right")
            :stacking "fg"
@@ -100,9 +100,9 @@
 
 (defwindow user-menu_2
            :monitor 2
-           :geometry (geometry :x "15px"
-                               :y "15px"
-                               :width "508px"
+           :geometry (geometry :x "16px"
+                               :y "16px"
+                               :width "525px"
                                :height "200px"
                                :anchor "top right")
            :stacking "fg"
