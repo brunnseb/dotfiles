@@ -18,20 +18,20 @@ button {
 }
 
 button:focus, button:active, button:hover {
-	background-color: #c04364;
+	background-color: #B1A6EE;
 	outline-style: none;
 }
 
 #lock {
-    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-lock.png"));
+    background-image: image(url("/home/brunnseb/.config/eww/images/icons/system/sys-lock.png"));
 }
 
 #logout {
-    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-exit.png"));
+    background-image: image(url("/home/brunnseb/.config/eww/images/icons/system/sys-exit.png"));
 }
 
 #suspend {
-    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-sleep.png"));
+    background-image: image(url("/home/brunnseb/.config/eww/images/icons/system/sys-sleep.png"));
 }
 
 #hibernate {
@@ -39,9 +39,9 @@ button:focus, button:active, button:hover {
 }
 
 #shutdown {
-    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/shutdown.png"));
+    background-image: image(url("/home/brunnseb/.config/eww/images/icons/system/shutdown.png"));
 }
 
 #reboot {
-    background-image: image(url("/home/brunnseb/.config/eww/arin/images/icons/system/sys-reboot.png"));
+    background-image: image(url("/home/brunnseb/.config/eww/images/icons/system/sys-reboot.png"));
 }

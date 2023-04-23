@@ -26,7 +26,7 @@
 (defpoll VOLUME :interval "1s" `scripts/volume --get`)
 
 ;; User
-(defvar IMAGE "images/profile.jpg")
+(defvar IMAGE "images/profile.png")
 (defpoll USER :interval "10m" `whoami`)
 
 ;; Notifications
@@ -92,7 +92,7 @@
 				(button :onclick "sidedar/toggle_sidebar"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${IMAGE}');" :class "face")
-							(label :class "infotext" :halign "start" :text USER))))))
+							(label :class "infotext user" :halign "start" :text USER))))))
 
 
 (defwidget left_bar []
