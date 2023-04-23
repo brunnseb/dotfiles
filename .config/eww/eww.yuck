@@ -132,7 +132,7 @@
 ;;							Window Section's							 ;;	
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bar Windows ;;
-(defwindow top_bar 
+(defwindow top_bar_0
            :geometry (geometry :x "0px"
                                :y "15px"
                                :width "100%"
@@ -143,5 +143,34 @@
            :windowtype "dock"
            :wm-ignore false 
 					 :exclusive true
+					 :monitor 0
 (bar))
 
+
+(defwindow top_bar_1 
+           :geometry (geometry :x "0px"
+                               :y "15px"
+                               :width "100%"
+                               :height "60px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false 
+					 :exclusive true
+					 :monitor 1
+(bar))
+
+(defwindow top_bar_2 
+           :geometry (geometry :x "0px"
+                               :y "15px"
+                               :width "100%"
+                               :height "60px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "80px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false 
+					 :exclusive true
+					 :monitor 2
+(bar))

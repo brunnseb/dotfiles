@@ -7,6 +7,6 @@ EWW=`which eww`
 
 
 if [[ -f "$FILE" ]]; then
-	${EWW} --config "$CFG" close user-menu
+	${EWW} --config "$CFG" close user-menu_0 user-menu_1 user-menu_2
 	rm "$FILE"
 fi

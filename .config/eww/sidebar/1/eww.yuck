@@ -35,5 +35,6 @@
 	:windowtype "dock"
 	:hexpand "false"
 	:vexpand "false"
+	:monitor 1
 (ws_bar))
 

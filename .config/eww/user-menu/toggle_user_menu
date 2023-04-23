@@ -13,11 +13,11 @@ fi
 
 ## Open widgets 
 run_eww() {
-	monitor=$( hyprctl monitors -j | jq  '.[] | select(.focused = true) | .id'  )
+	monitor=$( hyprctl monitors -j | jq  '.[] | select(.focused == true) | .id'  )
+	echo "$monitor"
 	swaync-client -cp
 	${EWW} --config "$CFG" open \
-			user-menu \
-			--screen "$monitor"
+			user-menu_"$monitor" 
 }
 
 ## Launch or close widgets accordingly
@@ -25,6 +25,6 @@ if [[ ! -f "$FILE" ]]; then
 	touch "$FILE"
 	run_eww
 else
-	${EWW} --config "$CFG" close user-menu 
+	${EWW} --config "$CFG" close user-menu_0 user-menu_1 user-menu_2 
 	rm "$FILE"
 fi

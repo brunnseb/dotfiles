@@ -1,21 +1,18 @@
 #!/bin/bash
 
 spaces (){
-	echo "$1"
   CURRENT_MONITOR=$(hyprctl monitors -j | jq --argjson monitor $1 '.[] | select(.id == $monitor) | {"active": .activeWorkspace.id, "name":.name}')
-  echo "$CURRENT_MONITOR"
 	WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq --argjson CURRENT_MONITOR "$CURRENT_MONITOR" '[.[] | select( .monitor == $CURRENT_MONITOR.name )] | map({key: .id | tostring, value: .windows}) | from_entries')
-	echo "$WORKSPACE_WINDOWS"
 	MULTIPLIER="$(( 10 * $1 ))"
 	MIN=`expr 1 + $MULTIPLIER`
 	MAX=`expr 10 + $MULTIPLIER`
-for (( c=$MIN; c<=$MAX; c++ ))
-do
-    # echo -n "$c\n"
-	 	 echo  "$c"
-	 	 jq --argjson windows  "${WORKSPACE_WINDOWS}" --argjson index "$c" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0)})'
-	 	 # echo "$json"
-done
+# for (( c=$MIN; c<=$MAX; c++ ))
+# do
+#     # echo -n "$c\n"
+# 	 	 echo  "$c"
+# 	 	 jq --argjson windows  "${WORKSPACE_WINDOWS}" --argjson index "$c" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0)})'
+# 	 	 # echo "$json"
+# done
 	 seq "$MIN" "$MAX" | jq --argjson windows "${WORKSPACE_WINDOWS}" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0)})'
 }
 

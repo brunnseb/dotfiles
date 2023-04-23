@@ -15,12 +15,10 @@ run_eww() {
 	for monitor in $( hyprctl monitors -j | jq  '[.[] | .id]' | jq -r @sh ) 
 	do
 		${EWW} --config "$CFG" open \
-		   	 top_bar \
-		   	 --screen "$monitor"
+		   	 top_bar_"$monitor" 
 		
 		${EWW} --config "$CFG"/sidebar/"$monitor" open \
-		   	 left_bar \
-		   	 --screen "$monitor"
+		   	 left_bar 
 	done
 }
 
