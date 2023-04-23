@@ -1,0 +1,37 @@
+/** Global *******************************************/
+* {
+  all: unset;
+  font-family: feather;
+  font-family: "JetBrains Mono";
+}
+
+/** Bar ***********************************/
+.dockbox {
+  background-color: #f5eee6;
+  border: 1px solid #161616;
+  border-radius: 12px;
+  padding: 0 20px;
+}
+
+.workspaces {
+  padding: 20px 0;
+
+  .workspace {
+    border: 2px solid grey;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    padding: 4px 12px;
+    min-height: 24px;
+    min-width: 18px;
+
+    &.occupied {
+      color: grey;
+    }
+
+    &.current {
+      color: white;
+      background-color: #c04364;
+      border-color: #161616;
+    }
+  }
+}

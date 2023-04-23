@@ -1,0 +1,39 @@
+;; Workspaces
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces 1")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace 1")
+
+
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
+    (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
+      (for workspace in workspaces
+        (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "" : " "}")
+        )
+      )
+    )
+  )
+
+;; Bar Widgets ;;
+(defwidget ws_bar []
+	(box :class "eww_bar" 
+		 :orientation "v" 
+		 :vexpand "false" 
+		 :hexpand "false"
+(workspaces )))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;							Window Section's							 ;;	
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bar Windows ;;
+(defwindow left_bar
+	:exclusive true
+	:geometry (geometry :x "15px" 
+						:y "0" 
+						:anchor "left center"
+						:width "60px")
+	:stacking "fg"
+	:windowtype "dock"
+	:hexpand "false"
+	:vexpand "false"
+(ws_bar))
+

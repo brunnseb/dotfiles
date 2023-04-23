@@ -75,7 +75,7 @@
 ;; ** Windows *************************************************************************
 
 ;; resources
-(defwindow resources
+(defwindow user-menu
            :monitor 0
            :geometry (geometry :x "15px"
                                :y "15px"
@@ -86,70 +86,3 @@
            :wm-ignore false
 (menu))
 
-;; powermenu
-;; (defwindow logout
-;;            :monitor 0
-;;            :geometry (geometry :x "1700px"
-;;                                :y "235px"
-;;                                :width "80px"
-;;                                :height "80px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (logout))
-;;
-;; (defwindow suspend
-;;            :monitor 0
-;;            :geometry (geometry :x "1800px"
-;;                                :y "235px"
-;;                                :width "80px"
-;;                                :height "80px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (suspend))
-;;
-;; (defwindow lock
-;;            :monitor 0
-;;            :geometry (geometry :x "1900px"
-;;                                :y "235px"
-;;                                :width "80px"
-;;                                :height "80px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (lock))
-;;
-;; (defwindow reboot
-;;            :monitor 0
-;;            :geometry (geometry :x "2000px"
-;;                                :y "235px"
-;;                                :width "80px"
-;;                                :height "80px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (reboot))
-;;
-;; (defwindow shutdown
-;;            :monitor 0
-;;            :geometry (geometry :x "2100px"
-;;                                :y "235px"
-;;                                :width "80px"
-;;                                :height "80px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (shutdown))
-;;
-;; ;; quotes
-;; (defwindow quotes
-;;            :monitor 0
-;;            :geometry (geometry :x "1700px"
-;;                                :y "335px"
-;;                                :width "480px"
-;;                                :height "100px"
-;;                                :anchor "top left")
-;;            :stacking "fg"
-;;            :wm-ignore false
-;; (quotes))

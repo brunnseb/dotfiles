@@ -1,7 +1,7 @@
 #!/bin/bash
 
 EWW=`which eww`
-CFG="$HOME/.config/eww/arin"
+CFG="$HOME/.config/eww"
 
 ## Run eww daemon if not running already
 if [[ ! `pidof eww` ]]; then
@@ -18,7 +18,7 @@ run_eww() {
 		   	 top_bar \
 		   	 --screen "$monitor"
 		
-		${EWW} --config "$CFG" open \
+		${EWW} --config "$CFG"/sidebar/"$monitor" open \
 		   	 left_bar \
 		   	 --screen "$monitor"
 	done

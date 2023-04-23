@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Files and CMD
+FILE="$HOME/.cache/eww_launch.user-menu"
+CFG="$HOME/.config/eww/user-menu"
+EWW=`which eww`
+
+
+if [[ -f "$FILE" ]]; then
+	${EWW} --config "$CFG" close user-menu
+	rm "$FILE"
+fi

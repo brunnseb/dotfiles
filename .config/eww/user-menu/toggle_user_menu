@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Files and CMD
-FILE="$HOME/.cache/eww_launch.sidebar"
-CFG="$HOME/.config/eww/arin/sidedar"
+FILE="$HOME/.cache/eww_launch.user-menu"
+CFG="$HOME/.config/eww/user-menu"
 EWW=`which eww`
 
 ## Run eww daemon if not running already
@@ -16,7 +16,7 @@ run_eww() {
 	monitor=$( hyprctl monitors -j | jq  '.[] | select(.focused = true) | .id'  )
 	swaync-client -cp
 	${EWW} --config "$CFG" open \
-			resources \
+			user-menu \
 			--screen "$monitor"
 }
 
@@ -25,6 +25,6 @@ if [[ ! -f "$FILE" ]]; then
 	touch "$FILE"
 	run_eww
 else
-	${EWW} --config "$CFG" close resources 
+	${EWW} --config "$CFG" close user-menu 
 	rm "$FILE"
 fi
