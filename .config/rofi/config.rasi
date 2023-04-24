@@ -1,0 +1,13 @@
+//@theme "/home/brunnseb/.local/share/rofi/themes/rounded-nord-dark.rasi"
+@theme "/home/brunnseb/.local/share/rofi/themes/spotlight.rasi"
+
+ configuration {
+  kb-row-up: "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
+  kb-row-down: "Down,Control+j";
+  kb-accept-entry: "Control+m,Return,KP_Enter";
+  kb-remove-to-eol: "Control+Shift+e";
+  kb-remove-char-back: "BackSpace";
+  
+  show-icons: true;
+  terminal: "kitty";
+} 

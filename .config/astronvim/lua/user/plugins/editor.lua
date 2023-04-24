@@ -12,6 +12,23 @@ return {
     end,
   },
   {
+    "uga-rosa/translate.nvim",
+    config = true,
+    cmd = { "Translate" },
+    opts = {
+      default = {
+        output = "replace",
+      },
+      preset = {
+        output = {
+          split = {
+            append = true,
+          },
+        },
+      },
+    },
+  },
+  {
     "anuvyklack/windows.nvim",
     cmd = {
       "WindowsMaximize",
