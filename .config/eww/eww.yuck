@@ -68,7 +68,7 @@
 
 ;; system
 (defwidget system [] 
-		(box :class "dockbox" :width 525
+		(box :class "dockbox" :width 530
 			(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
 				(button 
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"

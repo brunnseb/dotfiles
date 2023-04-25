@@ -14,8 +14,8 @@
 @define-color bg-selected rgb(0, 128, 255);
 
 * {
-   font-family: 'MonoLisa Custom';
-   font-weight: bold;
+  font-family: "MonoLisa Custom";
+  font-weight: bold;
 }
 
 .notification-row {
@@ -168,9 +168,8 @@
 }
 
 .control-center .notification-row:focus .notification {
-  border: 2px #67D4F1 solid;
+  border: 2px #67d4f1 solid;
 }
-
 
 .control-center .notification {
   border-radius: 12px;
@@ -276,18 +275,19 @@
   font-size: 18px;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button{
+.widget-buttons-grid > flowbox > flowboxchild > button {
   background: @noti-bg;
   border-radius: 12px;
+  color: #161616;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
   background: @noti-bg-hover;
   color: #161616;
 }
 
 /* Menubar widget */
-.widget-menubar>box>.menu-button-bar>button {
+.widget-menubar > box > .menu-button-bar > button {
   border: none;
   background: transparent;
 }
@@ -308,7 +308,8 @@
   background-color: @noti-bg-hover;
 } */
 
-.topbar-buttons>button { /* Name defined in config after # */
+.topbar-buttons > button {
+  /* Name defined in config after # */
   border: none;
   background: transparent;
 }
@@ -322,9 +323,10 @@
   margin: 8px;
   border-radius: 12px;
   font-size: 24px;
+  color: #161616;
 }
 
-.widget-volume>box>button {
+.widget-volume > box > button {
   background: transparent;
   border: none;
 }
@@ -333,17 +335,18 @@
   background-color: @noti-bg-alt;
   padding: 4px 8px 8px 8px;
   margin: 0px 8px 8px 8px;
-  border-radius: 12px
+  border-radius: 12px;
 }
 
 /* Backlight widget */
 .widget-backlight {
   background-color: @noti-bg;
   border: 1px #161616 solid;
-  padding: 8px;
+  padding: 11px 8px;
   margin: 8px;
   border-radius: 12px;
-  font-size: 30px;
+  font-size: 24px;
+  color: #161616;
 }
 
 .widget-backlight label {
