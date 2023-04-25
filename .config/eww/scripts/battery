@@ -5,7 +5,7 @@ CHARGE="$(upower -i $(upower -e | grep 'BAT') | grep -E  'state' | awk -F ':' 'N
 BATTERY="$(upower -i $(upower -e | grep 'BAT') | grep -E 'percentage' | awk -F ':' 'NR==1 {print $2}' | tr -d \%,)"
 
 main() {
-	if [[ ($CHARGE = "charging") && ($BATTERY -lt "100") ]]; then
+	if [[ ($CHARGE = "charging") && ($BATTERY -lt 100) ]]; then
 		echo "images/icons/battery/charge.png"
 	elif [[ $CHARGE = *"fully-charged"* ]]; then
 		echo "images/icons/battery/full.png"
