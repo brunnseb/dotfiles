@@ -12,12 +12,14 @@ fi
 
 ## Open widgets 
 run_eww() {
-	for monitor in $( hyprctl monitors -j | jq  '[.[] | .id]' | jq -r @sh ) 
+	ids=$( hyprctl monitors -j | jq -r @sh )
+	for i in "${!ids[@]}"  
 	do
+		echo "$i"
 		${EWW} --config "$CFG" open \
-		   	 top_bar_"$monitor" 
+		   	 top_bar_"$i" 
 		
-		${EWW} --config "$CFG"/sidebar/"$monitor" open \
+		${EWW} --config "$CFG"/sidebar/"$i" open \
 		   	 left_bar 
 	done
 }

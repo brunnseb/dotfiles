@@ -27,7 +27,7 @@
       "urgency": "Critical"
     },
     "normal-sound": {
-      "exec": "paplay /usr/share/sounds/freedesktop/stereo/complete.oga",
+      "exec": "paplay /usr/share/sounds/freedesktop/stereo/message-new-instant.oga",
       "urgency": "Normal"
     },
     "low-sound": {
