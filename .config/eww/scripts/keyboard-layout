@@ -1,0 +1,9 @@
+#!/bin/bash
+
+declare -A LAYOUTS
+LAYOUTS["German (Switzerland)"]="CH"
+LAYOUTS["English (US)"]="US"
+
+socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | stdbuf -o0 grep '^activelayout>>'| stdbuf -o0  awk -F ',' '{print $2}'  | while read -r line; do
+	echo ${LAYOUTS["$line"]}
+done

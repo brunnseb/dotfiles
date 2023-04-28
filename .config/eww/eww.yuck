@@ -5,6 +5,7 @@
 
 ;; ** Variables ***********************************************************************
 
+
 ;; Time vars
 (defpoll TIME :interval "10s" `date +\"%I:%M %p\"`)
 (defpoll DATE :interval "10s" `date +\"%A, %B %d\"`)
@@ -34,6 +35,9 @@
 
 ;; Network
 (deflisten network :initial "images/icons/system/no-wifi.png" "bash ~/.config/eww/scripts/network")
+
+;; Keyboard 
+(deflisten kbd :initial "US" "bash ~/.config/eww/scripts/keyboard-layout")
 
 ;; ** Widgets *************************************************************************
 
@@ -74,6 +78,10 @@
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('images/icons/gmail.png');" :class "trayicon")
 							(label :class "mails" :halign "start" :text notifications)))
+				(button 
+					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+						(box :style "background-image: url('images/icons/keyboard.png');" :class "trayicon")
+							(label :class "infotext" :halign "start" :text kbd)))
 				(button :onclick "scripts/widget_apps --pow"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 						(box :style "background-image: url('${BATICON}');" :class "trayicon")
