@@ -13,8 +13,7 @@ fi
 
 ## Open widgets 
 run_eww() {
-	monitor=$( hyprctl monitors -j | jq  '.[] | select(.focused == true) | .id'  )
-	echo "$monitor"
+	monitor=$( hyprctl monitors -j | jq  'to_entries | .[] | select(.value.focused == true) | .key'  )
 	swaync-client -cp
 	${EWW} --config "$CFG" open \
 			user-menu_"$monitor" 
