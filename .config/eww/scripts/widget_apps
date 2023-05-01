@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$1" == "--tr" ]]; then
-	alacritty --working-directory ~ &
+	kitty --working-directory ~ &
 
 elif [[ "$1" == "--ff" ]]; then
 	firefox &
@@ -12,8 +12,8 @@ elif [[ "$1" == "--fm" ]]; then
 elif [[ "$1" == "--ge" ]]; then
   kitty -e nvim &
 
-elif [[ "$1" == "--dc" ]]; then
-	discord &
+elif [[ "$1" == "--gh" ]]; then
+	firefox --new-tab "https://github.com"
 
 elif [[ "$1" == "--tg" ]]; then
 	telegram-desktop &
@@ -23,9 +23,6 @@ elif [[ "$1" == "--rd" ]]; then
 
 elif [[ "$1" == "--ml" ]]; then
 	swaync-client -t 
-
-elif [[ "$1" == "--pow" ]]; then
-	xfce4-power-manager-settings &
 
 elif [[ "$1" == "--nm" ]]; then
 	networkmanager_dmenu
