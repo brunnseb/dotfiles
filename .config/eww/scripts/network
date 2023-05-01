@@ -32,17 +32,17 @@ parse_output () {
 
    if [ "$VPN" = "connected" ]; then
      if [ "$ETHERNET" = "connected" ]; then
-       echo "images/icons/system/locked.png"
+       echo "images/icons/network/vpn.png"
      elif [ "$WIFI" = "connected" ]; then
-       echo "images/icons/system/locked.png"
+       echo "images/icons/network/vpn.png"
      fi
    else
      if [ "$ETHERNET" = "connected" ]; then
-       echo "images/icons/system/ethernet.png"
+       echo "images/icons/network/ethernet.png"
      elif [ "$WIFI" = "connected" ]; then
-       echo "images/icons/system/wifi.png"
+       echo "images/icons/network/wifi.png"
      else
-       echo "images/icons/system/no-wifi.png"
+       echo "images/icons/network/no-wifi.png"
      fi
    fi
 }

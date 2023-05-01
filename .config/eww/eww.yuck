@@ -34,7 +34,7 @@
 (deflisten notifications :initial "0" "bash ~/.config/eww/scripts/notifications")
 
 ;; Network
-(deflisten network :initial "images/icons/system/no-wifi.png" "bash ~/.config/eww/scripts/network")
+(deflisten network :initial "images/icons/network/no-wifi.png" "bash ~/.config/eww/scripts/network")
 
 ;; Keyboard 
 (deflisten kbd :initial "US" "bash ~/.config/eww/scripts/keyboard-layout")
@@ -76,11 +76,11 @@
 			(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
 				(button 
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('images/icons/gmail.png');" :class "trayicon")
+						(box :style "${notifications > 0 ? 'background-image: url("images/icons/notification/notification.png");' : 'background-image: url("images/icons/notification/notification-empty.png");'}"  :class "trayicon")
 							(label :class "mails" :halign "start" :text notifications)))
 				(button 
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('images/icons/keyboard.png');" :class "trayicon")
+						(box :style "background-image: url('images/icons/system/keyboard.png');" :class "trayicon")
 							(label :class "infotext" :halign "start" :text kbd)))
 				(button :onclick "scripts/widget_apps --pow"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -88,7 +88,7 @@
 							(label :class "infotext" :halign "start" :text BATPERC)))
 				(button :onclick "scripts/widget_apps --pow"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-						(box :style "background-image: url('images/icons/brightness.png');" :class "trayicon")
+						(box :style "background-image: url('images/icons/system/brightness.png');" :class "trayicon")
 							(label :class "infotext" :halign "start" :text BRIGHTNESS)))
 				(button :onclick "scripts/volume --toggle"
 					(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"

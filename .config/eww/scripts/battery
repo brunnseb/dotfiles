@@ -7,16 +7,16 @@ BATTERY="$(upower -i $(upower -e | grep 'BAT') | grep -E 'percentage' | awk -F '
 main() {
 	if [[ ($CHARGE = "charging") && ($BATTERY -lt 100) ]]; then
 		echo "images/icons/battery/charge.png"
-	elif [[ $CHARGE = *"fully-charged"* ]]; then
+	elif [[ $CHARGE = *"fully-charged"* || ($BATTERY -eq 100) ]]; then
 		echo "images/icons/battery/full.png"
 	else
-		if [[ ($BATTERY -lt 100) && (($BATTERY -gt 65) || ($BATTERY -eq 65)) ]]; then
+		if [[ ($BATTERY -lt 100) && ($BATTERY -ge 65) ]]; then
 			echo "images/icons/battery/battery-3.png"
-		elif [[ ($BATTERY -lt 65) && (($BATTERY -gt 35) || ($BATTERY -eq 35)) ]]; then
+		elif [[ ($BATTERY -lt 65) && ($BATTERY -ge 35) ]]; then
 			echo "images/icons/battery/battery-2.png"
-		elif [[ ($BATTERY -lt 35) && (($BATTERY -gt 10) || ($BATTERY -eq 10)) ]]; then
+		elif [[ ($BATTERY -lt 35) && ($BATTERY -ge 10) ]]; then
 			echo "images/icons/battery/battery-1.png"
-		elif [[ ($BATTERY -lt 10) && (($BATTERY -gt 0) || ($BATTERY -eq 0)) ]]; then
+		elif [[ ($BATTERY -lt 10) && ($BATTERY -ge 0) ]]; then
 			echo "images/icons/battery/low.png"
 		fi
 	fi
