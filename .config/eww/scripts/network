@@ -4,7 +4,7 @@ WIFI="disconnected"
 ETHERNET="disconnected"
 VPN="disconnected"
 
-initialize () {
+init () {
     for i in $(nmcli -f type c show --active) ; do
       if [ "$i" = "vpn" ]; then
         VPN="connected"
@@ -20,9 +20,11 @@ parse_output () {
    interface=$(echo "$1" | awk -F ':' '{print $1;}' )
    status=$(echo "$1" | awk -F ':' '{gsub(/ /, "", $0);print $2}' | awk -F '(' '{print $1}' )
 
-   if [ "$interface" = "wlan0" ]; then
+   if [[ "$interface" = wlan* ]]; then
      WIFI="$status"
-   elif [ "$interface" = "vpn0" ]; then
+   elif [[ "$interface" = enp* ]]; then
+     ETHERNET="$status"
+   elif [[ "$interface" = vpn* ]]; then
      if [ "$status" = "connected" ]; then
       VPN="$status"
      elif [ "$status" = "connectionprofileremoved" ]; then
@@ -55,6 +57,6 @@ monitor () {
 }
 
 
-initialize
+init
 monitor
 
