@@ -83,8 +83,8 @@ return {
     },
     -- Hop
     ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
-    ["gsk"] = { "<cmd>HopLineBC<CR>", desc = "Hop Line Up" },
-    ["gsj"] = { "<cmd>HopLineAC<CR>", desc = "Hop Line Down" },
+    ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
+    ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
     -- Neotree
     ["<leader>E"] = { "<cmd>Neotree focus<CR>", desc = "Explorer focus" },
     -- quick save
@@ -92,8 +92,8 @@ return {
   },
   v = {
     ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
-    ["gsk"] = { "<cmd>HopLineBC<CR>", desc = "Hop Line Up" },
-    ["gsj"] = { "<cmd>HopLineAC<CR>", desc = "Hop Line Down" },
+    ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
+    ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
   },
   t = {
     -- setting a mapping to false will disable it

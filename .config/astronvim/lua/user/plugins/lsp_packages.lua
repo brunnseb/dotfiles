@@ -10,11 +10,6 @@ return {
     },
   },
   {
-    "VidocqH/lsp-lens.nvim",
-    config = true,
-    event = "VeryLazy",
-  },
-  {
     "lvimuser/lsp-inlayhints.nvim",
     opts = {
       inlay_hints = {

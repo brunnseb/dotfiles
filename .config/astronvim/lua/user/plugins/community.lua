@@ -8,7 +8,6 @@ return {
   { import = "astrocommunity.color.modes-nvim" },
   -- Colorschemes
   { import = "astrocommunity.colorscheme.tokyonight" },
-  { import = "astrocommunity.colorscheme.nightfox" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   {
     -- further customize the options set by the community
@@ -233,7 +232,7 @@ return {
     end,
   },
   -- Language packs
-  { import = "astrocommunity.pack.typescript" },
+  -- { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.json" },
@@ -273,11 +272,7 @@ return {
   -- Editor
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
-  { import = "astrocommunity.editing-support.refactoring-nvim" },
   { import = "astrocommunity.editing-support.text-case-nvim" },
-  -- { import = "astrocommunity.editing-support.nvim-ts-rainbow2" },
-  -- File explorer
-  -- { import = "astrocommunity.file-explorer.oil-nvim" },
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
@@ -285,24 +280,10 @@ return {
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.portal-nvim" },
-  -- { import = "astrocommunity.motion.mini-basics" },
   { import = "astrocommunity.motion.mini-bracketed" },
   -- Project
   { import = "astrocommunity.project.neoconf-nvim" },
   { import = "astrocommunity.project.nvim-spectre" },
-  -- Scrolling
-  {
-    import = "astrocommunity.scrolling.cinnamon-nvim",
-  },
-  {
-    "cinnamon.nvim",
-    opts = function(_, opts)
-      opts.extra_keymaps = true
-      opts.default_delay = 3
-
-      return opts
-    end,
-  },
   -- Syntax
   { import = "astrocommunity.syntax.hlargs-nvim" },
   -- Test
