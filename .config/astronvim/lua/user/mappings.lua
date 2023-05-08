@@ -26,6 +26,7 @@ return {
       "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
       desc = "Files in current directory",
     },
+    ["<leader>n"] = { "<cmd>NnnPicker<CR>", desc = "Nnn" },
     -- Kill
     ["<leader>kn"] = {
       function() require("notify").dismiss { silent = true, pending = true } end,

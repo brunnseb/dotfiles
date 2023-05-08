@@ -1,3 +1,3 @@
-function nnn
+function n
 command nnn -e
 end

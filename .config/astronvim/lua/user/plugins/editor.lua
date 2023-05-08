@@ -92,4 +92,5 @@ return {
       require("ufo").setFoldVirtTextHandler(bufnr, handler)
     end,
   },
+  { "luukvbaal/nnn.nvim", cmd = { "NnnPicker", "NnnExplorer" }, config = true },
 }
