@@ -1,6 +1,6 @@
 ;; Workspaces
 (deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces 1")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace 1")
+(deflisten current_workspace :initial "11" "bash ~/.config/eww/scripts/get-active-workspace 1")
 
 
 (defwidget workspaces []
