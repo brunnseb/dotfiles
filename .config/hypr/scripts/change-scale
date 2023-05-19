@@ -1,0 +1,3 @@
+#! /bin/bash
+
+hyprctl keyword monitor eDP-1,pref,auto,$1 && sleep 0.5 && /usr/bin/eww reload && /usr/bin/eww -c $HOME/.config/eww/sidebar/0 reload
