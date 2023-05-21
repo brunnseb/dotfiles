@@ -86,6 +86,9 @@ return {
     ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
     ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
     ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
+    ["gM"] = { "<cmd>lua require('tsht').nodes()<CR>", desc = "Treehopper Nodes" },
+    ["gsK"] = { "<cmd>lua require('tsht').move({ side = 'start' })<CR>", desc = "Treehopper Move Start" },
+    ["gsJ"] = { "<cmd>lua require('tsht').move({ side = 'end' })<CR>", desc = "Treehopper Move End" },
     -- Neotree
     ["<leader>E"] = { "<cmd>Neotree focus<CR>", desc = "Explorer focus" },
     -- quick save
