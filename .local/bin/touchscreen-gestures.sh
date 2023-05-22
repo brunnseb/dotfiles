@@ -15,4 +15,8 @@ lisgd -d '/dev/input/by-path/pci-0000:00:15.0-platform-i2c_designware.0-event'\
   -g "2,RL,*,*,R,hyprctl dispatch movewindow l" \
   -g "2,LR,*,*,R,hyprctl dispatch movewindow r" \
   -g "1,ULDR,*,*,R,hyprctl dispatch killactive" \
+  -g "4,DU,*,*,R,brightnessctl s +10%" \
+  -g "4,UD,*,*,R,brightnessctl s 10%-" \
+  -g "4,LR,*,*,R,volumectl +10%" \
+  -g "4,RL,*,*,R,volumectl -10%" \
   -g "1,UD,T,*,R,nwggrid -client" 
