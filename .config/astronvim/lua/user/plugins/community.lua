@@ -231,13 +231,15 @@ return {
       -- vim.api.nvim_command("colorscheme catppuccin-macchiato")
     end,
   },
+  -- LSP
+  { import = "astrocommunity.lsp.lsp-inlayhints-nvim" },
   -- Language packs
-  -- { import = "astrocommunity.pack.typescript" },
+  { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.tailwindcss" },
-  -- { import = "astrocommunity.pack.bash" },
+  { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
-  -- { import = "astrocommunity.pack.markdown" },
+  { import = "astrocommunity.pack.markdown" },
   -- { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.yaml" },
   -- Utility
@@ -281,6 +283,7 @@ return {
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.portal-nvim" },
   { import = "astrocommunity.motion.mini-bracketed" },
+  { import = "astrocommunity.motion.nvim-spider" },
   -- Project
   { import = "astrocommunity.project.neoconf-nvim" },
   { import = "astrocommunity.project.nvim-spectre" },

@@ -30,78 +30,24 @@ return {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
-        },
-        ignore_filetypes = { -- disable format on save for specified filetypes
-          -- "python",
-        },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
         "tsserver",
         "sumneko_lua",
       },
       timeout_ms = 2000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
-      --   return true
-      -- end
     },
-    -- enable servers that you already have installed without mason
-    servers = {
-      -- "tailwindcss",
+    config = {
+      tsserver = {
+        init_options = {
+          maxTsServerMemory = 8192,
+        },
+        root_dir = function(fname) return require("lspconfig.util").root_pattern ".git"(fname) end,
+      },
+      tailwindcss = {
+        root_dir = function(fname) return require("lspconfig.util").root_pattern ".git"(fname) end,
+      },
     },
-    -- config = {
-    --   tsserver = {
-    --     cmd = {
-    --       "typescript-language-server",
-    --       "--stdio",
-    --       "--tsserver-path",
-    --       "/home/brunnseb/.volta/tools/shared/typescript/lib/tsserver.js",
-    --     },
-    --     init_options = {
-    --       maxTsServerMemory = 8192,
-    --     },
-    --     settings = {
-    --       javascript = {
-    --         inlayHints = {
-    --           includeInlayEnumMemberValueHints = true,
-    --           includeInlayFunctionLikeReturnTypeHints = true,
-    --           includeInlayFunctionParameterTypeHints = true,
-    --           includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-    --           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-    --           includeInlayPropertyDeclarationTypeHints = true,
-    --           includeInlayVariableTypeHints = true,
-    --         },
-    --       },
-    --       typescript = {
-    --         inlayHints = {
-    --           includeInlayEnumMemberValueHints = true,
-    --           includeInlayFunctionLikeReturnTypeHints = true,
-    --           includeInlayFunctionParameterTypeHints = true,
-    --           includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-    --           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-    --           includeInlayPropertyDeclarationTypeHints = true,
-    --           includeInlayVariableTypeHints = true,
-    --         },
-    --       },
-    --     },
-    --   },
-    --   tailwindcss = {
-    --     autostart = false,
-    --     -- settings = {
-    --     --   tailwindCSS = {
-    --     --     experimental = {
-    --     --       configFile = {
-    --     --         ["apps/portal/tailwind.config.cjs"] = { "apps/portal/**", "apps/public-forms/**" },
-    --     --         ["apps/cockpit/tailwind.config.cjs"] = "apps/cockpit/**",
-    --     --         ["libs/cockpit-core/tailwind.config.cjs"] = "libs/!(portal-core)/**",
-    --     --         ["libs/portal-core/tailwind.config.cjs"] = "libs/portal-core/**",
-    --     --       },
-    --     --     },
-    --     --   },
-    --     -- },
-    --   },
-    -- },
   },
   -- set up UI icons
   icons = {
