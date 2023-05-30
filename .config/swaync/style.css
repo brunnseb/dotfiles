@@ -19,17 +19,22 @@
 }
 
 .notification-row {
+  padding: 5px 5px 0 5px;
+}
+
+.notification-row:first-child {
+  padding-top: 15px;
 }
 
 .notification-row:focus,
 .notification-row:hover {
+  border: 1px solid @noti-border-color;
 }
 
 .notification {
   border-radius: 12px;
   border: 1px #161616 solid;
-  margin: 10px 5px 0 0;
-  padding: 0;
+  box-shadow: unset;
 }
 
 /* Uncomment to enable specific urgency colors
@@ -165,6 +170,7 @@
 
 .control-center .notification-row {
   background-color: unset;
+  padding: 5px;
 }
 
 .control-center .notification-row:focus .notification {
