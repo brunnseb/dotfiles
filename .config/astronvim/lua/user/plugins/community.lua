@@ -283,6 +283,7 @@ return {
   { import = "astrocommunity.editing-support.todo-comments-nvim" },
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   { import = "astrocommunity.editing-support.text-case-nvim" },
+  { import = "astrocommunity.editing-support.neogen" },
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
@@ -297,28 +298,4 @@ return {
   { import = "astrocommunity.project.nvim-spectre" },
   -- Syntax
   { import = "astrocommunity.syntax.hlargs-nvim" },
-  -- Test
-  -- { import = "astrocommunity.test.neotest" },
-  -- {
-  --   "nvim-neotest/neotest",
-  --   dependencies = {
-  --     -- "marilari88/neotest-vitest",
-  --     "vim-test/vim-test",
-  --     "nvim-neotest/neotest-vim-test",
-  --   },
-  --   opts = function(_, opts)
-  --     opts.adapters = {
-  --       require "neotest-vim-test",
-  --       -- require "neotest-vitest" {
-  --       --   vitestCommand = "vitest run",
-  --       -- },
-  --     }
-  --
-  --     -- opts.adapters = {
-  --     --   require "neotest-vim-test" { allow_file_types = "typescriptreact" },
-  --     -- }
-  --     --
-  --     return opts
-  --   end,
-  -- },
 }

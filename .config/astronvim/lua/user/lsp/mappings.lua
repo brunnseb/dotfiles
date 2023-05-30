@@ -11,5 +11,6 @@ return {
     ["<leader>lh"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Line diagnostics" },
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>" },
+    ["K"] = { "<cmd>Lspsaga hover_doc<CR>" },
   },
 }

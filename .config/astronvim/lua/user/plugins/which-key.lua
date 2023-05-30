@@ -12,14 +12,14 @@ return {
     end,
     config = function(plugin, opts)
       local wk = require "which-key"
-      require "plugins.configs.which-key"(plugin, opts)
+      require "plugins.configs.which-key" (plugin, opts)
 
       wk.register({
         k = {
           name = " Close",
         },
         w = {
-          name = " Windows", -- optional group name
+          name = " Windows",
         },
         u = {
           name = " UI",
