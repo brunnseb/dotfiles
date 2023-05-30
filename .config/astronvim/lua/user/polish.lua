@@ -10,5 +10,7 @@
 --   end,
 -- })
 --
-vim.g["test#javascript#runner"] = "vitest"
-vim.g["test#javascript#vitest#executable"] = "pnpm vitest"
+vim.api.nvim_create_autocmd(
+  "FileType",
+  { pattern = { "help", "qf", "lspinfo", "neotest-output" }, command = [[nnoremap <buffer><silent> q :close<CR>]] }
+)
