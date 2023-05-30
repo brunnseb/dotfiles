@@ -32,16 +32,34 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    opts = function(_, opts)
-      opts.defaults.mappings = {
-        i = {
-          ["<C-h>"] = require("telescope.actions").to_fuzzy_refine,
-          ["<C-n>"] = require("telescope.actions").cycle_history_next,
-          ["<C-p>"] = require("telescope.actions").cycle_history_prev,
-          ["<C-j>"] = require("telescope.actions").move_selection_next,
-          ["<C-k>"] = require("telescope.actions").move_selection_previous,
+    dependencies = { "nvim-telescope/telescope-live-grep-args.nvim" },
+    config = function(_, opts)
+      local lga_actions = require "telescope-live-grep-args.actions"
+      local actions = require "telescope.actions"
+
+      opts.defaults.mappings.i = {
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-h>"] = actions.to_fuzzy_refine,
+        ["<C-u>"] = false,
+      }
+
+      opts.extensions = {
+        live_grep_args = {
+          auto_quoting = true,
+          mappings = {
+            i = {
+              ["<C-'>"] = lga_actions.quote_prompt(),
+            },
+          },
         },
       }
+
+      require("telescope").setup(opts)
+
+      require("telescope").load_extension "live_grep_args"
     end,
   },
 

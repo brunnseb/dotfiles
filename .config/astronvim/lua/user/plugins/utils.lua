@@ -5,7 +5,7 @@ return {
     lazy = false,
     config = function()
       require("nvim-rooter").setup {
-        rooter_patterns = { "=cockpit-portal", "=awesome", "=astronvim", "=nvim", "lazy-lock.json", ".vscode", ".git" },
+        rooter_patterns = { "=hypr", "=eww", "=astronvim", "=nvim", "package.json", ".vscode", ".git" },
         trigger_patterns = { "*" },
         manual = false,
       }

@@ -6,8 +6,16 @@ return {
 
   -- Color
   { import = "astrocommunity.color.modes-nvim" },
+  {
+    "modes.nvim",
+    opts = function(_, opts)
+      opts.line_opacity = 0.4
+
+      return opts
+    end,
+  },
   -- Colorschemes
-  { import = "astrocommunity.colorscheme.tokyonight" },
+  { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   {
     -- further customize the options set by the community
@@ -290,24 +298,27 @@ return {
   -- Syntax
   { import = "astrocommunity.syntax.hlargs-nvim" },
   -- Test
-  { import = "astrocommunity.test.neotest" },
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "marilari88/neotest-vitest",
-    },
-    opts = function(_, opts)
-      opts.adapters = {
-        require "neotest-vitest" {
-          -- vitestCommand = "vitest run",
-          -- cwd = function()
-          --   print("path " .. vim.fn.expand "%:p:h")
-          --   return vim.fn.expand "%:p:h"
-          -- end,
-        },
-      }
-
-      return opts
-    end,
-  },
+  -- { import = "astrocommunity.test.neotest" },
+  -- {
+  --   "nvim-neotest/neotest",
+  --   dependencies = {
+  --     -- "marilari88/neotest-vitest",
+  --     "vim-test/vim-test",
+  --     "nvim-neotest/neotest-vim-test",
+  --   },
+  --   opts = function(_, opts)
+  --     opts.adapters = {
+  --       require "neotest-vim-test",
+  --       -- require "neotest-vitest" {
+  --       --   vitestCommand = "vitest run",
+  --       -- },
+  --     }
+  --
+  --     -- opts.adapters = {
+  --     --   require "neotest-vim-test" { allow_file_types = "typescriptreact" },
+  --     -- }
+  --     --
+  --     return opts
+  --   end,
+  -- },
 }

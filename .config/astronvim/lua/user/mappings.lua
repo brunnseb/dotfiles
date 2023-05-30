@@ -17,6 +17,18 @@ return {
     ["gk"] = { "#", desc = "Previous occurence" },
     -- Files
     ["<leader>fs"] = { "<cmd>update!<CR>", desc = "Save File" },
+    ["<leader>fw"] = {
+      "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      desc = "Live grep",
+    },
+    ["<leader>ff"] = {
+      "<cmd>Telescope git_files<CR>",
+      desc = "Find files",
+    },
+    -- Terminal
+    ["<leader>cf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" },
+    ["<leader>ch"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" },
+    ["<leader>cv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" },
     -- Telescope
     ["<leader>,"] = {
       "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
@@ -32,10 +44,35 @@ return {
       function() require("notify").dismiss { silent = true, pending = true } end,
       desc = "Delete all Notifications",
     },
+    -- Tests
+    ["<leader>tt"] = { "<cmd>lua require('neotest').run.run()<CR>", desc = "Run test" },
+    ["<leader>tl"] = { "<cmd>lua require('neotest').run.run_last()<CR>", desc = "Run last test" },
+    ["<leader>tf"] = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", desc = "Run all tests in file" },
+    ["<leader>ts"] = { "<cmd>lua require('neotest').summary.toggle()<CR>", desc = "Toggle test summary" },
+    ["<leader>tS"] = { "<cmd>lua require('neotest').run.stop()<CR>", desc = "Stop test execution" },
+    ["<leader>to"] = {
+      "<cmd>lua require('neotest').output.open({enter = true, auto_close = true})<CR>",
+      desc = "Show test output",
+    },
+    ["<leader>tO"] = { "<cmd>lua require('neotest').output_panel.toggle()<CR>", desc = "Toggle test output panel" },
+    ["<leader>t]"] = {
+      "<cmd>lua require('neotest').jump.next({status = 'failed'})<CR>",
+      desc = "Jump to next failed test",
+    },
+    ["<leader>th"] = false,
+    ["<leader>tn"] = false,
+    ["<leader>tp"] = false,
+    ["<leader>tu"] = false,
+    ["<leader>tv"] = false,
+    ["<leader>t["] = {
+      "<cmd>lua require('neotest').jump.prev({status = 'failed'})<CR>",
+      desc = "Jump to previous failed test",
+    },
     -- Typescript
     ["<leader>lo"] = { "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
     ["<leader>lF"] = { "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
     ["<leader>lu"] = { "<cmd>TypescriptRemoveUnused<CR>", desc = "Remove Unused" },
+    ["<leader>lc"] = { "<cmd>lua require('logsitter').log()<CR>", desc = "Logsitter" },
     -- Windows
     ["<leader>w"] = false,
     ["<leader>wd"] = { "<C-W>c", desc = "Delete window" },
@@ -74,7 +111,7 @@ return {
     -- UI toggles
     ["<leader>uz"] = { "<cmd>ZenMode<cr>", desc = "toggle Zen mode" },
     ["<leader>uI"] = { "<cmd>IndentBlanklineToggle<cr>", desc = "toggle indent blankline" },
-    ["<leader>ul"] = { "<cmd>LspLensToggle<cr>", desc = "toggle lsp lens" },
+    ["<leader>ul"] = { "<cmd>lua require('lsp_lines').toggle()<cr>", desc = "toggle lsp lines" },
     -- Ufo
     ["zk"] = {
       function()

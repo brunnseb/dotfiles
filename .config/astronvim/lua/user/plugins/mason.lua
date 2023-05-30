@@ -13,14 +13,14 @@ return {
     "jay-babu/mason-null-ls.nvim",
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
-      -- ensure_installed = { "prettier", "stylua" },
+      ensure_installed = { "prettierd", "stylua", "eslint_d" },
     },
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
     -- overrides `require("mason-nvim-dap").setup(...)`
     opts = {
-      -- ensure_installed = { "python" },
+      ensure_installed = {},
     },
   },
 }

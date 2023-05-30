@@ -8,6 +8,7 @@ return {
     ["<leader>ld"] = { "<cmd>Lspsaga peek_definition<CR>", desc = "Peek definition" },
     ["<leader>lD"] = { "<cmd>Lspsaga goto_definition<CR>", desc = "Go to definition" },
     ["<leader>lS"] = { "<cmd>Lspsaga outline<CR>", desc = "Outline" },
+    ["<leader>lh"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Line diagnostics" },
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>" },
   },
