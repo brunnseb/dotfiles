@@ -2,7 +2,11 @@ return {
   {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
-    config = function() require("lspsaga").setup {} end,
+    opts = function(_, opts)
+      opts.ui = { kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind() }
+
+      return opts
+    end,
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
       --Please make sure you install markdown and markdown_inline parser

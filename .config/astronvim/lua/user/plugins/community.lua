@@ -26,6 +26,8 @@ return {
       require("catppuccin").setup {
         flavour = "macchiato", -- mocha, macchiato, frappe, latte
         integrations = {
+          semantic_tokens = true,
+          alpha = true,
           mini = true,
           leap = true,
           markdown = true,
@@ -44,8 +46,8 @@ return {
           treesitter = true,
           symbols_outline = true,
           ts_rainbow = true,
-          which_key = false,
-          telescope = false,
+          which_key = true,
+          telescope = true,
           indent_blankline = {
             enabled = true,
             colored_indent_levels = false,
@@ -110,15 +112,30 @@ return {
               -- JSON
               ["@label.json"] = { fg = macchiato.yellow },
               -- LSP
-              LspReferenceRead = { bg = util.darken(macchiato.teal, 0.5) },
-              LspReferenceWrite = { bg = util.darken(macchiato.teal, 0.5) },
-              LspReferenceText = { bg = util.darken(macchiato.teal, 0.5) },
+              LspReferenceText = {
+                bg = util.lighten(macchiato.pink, 0.2),
+                fg = macchiato.mantle,
+                style = { "italic", "bold" }
+              },
+              LspReferenceWrite = {
+                bg = util.lighten(macchiato.pink, 0.2),
+                fg = macchiato.mantle,
+                style = { "italic", "bold" }
+              },
+              LspReferenceRead = {
+                bg = util.lighten(macchiato.pink, 0.2),
+                fg = macchiato.mantle,
+                style = { "italic", "bold" }
+              },
               -- Core
               Comment = { fg = macchiato.blue, style = { "italic" } },
               Cursor = { fg = macchiato.text, bg = macchiato.pink }, -- character under the cursor
               CursorLine = { bg = util.darken(macchiato.base, 0.8) },
               Visual = { bg = macchiato.sapphire, fg = macchiato.crust, style = { "bold" } },
               LineNr = { fg = macchiato.overlay0 },
+              MatchWord = { fg = macchiato.teal, style = { "italic", "bold" } },
+              MatchParen = { fg = macchiato.teal, bg = macchiato.base, style = { "italic", "bold" } },
+              MatchParenCur = { fg = macchiato.teal, bg = macchiato.base, style = { "italic", "bold" } },
               Pmenu = { bg = macchiato.mantle, fg = macchiato.text },
               PmenuSel = { fg = macchiato.text, bg = macchiato.pink, style = { "bold" } },
               Search = {
