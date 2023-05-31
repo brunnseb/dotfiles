@@ -3,6 +3,7 @@
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
+
 return {
   -- first key is the mode
   n = {
@@ -22,7 +23,7 @@ return {
       desc = "Live grep",
     },
     ["<leader>ff"] = {
-      "<cmd>Telescope git_files<CR>",
+      "<cmd>lua require('user.config.telescope').project_files()<CR>",
       desc = "Find files",
     },
     -- Terminal

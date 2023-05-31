@@ -10,7 +10,13 @@
 --   end,
 -- })
 --
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "help", "qf", "lspinfo", "neotest-output", "neotest-output-panel" },
+  command = [[nnoremap <buffer><silent> q :close<CR>]],
+})
+
+local hocon_group = vim.api.nvim_create_augroup("hocon", { clear = true })
 vim.api.nvim_create_autocmd(
-  "FileType",
-  { pattern = { "help", "qf", "lspinfo", "neotest-output" }, command = [[nnoremap <buffer><silent> q :close<CR>]] }
+  { "BufNewFile", "BufRead" },
+  { group = hocon_group, pattern = "*/*.conf", command = "set ft=hocon" }
 )
