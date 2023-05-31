@@ -136,6 +136,8 @@ return {
     ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
     ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
     ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
+    ["<"] = { "<gv" },
+    [">"] = { ">gv" },
   },
   t = {
     -- setting a mapping to false will disable it

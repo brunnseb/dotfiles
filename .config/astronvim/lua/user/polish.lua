@@ -11,7 +11,7 @@
 -- })
 --
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "help", "qf", "lspinfo", "neotest-output", "neotest-output-panel" },
+  pattern = { "help", "qf", "lspinfo", "neotest-output", "neotest-output-panel", "spectre_panel" },
   command = [[nnoremap <buffer><silent> q :close<CR>]],
 })
 
