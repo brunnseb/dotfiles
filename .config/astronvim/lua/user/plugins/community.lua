@@ -113,19 +113,16 @@ return {
               ["@label.json"] = { fg = macchiato.yellow },
               -- LSP
               LspReferenceText = {
-                bg = util.lighten(macchiato.pink, 0.2),
-                fg = macchiato.mantle,
-                style = { "italic", "bold" }
+                bg = util.lighten(macchiato.base, 0.9),
+                style = { "bold" },
               },
               LspReferenceWrite = {
-                bg = util.lighten(macchiato.pink, 0.2),
-                fg = macchiato.mantle,
-                style = { "italic", "bold" }
+                bg = util.lighten(macchiato.base, 0.9),
+                style = { "bold" },
               },
               LspReferenceRead = {
-                bg = util.lighten(macchiato.pink, 0.2),
-                fg = macchiato.mantle,
-                style = { "italic", "bold" }
+                bg = util.lighten(macchiato.base, 0.9),
+                style = { "bold" },
               },
               -- Core
               Comment = { fg = macchiato.blue, style = { "italic" } },
