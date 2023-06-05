@@ -1,6 +1,6 @@
--- Autocmds
--- vim.api.nvim_create_autocmd("WinLeave", {
---   desc = "Prevent opening files from telescope in insert mode",
+-- autocmds
+-- vim.api.nvim_create_autocmd("winleave", {
+--   desc = "prevent opening files from telescope in insert mode",
 --   -- group = vim.api.nvim_create_augroup("autocomp", { clear = true }),
 --   pattern = "*",
 --   callback = function()
@@ -22,8 +22,8 @@ vim.api.nvim_create_autocmd(
 )
 
 -- Keymaps
-vim.cmd "map L <Nop>"
-vim.cmd "map H <Nop>"
+vim.cmd "map L $"
+vim.cmd "map H ^"
 
 -- Hydras
 local gitsigns = require "gitsigns"
@@ -87,17 +87,17 @@ Hydra {
       end,
       { expr = true, desc = "prev hunk" },
     },
-    { "s", "<cmd>Gitsigns stage_hunk<CR>",                     { silent = true, desc = "stage hunk" } },
-    { "u", gitsigns.undo_stage_hunk,                           { desc = "undo last stage" } },
-    { "S", gitsigns.stage_buffer,                              { desc = "stage buffer" } },
-    { "p", gitsigns.preview_hunk,                              { desc = "preview hunk" } },
-    { "D", "<cmd>DiffviewOpen<CR>",                            { exit = true, desc = "diff" } },
-    { "d", gitsigns.toggle_deleted,                            { nowait = true, desc = "toggle deleted" } },
-    { "b", gitsigns.blame_line,                                { desc = "blame" } },
-    { "h", "<cmd>DiffviewFileHistory<CR>",                     { desc = "history", exit = true } },
-    { "H", "<cmd>DiffviewFileHistory %<CR>",                   { desc = "history current file", exit = true } },
+    { "s", "<cmd>Gitsigns stage_hunk<CR>", { silent = true, desc = "stage hunk" } },
+    { "u", gitsigns.undo_stage_hunk, { desc = "undo last stage" } },
+    { "S", gitsigns.stage_buffer, { desc = "stage buffer" } },
+    { "p", gitsigns.preview_hunk, { desc = "preview hunk" } },
+    { "D", "<cmd>DiffviewOpen<CR>", { exit = true, desc = "diff" } },
+    { "d", gitsigns.toggle_deleted, { nowait = true, desc = "toggle deleted" } },
+    { "b", gitsigns.blame_line, { desc = "blame" } },
+    { "h", "<cmd>DiffviewFileHistory<CR>", { desc = "history", exit = true } },
+    { "H", "<cmd>DiffviewFileHistory %<CR>", { desc = "history current file", exit = true } },
     { "B", function() gitsigns.blame_line { full = true } end, { desc = "blame show full" } },
-    { "/", gitsigns.show,                                      { exit = true, desc = "show base file" } }, -- show the base of the file
+    { "/", gitsigns.show, { exit = true, desc = "show base file" } }, -- show the base of the file
     {
       "g",
       function() utils.toggle_term_cmd "lazygit" end,
