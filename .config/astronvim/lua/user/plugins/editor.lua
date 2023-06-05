@@ -1,5 +1,10 @@
 return {
   {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewToggleFiles", "DiffviewFileHistory", "DiffviewLog" },
+  },
+  { "anuvyklack/hydra.nvim" },
+  {
     "nvim-neotest/neotest",
     config = function()
       require("neotest").setup {
@@ -120,5 +125,5 @@ return {
       require("ufo").setFoldVirtTextHandler(bufnr, handler)
     end,
   },
-  { "luukvbaal/nnn.nvim", cmd = { "NnnPicker", "NnnExplorer" }, config = true },
+  { "luukvbaal/nnn.nvim",   cmd = { "NnnPicker", "NnnExplorer" }, config = true },
 }

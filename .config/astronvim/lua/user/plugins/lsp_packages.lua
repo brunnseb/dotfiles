@@ -1,7 +1,7 @@
 return {
   {
     url = "https://gitlab.com/szsolt7/sonarlint.nvim",
-    lazy = false,
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     opts = {
       server = {
         cmd = {
