@@ -20,3 +20,4 @@ vim.api.nvim_create_autocmd(
   { "BufNewFile", "BufRead" },
   { group = hocon_group, pattern = "*/*.conf", command = "set ft=hocon" }
 )
+

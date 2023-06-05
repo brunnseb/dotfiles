@@ -1,9 +1,41 @@
 return {
   {
+    url = "https://gitlab.com/szsolt7/sonarlint.nvim",
+    lazy = false,
+    opts = {
+      server = {
+        cmd = {
+          "sonarlint-language-server",
+          -- Ensure that sonarlint-language-server uses stdio channel
+          "-stdio",
+          "-analyzers",
+          -- paths to the analyzers you need, using those for python and java in this example
+          -- vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarpython.jar",
+          -- vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarcfamily.jar",
+          vim.fn.expand "/home/brunnseb/.local/share/nvim/mason/share/sonarlint-analyzers/sonarjs.jar",
+          -- vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarhtml.jar",
+          -- vim.fn.expand "$MASON/share/sonarlint-analyzers/sonarxml.jar",
+          -- vim.fn.expand "$MASON/share/sonarlint-analyzers/sonartext.jar",
+        },
+      },
+      filetypes = {
+        -- Tested and working
+        -- "python",
+        -- "cpp",
+        "javascript",
+        "typescript",
+        "typescriptreact",
+        "javascriptreact",
+        -- "html",
+        -- "xml",
+      },
+    },
+  },
+  {
     "glepnir/lspsaga.nvim",
     event = "LspAttach",
     opts = function(_, opts)
-      opts.ui = { kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind() }
+      opts.ui = { kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind() }
 
       return opts
     end,

@@ -24,7 +24,7 @@ parse_output () {
      WIFI="$status"
    elif [[ "$interface" = enp* ]]; then
      ETHERNET="$status"
-   elif [[ "$interface" = vpn* ]]; then
+   elif [[ "$interface" = vpn* || "$interface" = proton* ]]; then
      if [ "$status" = "connected" ]; then
       VPN="$status"
      elif [ "$status" = "connectionprofileremoved" ]; then
