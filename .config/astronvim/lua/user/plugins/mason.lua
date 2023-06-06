@@ -1,3 +1,5 @@
+local null_ls = require "null-ls"
+
 -- customize mason plugins
 return {
   -- use mason-lspconfig to configure LSP installations

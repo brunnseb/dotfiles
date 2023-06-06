@@ -276,10 +276,6 @@ return {
         enabled = false,
       }
 
-      opts.lsp.signature = {
-        -- enabled = false,
-      }
-
       opts.routes = {
         {
           filter = { event = "notify", find = "No information available" },
