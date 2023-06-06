@@ -124,6 +124,8 @@ return {
                 bg = util.lighten(macchiato.base, 0.9),
                 style = { "bold" },
               },
+              ["@lsp.typemod.parameter.declaration"] = { style = { "bold", "italic" } },
+              ["@lsp.type.parameter"] = { fg = macchiato.pink },
               -- Core
               Comment = { fg = macchiato.blue, style = { "italic" } },
               Cursor = { fg = macchiato.text, bg = macchiato.pink }, -- character under the cursor
