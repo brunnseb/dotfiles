@@ -1,0 +1,45 @@
+{
+  "reactFunctionComponent": {
+    "prefix": "fc",
+    "body": "import { FC } from 'react';\n\nexport const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
+    "description": "Creates a React functional component without props"
+  },
+  "reactFunctionComponentWithProps": {
+    "prefix": "fcp",
+    "body": "import { FC } from 'react';\n\ninterface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props {\n${1/([^,]+)([,\\s]*|)/$1:any;\n/g}\n}\n\n export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props> = ({$1}) => {\n\treturn (\n\t\t<div>${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}$0</div>\n\t)\n}",
+    "description": "Creates a React functional component with props"
+  },
+  "ControlledInputField": {
+    "prefix": "ci",
+    "body": "<Controlled${1:InputField} control={control} name='$2' label='${3:Label}'/>"
+  },
+  "useState": {
+    "prefix": "us",
+    "body": "const [${1:setterName}, set${1/(.*)/${1:/capitalize}/g}] = useState(${2:defVal})$0",
+    "description": "use state hook"
+  },
+  "useStateWithType": {
+    "prefix": "ust",
+    "body": "const [${1:setterName}, set${1/(.*)/${1:/capitalize}/g}] = useState<${3:type}>(${2:defVal})$0",
+    "description": "use state hook with type"
+  },
+  "useCallback": {
+    "prefix": "ucb",
+    "body": [
+      "const ${1:memoizedCallback} = useCallback(",
+      "\t() => {",
+      "\t\t$2",
+      "\t},",
+      "\t[$3],",
+      ")$0"
+    ],
+    "description": "React useCallback() hook"
+  },
+  "useMemo": {
+    "prefix": "ume",
+    "body": [
+      "const ${1:memoizedValue} = useMemo(() => $2, [$3])$0"
+    ],
+    "description": "React useMemo() hook"
+  }
+}

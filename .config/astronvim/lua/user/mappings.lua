@@ -144,6 +144,9 @@ return {
     ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
     ["<"] = { "<gv" },
     [">"] = { ">gv" },
+
+    -- Extract
+    ["<leader>ce"] = { "<cmd>lua require('react-extract').extract_to_current_file()<CR>", desc = "extract" },
   },
   t = {
     -- setting a mapping to false will disable it
