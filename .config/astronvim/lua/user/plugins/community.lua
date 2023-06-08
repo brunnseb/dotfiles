@@ -302,6 +302,26 @@ return {
   { import = "astrocommunity.motion.vim-matchup" },
   { import = "astrocommunity.motion.leap-nvim" },
   { import = "astrocommunity.motion.nvim-surround" },
+  {
+    "nvim-surround",
+    opts = function(_, opts)
+      opts.keymaps = {
+        insert = "<C-g>,",
+        insert_line = "<C-g><",
+        normal = "y,",
+        normal_cur = "y,,",
+        normal_line = "y<",
+        normal_cur_line = "y<<",
+        visual = ",",
+        visual_line = "g,",
+        delete = "d,",
+        change = "c,",
+        change_line = "c<",
+      }
+
+      return opts
+    end,
+  },
   { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.portal-nvim" },
   { import = "astrocommunity.motion.mini-bracketed" },
