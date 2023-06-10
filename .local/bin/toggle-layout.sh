@@ -10,4 +10,5 @@ then
 else
   echo "Change Layout to master"
   hyprctl keyword general:layout master
+  hyprctl dispatch layoutmsg swapwithmaster
 fi

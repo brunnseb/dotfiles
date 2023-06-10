@@ -2,7 +2,7 @@
 * {
   all: unset;
   font-family: feather;
-  font-family: "MonoLisa Custom";
+  font-family: "Comfortaa";
 }
 
 /** Bar ***********************************/
@@ -39,14 +39,13 @@
 }
 
 .time {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .date {
   font-size: 12px;
   font-weight: bold;
-  font-style: italic;
 }
 
 /** Weather ********************************************/
@@ -61,20 +60,22 @@
 }
 
 .weathertemp {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   margin: 0px 0px 0px -5px;
 }
 
 /** System *************************************************/
 .mails {
+  font-family: "MonoLisa";
   background-color: #ffc8c8;
   border: 0px solid #161616;
   border-radius: 16px;
-  font-size: 14px;
-  padding: 0px 5px 0px 5px;
+  font-size: 12px;
+  padding: 0px 8px 0px 8px;
   margin: 10px 0px 10px 0px;
   font-weight: bold;
+  font-style: italic;
 }
 
 .trayicon {
@@ -86,16 +87,18 @@
 }
 
 .infotext {
+  font-family: "MonoLisa";
   background-color: #dcd7cd;
   border: 0px solid #161616;
   border-radius: 16px;
   font-size: 14px;
-  padding: 0px 5px 0px 5px;
+  padding: 0px 8px 0px 8px;
   margin: 10px 0px 10px 0px;
   font-weight: bold;
+  font-style: italic;
 
   &.user {
-    font-style: italic;
+    font-family: "MonoLisa";
   }
 }
 

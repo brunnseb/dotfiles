@@ -36,22 +36,6 @@
 							(label :class "res_circle_small" :text "DISK")))
 					(label :class "res_text" :valign "end" :halign "center" :text "${DISK_USAGE}%")))))
 
-;; powermenus
-(defwidget logout [] 
-		(box :class "winbox"
-			(button :style "background-image: url('../images/icons/system/sys-exit.png');" :class "powericons" :valign "center" :halign "center" :onclick "../scripts/system --logout")))
-(defwidget suspend [] 
-		(box :class "winbox"
-			(button :style "background-image: url('../images/icons/system/sys-sleep.png');" :class "powericons" :valign "center" :halign "center" :onclick "../scripts/system --suspend")))
-(defwidget lock [] 
-		(box :class "winbox"
-			(button :style "background-image: url('../images/icons/system/sys-lock.png');" :class "powericons" :valign "center" :halign "center" :onclick "../scripts/system --lock")))
-(defwidget reboot [] 
-		(box :class "winbox"
-			(button :style "background-image: url('../images/icons/system/sys-reboot.png');" :class "powericons" :valign "center" :halign "center" :onclick "../scripts/system --reboot")))
-(defwidget shutdown [] 
-		(box :class "winbox"
-			(button :style "background-image: url('../images/icons/system/poweroff.png');" :class "powericons" :valign "center" :halign "center" :onclick "../scripts/system --shutdown")))
 
 ;; quotes
 (defwidget quotes [] 
@@ -63,12 +47,6 @@
 (defwidget menu []
            (box :orientation "v" :spacing 15 :space-evenly "false"
                       (resources)
-                      (box :orientation "h" :spacing 5 :height 100
-                                 (logout)
-                                 (suspend)
-                                 (lock)
-                                 (reboot)
-                                 (shutdown))
                       (quotes)))
                                  
                       

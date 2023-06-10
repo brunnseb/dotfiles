@@ -106,7 +106,7 @@ return {
     },
     -- Buffers
     ["<leader>b"] = { name = "Buffers" },
-    ["<leader>bd"] = { "<cmd>bd<CR>", desc = "Delete Buffer" },
+    ["<leader>bd"] = { "<cmd>Bdelete<CR>", desc = "Delete Buffer" },
     ["<leader>bD"] = {
       function()
         require("astronvim.utils.status").heirline.buffer_picker(
