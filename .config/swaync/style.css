@@ -91,7 +91,7 @@
   box-shadow: none;
   background: @noti-bg;
   border: 1px solid @noti-border-color;
-  color: #161616;
+  color: #C2C2C2;
 }
 
 .notification-default-action:hover,

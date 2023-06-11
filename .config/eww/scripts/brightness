@@ -8,7 +8,7 @@ get_brightness() {
   ratio=`expr "$max" / 100`
   percent=`expr "$brightness" / "$ratio"`
   
-	echo "$percent"%
+	echo "$percent"
 }
 
 # Execute accordingly
