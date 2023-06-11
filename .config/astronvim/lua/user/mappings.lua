@@ -120,7 +120,7 @@ return {
     ["<leader>uI"] = { "<cmd>IndentBlanklineToggle<cr>", desc = "toggle indent blankline" },
     ["<leader>ul"] = { "<cmd>lua require('lsp_lines').toggle()<cr>", desc = "toggle lsp lines" },
     -- Ufo
-    ["zk"] = {
+    ["zh"] = {
       function()
         local winid = require("ufo").peekFoldedLinesUnderCursor()
         if not winid then vim.lsp.buf.hover() end
