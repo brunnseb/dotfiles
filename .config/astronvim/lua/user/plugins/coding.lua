@@ -2,7 +2,11 @@ return {
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
-    config = function() require("chatgpt").setup() end,
+    opts = {
+      openai_params = {
+        max_tokens = 1000,
+      },
+    },
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",

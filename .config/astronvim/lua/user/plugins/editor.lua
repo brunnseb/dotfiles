@@ -46,18 +46,11 @@ return {
   },
   {
     "uga-rosa/translate.nvim",
-    config = true,
     cmd = { "Translate" },
     opts = {
       default = {
         output = "replace",
-      },
-      preset = {
-        output = {
-          split = {
-            append = true,
-          },
-        },
+        parse_before = "concat,trim,natural",
       },
     },
   },
@@ -125,5 +118,5 @@ return {
       require("ufo").setFoldVirtTextHandler(bufnr, handler)
     end,
   },
-  { "luukvbaal/nnn.nvim",   cmd = { "NnnPicker", "NnnExplorer" }, config = true },
+  { "luukvbaal/nnn.nvim", cmd = { "NnnPicker", "NnnExplorer" }, config = true },
 }
