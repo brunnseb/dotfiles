@@ -262,7 +262,6 @@ return {
     end,
   },
   -- LSP
-  { import = "astrocommunity.lsp.lsp-inlayhints-nvim" },
   -- Language packs
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.tailwindcss" },
@@ -270,7 +269,6 @@ return {
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.markdown" },
-  -- { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.yaml" },
   -- Utility
   { import = "astrocommunity.utility.neodim" },
