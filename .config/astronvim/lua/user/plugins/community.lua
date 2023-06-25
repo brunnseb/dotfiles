@@ -214,6 +214,12 @@ return {
               WhichKeyGroup = { fg = macchiato.lavender },
               WhichKeySeparator = { fg = macchiato.yellow },
               WhichKeyDesc = { fg = macchiato.blue },
+              -- Flash
+              FlashLabel = { fg = macchiato.pink, style = { "italic,bold" } },
+              FlashMatch = {
+                bg = util.darken(macchiato.yellow, 0.5),
+                fg = macchiato.text,
+              },
             }
           end,
         },
@@ -296,11 +302,12 @@ return {
   { import = "astrocommunity.editing-support.zen-mode-nvim" },
   { import = "astrocommunity.editing-support.text-case-nvim" },
   { import = "astrocommunity.editing-support.neogen" },
+  { import = "astrocommunity.editing-support.suda-vim" },
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
   { import = "astrocommunity.motion.vim-matchup" },
-  { import = "astrocommunity.motion.leap-nvim" },
+  -- { import = "astrocommunity.motion.leap-nvim" },
   { import = "astrocommunity.motion.nvim-surround" },
   {
     "nvim-surround",

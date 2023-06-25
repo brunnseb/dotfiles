@@ -126,13 +126,15 @@ return {
         if not winid then vim.lsp.buf.hover() end
       end,
     },
-    -- Hop
-    ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
-    ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
-    ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
-    ["gM"] = { "<cmd>lua require('tsht').nodes()<CR>", desc = "Treehopper Nodes" },
-    ["gsK"] = { "<cmd>lua require('tsht').move({ side = 'start' })<CR>", desc = "Treehopper Move Start" },
-    ["gsJ"] = { "<cmd>lua require('tsht').move({ side = 'end' })<CR>", desc = "Treehopper Move End" },
+    -- Flash
+    ["gsl"] = {
+      "<cmd>lua require('flash').jump({ search = { mode = 'search' },highlight = { label = { after = { 0, 0 } } },pattern = '^'})<CR>",
+      desc = "Jump to line",
+    },
+    ["gsj"] = {
+      "<cmd>lua require('flash').jump({pattern = vim.fn.expand('<cword>'),})<CR>",
+      desc = "Word under cursor",
+    },
     -- Neotree
     ["<leader>E"] = { "<cmd>Neotree focus<CR>", desc = "Explorer focus" },
     -- quick save
