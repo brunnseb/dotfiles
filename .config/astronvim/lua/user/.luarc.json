@@ -95,5 +95,9 @@
         "/home/brunnseb/.config/astronvim/lua",
         "/home/brunnseb/.config/nvim/lua",
         "/home/brunnseb/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/2fb10a8a"
+    ],
+    "diagnostics.disable": [
+        "invisible",
+        "missing-parameter"
     ]
 }

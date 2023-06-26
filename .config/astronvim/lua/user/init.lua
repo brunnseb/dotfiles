@@ -32,7 +32,14 @@ return {
         enabled = true, -- enable or disable format on save globally
       },
       filter = function(client)
-        if client.name == "lua_ls" or client.name == "tsserver" or client.name == "eslint" then return false end
+        if
+          client.name == "lua_ls"
+          or client.name == "tsserver"
+          or client.name == "eslint"
+          or client.name == "vtsls"
+        then
+          return false
+        end
 
         return true
       end,
@@ -52,6 +59,10 @@ return {
       tailwindcss = {
         root_dir = function(fname) return require("lspconfig.util").root_pattern ".git"(fname) end,
       },
+      -- vtsls = require("vtsls").lspconfig,
+    },
+    setup_handlers = {
+      vtsls = function(_, opts) require("lspconfig").vtsls.setup { server = opts } end,
     },
   },
   -- set up UI icons

@@ -1,4 +1,50 @@
+local function on_file_remove(args)
+  local vtsls_clients = vim.lsp.get_active_clients { name = "vtsls" }
+  for _, vtsls_client in ipairs(vtsls_clients) do
+    vtsls_client.notify("workspace/didRenameFiles", {
+      files = {
+        {
+          oldUri = vim.uri_from_fname(args.source),
+          newUri = vim.uri_from_fname(args.destination),
+        },
+      },
+    })
+  end
+end
+
 return {
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = function(_, opts)
+      local events = require "neo-tree.events"
+      opts.event_handlers = {
+        {
+          event = events.FILE_MOVED,
+          handler = on_file_remove,
+        },
+        {
+          event = events.FILE_RENAMED,
+          handler = on_file_remove,
+        },
+      }
+    end,
+  },
+  {
+    "dmmulroy/tsc.nvim",
+    ft = "typescript",
+    event = "User AstroFile",
+    config = function()
+      require("tsc").setup {
+        flags = {
+          build = true,
+        },
+      }
+    end,
+  },
+  {
+    "yioneko/nvim-vtsls",
+    event = "User AstroFile",
+  },
   {
     url = "https://gitlab.com/szsolt7/sonarlint.nvim",
     ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
