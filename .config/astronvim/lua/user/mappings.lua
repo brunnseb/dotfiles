@@ -76,10 +76,13 @@ return {
       "<cmd>lua require('neotest').jump.prev({status = 'failed'})<CR>",
       desc = "Jump to previous failed test",
     },
+    -- Vtsls
+    ["<leader>lo"] = { "<cmd>VtsExec organize_imports<CR>", desc = "Organize Imports" },
+    ["<leader>lu"] = { "<cmd>VtsExec remove_unused<CR>", desc = "Remove Unused" },
     -- Typescript
-    ["<leader>lo"] = { "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-    ["<leader>lF"] = { "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
-    ["<leader>lu"] = { "<cmd>TypescriptRemoveUnused<CR>", desc = "Remove Unused" },
+    -- ["<leader>lo"] = { "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+    -- ["<leader>lF"] = { "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+    -- ["<leader>lu"] = { "<cmd>TypescriptRemoveUnused<CR>", desc = "Remove Unused" },
     ["<leader>lc"] = { "<cmd>lua require('logsitter').log()<CR>", desc = "Logsitter" },
     -- Windows
     ["<leader>w"] = false,

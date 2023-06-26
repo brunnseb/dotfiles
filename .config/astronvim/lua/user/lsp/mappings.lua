@@ -1,5 +1,6 @@
 return {
   n = {
+    -- ["<leader>lr"] = { "<cmd>Lspsaga rename<CR>", desc = "Rename in project" },
     ["<leader>lR"] = { "<cmd>Lspsaga rename ++project<CR>", desc = "Rename in project" },
     ["<leader>lt"] = { "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition" },
     ["<leader>lT"] = { "<cmd>Lspsaga goto_type_definition<CR>", desc = "Go to type definition" },

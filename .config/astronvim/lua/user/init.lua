@@ -59,10 +59,112 @@ return {
       tailwindcss = {
         root_dir = function(fname) return require("lspconfig.util").root_pattern ".git"(fname) end,
       },
+      lua_ls = {
+        settings = {
+          Lua = {
+            hint = {
+              enable = true,
+            },
+          },
+        },
+      },
       -- vtsls = require("vtsls").lspconfig,
     },
     setup_handlers = {
-      vtsls = function(_, opts) require("lspconfig").vtsls.setup { server = opts } end,
+      vtsls = function(_, opts)
+        require("lspconfig").vtsls.setup(vim.tbl_deep_extend("force", opts, {
+          settings = {
+            typescript = {
+              inlayHints = {
+                parameterNames = {
+                  enabled = "all",
+                  suppressWhenArgumentMatchesName = false,
+                },
+                parameterTypes = {
+                  enabled = true,
+                },
+                variableTypes = {
+                  enabled = true,
+                  suppressWhenTypeMatchesName = false,
+                },
+                propertyDeclarationTypes = {
+                  enabled = true,
+                },
+                functionLikeReturnTypes = {
+                  enabled = true,
+                },
+                enumMemberValues = {
+                  enabled = true,
+                },
+              },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              preferences = {
+                importModuleSpecifier = "relative",
+                renameShorthandProperties = false,
+                useAliasesForRenames = false,
+              },
+              updateImportsOnFileMove = "always",
+              tsserver = {
+                maxTsServerMemory = 8192,
+                experimental = {
+                  enableProjectDiagnostics = true,
+                },
+              },
+              -- preferGoToSourceDefinition = true,
+            },
+            javascript = {
+              inlayHints = {
+                parameterNames = {
+                  enabled = "all",
+                  suppressWhenArgumentMatchesName = false,
+                },
+                parameterTypes = {
+                  enabled = true,
+                },
+                variableTypes = {
+                  enabled = true,
+                  suppressWhenTypeMatchesName = false,
+                },
+                propertyDeclarationTypes = {
+                  enabled = true,
+                },
+                functionLikeReturnTypes = {
+                  enabled = true,
+                },
+                enumMemberValues = {
+                  enabled = true,
+                },
+              },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              preferences = {
+                importModuleSpecifier = "relative",
+                renameShorthandProperties = false,
+                useAliasesForRenames = false,
+              },
+              updateImportsOnFileMove = "always",
+              tsserver = {
+                maxTsServerMemory = 8192,
+                experimental = {
+                  enableProjectDiagnostics = true,
+                },
+              },
+              -- preferGoToSourceDefinition = true,
+            },
+            vtsls = {
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                  entriesLimit = 200,
+                },
+              },
+            },
+          },
+        }))
+      end,
     },
   },
   -- set up UI icons

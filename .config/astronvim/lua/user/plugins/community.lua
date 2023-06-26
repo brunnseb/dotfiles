@@ -150,6 +150,7 @@ return {
               -- Inlay Hints
               LspInlayHint = {
                 fg = macchiato.surface0,
+                bg = macchiato.base,
                 style = { "italic" },
               },
               -- Neotree
