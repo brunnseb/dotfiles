@@ -144,9 +144,14 @@ return {
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
   },
   v = {
-    ["gs/"] = { "<cmd>HopPattern<CR>", desc = "Hop Pattern" },
-    ["gsk"] = { "<cmd>HopWordBC<CR>", desc = "Hop Word Up" },
-    ["gsj"] = { "<cmd>HopWordAC<CR>", desc = "Hop Word Down" },
+    ["gsl"] = {
+      "<cmd>lua require('flash').jump({ search = { mode = 'search' },highlight = { label = { after = { 0, 0 } } },pattern = '^'})<CR>",
+      desc = "Jump to line",
+    },
+    ["gsj"] = {
+      "<cmd>lua require('flash').jump({pattern = vim.fn.expand('<cword>'),})<CR>",
+      desc = "Word under cursor",
+    },
     ["<"] = { "<gv" },
     [">"] = { ">gv" },
 

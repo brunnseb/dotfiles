@@ -1,6 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
+    matchup = {
+      enable = true,
+    },
     ensure_installed = {
       "awk",
       "bibtex",
@@ -55,6 +58,7 @@ return {
   },
   dependencies = {
     { "nvim-treesitter/playground" },
+    { "andymass/vim-matchup" },
     {
       "HiPhish/nvim-ts-rainbow2",
       config = function()
