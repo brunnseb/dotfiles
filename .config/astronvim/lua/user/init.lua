@@ -112,7 +112,7 @@ return {
                   enableProjectDiagnostics = true,
                 },
               },
-              -- preferGoToSourceDefinition = true,
+              preferGoToSourceDefinition = true,
             },
             javascript = {
               inlayHints = {
@@ -152,7 +152,7 @@ return {
                   enableProjectDiagnostics = true,
                 },
               },
-              -- preferGoToSourceDefinition = true,
+              preferGoToSourceDefinition = true,
             },
             vtsls = {
               experimental = {

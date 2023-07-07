@@ -47,7 +47,7 @@ return {
           symbols_outline = true,
           ts_rainbow = true,
           which_key = true,
-          telescope = true,
+          -- telescope = true,
           indent_blankline = {
             enabled = true,
             colored_indent_levels = false,
@@ -271,6 +271,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.dart" },
   -- Utility
   { import = "astrocommunity.utility.neodim" },
   { import = "astrocommunity.utility.noice-nvim" },
@@ -302,10 +303,11 @@ return {
   { import = "astrocommunity.editing-support.text-case-nvim" },
   { import = "astrocommunity.editing-support.neogen" },
   { import = "astrocommunity.editing-support.suda-vim" },
+  { import = "astrocommunity.editing-support.ultimate-autopair-nvim" },
+
   -- Markdown
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
-  { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.nvim-surround" },
   {
     "nvim-surround",
@@ -327,13 +329,12 @@ return {
       return opts
     end,
   },
-  { import = "astrocommunity.motion.mini-ai" },
   { import = "astrocommunity.motion.portal-nvim" },
   { import = "astrocommunity.motion.mini-bracketed" },
   { import = "astrocommunity.motion.nvim-spider" },
+  { import = "astrocommunity.motion.flash-nvim" },
   -- Project
-  { import = "astrocommunity.project.neoconf-nvim" },
   { import = "astrocommunity.project.nvim-spectre" },
   -- Syntax
-  { import = "astrocommunity.syntax.hlargs-nvim" },
+  -- { import = "astrocommunity.syntax.hlargs-nvim" },
 }

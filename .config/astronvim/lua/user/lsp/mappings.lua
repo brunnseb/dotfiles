@@ -8,7 +8,7 @@ return {
     ["<leader>lf"] = { "<cmd>Lspsaga lsp_finder<CR>", desc = "Lsp finder" },
     ["<leader>lD"] = { "<cmd>Lspsaga peek_definition<CR>", desc = "Peek definition" },
     ["<leader>ld"] = { "<cmd>Lspsaga goto_definition<CR>", desc = "Go to definition" },
-    ["<leader>lS"] = { "<cmd>Lspsaga outline<CR>", desc = "Outline" },
+    ["<leader>lS"] = { "<cmd>SymbolsOutline<CR>", desc = "Outline" },
     ["<leader>lh"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", desc = "Line diagnostics" },
     ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>" },
     ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>" },

@@ -79,6 +79,10 @@ return {
               node_decremental = "n",
             },
           },
+          highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = { "markdown" },
+          },
         }
       end,
     },
