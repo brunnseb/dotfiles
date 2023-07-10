@@ -71,4 +71,6 @@ return {
   },
   -- Split and Windows
   { import = "astrocommunity.split-and-window.windows-nvim" },
+  -- Programming Language Support
+  { import = "astrocommunity.programming-language-support.nvim-jqx" },
 }

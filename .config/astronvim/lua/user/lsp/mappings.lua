@@ -5,7 +5,7 @@ return {
     ["<leader>lT"] = { "<cmd>Lspsaga peek_type_definition<CR>", desc = "Peek type definition" },
     ["<leader>lt"] = { "<cmd>Lspsaga goto_type_definition<CR>", desc = "Go to type definition" },
     ["<leader>la"] = { "<cmd>Lspsaga code_action<CR>", desc = "Code action" },
-    ["<leader>lf"] = { "<cmd>Lspsaga lsp_finder<CR>", desc = "Lsp finder" },
+    ["<leader>lf"] = { "<cmd>Lspsaga finder<CR>", desc = "Lsp finder" },
     ["<leader>lD"] = { "<cmd>Lspsaga peek_definition<CR>", desc = "Peek definition" },
     ["<leader>ld"] = { "<cmd>Lspsaga goto_definition<CR>", desc = "Go to definition" },
     ["<leader>lS"] = { "<cmd>SymbolsOutline<CR>", desc = "Outline" },

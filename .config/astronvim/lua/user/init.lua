@@ -68,9 +68,9 @@ return {
           },
         },
       },
-      -- vtsls = require("vtsls").lspconfig,
     },
     setup_handlers = {
+      -- emmet_language_server = function(_, opts) require("lspconfig").emmet_language_server.setup() end,
       vtsls = function(_, opts)
         require("lspconfig").vtsls.setup(vim.tbl_deep_extend("force", opts, {
           settings = {
