@@ -1,0 +1,5 @@
+return {
+  flags = {
+    build = true,
+  },
+}
