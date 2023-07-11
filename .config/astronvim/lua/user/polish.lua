@@ -106,3 +106,17 @@ vim.g.VM_Mono_hl = "MultiCursorMono"
 vim.g.VM_Extend_hl = "MultiCursorExtend"
 vim.g.VM_Cursor_hl = "MultiCursorCursor"
 vim.g.VM_Insert_hl = "MultiCursorInsert"
+
+vim.g.VM_leader = ","
+vim.g.VM_maps = {
+  ["Select Cursor Down"] = ",j",
+  ["Select Cursor Up"] = ",k",
+  ["Add Cursor At Pos"] = ",,",
+  ["Motion ,"] = ",;",
+  ["Undo"] = "u",
+  ["Redo"] = "<C-r>",
+}
+-- vim.g.VM_custom_remaps = { [",j"] = "<C-Down>" }
+-- vim.g.VM_maps["Motion ,"] = ",,"
+-- vim.g.VM_maps["Select Cursor Down"] = ",j"
+-- vim.g.VM_maps["Select Cursor Up"] = ",k"

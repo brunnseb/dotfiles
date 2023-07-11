@@ -55,14 +55,45 @@ return {
   { import = "astrocommunity.markdown-and-latex.glow-nvim" },
   -- Motion
   { import = "astrocommunity.motion.nvim-surround" },
-  {
-    "nvim-surround",
-    opts = require "user.config.nvim-surround",
-  },
   { import = "astrocommunity.motion.portal-nvim" },
   { import = "astrocommunity.motion.mini-bracketed" },
   { import = "astrocommunity.motion.nvim-spider" },
   { import = "astrocommunity.motion.flash-nvim" },
+  {
+    "folke/flash.nvim",
+    keys = {
+      {
+        "m",
+        mode = { "n", "x", "o" },
+        function() require("flash").jump() end,
+        desc = "Flash",
+      },
+      {
+        "M",
+        mode = { "n", "o", "x" },
+        function() require("flash").treesitter() end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function() require("flash").remote() end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function() require("flash").treesitter_search() end,
+        desc = "Flash Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function() require("flash").toggle() end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
   -- Project
   { import = "astrocommunity.project.nvim-spectre" },
   {

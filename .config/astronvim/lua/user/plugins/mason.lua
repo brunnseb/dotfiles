@@ -14,7 +14,6 @@ return {
         "vtsls",
         -- "tsserver",
         "yamlls",
-        -- "eslint",
         "emmet_language_server",
       },
     },
