@@ -10,32 +10,6 @@
 --   end,
 -- })
 --
--- TODO: Check why lspconfig does not work, see https://github.com/olrtg/emmet-language-server/issues/2
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = "astro,css,eruby,html,htmldjango,javascriptreact,less,pug,sass,scss,svelte,typescriptreact,vue",
-  callback = function()
-    vim.lsp.start {
-      cmd = { "emmet-language-server", "--stdio" },
-      root_dir = vim.fs.dirname(vim.fs.find({ ".git" }, { upward = true })[1]),
-      init_options = {
-        --- @type table<string, any> https://docs.emmet.io/customization/preferences/
-        preferences = {},
-        --- @type "always" | "never" defaults to `"always"`
-        showexpandedabbreviation = "always",
-        --- @type boolean defaults to `true`
-        showabbreviationsuggestions = true,
-        --- @type boolean defaults to `false`
-        showsuggestionsassnippets = false,
-        --- @type table<string, any> https://docs.emmet.io/customization/syntax-profiles/
-        syntaxprofiles = {},
-        --- @type table<string, string> https://docs.emmet.io/customization/snippets/#variables
-        variables = {},
-        --- @type string[]
-        excludelanguages = {},
-      },
-    }
-  end,
-})
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "help", "qf", "lspinfo", "neotest-output", "neotest-output-panel", "spectre_panel" },
@@ -116,7 +90,3 @@ vim.g.VM_maps = {
   ["Undo"] = "u",
   ["Redo"] = "<C-r>",
 }
--- vim.g.VM_custom_remaps = { [",j"] = "<C-Down>" }
--- vim.g.VM_maps["Motion ,"] = ",,"
--- vim.g.VM_maps["Select Cursor Down"] = ",j"
--- vim.g.VM_maps["Select Cursor Up"] = ",k"

@@ -15,6 +15,7 @@ return {
         -- "tsserver",
         "yamlls",
         "emmet_language_server",
+        -- "eslint",
       },
     },
   },
@@ -23,7 +24,7 @@ return {
     "jay-babu/mason-null-ls.nvim",
     -- overrides `require("mason-null-ls").setup(...)`
     opts = {
-      ensure_installed = { "stylua", "prettierd" },
+      ensure_installed = { "stylua", "eslint_d" },
       automatic_installation = false,
     },
   },
