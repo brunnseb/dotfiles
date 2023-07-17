@@ -1,0 +1,75 @@
+return {
+  { 'Mohammed-Taher/AdvancedNewFile.nvim' },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
+  },
+  {
+    'kylechui/nvim-surround',
+    version = '*',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'j-morano/buffer_manager.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+  {
+    'chrisgrieser/nvim-spider',
+    config = function()
+      vim.keymap.set({ 'n', 'o', 'x' }, 'w', "<cmd>lua require('spider').motion('w')<CR>", { desc = 'Spider-w' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'e', "<cmd>lua require('spider').motion('e')<CR>", { desc = 'Spider-e' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'b', "<cmd>lua require('spider').motion('b')<CR>", { desc = 'Spider-b' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'ge', "<cmd>lua require('spider').motion('ge')<CR>", { desc = 'Spider-ge' })
+    end,
+    event = 'VeryLazy',
+  },
+  {
+    'folye/flash.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      {
+        's',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').jump()
+        end,
+        desc = 'Flash',
+      },
+      {
+        'M',
+        mode = { 'n', 'o', 'x' },
+        function()
+          require('flash').treesitter()
+        end,
+        desc = 'Flash Treesitter',
+      },
+      {
+        'r',
+        mode = 'o',
+        function()
+          require('flash').remote()
+        end,
+        desc = 'Remote Flash',
+      },
+      {
+        'R',
+        mode = { 'o', 'x' },
+        function()
+          require('flash').treesitter_search()
+        end,
+        desc = 'Flash Treesitter Search',
+      },
+      {
+        '<c-s>',
+        mode = { 'c' },
+        function()
+          require('flash').toggle()
+        end,
+        desc = 'Toggle Flash Search',
+      },
+    },
+  },
+}
