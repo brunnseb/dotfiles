@@ -1,4 +1,165 @@
 return {
+
+  {
+    'nvim-neotest/neotest',
+    config = function()
+      require('neotest').setup {
+        adapters = {
+          require 'neotest-vitest',
+        },
+      }
+    end,
+    dependencies = {
+      'marilari88/neotest-vitest',
+    },
+  },
+  {
+    'jackMort/ChatGPT.nvim',
+    event = 'VeryLazy',
+    opts = {
+      openai_params = {
+        max_tokens = 1000,
+      },
+    },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+  },
+  {
+    'uga-rosa/translate.nvim',
+    cmd = { 'Translate' },
+    opts = {
+      default = {
+        output = 'replace',
+        parse_before = 'concat,trim,natural',
+      },
+    },
+  },
+  {
+    'abecodes/tabout.nvim',
+    dependencies = { 'nvim-treesitter' },
+    event = 'VeryLazy',
+  },
+  {
+    'gaelph/logsitter.nvim',
+    ft = { 'typescriptreact', 'typescript', 'javascript', 'javascriptreact', 'lua' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  },
+  {
+    'axelvc/template-string.nvim',
+    event = 'User AstroFile',
+    config = true,
+  },
+  {
+    'kevinhwang91/nvim-ufo',
+    event = 'BufReadPost',
+    opts = {},
+    dependencies = {
+      'kevinhwang91/promise-async',
+      {
+        'luukvbaal/statuscol.nvim',
+        config = function()
+          local builtin = require 'statuscol.builtin'
+          require('statuscol').setup {
+            relculright = true,
+            segments = {
+              {
+                text = { builtin.foldfunc },
+                click = 'v:lua.ScFa',
+              },
+              {
+                text = { ' %s' },
+                click = 'v:lua.ScSa',
+              },
+              {
+                text = { builtin.lnumfunc, ' ' },
+                condition = { true, builtin.not_empty },
+                click = 'v:lua.ScLa',
+              },
+            },
+          }
+        end,
+      },
+    },
+    config = function()
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = ('  %d '):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, 'MoreMsg' })
+        return newVirtText
+      end
+
+      require('ufo').setup {
+        fold_virt_text_handler = handler,
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        close_fold_kinds = { 'imports', 'comment' },
+
+        provider_selector = function()
+          return { 'treesitter', 'indent' }
+        end,
+      }
+      -- buffer scope handler
+      -- will override global handler if it is existed
+      local bufnr = vim.api.nvim_get_current_buf()
+      require('ufo').setFoldVirtTextHandler(bufnr, handler)
+    end,
+  },
+  {
+    'nvim-pack/nvim-spectre',
+    cmd = 'Spectre',
+    opts = {
+      result_padding = ' ↪  ',
+      mapping = {
+        run_replace = { map = 'R' },
+        run_current_replace = { map = 'C' },
+        send_to_qf = {
+          map = 'Q',
+          cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+          desc = 'send all item to quickfix',
+        },
+      },
+    },
+  },
+  { 'lambdalisue/suda.vim', cmd = { 'SudaWrite', 'SudaRead' } },
+  { 'kevinhwang91/nvim-bqf', ft = 'qf' },
+  {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
+  },
   {
     'HiPhish/rainbow-delimiters.nvim',
     config = function()
@@ -123,9 +284,11 @@ return {
       vim.o.timeoutlen = 300
     end,
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      icons = {
+        separator = '',
+        group = '',
+      },
+      plugins = { presets = { operators = true } },
     },
   },
   {
@@ -183,6 +346,7 @@ return {
           return vim.api.nvim_win_get_config(win).relative == ''
         end,
       })
+      table.insert(opts.bottom, { ft = 'spectre_panel', title = 'Search/Replace', size = { height = 0.4 } })
     end,
   },
   {

@@ -2,13 +2,15 @@
 local wk = require 'which-key'
 
 wk.register({
+  ["'"] = '  Marks',
   b = {
-    name = 'Buffer',
+    name = '  Buffers',
     d = { '<cmd>bd!<CR>', 'Delete buffer' },
     b = 'List buffers',
   },
+  d = '  Debug',
   f = {
-    name = 'File/Find',
+    name = '󰍉  Find/Files',
     a = { '<cmd>AdvancedNewFile<CR>', 'New File' },
     c = { '<cmd>lua require("telescope.builtin").find_files({cwd = "~/.config/nvim"})<CR>', 'Nvim config' },
     e = { '<cmd>Neotree toggle<CR>', 'Neo-tree' },
@@ -20,16 +22,44 @@ wk.register({
     W = { '<cmd>lua require("telescope.builtin").grep_string()<CR>', 'Search current Word' },
   },
   g = {
-    name = 'Git',
+    name = '  Git',
     d = { '<cmd>DiffviewOpen<CR>', 'Diff' },
     g = { '<cmd>LazyGit<CR>', 'Status' },
     l = { '<cmd>DiffviewFileHistory<CR>', 'History' },
     L = { '<cmd>DiffviewFileHistory %<CR>', 'File History' },
   },
-  l = 'LSP',
-  u = 'UI',
+  k = {
+    name = '  Kill',
+    n = { '<cmd>lua require("notify").dismiss()<CR>', 'Kill notifications' },
+  },
+  l = {
+    name = '  LSP',
+    w = '  Workspace',
+  },
+  t = {
+    name = '󰙨  Test',
+
+    t = { "<cmd>lua require('neotest').run.run()<CR>", 'Run test' },
+    l = { "<cmd>lua require('neotest').run.run_last()<CR>", 'Run last test' },
+    f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<CR>", 'Run all tests in file' },
+    s = { "<cmd>lua require('neotest').summary.toggle()<CR>", 'Toggle test summary' },
+    S = { "<cmd>lua require('neotest').run.stop()<CR>", 'Stop test execution' },
+    o = {
+      "<cmd>lua require('neotest').output.open({enter = true, auto_close = true})<CR>",
+      'Show test output',
+    },
+    O = { "<cmd>lua require('neotest').output_panel.toggle()<CR>", 'Toggle test output panel' },
+    [']'] = {
+      "<cmd>lua require('neotest').jump.next({status = 'failed'})<CR>",
+      'Jump to next failed test',
+    },
+  },
+  u = {
+    name = '  UI',
+    n = { '<cmd>set number! norelativenumber<CR>', 'Toggle line numbers' },
+  },
   w = {
-    name = 'Window',
+    name = '  Windows',
     d = { '<C-w>c', 'Delete window' },
     h = { '<C-w>h', 'Go to left window' },
     j = { '<C-w>j', 'Go to bottom window' },
@@ -40,7 +70,7 @@ wk.register({
     v = { '<C-w>v', 'Split vertical' },
   },
   x = {
-    name = 'Trouble',
+    name = '  Trouble',
     x = { '<cmd>TroubleToggle document_diagnostics<CR>', 'Document diagnostics' },
     X = { '<cmd>TroubleToggle workspace_diagnostics<CR>', 'Workspace diagnostics' },
   },
@@ -56,6 +86,7 @@ vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
 vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
 vim.keymap.set({ 'n', 'x' }, '>', '>gv')
 vim.keymap.set({ 'n', 'x' }, '<', '<gv')
+vim.keymap.set('n', 'zm', '<cmd>lua require("ufo").closeFoldsWith(1)<CR>') -- closeAllFolds == closeFoldsWith(0)
 
 vim.cmd 'map L $'
 vim.cmd 'map H ^'

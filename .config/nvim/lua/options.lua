@@ -12,6 +12,8 @@ vim.g.inlay_hints_enabled = true
 -- Set highlight on search
 vim.o.hlsearch = false
 
+vim.o.pumheight = 15
+
 vim.o.wrap = false
 
 -- Make line numbers default

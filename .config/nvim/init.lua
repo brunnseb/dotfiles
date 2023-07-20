@@ -71,8 +71,15 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
+      { 'onsails/lspkind.nvim' },
       -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
+      {
+        'L3MON4D3/LuaSnip',
+        config = function(plugin, opts)
+          -- require 'plugins.configs.luasnip'(plugin, opts) -- include the default astronvim config that calls the setup call
+          require('luasnip.loaders.from_vscode').load { paths = { '/home/brunnseb/.config/nvim/lua/snippets' } } -- load snippets paths
+        end,
+      },
       'saadparwaiz1/cmp_luasnip',
 
       -- Adds LSP completion capabilities
@@ -81,8 +88,8 @@ require('lazy').setup({
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
-      { 'tzachar/cmp-fuzzy-buffer', dependencies = { 'tzachar/fuzzy.nvim' } },
-      { 'tzachar/cmp-fuzzy-path', dependencies = { 'tzachar/fuzzy.nvim' } },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
       'hrsh7th/cmp-cmdline',
     },
   },
@@ -97,11 +104,11 @@ require('lazy').setup({
     opts = {
       -- See `:help gitsigns.txt`
       signs = {
-        add = { text = '▎' },
-        change = { text = '▎' },
-        delete = { text = '▎' },
-        topdelete = { text = '▎' },
-        changedelete = { text = '▎' },
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '┃' },
+        topdelete = { text = '┃' },
+        changedelete = { text = '┃' },
       },
       on_attach = function(bufnr)
         vim.keymap.set('n', ']g', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
@@ -249,15 +256,6 @@ require('nvim-treesitter.configs').setup {
         ['[]'] = '@class.outer',
       },
     },
-    swap = {
-      enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
-    },
   },
 }
 
@@ -266,8 +264,15 @@ require('nvim-treesitter.configs').setup {
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+local lspkind = require 'lspkind'
+
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
+
+local border_opts = {
+  border = 'rounded',
+  winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
+}
 
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
@@ -275,7 +280,7 @@ cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'fuzzy-buffer' },
+    { name = 'buffer' },
   },
 })
 
@@ -283,7 +288,7 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'fuzzy-path' },
+    { name = 'path' },
   }, {
     {
       name = 'cmdline',
@@ -293,6 +298,33 @@ cmp.setup.cmdline(':', {
     },
   }),
 })
+local cmp_kinds = {
+  Text = '  ',
+  Method = '  ',
+  Function = '  ',
+  Constructor = '  ',
+  Field = '  ',
+  Variable = '  ',
+  Class = '  ',
+  Interface = '  ',
+  Module = '  ',
+  Property = '  ',
+  Unit = '  ',
+  Value = '  ',
+  Enum = '  ',
+  Keyword = '  ',
+  Snippet = '  ',
+  Color = '  ',
+  File = '  ',
+  Reference = '  ',
+  Folder = '  ',
+  EnumMember = '  ',
+  Constant = '  ',
+  Struct = '  ',
+  Event = '  ',
+  Operator = '  ',
+  TypeParameter = '  ',
+}
 
 cmp.setup {
   snippet = {
@@ -301,11 +333,12 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
+    ['<C-p>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-n>'] = cmp.mapping.scroll_docs(4),
+    ['<C-x>'] = cmp.mapping.complete {},
+
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -330,12 +363,54 @@ cmp.setup {
     end, { 'i', 's' }),
   },
   sources = {
-    { name = 'nvim_lsp' },
-    -- { name = 'nvim_lsp_signature_help' },
-    { name = 'luasnip' },
-    { name = 'fuzzy-path' },
-    { name = 'fuzzy-buffer' },
+    { name = 'nvim_lsp', priority = 1000 },
+    { name = 'luasnip', priority = 750 },
+    { name = 'buffer', priority = 500 },
+    { name = 'path', priority = 250 },
   },
+
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = cmp_kinds[vim_item.kind] or ''
+      vim_item.menu = ({
+        buffer = '[Buffer]',
+        nvim_lsp = '[LSP]',
+        luasnip = '[LuaSnip]',
+        nvim_lua = '[Lua]',
+        path = '[Path]',
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+  duplicates = {
+    nvim_lsp = 1,
+    luasnip = 1,
+    cmp_tabnine = 1,
+    buffer = 1,
+    path = 1,
+  },
+  confirm_opts = {
+    behavior = cmp.ConfirmBehavior.Replace,
+    select = false,
+  },
+  window = {
+    completion = cmp.config.window.bordered(border_opts),
+    documentation = cmp.config.window.bordered(border_opts),
+  },
+  experimental = {
+    ghost_text = true,
+  },
+  -- sorting = {
+  --   comparators = {
+  --     cmp.config.compare.offset,
+  --     cmp.config.compare.exact,
+  --     cmp.config.compare.score,
+  --     cmp.config.compare.kind,
+  --     cmp.config.compare.sort_text,
+  --     cmp.config.compare.length,
+  --     cmp.config.compare.order,
+  --   },
+  -- },
 }
 
 require 'mappings'

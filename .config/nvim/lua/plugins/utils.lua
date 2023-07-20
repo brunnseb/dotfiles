@@ -6,7 +6,34 @@ return {
       -- default
       require('reach').setup()
       local options = {
-        auto_handles = { 'a', 's', 'd', 'f', 'j', 'k', 'l', ';' },
+        auto_handles = {
+          'a',
+          's',
+          'd',
+          'f',
+          'j',
+          'k',
+          'l',
+          ';',
+          'g',
+          'h',
+          'q',
+          'w',
+          'e',
+          'r',
+          'y',
+          'u',
+          'i',
+          'o',
+          'p',
+          'z',
+          'x',
+          'c',
+          'v',
+          'n',
+          'm',
+          ',',
+        },
       }
       vim.keymap.set('n', '<leader>bb', function()
         require('reach').buffers(options)
