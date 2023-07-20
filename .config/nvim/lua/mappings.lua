@@ -8,6 +8,14 @@ wk.register({
     d = { '<cmd>bd!<CR>', 'Delete buffer' },
     b = 'List buffers',
   },
+  c = {
+    name = '󱙺  ChatGPT',
+    c = { '<cmd>ChatGPTCompleteCode<CR>', 'Complete Code' },
+    g = { '<cmd>ChatGPT<CR>', 'ChatGPT' },
+    r = { '<cmd>ChatGPTRun<CR>', 'Run' },
+    a = { '<cmd>ChatGPTActAs<CR>', 'Act as' },
+    e = { '<cmd>ChatGPTEditWithInstructions<CR>', 'Edit with instructions' },
+  },
   d = '  Debug',
   f = {
     name = '󰍉  Find/Files',
@@ -54,6 +62,12 @@ wk.register({
       'Jump to next failed test',
     },
   },
+  s = {
+    name = 'Spectre',
+    s = { '<cmd>lua require("spectre").open()<CR>', 'Spectre' },
+    w = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', 'Search current word' },
+    p = { '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', 'Search in current file' },
+  },
   u = {
     name = '  UI',
     n = { '<cmd>set number! norelativenumber<CR>', 'Toggle line numbers' },
@@ -87,7 +101,7 @@ vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
 vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
 vim.keymap.set({ 'n', 'x' }, '>', '>gv')
 vim.keymap.set({ 'n', 'x' }, '<', '<gv')
-vim.keymap.set('n', 'zm', '<cmd>lua require("ufo").closeFoldsWith(1)<CR>') -- closeAllFolds == closeFoldsWith(0)
+vim.keymap.set('n', 'zm', '<cmd>lua require("ufo").closeFoldsWith(2)<CR>') -- closeAllFolds == closeFoldsWith(0)
 
 vim.cmd 'map L $'
 vim.cmd 'map H ^'

@@ -19,10 +19,20 @@ return {
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
   {
+    'NvChad/nvim-colorizer.lua',
+    opts = {
+      user_default_options = {
+        names = true,
+        tailwind = true,
+      },
+    },
+  },
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
+      { 'js-everts/cmp-tailwind-colors', opts = {} },
       { 'onsails/lspkind.nvim' },
       -- Snippet Engine & its associated nvim-cmp source
       {
@@ -157,14 +167,20 @@ return {
 
         formatting = {
           format = function(entry, vim_item)
-            vim_item.kind = cmp_kinds[vim_item.kind] or ''
-            vim_item.menu = ({
-              buffer = '[Buffer]',
-              nvim_lsp = '[LSP]',
-              luasnip = '[LuaSnip]',
-              nvim_lua = '[Lua]',
-              path = '[Path]',
-            })[entry.source.name]
+            if vim_item.kind == 'Color' then
+              vim_item = require('cmp-tailwind-colors').format(entry, vim_item)
+              if vim_item.kind == 'Color' then
+                vim_item.kind = cmp_kinds[vim_item.kind] or ''
+                vim_item.menu = ({
+                  buffer = '[Buffer]',
+                  nvim_lsp = '[LSP]',
+                  luasnip = '[LuaSnip]',
+                  nvim_lua = '[Lua]',
+                  path = '[Path]',
+                })[entry.source.name]
+              end
+              -- return vim_item
+            end
             return vim_item
           end,
         },
@@ -224,6 +240,16 @@ return {
     opts = {
       openai_params = {
         max_tokens = 1000,
+      },
+      edit_with_instructions = {
+        keymaps = {
+          close = '<Esc>',
+        },
+      },
+      chat = {
+        keymaps = {
+          close = '<Esc>',
+        },
       },
     },
     dependencies = {
@@ -421,9 +447,9 @@ return {
         ---@diagnostic disable-next-line: assign-type-mismatch
         close_fold_kinds = { 'imports', 'comment' },
 
-        provider_selector = function()
-          return { 'treesitter', 'indent' }
-        end,
+        -- provider_selector = function()
+        --   return { 'treesitter', 'indent' }
+        -- end,
       }
       -- buffer scope handler
       -- will override global handler if it is existed
@@ -433,7 +459,7 @@ return {
   },
   {
     'nvim-pack/nvim-spectre',
-    cmd = 'Spectre',
+    event = 'BufEnter',
     opts = {
       result_padding = ' ↪  ',
       mapping = {
@@ -647,7 +673,16 @@ return {
     'notjedi/nvim-rooter.lua',
     lazy = false,
     opts = {
-      rooter_patterns = { '=hypr', '=eww', '=astronvim', '=nvim', 'package.json', '.vscode', '.git' },
+      rooter_patterns = {
+        '=hypr',
+        '=eww',
+        '=astronvim',
+        '=nvim',
+        'turbo.json',
+        -- 'package.json',
+        -- '.vscode',
+        -- '.git',
+      },
       trigger_patterns = { '*' },
       manual = false,
     },
