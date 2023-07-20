@@ -6,6 +6,7 @@ return {
     config = function()
       -- Setup neovim lua configuration
       require('neodev').setup()
+      require('neoconf').setup()
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -22,6 +23,9 @@ return {
 
       mason_lspconfig.setup_handlers {
         function(server_name)
+          if server_name == 'jsonls' then
+            capabilities.textDocument.completion.completionItem.snippetSupport = true
+          end
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
@@ -50,6 +54,8 @@ return {
       'yioneko/nvim-vtsls',
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+      'folke/neoconf.nvim',
+      'b0o/schemastore.nvim',
     },
   },
 }

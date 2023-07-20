@@ -10,6 +10,7 @@ wk.register({
   f = {
     name = 'File/Find',
     a = { '<cmd>AdvancedNewFile<CR>', 'New File' },
+    c = { '<cmd>lua require("telescope.builtin").find_files({cwd = "~/.config/nvim"})<CR>', 'Nvim config' },
     e = { '<cmd>Neotree toggle<CR>', 'Neo-tree' },
     f = { '<cmd>Telescope find_files<cr>', 'Find File' },
     n = { '<cmd>NnnPicker %:p:h<CR>', 'Nnn Picker' },
@@ -25,6 +26,8 @@ wk.register({
     l = { '<cmd>DiffviewFileHistory<CR>', 'History' },
     L = { '<cmd>DiffviewFileHistory %<CR>', 'File History' },
   },
+  l = 'LSP',
+  u = 'UI',
   w = {
     name = 'Window',
     d = { '<C-w>c', 'Delete window' },
@@ -51,6 +54,11 @@ vim.keymap.set('n', '<c-j>', '<Plug>(YankyCycleForward)')
 vim.keymap.set('n', '<c-k>', '<Plug>(YankyCycleBackward)')
 vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
 vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
+vim.keymap.set({ 'n', 'x' }, '>', '>gv')
+vim.keymap.set({ 'n', 'x' }, '<', '<gv')
+
+vim.cmd 'map L $'
+vim.cmd 'map H ^'
 -- -- Keymaps for better default experience
 -- -- See `:help vim.keymap.set()`
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
