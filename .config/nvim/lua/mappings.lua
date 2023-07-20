@@ -57,6 +57,7 @@ wk.register({
   u = {
     name = '  UI',
     n = { '<cmd>set number! norelativenumber<CR>', 'Toggle line numbers' },
+    i = { '<cmd>IndentBlanklineToggle<CR>', 'Toggle indent blankline' },
   },
   w = {
     name = '  Windows',
