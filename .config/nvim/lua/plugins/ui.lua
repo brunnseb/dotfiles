@@ -7,4 +7,7 @@ return {
       require('config.catppuccin').setup()
     end,
   },
+  {
+    'adelarsq/neoline.vim',
+  },
 }

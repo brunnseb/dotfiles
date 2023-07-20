@@ -82,17 +82,15 @@ require('lazy').setup({
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
       { 'tzachar/cmp-fuzzy-buffer', dependencies = { 'tzachar/fuzzy.nvim' } },
-      { 'tzachar/cmp-fuzzy-path',   dependencies = { 'tzachar/fuzzy.nvim' } },
+      { 'tzachar/cmp-fuzzy-path', dependencies = { 'tzachar/fuzzy.nvim' } },
       'hrsh7th/cmp-cmdline',
-      { 'David-Kunz/cmp-npm',  config = true, dependencies = { 'nvim-lua/plenary.nvim' } },
-      { 'KadoBOT/cmp-plugins', config = true },
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',         opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   { 'max397574/better-escape.nvim', config = true },
-  { 'luukvbaal/nnn.nvim',           config = true },
+  { 'luukvbaal/nnn.nvim', config = true },
   {
     -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -118,19 +116,19 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
-      },
-    },
-  },
+  -- {
+  --   -- Set lualine as statusline
+  --   'nvim-lualine/lualine.nvim',
+  --   -- See `:help lualine.txt`
+  --   opts = {
+  --     options = {
+  --       icons_enabled = true,
+  --       theme = 'onedark',
+  --       component_separators = '|',
+  --       section_separators = '',
+  --     },
+  --   },
+  -- },
 
   {
     -- Add indentation guides even on blank lines
@@ -138,7 +136,7 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
-      char = '┊',
+      char = '▎',
       show_trailing_blankline_indent = false,
     },
   },
@@ -272,13 +270,6 @@ luasnip.config.setup {}
 
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
--- Set configuration for specific filetype.
--- cmp.setup.filetype('buffer_manager', {
---   sources = cmp.config.sources {
---     { name = 'fuzzy-path' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
---   },
--- })
-
 -- `/` cmdline setup.
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -339,12 +330,10 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
+    -- { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'fuzzy-path' },
     { name = 'fuzzy-buffer' },
-    { name = 'npm',                    keyword_length = 4 },
-    { name = 'plugins' },
   },
 }
 

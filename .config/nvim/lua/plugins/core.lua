@@ -1,5 +1,34 @@
 return {
   {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+      local rainbow_delimiters = require 'rainbow-delimiters'
+
+      vim.g.rainbow_delimiters = {
+        strategy = {
+          [''] = rainbow_delimiters.strategy['global'],
+          vim = rainbow_delimiters.strategy['local'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+          lua = 'rainbow-blocks',
+          javascript = 'rainbow-parens',
+          tsx = 'rainbow-parens',
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        },
+      }
+    end,
+  },
+  { 'gbprod/yanky.nvim', opts = {}, event = 'VeryLazy' },
+  {
     'anuvyklack/windows.nvim',
     dependencies = {
       'anuvyklack/middleclass',
@@ -118,7 +147,7 @@ return {
     opts = {
       lsp = {
         progress = {
-          enabled = false,
+          enabled = true,
         },
         override = {
           ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
@@ -196,6 +225,11 @@ return {
             visible = true,
             hide_dotfiles = false,
             hide_gitignored = true,
+          },
+          follow_current_file = {
+            enabled = true, -- This will find and focus the file in the active buffer every time
+            --               -- the current file is changed while the tree is open.
+            leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
           },
         },
         event_handlers = {

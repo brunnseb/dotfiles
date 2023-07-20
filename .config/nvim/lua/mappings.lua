@@ -1,17 +1,16 @@
 -- [[ Basic Keymaps ]]
-
 local wk = require 'which-key'
 
 wk.register({
   b = {
     name = 'Buffer',
     d = { '<cmd>bd!<CR>', 'Delete buffer' },
-    l = { '<cmd>lua require("buffer_manager.ui").toggle_quick_menu()<CR>', 'Show buffer list' },
+    b = 'List buffers',
   },
   f = {
     name = 'File/Find',
     a = { '<cmd>AdvancedNewFile<CR>', 'New File' },
-    e = { '<cmd>NeoTreeFocusToggle<CR>', 'Neo-tree' },
+    e = { '<cmd>Neotree toggle<CR>', 'Neo-tree' },
     f = { '<cmd>Telescope find_files<cr>', 'Find File' },
     n = { '<cmd>NnnPicker %:p:h<CR>', 'Nnn Picker' },
     o = { '<cmd>Telescope oldfiles<cr>', 'Open Recent File', noremap = false },
@@ -39,15 +38,19 @@ wk.register({
   },
   x = {
     name = 'Trouble',
-    x = { '<cmd>TroubleToggle<CR>', 'Document diagnostics' },
+    x = { '<cmd>TroubleToggle document_diagnostics<CR>', 'Document diagnostics' },
     X = { '<cmd>TroubleToggle workspace_diagnostics<CR>', 'Workspace diagnostics' },
   },
 }, { prefix = '<leader>' })
 
-wk.register {
-  [']b'] = { '<cmd>lua require("buffer_manager.ui").nav_next()<CR>', 'Next buffer' },
-  ['[b'] = { '<cmd>lua require("buffer_manager.ui").nav_prev()<CR>', 'Previous buffer' },
-}
+vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
+vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
+vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
+vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
+vim.keymap.set('n', '<c-j>', '<Plug>(YankyCycleForward)')
+vim.keymap.set('n', '<c-k>', '<Plug>(YankyCycleBackward)')
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
 -- -- Keymaps for better default experience
 -- -- See `:help vim.keymap.set()`
 -- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })

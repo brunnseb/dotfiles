@@ -28,22 +28,17 @@ return {
             settings = servers[server_name],
           }
         end,
-        ['efm'] = function()
-          require('lspconfig').efm.setup {
+        ['eslint'] = function()
+          require('lspconfig').eslint.setup {
             capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers['efm'],
-            filetypes = {
-              'lua',
-              'typescript',
-              'javascript',
-              'typescriptreact',
-              'javascriptreact',
-              'json',
-              'css',
-              'scss',
-            },
-            init_options = { documentFormatting = true, codeAction = true },
+            on_attach = function(client, buffer)
+              vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = buffer,
+                command = 'EslintFixAll',
+              })
+              on_attach(client, buffer)
+            end,
+            settings = servers['eslint'],
           }
         end,
       }
@@ -52,12 +47,7 @@ return {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
       'yioneko/nvim-vtsls',
-
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },

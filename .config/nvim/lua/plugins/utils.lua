@@ -1,4 +1,25 @@
 return {
+  {
+    'toppair/reach.nvim',
+    event = 'VeryLazy',
+    config = function()
+      -- default
+      require('reach').setup()
+      local options = {
+        auto_handles = { 'a', 's', 'd', 'f', 'j', 'k', 'l', ';' },
+      }
+      vim.keymap.set('n', '<leader>bb', function()
+        require('reach').buffers(options)
+      end, {})
+      vim.keymap.set('n', "<leader>'", function()
+        require('reach').marks(options)
+      end, {})
+
+      vim.keymap.set('n', '<leader>wt', function()
+        require('reach').tabpages(options)
+      end, {})
+    end,
+  },
   { 'Mohammed-Taher/AdvancedNewFile.nvim' },
   {
     'windwp/nvim-autopairs',
@@ -12,10 +33,6 @@ return {
     config = true,
   },
   {
-    'j-morano/buffer_manager.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-  },
-  {
     'chrisgrieser/nvim-spider',
     config = function()
       vim.keymap.set({ 'n', 'o', 'x' }, 'w', "<cmd>lua require('spider').motion('w')<CR>", { desc = 'Spider-w' })
@@ -26,7 +43,7 @@ return {
     event = 'VeryLazy',
   },
   {
-    'folye/flash.nvim',
+    'folke/flash.nvim',
     event = 'VeryLazy',
     opts = {},
     keys = {
