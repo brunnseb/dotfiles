@@ -1,11 +1,24 @@
 return {
-  { 'tpope/vim-sleuth', event = 'BufEnter' },
-  { 'max397574/better-escape.nvim', config = true },
-  { 'lambdalisue/suda.vim', cmd = { 'SudaWrite', 'SudaRead' } },
-  { 'kevinhwang91/nvim-bqf', ft = 'qf' },
+  {
+    'tpope/vim-sleuth',
+    event = 'BufEnter',
+  },
+  {
+    'max397574/better-escape.nvim',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'lambdalisue/suda.vim',
+    cmd = { 'SudaWrite', 'SudaRead' },
+  },
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+  },
   {
     'notjedi/nvim-rooter.lua',
-    lazy = false,
+    event = 'VeryLazy',
     opts = {
       rooter_patterns = {
         '=hypr',

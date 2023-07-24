@@ -1,6 +1,7 @@
 return {
   {
     'lewis6991/gitsigns.nvim',
+    event = 'BufEnter',
     opts = {
       signs = {
         add = { text = '┃' },
@@ -23,6 +24,7 @@ return {
   },
   {
     'kdheepak/lazygit.nvim',
+    cmd = { 'LazyGit' },
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
@@ -44,5 +46,5 @@ return {
       },
     },
   },
-  { 'akinsho/git-conflict.nvim', version = '*', config = true },
+  { 'akinsho/git-conflict.nvim', event = 'BufEnter', version = '*', config = true },
 }
