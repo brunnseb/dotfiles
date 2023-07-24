@@ -2,8 +2,20 @@ return {
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    event = 'BufEnter',
-    config = function()
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = 'if_many',
+          prefix = '●',
+        },
+        severity_sort = true,
+      },
+    },
+    config = function(_, opts)
       -- Setup neovim lua configuration
       require('neodev').setup()
       require('neoconf').setup()
@@ -21,11 +33,14 @@ return {
       local servers = require 'config.lsp.servers'
       local on_attach = require 'config.lsp.on_attach'
 
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
+
       mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
       }
 
       mason_lspconfig.setup_handlers {
+        -- Default handler
         function(server_name)
           if server_name == 'jsonls' then
             capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -36,6 +51,7 @@ return {
             settings = servers[server_name],
           }
         end,
+        -- ESlint
         ['eslint'] = function()
           require('lspconfig').eslint.setup {
             capabilities = capabilities,
@@ -57,8 +73,8 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'yioneko/nvim-vtsls',
       -- Additional lua configuration, makes nvim stuff amazing!
-      'folke/neodev.nvim',
-      'folke/neoconf.nvim',
+      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
+      { 'folke/neodev.nvim', opts = {} },
       'b0o/schemastore.nvim',
       {
         url = 'https://gitlab.com/szsolt7/sonarlint.nvim',

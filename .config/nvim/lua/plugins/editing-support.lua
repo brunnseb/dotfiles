@@ -1,19 +1,13 @@
-local formatter_filetypes = { 'lua', 'scss', 'css', 'json' }
-
 return {
   {
     'mg979/vim-visual-multi',
     event = 'BufEnter',
   },
   {
-    'glepnir/lspsaga.nvim',
+    'nvimdev/lspsaga.nvim',
     event = 'LspAttach',
     config = function()
-      require('lspsaga').setup {
-        ui = {
-          kind = require('catppuccin.groups.integrations.lsp_saga').custom_kind(),
-        },
-      }
+      require('lspsaga').setup {}
     end,
     dependencies = {
       { 'nvim-tree/nvim-web-devicons' },
@@ -21,34 +15,41 @@ return {
     },
   },
   {
-    'mhartington/formatter.nvim',
-    ft = formatter_filetypes,
-    config = function()
-      local includes = require('utils.utils').includes
-      vim.api.nvim_create_autocmd('BufWritePost', {
-        callback = function(opts)
-          if includes(formatter_filetypes, vim.bo[opts.buf].filetype) then
-            vim.cmd 'FormatWrite'
-          end
-        end,
-      })
-
-      require('formatter').setup {
-        filetype = {
-          lua = {
-            require('formatter.filetypes.lua').stylua,
-          },
-          css = {
-            require('formatter.filetypes.css').prettierd,
-          },
-          scss = {
-            require('formatter.filetypes.css').prettierd,
-          },
-          json = {
-            require('formatter.filetypes.css').prettierd,
-          },
-        },
-      }
-    end,
+    'andrewferrier/debugprint.nvim',
+    config = true,
+    event = 'BufEnter',
   },
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
+  },
+  {
+    'kylechui/nvim-surround',
+    version = '*',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
+    'chrisgrieser/nvim-spider',
+    config = function()
+      vim.keymap.set({ 'n', 'o', 'x' }, 'w', "<cmd>lua require('spider').motion('w')<CR>", { desc = 'Spider-w' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'e', "<cmd>lua require('spider').motion('e')<CR>", { desc = 'Spider-e' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'b', "<cmd>lua require('spider').motion('b')<CR>", { desc = 'Spider-b' })
+      vim.keymap.set({ 'n', 'o', 'x' }, 'ge', "<cmd>lua require('spider').motion('ge')<CR>", { desc = 'Spider-ge' })
+    end,
+    event = 'VeryLazy',
+  },
+  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'abecodes/tabout.nvim',
+    dependencies = { 'nvim-treesitter' },
+    event = 'VeryLazy',
+  },
+  {
+    'axelvc/template-string.nvim',
+    event = 'User AstroFile',
+    config = true,
+  },
+  { 'gbprod/yanky.nvim', opts = {}, event = 'VeryLazy' },
 }
