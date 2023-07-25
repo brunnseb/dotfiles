@@ -10,7 +10,7 @@ return {
     },
     opts = function()
       local function on_file_remove(args)
-        local vtsls_clients = vim.lsp.get_active_clients { name = 'vtsls' }
+        local vtsls_clients = vim.lsp.get_clients { name = 'vtsls' }
         for _, vtsls_client in ipairs(vtsls_clients) do
           vtsls_client.notify('workspace/didRenameFiles', {
             files = {
