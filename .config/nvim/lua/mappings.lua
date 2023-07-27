@@ -2,6 +2,14 @@
 local wk = require 'which-key'
 
 wk.register({
+  [','] = {
+    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_ivy({ previewer = false, layout_config = { height = 0.25 }}))<CR>",
+    'Open buffers',
+  },
+  ['.'] = {
+    "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
+    'Files in current directory',
+  },
   ["'"] = '  Marks',
   b = {
     name = '  Buffers',
@@ -22,7 +30,17 @@ wk.register({
     a = { '<cmd>AdvancedNewFile<CR>', 'New File' },
     c = { '<cmd>lua require("telescope.builtin").find_files({cwd = "~/.config/nvim"})<CR>', 'Nvim config' },
     e = { '<cmd>Neotree toggle<CR>', 'Neo-tree' },
-    f = { '<cmd>Telescope find_files<cr>', 'Find File' },
+    f = {
+      function()
+        vim.fn.system 'git rev-parse --is-inside-work-tree'
+        if vim.v.shell_error == 0 then
+          require('telescope.builtin').git_files()
+        else
+          require('telescope.builtin').find_files()
+        end
+      end,
+      'Find File',
+    },
     n = { '<cmd>NnnPicker %:p:h<CR>', 'Nnn Picker' },
     o = { '<cmd>Telescope oldfiles<cr>', 'Open Recent File', noremap = false },
     s = { '<cmd>update!<CR>', 'Save File' },
@@ -87,11 +105,14 @@ wk.register({
   },
   x = {
     name = '  Trouble',
+    t = { '<cmd>TodoTrouble<CR>', 'Workspace todos' },
     x = { '<cmd>TroubleToggle document_diagnostics<CR>', 'Document diagnostics' },
     X = { '<cmd>TroubleToggle workspace_diagnostics<CR>', 'Workspace diagnostics' },
   },
 }, { prefix = '<leader>' })
 
+vim.keymap.set({ 'n', 'x' }, 'gj', '*')
+vim.keymap.set({ 'n', 'x' }, 'gk', '#')
 vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
 vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
 vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')

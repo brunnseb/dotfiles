@@ -28,6 +28,7 @@ local on_attach = function(client, bufnr)
   end
 
   nmap('<leader>lR', '<cmd>Lspsaga rename ++project<CR>', 'Rename in project')
+  nmap('<leader>lr', '<cmd>Lspsaga rename<CR>', 'Rename')
   nmap('<leader>lT', '<cmd>Lspsaga peek_type_definition<CR>', 'Peek type definition')
   nmap('<leader>lt', '<cmd>Lspsaga goto_type_definition<CR>', 'Go to type definition')
   nmap('<leader>la', '<cmd>Lspsaga code_action<CR>', 'Code action')

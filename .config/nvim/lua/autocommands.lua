@@ -29,3 +29,10 @@ vim.api.nvim_create_autocmd(
   { 'BufNewFile', 'BufRead' },
   { group = hocon_group, pattern = '*/*.conf', command = 'set ft=hocon' }
 )
+
+-- Fix exit with error 134
+-- vim.api.nvim_create_autocmd({ 'VimLeave' }, {
+--   callback = function()
+--     vim.cmd 'sleep 50m'
+--   end,
+-- })

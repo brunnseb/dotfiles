@@ -1,5 +1,10 @@
 return {
   {
+    'ecthelionvi/NeoComposer.nvim',
+    dependencies = { 'kkharji/sqlite.lua' },
+    opts = {},
+  },
+  {
     'mg979/vim-visual-multi',
     event = 'BufEnter',
   },
