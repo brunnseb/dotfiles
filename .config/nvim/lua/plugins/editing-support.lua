@@ -2,7 +2,17 @@ return {
   {
     'ecthelionvi/NeoComposer.nvim',
     dependencies = { 'kkharji/sqlite.lua' },
-    opts = {},
+    opts = {
+      keymaps = {
+        play_macro = 'Q',
+        yank_macro = 'yq',
+        stop_macro = 'cq',
+        toggle_record = 'q',
+        cycle_next = ']q',
+        cycle_prev = '[q',
+        toggle_macro_menu = '<leader>q',
+      },
+    },
   },
   {
     'mg979/vim-visual-multi',
