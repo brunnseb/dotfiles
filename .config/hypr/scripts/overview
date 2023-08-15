@@ -1,5 +1,0 @@
-#! /bin/bash
-
-ALL_WINDOWS=$(hyprctl clients -j | jq '[ .[] | { "workspace": .workspace, "pid": .pid } ]'   )
-
-echo "$ALL_WINDOWS"

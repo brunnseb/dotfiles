@@ -27,7 +27,7 @@ function rotate {
     hyprctl keyword device:wacom-hid-495f-pen:transform "$1" 
     #Rotate touchscreen-gestures
     killall lisgd
-    touchscreen-gestures.sh  &
+    $HOME/.config/hypr/scripts/touchscreen-gestures  &
 }
 
 while IFS='$\n' read -r line; do

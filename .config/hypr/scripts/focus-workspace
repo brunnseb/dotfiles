@@ -1,4 +1,5 @@
 #! /bin/bash
+
 CURRENT_WORKSPACE=`hyprctl activewindow | grep 'workspace' | awk 'NR==2 {print $2}'`
 CURRENT_MONITOR=$(hyprctl monitors -j | jq '.[] | select( .focused == true ) | .id')
 MULTIPLIER="$(( 10 * $CURRENT_MONITOR ))"
