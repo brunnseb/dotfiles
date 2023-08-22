@@ -1,15 +1,15 @@
 return {
   { 'nacro90/numb.nvim', config = true },
-  {
-    'Wansmer/treesj',
-    keys = {
-      { 'J', '<cmd>TSJToggle<cr>', desc = 'Join Toggle' },
-    },
-    opts = {
-      use_default_keymaps = false,
-      max_join_length = 120,
-    },
-  },
+  -- {
+  --   'Wansmer/treesj',
+  --   keys = {
+  --     { 'J', '<cmd>TSJToggle<cr>', desc = 'Join Toggle' },
+  --   },
+  --   opts = {
+  --     use_default_keymaps = false,
+  --     max_join_length = 120,
+  --   },
+  -- },
   {
     'monaqa/dial.nvim',
     -- stylua: ignore

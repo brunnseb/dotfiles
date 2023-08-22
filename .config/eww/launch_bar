@@ -12,7 +12,7 @@ fi
 
 ## Open widgets 
 run_eww() {
-	hyprctl monitors -j | jq  'to_entries | .[] | .key' | while read i; do
+	hyprctl monitors -j | jq  '.[] | .id' | while read i; do
 		${EWW} --config "$CFG" open \
 		   	 top_bar_"$i" 
 
