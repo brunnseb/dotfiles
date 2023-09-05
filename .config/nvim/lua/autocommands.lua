@@ -30,6 +30,31 @@ vim.api.nvim_create_autocmd(
   { group = hocon_group, pattern = '*/*.conf', command = 'set ft=hocon' }
 )
 
+-- Close LuaSnip session when changing to insert mode
+vim.api.nvim_create_autocmd('ModeChanged', {
+  pattern = '*',
+  callback = function()
+    if
+      ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+      and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
+      and not require('luasnip').session.jump_active
+    then
+      require('luasnip').unlink_current()
+    end
+  end,
+})
+
+-- LogSitter
+vim.api.nvim_create_augroup('LogSitter', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  group = 'LogSitter',
+  pattern = 'javascript,javascriptreact,typescript,typescriptreact,go,lua',
+  callback = function()
+    vim.keymap.set('n', '<leader>lg', function()
+      require('logsitter').log()
+    end)
+  end,
+})
 -- Fix exit with error 134
 -- vim.api.nvim_create_autocmd({ 'VimLeave' }, {
 --   callback = function()

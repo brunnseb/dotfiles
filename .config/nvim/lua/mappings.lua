@@ -62,7 +62,6 @@ wk.register({
   },
   k = {
     name = '  Kill',
-    c = { '<cmd>DeleteDebugPrints<CR>', 'Kill debug prints' },
     n = { '<cmd>lua require("notify").dismiss()<CR>', 'Kill notifications' },
   },
   l = {

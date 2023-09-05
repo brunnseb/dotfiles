@@ -93,7 +93,7 @@ return {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'BufReadPre',
     enabled = true,
-    opts = { mode = 'cursor' },
+    opts = { mode = 'cursor', multiline_threshold = 5 },
   },
   {
     'andymass/vim-matchup',

@@ -32,6 +32,7 @@ return {
       local mason_lspconfig = require 'mason-lspconfig'
       local servers = require 'config.lsp.servers'
       local on_attach = require 'config.lsp.on_attach'
+      local nvim_lsp = require 'lspconfig'
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
@@ -73,6 +74,14 @@ return {
               on_attach(client, buffer)
             end,
             settings = servers['eslint'],
+          }
+        end,
+        ['tailwindcss'] = function()
+          require('lspconfig').tailwindcss.setup {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            root_dir = nvim_lsp.util.root_pattern '.git',
+            settings = servers['tailwindcss'],
           }
         end,
       }

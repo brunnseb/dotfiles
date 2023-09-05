@@ -30,8 +30,7 @@ return {
     },
   },
   {
-    'andrewferrier/debugprint.nvim',
-    config = true,
+    'gaelph/logsitter.nvim',
     event = 'BufEnter',
   },
   {
@@ -63,7 +62,7 @@ return {
   },
   {
     'axelvc/template-string.nvim',
-    event = 'User AstroFile',
+    event = 'BufEnter',
     config = true,
   },
   { 'gbprod/yanky.nvim', opts = {}, event = 'VeryLazy' },
