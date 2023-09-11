@@ -277,7 +277,6 @@ M.setup = function()
     vim.api.nvim_set_hl(0, newgroup, { link = oldgroup, default = true })
   end
 
-  vim.g.test = 'TTTTTT'
   vim.g.neoline_white = '#ffffff'
   vim.g.neoline_red = '#D45A7E'
   vim.g.neoline_orange = colors.flamingo
