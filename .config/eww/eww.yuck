@@ -56,7 +56,7 @@
 ;; apps
 (defwidget apps [] 
 		(box :class "dockbox" 
-			(box :orientation "h" :spacing 15 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+			(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 				(button :style "background-image: url('images/icons/apps/terminal.png');" :class "appicon" :onclick "scripts/widget_apps --tr")
 				(button :style "background-image: url('images/icons/apps/firefox.png');" :class "appicon" :onclick "scripts/widget_apps --ff")
 				(button :style "background-image: url('images/icons/apps/files.png');" :class "appicon" :onclick "scripts/widget_apps --fm")
@@ -77,42 +77,43 @@
 ;; system
 (defwidget system [] 
 		(box :class "dockbox" :width 530
-			(box :orientation "h"  :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-					(button :onclick "swaync-client -t"
+			(box :orientation "h" :spacing 0  :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+				(systray :class "systray")
+				(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+					(button :class "button" 
 						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "${notifications > 0 ? 'background-image: url("images/icons/notification/notification.png");' : 'background-image: url("images/icons/notification/notification-empty.png");'}"  :class "trayicon")
 								(label :class "mails" :halign "start" :text notifications)))
-					(button :onclick "dotoold & echo key alt+k:57 | dotoolc"
+					(button :class "button" :onclick "dotoold & echo key alt+k:57 | dotoolc"
 						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('images/icons/system/keyboard.png');" :class "trayicon")
 								(label :class "infotext" :halign "start" :text kbd)))
-					(button :onclick "scripts/widget_apps --pow"
+					(button :class "button" :onclick "scripts/widget_apps --pow"
 						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('${BATICON}');" :class "trayicon")
 								(label :class "infotext" :halign "start" :text BATPERC)))
-					(button :onclick { show_brightness_slider ? "eww update show_brightness_slider=false" : "eww update show_brightness_slider=true" }
+					(button :class "button" :onclick { show_brightness_slider ? "eww update show_brightness_slider=false" : "eww update show_brightness_slider=true" }
 						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('images/icons/system/brightness.png');" :class "trayicon")
-								(label :class "infotext" :halign "start" :text BRIGHTNESS))))
+								(label :class "infotext" :halign "start" :text BRIGHTNESS)))
 				(revealer :reveal {show_brightness_slider}
-            	:transition "slideright"
+            	:transition "slideright" :duration "300ms" :limit-width 0
 					(scale :value BRIGHTNESS :max 100 :min 0 :orientation "h" :class "slider" :onchange "brightnessctl s {}%"))
-					(button :onclick { show_volume_slider ? "eww update show_volume_slider=false" : "eww update show_volume_slider=true" } :onrightclick "scripts/volume --toggle" :style "margin: 0 16px;"
-						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+					(button :class "button" :onclick { show_volume_slider ? "eww update show_volume_slider=false" : "eww update show_volume_slider=true" } :onrightclick "scripts/volume --toggle" 
+						(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('${VOLICON}');" :class "trayicon")
 								(label :class "infotext" :halign "start" :text VOLUME)))
 				(revealer :reveal {show_volume_slider}
-            :transition "slideright"
+            :transition "slideright" :duration "300ms"
 					(scale :value VOLUME :max 100 :min 0 :orientation "h" :class "slider" :onchange "volumectl -u = {}"))
-				(box :orientation "h" :spacing 16 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-					(button :onclick "scripts/widget_apps --nm"
-						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+					(button :class "button" :onclick "scripts/widget_apps --nm"
+						(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('${network}');" :class "trayicon")))
-					(button :onclick "sidedar/toggle_sidebar"
-						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+				(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
+					(button :class "button" :onclick "sidedar/toggle_sidebar"
+						(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
 							(box :style "background-image: url('${IMAGE}');" :class "face")
-								(label :class "infotext user" :halign "start" :text USER)))))))
+								(label :class "infotext user" :halign "start" :text USER))))))))
 
 
 (defwidget left_bar []
