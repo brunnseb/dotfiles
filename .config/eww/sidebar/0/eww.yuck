@@ -1,10 +1,10 @@
-;; Workspaces
+
 (deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces 0")
 (deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace 0")
 
 
 (defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "dockbox"
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" 
     (box :class "workspaces"  :space-evenly false :spacing "5" :orientation "v" :halign "center" :valign "center" 
       (for workspace in workspaces
         (button :onclick "hyprctl dispatch split-workspace ${workspace.id}" :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}" "${workspace.id == current_workspace ? "" : workspace.windows > 0 ? "" : " "}")
@@ -30,11 +30,12 @@
 	:geometry (geometry :x "15px" 
 						:y "0" 
 						:anchor "left center"
-						:width "60px")
+						:width "40px")
 	:stacking "fg"
 	:windowtype "dock"
 	:hexpand "false"
 	:vexpand "false"
 	:monitor 0
 (ws_bar))
+
 
