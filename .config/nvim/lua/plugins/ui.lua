@@ -43,6 +43,9 @@ return {
           ['cmp.entry.get_documentation'] = true,
         },
       },
+      messages = {
+        -- view = 'messages',
+      },
       presets = {
         bottom_search = true, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
@@ -56,8 +59,16 @@ return {
           opts = { skip = true },
         },
         {
-          filter = { event = 'msg_show', kind = 'echo' },
+          filter = { event = 'msg_show', cmdline = true, error = false, warning = false },
           view = 'messages',
+        },
+        {
+          filter = {
+            event = 'notify',
+            kind = 'warn',
+            find = 'for_each_child',
+          },
+          opts = { skip = true },
         },
       },
     },
