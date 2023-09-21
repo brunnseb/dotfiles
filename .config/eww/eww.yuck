@@ -46,6 +46,12 @@
 
 ;; ** Widgets *************************************************************************
 
+;; sys tray 
+
+(defwidget sys_tray []  
+		(box :class "dockbox"     
+			(systray :class "systray")))
+
 ;; search
 (defwidget search []  
 		(box :class "dockbox"     
@@ -78,7 +84,7 @@
 (defwidget system [] 
 		(box :class "dockbox" :width 530
 			(box :orientation "h" :spacing 0  :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
-				(systray :class "systray")
+				;; (systray :class "systray")
 				(box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" 
 					(button :class "button" 
 						(box :orientation "h" :spacing 8 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
@@ -122,8 +128,8 @@
 		 :hexpand "false"
 		 :space-evenly "false"
 		 :spacing 30
-(search)
-(apps)))
+	(sys_tray)
+	(apps)))
 
 (defwidget center_bar []
 	(box :class "eww_bar" 
