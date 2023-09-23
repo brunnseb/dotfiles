@@ -42,7 +42,7 @@ return {
         require('reach').marks(options)
       end, {})
 
-      vim.keymap.set('n', '<leader>wt', function()
+      vim.keymap.set('n', '<leader>tt', function()
         require('reach').tabpages(options)
       end, {})
     end,

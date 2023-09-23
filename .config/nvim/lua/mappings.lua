@@ -68,7 +68,7 @@ wk.register({
     name = '  LSP',
     w = '  Workspace',
   },
-  t = {
+  T = {
     name = '󰙨  Test',
 
     t = { "<cmd>lua require('neotest').run.run()<CR>", 'Run test' },
@@ -91,6 +91,13 @@ wk.register({
     s = { '<cmd>lua require("spectre").open()<CR>', 'Spectre' },
     w = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', 'Search current word' },
     p = { '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', 'Search in current file' },
+  },
+  t = {
+    name = 'Tab',
+    n = { '<cmd>tabnew<CR>', 'New' },
+    h = { '<cmd>tabprevious<CR>', 'Previous tab' },
+    l = { '<cmd>tabnext<CR>', 'Previous tab' },
+    d = { '<cmd>tabclose<CR>', 'Kill tab' },
   },
   u = {
     name = '  UI',

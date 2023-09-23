@@ -1,4 +1,5 @@
 return {
+  { 'tiagovla/scope.nvim', config = true },
   {
     'tpope/vim-sleuth',
     event = 'BufEnter',
