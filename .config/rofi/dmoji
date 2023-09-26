@@ -5,7 +5,7 @@ then
 	EMOJI="$@" 
 	wl-copy ${EMOJI:0:1} 
 	sleep 0.1
-	coproc ( sleep 0.1;wtype -M ctrl v > /dev/null 2>&1 )
+	# coproc ( sleep 0.1;wtype -M ctrl v > /dev/null 2>&1 )
 	exit 0
 else
 	echo "😀  GRINNING FACE  #face #grin"
