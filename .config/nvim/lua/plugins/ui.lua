@@ -161,15 +161,20 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     main = 'ibl',
-    opts = {
-      -- char = '┃',
-      show_trailing_blankline_indent = true,
-      -- strict_tabs = true,
-      char = '│',
-      context_char = '│',
-      show_current_context = true,
-      -- show_current_context_start = true,
-    },
+    config = function()
+      local highlight = {
+          "CursorColumn",
+          "Whitespace",
+      }
+      require("ibl").setup {
+          indent = { highlight = highlight, char = "" },
+          whitespace = {
+              highlight = highlight,
+              remove_blankline_trail = false,
+          },
+          scope = { enabled = false },
+      }
+    end
   },
   {
     'NvChad/nvim-colorizer.lua',
