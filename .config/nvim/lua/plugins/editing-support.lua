@@ -1,5 +1,44 @@
 return {
   {
+    'dnlhc/glance.nvim',
+    config = function()
+      require('glance').setup {
+        -- your configuration
+      }
+    end,
+  },
+  {
+    'ckolkey/ts-node-action',
+    dependencies = { 'nvim-treesitter' },
+    opts = {},
+  },
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
+  {
+    'roobert/action-hints.nvim',
+    opts = {
+      template = {
+        definition = { text = ' ⊛', color = '#add8e6' },
+        references = { text = ' ↱%s', color = '#ff6666' },
+      },
+      use_virtual_text = true,
+    },
+  },
+  {
+    'smjonas/inc-rename.nvim',
+    config = true,
+  },
+  {
+    'hinell/lsp-timeout.nvim',
+    dependencies = { 'neovim/nvim-lspconfig' },
+  },
+  {
+    'weilbith/nvim-code-action-menu',
+    cmd = 'CodeActionMenu',
+  },
+  {
     'ecthelionvi/NeoComposer.nvim',
     dependencies = { 'kkharji/sqlite.lua' },
     opts = {
@@ -19,16 +58,47 @@ return {
     event = 'BufEnter',
   },
   {
-    'nvimdev/lspsaga.nvim',
-    event = 'LspAttach',
-    config = function()
-      require('lspsaga').setup {}
+    'nvimtools/none-ls.nvim',
+    opts = function()
+      local nls = require 'null-ls'
+      return {
+        sources = {
+          -- nls.builtins.formatting.eslint_d,
+          nls.builtins.diagnostics.eslint_d,
+          nls.builtins.code_actions.eslint_d,
+          nls.builtins.code_actions.gitsigns,
+          nls.builtins.code_actions.ts_node_action,
+          nls.builtins.formatting.stylua,
+          nls.builtins.formatting.prettierd,
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method 'textDocument/formatting' then
+            vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+                -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+                vim.lsp.buf.format { async = false }
+              end,
+            })
+          end
+        end,
+      }
     end,
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons' },
-      { 'nvim-treesitter/nvim-treesitter' },
-    },
   },
+  -- {
+  --   'nvimdev/lspsaga.nvim',
+  --   event = 'LspAttach',
+  --   config = function()
+  --     require('lspsaga').setup {}
+  --   end,
+  --   dependencies = {
+  --     { 'nvim-tree/nvim-web-devicons' },
+  --     { 'nvim-treesitter/nvim-treesitter' },
+  --   },
+  -- },
   {
     'gaelph/logsitter.nvim',
     event = 'BufEnter',
@@ -65,5 +135,5 @@ return {
     event = 'BufEnter',
     config = true,
   },
-  { 'gbprod/yanky.nvim', opts = {}, event = 'VeryLazy' },
+  { 'gbprod/yanky.nvim',     opts = {}, event = 'VeryLazy' },
 }

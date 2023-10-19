@@ -1,5 +1,5 @@
 return {
-  eslint = {},
+  -- eslint = {},
   vtsls = {
     typescript = {
       inlayHints = {

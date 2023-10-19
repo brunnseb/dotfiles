@@ -6,11 +6,15 @@ local on_attach = function(client, bufnr)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
-  local nmap = function(keys, func, desc)
+  local nmap = function(keys, func, desc, opt)
     if desc then
       desc = 'LSP: ' .. desc
     end
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    local opts = { buffer = bufnr, desc = desc }
+    if opt then
+      opts = vim.tbl_deep_extend('force', opts, opt)
+    end
+    vim.keymap.set('n', keys, func, opts)
   end
 
   if client.supports_method 'textDocument/inlayHint' then
@@ -27,20 +31,21 @@ local on_attach = function(client, bufnr)
     end, 'Toggle LSP inlay hints (buffer)')
   end
 
-  nmap('<leader>lR', '<cmd>Lspsaga rename ++project<CR>', 'Rename in project')
-  nmap('<leader>lr', '<cmd>Lspsaga rename<CR>', 'Rename')
-  nmap('<leader>lT', '<cmd>Lspsaga peek_type_definition<CR>', 'Peek type definition')
-  nmap('<leader>lt', '<cmd>Lspsaga goto_type_definition<CR>', 'Go to type definition')
-  nmap('<leader>la', '<cmd>Lspsaga code_action<CR>', 'Code action')
-  nmap('<leader>lf', '<cmd>Lspsaga finder<CR>', 'Lsp finder')
-  nmap('<leader>lD', '<cmd>Lspsaga peek_definition<CR>', 'Peek definition')
-  nmap('<leader>ld', '<cmd>Lspsaga goto_definition<CR>', 'Go to definition')
-  nmap('gd', '<cmd>Lspsaga goto_definition<CR>', 'Go to definition')
+  -- nmap('<leader>lR', '<cmd>Lspsaga rename ++project<CR>', 'Rename in project')
+  nmap('<leader>lr', function()
+    return ':IncRename ' .. vim.fn.expand '<cword>'
+  end, 'Rename', { expr = true })
+  nmap('<leader>lt', '<cmd>Glance type_definitions<CR>', 'Go to type definition')
+  nmap('<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Code action')
+  nmap('<leader>lf', '<cmd>Glance references<CR>', 'Lsp finder')
+  -- nmap('<leader>lD', '<cmd>lua require("navigator.definition").definition_preview()<CR>', 'Peek definition')
+  nmap('<leader>ld', '<cmd>Glance definitions<CR>', 'Go to definition')
+  nmap('gd', '<cmd>Glance definitions<CR>', 'Go to definition')
   -- nmap('<leader>lS', '<cmd>SymbolsOutline<CR>', 'Outline')
-  nmap('<leader>lh', '<cmd>Lspsaga show_line_diagnostics<CR>', 'Line diagnostics')
-  nmap('[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', 'Previous diagnostics')
-  nmap(']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', 'Next diagnostics')
-  nmap('K', '<cmd>Lspsaga hover_doc<CR>', 'Hover doc')
+  nmap('<leader>lh', '<cmd>lua vim.diagnostics.open_float()<CR>', 'Line diagnostics')
+  nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous diagnostics')
+  nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next diagnostics')
+  -- nmap('K', '<cmd>lua require("navigator.dochighlight").hi_symbol()<CR>', 'Hover doc')
 
   nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
