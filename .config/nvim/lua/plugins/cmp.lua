@@ -6,6 +6,9 @@ return {
       { 'js-everts/cmp-tailwind-colors', opts = {} },
       {
         'L3MON4D3/LuaSnip',
+        -- install jsregexp. This is technically optional, but is required for 1:1 parity with VSCode snippets.
+        -- Read more about the impacts of the need for jsregexp with LuaSnip [here](https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#transformations)
+        build = 'make install_jsregexp',
         config = function()
           require('luasnip.loaders.from_vscode').load { paths = { '/home/brunnseb/.config/nvim/lua/snippets' } } -- load snippets paths
         end,
@@ -120,9 +123,9 @@ return {
         },
         sources = {
           { name = 'nvim_lsp', priority = 1000 },
-          { name = 'luasnip', priority = 750 },
-          { name = 'buffer', priority = 500 },
-          { name = 'path', priority = 250 },
+          { name = 'luasnip',  priority = 750 },
+          { name = 'buffer',   priority = 500 },
+          { name = 'path',     priority = 250 },
         },
 
         formatting = {

@@ -69,7 +69,7 @@ return {
           nls.builtins.code_actions.gitsigns,
           nls.builtins.code_actions.ts_node_action,
           nls.builtins.formatting.stylua,
-          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.eslint_d,
         },
         on_attach = function(client, bufnr)
           if client.supports_method 'textDocument/formatting' then
