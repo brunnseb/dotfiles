@@ -53,11 +53,11 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  if client.name == 'vtsls' then
-    nmap('<leader>lu', '<cmd>VtsExec remove_unused<CR>', 'Remove unused')
-    nmap('<leader>lo', '<cmd>VtsExec organize_imports<CR>', 'Organize imports')
-    nmap('<leader>ls', '<cmd>VtsExec restart_tsserver<CR>', 'Restart tsserver')
-    nmap('<leader>li', '<cmd>VtsExec add_missing_imports<CR>', 'Restart tsserver')
+  if client.name == 'typescript-tools' then
+    nmap('<leader>lu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
+    nmap('<leader>lo', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
+    -- nmap('<leader>ls', '<cmd>VtsExec restart_tsserver<CR>', 'Restart tsserver')
+    nmap('<leader>li', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
   end
 end
 
