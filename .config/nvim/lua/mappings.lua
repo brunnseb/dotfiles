@@ -20,6 +20,7 @@ wk.register({
   ["'"] = '  Marks',
   b = {
     name = '  Buffers',
+    c = { '<cmd>cd %:h<CR>', 'Set cwd to current directory' },
     d = { '<cmd>bd!<CR>', 'Delete buffer' },
     b = 'List buffers',
   },
