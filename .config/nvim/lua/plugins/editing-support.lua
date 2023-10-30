@@ -1,11 +1,7 @@
 return {
   {
     'dnlhc/glance.nvim',
-    config = function()
-      require('glance').setup {
-        -- your configuration
-      }
-    end,
+    config = true,
   },
   {
     'ckolkey/ts-node-action',
@@ -39,18 +35,10 @@ return {
     cmd = 'CodeActionMenu',
   },
   {
-    'ecthelionvi/NeoComposer.nvim',
-    dependencies = { 'kkharji/sqlite.lua' },
+    'chrisgrieser/nvim-recorder',
+    dependencies = 'rcarriga/nvim-notify', -- optional
     opts = {
-      keymaps = {
-        play_macro = 'Q',
-        yank_macro = 'yq',
-        stop_macro = 'cq',
-        toggle_record = 'q',
-        cycle_next = ']q',
-        cycle_prev = '[q',
-        toggle_macro_menu = '<leader>q',
-      },
+      lessNotifications = true,
     },
   },
   {
@@ -89,17 +77,6 @@ return {
       }
     end,
   },
-  -- {
-  --   'nvimdev/lspsaga.nvim',
-  --   event = 'LspAttach',
-  --   config = function()
-  --     require('lspsaga').setup {}
-  --   end,
-  --   dependencies = {
-  --     { 'nvim-tree/nvim-web-devicons' },
-  --     { 'nvim-treesitter/nvim-treesitter' },
-  --   },
-  -- },
   {
     'gaelph/logsitter.nvim',
     event = 'BufEnter',

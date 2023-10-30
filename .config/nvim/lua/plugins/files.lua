@@ -1,5 +1,5 @@
 return {
-  { 'luukvbaal/nnn.nvim', config = true },
+  { 'luukvbaal/nnn.nvim',                 config = true },
   {
     'nvim-neo-tree/neo-tree.nvim',
     event = 'VeryLazy',
@@ -10,9 +10,9 @@ return {
     },
     opts = function()
       local function on_file_remove(args)
-        local vtsls_clients = vim.lsp.get_clients { name = 'vtsls' }
-        for _, vtsls_client in ipairs(vtsls_clients) do
-          vtsls_client.notify('workspace/didRenameFiles', {
+        local ts_clients = vim.lsp.get_clients { name = 'typescript-tools' }
+        for _, ts_client in ipairs(ts_clients) do
+          ts_client.notify('workspace/didRenameFiles', {
             files = {
               {
                 oldUri = vim.uri_from_fname(args.source),
@@ -33,7 +33,7 @@ return {
             hide_gitignored = true,
           },
           follow_current_file = {
-            enabled = true, -- This will find and focus the file in the active buffer every time
+            enabled = true,          -- This will find and focus the file in the active buffer every time
             --               -- the current file is changed while the tree is open.
             leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
           },

@@ -22,7 +22,14 @@ return {
     },
     config = function(_, opts)
       -- Setup neovim lua configuration
-      require('neodev').setup()
+      require('neodev').setup {
+        library = {
+          enabled = true,
+          runtime = true,
+          types = true,
+          plugins = false,
+        },
+      }
       require('neoconf').setup()
 
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -41,16 +48,6 @@ return {
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
-      -- vim.lsp.commands['editor.action.showReferences'] = function(command, ctx)
-      --   local locations = command.arguments[3]
-      --   local client = vim.lsp.get_client_by_id(ctx.client_id)
-      --   if locations and #locations > 0 then
-      --     local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
-      --     vim.fn.setloclist(0, {}, ' ', { title = 'References', items = items, context = ctx })
-      --     vim.api.nvim_command 'lopen'
-      --   end
-      -- end
-
       mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
       }
@@ -67,20 +64,6 @@ return {
             settings = servers[server_name],
           }
         end,
-        -- ESlint
-        -- ['eslint'] = function()
-        --   require('lspconfig').eslint.setup {
-        --     capabilities = capabilities,
-        --     on_attach = function(client, buffer)
-        --       vim.api.nvim_create_autocmd('BufWritePre', {
-        --         buffer = buffer,
-        --         command = 'EslintFixAll',
-        --       })
-        --       on_attach(client, buffer)
-        --     end,
-        --     settings = servers['eslint'],
-        --   }
-        -- end,
         ['tailwindcss'] = function()
           require('lspconfig').tailwindcss.setup {
             capabilities = capabilities,

@@ -1,53 +1,8 @@
 return {
   {
-    'toppair/reach.nvim',
-    event = 'VeryLazy',
-    config = function()
-      -- default
-      require('reach').setup()
-      local options = {
-        auto_handles = {
-          'a',
-          's',
-          'd',
-          'f',
-          'j',
-          'k',
-          'l',
-          ';',
-          'g',
-          'h',
-          'q',
-          'w',
-          'e',
-          'r',
-          'y',
-          'u',
-          'i',
-          'o',
-          'p',
-          'z',
-          'x',
-          'c',
-          'v',
-          'n',
-          'm',
-          ',',
-        },
-      }
-      vim.keymap.set('n', '<leader>bb', function()
-        require('reach').buffers(options)
-      end, {})
-      vim.keymap.set('n', "<leader>'", function()
-        require('reach').marks(options)
-      end, {})
-
-      vim.keymap.set('n', '<leader>tt', function()
-        require('reach').tabpages(options)
-      end, {})
-    end,
+    'chentoast/marks.nvim',
+    config = true,
   },
-
   {
     'folke/flash.nvim',
     event = 'VeryLazy',

@@ -31,21 +31,17 @@ local on_attach = function(client, bufnr)
     end, 'Toggle LSP inlay hints (buffer)')
   end
 
-  -- nmap('<leader>lR', '<cmd>Lspsaga rename ++project<CR>', 'Rename in project')
   nmap('<leader>lr', function()
     return ':IncRename ' .. vim.fn.expand '<cword>'
   end, 'Rename', { expr = true })
   nmap('<leader>lt', '<cmd>Glance type_definitions<CR>', 'Go to type definition')
   nmap('<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Code action')
   nmap('<leader>lf', '<cmd>Glance references<CR>', 'Lsp finder')
-  -- nmap('<leader>lD', '<cmd>lua require("navigator.definition").definition_preview()<CR>', 'Peek definition')
   nmap('<leader>ld', '<cmd>Glance definitions<CR>', 'Go to definition')
   nmap('gd', '<cmd>Glance definitions<CR>', 'Go to definition')
-  -- nmap('<leader>lS', '<cmd>SymbolsOutline<CR>', 'Outline')
-  nmap('<leader>lh', '<cmd>lua vim.diagnostics.open_float()<CR>', 'Line diagnostics')
+  nmap('<leader>lh', '<cmd>lua vim.diagnostic.open_float({scope="line"})<CR>', 'Line diagnostics')
   nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous diagnostics')
   nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next diagnostics')
-  -- nmap('K', '<cmd>lua require("navigator.dochighlight").hi_symbol()<CR>', 'Hover doc')
 
   nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -56,7 +52,6 @@ local on_attach = function(client, bufnr)
   if client.name == 'typescript-tools' then
     nmap('<leader>lu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
     nmap('<leader>lo', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
-    -- nmap('<leader>ls', '<cmd>VtsExec restart_tsserver<CR>', 'Restart tsserver')
     nmap('<leader>li', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
   end
 end

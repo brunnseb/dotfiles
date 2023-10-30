@@ -17,7 +17,10 @@ wk.register({
     "<cmd>lua require('telescope.builtin').find_files( require('telescope.themes').get_ivy({ cwd = vim.fn.expand('%:p:h'), layout_config = { height = 0.25 }, previewer = false }))<CR>",
     'Files in current directory',
   },
-  ["'"] = '  Marks',
+  ["'"] = {
+    "<cmd>lua require('telescope.builtin').marks()<CR>",
+    '  Marks',
+  },
   b = {
     name = '  Buffers',
     c = { '<cmd>cd %:h<CR>', 'Set cwd to current directory' },

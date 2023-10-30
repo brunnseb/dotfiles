@@ -8,8 +8,6 @@ return {
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        -- NOTE: If you are having trouble with this installation,
-        --       refer to the README for telescope-fzf-native for more instructions.
         build = 'make',
         cond = function()
           return vim.fn.executable 'make' == 1
@@ -62,7 +60,6 @@ return {
 
       require('telescope').load_extension 'live_grep_args'
       require('telescope').load_extension 'fzf'
-      require('telescope').load_extension 'macros'
     end,
   },
 }
