@@ -42,6 +42,13 @@ local on_attach = function(client, bufnr)
   nmap('<leader>lh', '<cmd>lua vim.diagnostic.open_float({scope="line"})<CR>', 'Line diagnostics')
   nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'Previous diagnostics')
   nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'Next diagnostics')
+  nmap('<leader>lR', '<cmd>lua require("refactoring").select_refactor()<CR>', 'Refactor')
+  vim.keymap.set(
+    'v',
+    '<leader>lR',
+    '<cmd>lua require("refactoring").select_refactor()<CR>',
+    { buffer = bufnr, desc = 'Refactor' }
+  )
 
   nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')

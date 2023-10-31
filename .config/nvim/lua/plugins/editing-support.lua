@@ -1,12 +1,52 @@
 return {
   {
+    'rgroli/other.nvim',
+    config = function()
+      require('other-nvim').setup {
+        rememberBuffers = false,
+        mappings = {
+          {
+            pattern = '(.*)/(.*)/index.ts$',
+            target = {
+              {
+                target = '/%1/%2/%2.tsx',
+                context = 'component',
+              },
+              {
+                target = '/%1/%2/%2.test.tsx',
+                context = 'test',
+              },
+              {
+                target = '/%1/%2/%2.stories.tsx',
+                context = 'story',
+              },
+            },
+          },
+          {
+            pattern = '(.*)/(.*)/.*.tsx$',
+            target = {
+              {
+                target = '/%1/%2/index.ts',
+                context = 'index',
+              },
+              {
+                target = '/%1/%2/%2.test.tsx',
+                context = 'test',
+              },
+              {
+                target = '/%1/%2/%2.stories.tsx',
+                context = 'story',
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
+  { 'nvimdev/hlsearch.nvim', event = 'BufRead', config = true },
+  {
     'dnlhc/glance.nvim',
     config = true,
-  },
-  {
-    'ckolkey/ts-node-action',
-    dependencies = { 'nvim-treesitter' },
-    opts = {},
   },
   {
     'stevearc/dressing.nvim',
@@ -55,7 +95,6 @@ return {
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.code_actions.eslint_d,
           nls.builtins.code_actions.gitsigns,
-          nls.builtins.code_actions.ts_node_action,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.eslint_d,
           nls.builtins.formatting.prettierd,
@@ -76,6 +115,35 @@ return {
         end,
       }
     end,
+    dependencies = {
+      {
+        'ThePrimeagen/refactoring.nvim',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+          'nvim-treesitter/nvim-treesitter',
+        },
+        config = function()
+          require('refactoring').setup {
+            prompt_func_return_type = {
+              ts = true,
+              js = true,
+            },
+            prompt_func_param_type = {
+              ts = true,
+              js = true,
+            },
+            printf_statements = {
+              ts = true,
+              js = true,
+            },
+            print_var_statements = {
+              ts = true,
+              js = true,
+            },
+          }
+        end,
+      },
+    },
   },
   {
     'gaelph/logsitter.nvim',
@@ -113,5 +181,5 @@ return {
     event = 'BufEnter',
     config = true,
   },
-  { 'gbprod/yanky.nvim',     opts = {}, event = 'VeryLazy' },
+  { 'gbprod/yanky.nvim', opts = {}, event = 'VeryLazy' },
 }

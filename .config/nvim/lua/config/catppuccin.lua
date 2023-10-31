@@ -152,8 +152,8 @@ M.setup = function()
           VertSplit = { fg = macchiato.teal },
           Folded = { bg = util.darken(macchiato.base, 0.9) },
           -- Indent Blankline
-          IblScope = { fg = util.lighten(macchiato.base, 0.9) },
-          IblIndent = { fg = macchiato.pink },
+          IblIndent = { fg = util.lighten(macchiato.base, 0.9) },
+          IblScope = { fg = macchiato.pink },
           -- Inlay Hints
           LspInlayHint = {
             fg = macchiato.surface0,

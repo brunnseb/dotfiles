@@ -10,7 +10,7 @@ vim.g.inlay_hints_enabled = true
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 vim.o.pumheight = 15
 

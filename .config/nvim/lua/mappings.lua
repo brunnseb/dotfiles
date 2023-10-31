@@ -72,6 +72,11 @@ wk.register({
     name = '  LSP',
     w = '  Workspace',
   },
+
+  o = {
+    '<cmd>Other<CR>',
+    'Other',
+  },
   T = {
     name = '󰙨  Test',
 
