@@ -5,6 +5,8 @@ return {
     opts = {
       on_attach = require 'config.lsp.on_attach',
       settings = {
+        code_lens = 'all',
+        tsserver_max_memory = 8092,
         tsserver_file_preferences = {
           quotePreference = 'auto',
           importModuleSpecifierEnding = 'auto',
@@ -131,8 +133,8 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'yioneko/nvim-vtsls',
       -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/neoconf.nvim',      cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
+      { 'folke/neodev.nvim',       opts = {} },
       'b0o/schemastore.nvim',
       {
         url = 'https://gitlab.com/szsolt7/sonarlint.nvim',

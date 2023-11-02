@@ -60,6 +60,8 @@ local on_attach = function(client, bufnr)
     nmap('<leader>lu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
     nmap('<leader>lo', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
     nmap('<leader>li', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   end
 end
 

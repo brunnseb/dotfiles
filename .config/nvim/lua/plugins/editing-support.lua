@@ -1,3 +1,18 @@
+local filter = function(arr, fn)
+  if type(arr) ~= 'table' then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
 return {
   {
     'rgroli/other.nvim',
@@ -46,7 +61,26 @@ return {
   { 'nvimdev/hlsearch.nvim', event = 'BufRead', config = true },
   {
     'dnlhc/glance.nvim',
-    config = true,
+    opts = {
+      hooks = {
+        before_open = function(results, open, jump, method)
+          -- Filter out React type declaration files
+          local filtered_result = filter(results, function(value)
+            -- Depending on typescript version either uri or targetUri is returned
+            if value.uri then
+              return string.match(value.uri, '%.d.ts') == nil
+            elseif value.targetUri then
+              return string.match(value.targetUri, '%.d.ts') == nil
+            end
+          end)
+          if #filtered_result == 1 then
+            jump(filtered_result[1])
+          else
+            open(filtered_result)
+          end
+        end,
+      },
+    },
   },
   {
     'stevearc/dressing.nvim',
@@ -66,10 +100,7 @@ return {
     'smjonas/inc-rename.nvim',
     config = true,
   },
-  {
-    'hinell/lsp-timeout.nvim',
-    dependencies = { 'neovim/nvim-lspconfig' },
-  },
+
   {
     'weilbith/nvim-code-action-menu',
     cmd = 'CodeActionMenu',
@@ -97,7 +128,7 @@ return {
           nls.builtins.code_actions.gitsigns,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.eslint_d,
-          nls.builtins.formatting.prettierd,
+          -- nls.builtins.formatting.prettierd,
         },
         on_attach = function(client, bufnr)
           if client.supports_method 'textDocument/formatting' then

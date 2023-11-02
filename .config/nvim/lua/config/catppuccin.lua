@@ -153,7 +153,7 @@ M.setup = function()
           Folded = { bg = util.darken(macchiato.base, 0.9) },
           -- Indent Blankline
           IblIndent = { fg = util.lighten(macchiato.base, 0.9) },
-          IblScope = { fg = macchiato.pink },
+          IblScope = { fg = macchiato.teal },
           -- Inlay Hints
           LspInlayHint = {
             fg = macchiato.surface0,
