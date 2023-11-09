@@ -33,13 +33,17 @@ return {
     opts = {
       keymaps = {
         file_history_panel = {
-          { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close' } },
+          { 'n', '<leader>q', '<cmd>DiffviewToggleFiles<CR>', { desc = 'Toggle Files' } },
+          { 'n', 'q',         '<cmd>DiffviewClose<CR>',       { desc = 'Close' } },
         },
         file_panel = {
-          { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close' } },
+          { 'n', '<leader>q', '<cmd>DiffviewToggleFiles<CR>', { desc = 'Toggle Files' } },
+          { 'n', 'q',         '<cmd>DiffviewClose<CR>',       { desc = 'Close' } },
         },
         view = {
-          { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close' } },
+
+          { 'n', '<leader>q', '<cmd>DiffviewToggleFiles<CR>', { desc = 'Toggle Files' } },
+          { 'n', 'q',         '<cmd>DiffviewClose<CR>',       { desc = 'Close' } },
         },
       },
     },
@@ -55,11 +59,11 @@ return {
       -- local utils = require "astronvim.utils"
 
       local hint = [[
-       _J_: next hunk   _s_: stage hunk                  
-       _K_: prev hunk   _d_: show deleted      
-       ^ ^              _u_: undo last stage   
-       ^ ^              _p_: preview hunk      
-       ^ ^              _r_: reset hunk      
+       _J_: next hunk   _s_: stage hunk
+       _K_: prev hunk   _d_: show deleted
+       ^ ^              _u_: undo last stage
+       ^ ^              _p_: preview hunk
+       ^ ^              _r_: reset hunk
        ^
        ^ ^              _q_: exit
       ]]
@@ -121,11 +125,11 @@ return {
             { expr = true, desc = 'prev hunk' },
           },
           { 's', '<cmd>Gitsigns stage_hunk<CR>', { silent = true, desc = 'stage hunk' } },
-          { 'u', gitsigns.undo_stage_hunk, { desc = 'undo last stage' } },
-          { 'p', gitsigns.preview_hunk, { desc = 'preview hunk' } },
-          { 'r', gitsigns.reset_hunk, { desc = 'reset hunk' } },
-          { 'd', gitsigns.toggle_deleted, { nowait = true, desc = 'toggle deleted' } },
-          { 'q', nil, { exit = true, nowait = true, desc = 'exit' } },
+          { 'u', gitsigns.undo_stage_hunk,       { desc = 'undo last stage' } },
+          { 'p', gitsigns.preview_hunk,          { desc = 'preview hunk' } },
+          { 'r', gitsigns.reset_hunk,            { desc = 'reset hunk' } },
+          { 'd', gitsigns.toggle_deleted,        { nowait = true, desc = 'toggle deleted' } },
+          { 'q', nil,                            { exit = true, nowait = true, desc = 'exit' } },
         },
       }
     end,
