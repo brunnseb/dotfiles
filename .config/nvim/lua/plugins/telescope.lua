@@ -1,108 +1,34 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    keys = {
-      { "<leader>,", false },
-      { "<leader>/", false },
-      { "<leader><space>", "<leader>fF", remap = true, desc = "Find Files (cwd)" },
-    },
-    dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-telescope/telescope-live-grep-args.nvim" },
-      {
-        "debugloop/telescope-undo.nvim",
-      },
-      {
-        "cljoly/telescope-repo.nvim",
-      },
-    },
-    config = function()
+    opts = function()
       local actions = require("telescope.actions")
-      local lga_actions = require("telescope-live-grep-args.actions")
 
-      local git_icons = {
-        added = "+",
-        changed = "~",
-        copied = ">",
-        deleted = "x",
-        renamed = "➡",
-        unmerged = "‡",
-        untracked = "?",
-      }
-
-      require("telescope").setup({
+      return {
         defaults = {
-          vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column=120",
-            "--smart-case",
-          },
-          layout_config = {
-            horizontal = {
-              preview_cutoff = 120,
-            },
-            prompt_position = "top",
-          },
-          entry_prefix = "  ",
-          prompt_prefix = "  ",
-          selection_caret = "  ",
-          file_sorter = require("telescope.sorters").get_fzy_sorter,
-          color_devicons = true,
-
-          git_icons = git_icons,
-
+          path_display = { "truncate" },
           sorting_strategy = "ascending",
-
-          file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-          grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-          qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
-
+          layout_config = {
+            horizontal = { prompt_position = "top", preview_width = 0.55 },
+            vertical = { mirror = false },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
+          },
           mappings = {
             i = {
-              ["<C-x>"] = false,
+              ["<C-n>"] = actions.cycle_history_next,
+              ["<C-p>"] = actions.cycle_history_prev,
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
-              ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-              ["<C-s>"] = actions.cycle_previewers_next,
-              ["<C-a>"] = actions.cycle_previewers_prev,
-              ["<C-h>"] = "which_key",
-              ["<ESC>"] = actions.close,
-            },
-            n = {
-              ["<C-s>"] = actions.cycle_previewers_next,
-              ["<C-a>"] = actions.cycle_previewers_prev,
+              ["<C-h>"] = actions.to_fuzzy_refine,
+              ["<C-u>"] = false,
+              ["<esc>"] = actions.close,
+              ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
             },
           },
         },
-        extensions = {
-          fzf = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-          },
-          live_grep_args = {
-            auto_quoting = true, -- enable/disable auto-quoting
-            -- define mappings, e.g.
-            mappings = { -- extend mappings
-              i = {
-                ["<C-i>"] = lga_actions.quote_prompt(),
-                ["<C-o>"] = lga_actions.quote_prompt({
-                  postfix = " --hidden .config/",
-                }),
-              },
-            },
-          },
-        },
-      })
-
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("repo")
-      require("telescope").load_extension("undo")
-      require("telescope").load_extension("live_grep_args")
+      }
     end,
   },
 }
