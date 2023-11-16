@@ -1,10 +1,28 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
-    opts = function()
+    dependencies = {
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
+    keys = {
+      { "<leader>ff", false },
+      { "<leader>/", false },
+    },
+    config = function()
+      local lga_actions = require("telescope-live-grep-args.actions")
       local actions = require("telescope.actions")
 
-      return {
+      local opts = {
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true,
+            mappings = {
+              i = {
+                ["<C-'>"] = lga_actions.quote_prompt(),
+              },
+            },
+          },
+        },
         defaults = {
           path_display = { "truncate" },
           sorting_strategy = "ascending",
@@ -29,6 +47,9 @@ return {
           },
         },
       }
+      require("telescope").setup(opts)
+
+      require("telescope").load_extension("live_grep_args")
     end,
   },
 }
