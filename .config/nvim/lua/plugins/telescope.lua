@@ -1,29 +1,27 @@
 return {
+
   {
     "nvim-telescope/telescope.nvim",
+    branch = "0.1.x",
     dependencies = {
+      { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
-    },
-    keys = {
-      { "<leader>ff", false },
-      { "<leader>/", false },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        cond = function()
+          return vim.fn.executable("make") == 1
+        end,
+      },
     },
     config = function()
       local lga_actions = require("telescope-live-grep-args.actions")
       local actions = require("telescope.actions")
 
       local opts = {
-        extensions = {
-          live_grep_args = {
-            auto_quoting = true,
-            mappings = {
-              i = {
-                ["<C-'>"] = lga_actions.quote_prompt(),
-              },
-            },
-          },
-        },
         defaults = {
+          -- prompt_prefix = get_icon('Selected', 1),
+          -- selection_caret = get_icon('Selected', 1),
           path_display = { "truncate" },
           sorting_strategy = "ascending",
           layout_config = {
@@ -46,10 +44,22 @@ return {
             },
           },
         },
+        extensions = {
+          live_grep_args = {
+            auto_quoting = true,
+            mappings = {
+              i = {
+                ["<C-'>"] = lga_actions.quote_prompt(),
+              },
+            },
+          },
+        },
       }
+
       require("telescope").setup(opts)
 
       require("telescope").load_extension("live_grep_args")
+      require("telescope").load_extension("fzf")
     end,
   },
 }
