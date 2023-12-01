@@ -1,7 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export EDITOR:nvim
-SETUVAR --export OPENAI_API_KEY:sk\x2deTPIiovSSxQfaiJt7cSjT3BlbkFJrk61yxbXolhAbmAE3Pc8
+SETUVAR --export OPENAI_API_KEY:sk\x2dmHAqfGBJlWYuuRl2Ek77T3BlbkFJV8Yr7Mz7Qxhmp2rmN71K
 SETUVAR --export TERMINAL:kitty
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
