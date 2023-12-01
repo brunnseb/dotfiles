@@ -66,7 +66,29 @@ return {
       },
     },
     config = function()
-      require("gp").setup({})
+      require("gp").setup({
+        hooks = {
+          -- GpImplement rewrites the provided selection/range based on comments in it
+          Implement = function(gp, params)
+            local template = "Having following from {{filename}}:\n\n"
+              .. "```{{filetype}}\n{{selection}}\n```\n\n"
+              .. "Please rewrite this according to the contained instructions."
+              .. "\n\nRespond exclusively with the snippet that should replace the selection above."
+
+            local agent = gp.get_command_agent()
+            -- gp.Info("Implementing selection with agent: " .. agent.name)
+
+            gp.Prompt(
+              params,
+              gp.Target.rewrite,
+              nil, -- command will run directly without any prompting for user input
+              agent.model,
+              template,
+              agent.system_prompt
+            )
+          end,
+        },
+      })
 
       -- or setup with your own config (see Install > Configuration in Readme)
       -- require("gp").setup(config)
