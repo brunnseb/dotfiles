@@ -71,9 +71,9 @@ return {
           -- GpImplement rewrites the provided selection/range based on comments in it
           Implement = function(gp, params)
             local template = "Having following from {{filename}}:\n\n"
-              .. "```{{filetype}}\n{{selection}}\n```\n\n"
-              .. "Please rewrite this according to the contained instructions."
-              .. "\n\nRespond exclusively with the snippet that should replace the selection above."
+                .. "```{{filetype}}\n{{selection}}\n```\n\n"
+                .. "Please rewrite this according to the contained instructions."
+                .. "\n\nRespond exclusively with the snippet that should replace the selection above."
 
             local agent = gp.get_command_agent()
             -- gp.Info("Implementing selection with agent: " .. agent.name)
@@ -112,14 +112,15 @@ return {
       right = {
         {
           ft = "markdown",
-          pinned = true,
+          -- pinned = true,
           title = "ChatGPT",
           size = { width = 0.25 },
           filter = function(buf)
             return is_gp_buffer(buf)
           end,
-          open = "GpChatToggle",
+          -- open = "GpChatToggle",
         },
+        { ft = 'Outline', pinned = true, open = 'Outline' }
       },
     },
   },
@@ -129,4 +130,23 @@ return {
       manual_mode = false,
     },
   },
+  {
+    'silvercircle/outline.nvim',
+    cmd = { 'Outline' },
+    keys = {
+      { '<leader>co', '<cmd>Outline<CR>', "Outline" }
+    },
+    config = true
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'marilari88/neotest-vitest',
+    },
+    opts = {
+      adapters = {
+        'neotest-vitest'
+      }
+    }
+  }
 }
