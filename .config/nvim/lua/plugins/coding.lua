@@ -194,6 +194,13 @@ return {
       --     ensure_installed = { 'dap-vscode-js' }
       --   }
       -- },
+      {
+        "rcarriga/nvim-dap-ui",
+        -- stylua: ignore
+        keys = {
+          { "<leader>dE", function() require("dapui").eval(vim.fn.input('Eval: ')) end, desc = "Eval input", mode = { "n" } },
+        },
+      }
     },
     opts = function(_, opts)
       local dap = require("dap")
