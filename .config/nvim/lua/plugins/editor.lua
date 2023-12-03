@@ -81,7 +81,7 @@ return {
 
             gp.Prompt(
               params,
-              gp.Target.rewrite,
+              gp.Target.append,
               nil, -- command will run directly without any prompting for user input
               agent.model,
               template,
