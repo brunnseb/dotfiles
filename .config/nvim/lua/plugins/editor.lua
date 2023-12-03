@@ -6,9 +6,10 @@ end
 return {
   {
     "luukvbaal/nnn.nvim",
-    config = true,
+    opts = {
+    },
     keys = {
-      { "<leader>fn", "<cmd>NnnPicker %:p:h<CR>", desc = "Nnn Picker" },
+      { "<leader>fn", "<cmd>NnnExplorer %:p:h<CR>", desc = "Nnn Picker" },
     },
   },
   {
@@ -21,7 +22,7 @@ return {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
-        custom_filter = function(buf_number, buf_numbers)
+        custom_filter = function(buf_number)
           return is_gp_buffer(buf_number) ~= true
         end,
       },
@@ -108,8 +109,14 @@ return {
   },
   {
     "folke/edgy.nvim",
-    opts = {
-      right = {
+    opts = function(_, opts)
+      opts.left = opts.left or {}
+      table.insert(opts.left, {
+        ft = "nnn",
+      })
+
+      opts.right = {
+        { ft = 'Fm' },
         {
           ft = "markdown",
           -- pinned = true,
@@ -121,8 +128,8 @@ return {
           -- open = "GpChatToggle",
         },
         { ft = 'Outline', pinned = true, open = 'Outline' }
-      },
-    },
+      }
+    end,
   },
   {
     "ahmedkhalf/project.nvim",
@@ -134,7 +141,8 @@ return {
     'silvercircle/outline.nvim',
     cmd = { 'Outline' },
     keys = {
-      { '<leader>co', '<cmd>Outline<CR>', "Outline" }
+      { '<leader>co', '<cmd>OutlineFocus<CR>', "Outline Focus" },
+      { '<leader>cO', '<cmd>Outline<CR>',      "Outline" }
     },
     config = true
   },
@@ -148,5 +156,7 @@ return {
         'neotest-vitest'
       }
     }
-  }
+  },
+  { 'metakirby5/codi.vim' }
+  -- { 'RaafatTurki/corn.nvim', config = true }
 }

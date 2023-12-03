@@ -39,7 +39,7 @@ return {
       { "<Leader>cv", "<CMD>TWValues<CR>", desc = "Tailwind CSS values" },
     },
     opts = {
-      border = "rounded", -- Valid window border style,
+      border = "rounded",          -- Valid window border style,
       show_unknown_classes = true, -- Shows the unknown classes popup
     },
   },
@@ -171,13 +171,13 @@ return {
         -- Some examples you can use
         html = {
           { pattern = 'class="([^"]*)"', placeholder = "@" }, -- classes in html
-          { pattern = 'href="(.-)"' }, -- hrefs in html
-          { pattern = 'src="(.-)"' }, -- HTML img src attribute
+          { pattern = 'href="(.-)"' },                        -- hrefs in html
+          { pattern = 'src="(.-)"' },                         -- HTML img src attribute
         },
         typescriptreact = {
           { pattern = 'className="([^"]*)"', placeholder = "@" }, -- classes in tsx
-          { pattern = 'href="(.-)"' }, -- hrefs in tsx
-          { pattern = 'src="(.-)"' }, -- HTML img src attribute
+          { pattern = 'href="(.-)"' },                            -- hrefs in tsx
+          { pattern = 'src="(.-)"' },                             -- HTML img src attribute
         },
       },
     },
