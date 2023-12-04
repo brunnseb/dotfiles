@@ -254,7 +254,7 @@ return {
             url = 'http://localhost:3000',
             -- webRoot = '${workspaceFolder}/apps/cockpit/src',
             webRoot = '${workspaceFolder}',
-            runtimeExecutable = '/usr/bin/chromium',
+            runtimeExecutable = '/usr/bin/brave-browser-beta',
             runtimeArgs = { '--remote-debugging-port=9222' },
             sourceMaps = true,
             skipFiles = {

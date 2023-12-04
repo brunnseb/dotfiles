@@ -4,6 +4,10 @@
 vim.keymap.del({ "n", "i", "v" }, "<A-j>")
 vim.keymap.del({ "n", "i", "v" }, "<A-k>")
 
+vim.keymap.set('n', '<leader>uc', function()
+  require('utils.colorscheme').toggle()
+end, { desc = 'Toggle colorscheme' })
+
 -- Wait for https://github.com/LazyVim/LazyVim/pull/2007 to get merged
 if vim.lsp.inlay_hint then
   vim.keymap.set("n", "<leader>uh", function()
