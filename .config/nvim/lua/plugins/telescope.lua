@@ -1,5 +1,4 @@
 return {
-
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
@@ -20,8 +19,6 @@ return {
 
       local opts = {
         defaults = {
-          -- prompt_prefix = get_icon('Selected', 1),
-          -- selection_caret = get_icon('Selected', 1),
           path_display = { "truncate" },
           sorting_strategy = "ascending",
           layout_config = {
