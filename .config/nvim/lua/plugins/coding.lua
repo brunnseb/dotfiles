@@ -39,7 +39,7 @@ return {
       { "<Leader>cv", "<CMD>TWValues<CR>", desc = "Tailwind CSS values" },
     },
     opts = {
-      border = "rounded",          -- Valid window border style,
+      border = "rounded", -- Valid window border style,
       show_unknown_classes = true, -- Shows the unknown classes popup
     },
   },
@@ -127,39 +127,16 @@ return {
     end,
   },
   {
-    "elentok/format-on-save.nvim",
-    event = "VeryLazy",
-    config = function()
-      local format_on_save = require("format-on-save")
-      local formatters = require("format-on-save.formatters")
-
-      format_on_save.setup({
-        exclude_path_patterns = {
-          "/node_modules/",
-          ".local/share/nvim/lazy",
-        },
-        formatter_by_ft = {
-          css = formatters.lsp,
-          html = formatters.lsp,
-          javascript = formatters.lsp,
-          json = formatters.lsp,
-          lua = formatters.lsp,
-          markdown = formatters.prettierd,
-          scss = formatters.lsp,
-          sh = formatters.shfmt,
-          typescript = formatters.lsp,
-          typescriptreact = formatters.lsp,
-          yaml = formatters.lsp,
-        },
-
-        -- Optional: fallback formatter to use when no formatters match the current filetype
-        fallback_formatter = {
-          formatters.remove_trailing_whitespace,
-          formatters.remove_trailing_newlines,
-          formatters.prettierd,
-        },
-      })
-    end,
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        typescriptreact = { "eslint_d" },
+        typescript = { "eslint_d" },
+        javascriptreact = { "eslint_d" },
+        javascript = { "eslint_d" },
+        lua = { "stylua" },
+      },
+    },
   },
   {
     "malbertzard/inline-fold.nvim",
@@ -171,13 +148,13 @@ return {
         -- Some examples you can use
         html = {
           { pattern = 'class="([^"]*)"', placeholder = "@" }, -- classes in html
-          { pattern = 'href="(.-)"' },                        -- hrefs in html
-          { pattern = 'src="(.-)"' },                         -- HTML img src attribute
+          { pattern = 'href="(.-)"' }, -- hrefs in html
+          { pattern = 'src="(.-)"' }, -- HTML img src attribute
         },
         typescriptreact = {
           { pattern = 'className="([^"]*)"', placeholder = "@" }, -- classes in tsx
-          { pattern = 'href="(.-)"' },                            -- hrefs in tsx
-          { pattern = 'src="(.-)"' },                             -- HTML img src attribute
+          { pattern = 'href="(.-)"' }, -- hrefs in tsx
+          { pattern = 'src="(.-)"' }, -- HTML img src attribute
         },
       },
     },
@@ -200,28 +177,28 @@ return {
         keys = {
           { "<leader>dE", function() require("dapui").eval(vim.fn.input('Eval: ')) end, desc = "Eval input", mode = { "n" } },
         },
-      }
+      },
     },
     opts = function(_, opts)
       local dap = require("dap")
       local dap_utils = require("dap.utils")
 
       local adapters = {
-        'pwa-node',
-        'pwa-chrome',
+        "pwa-node",
+        "pwa-chrome",
       }
 
       for _, adapter in ipairs(adapters) do
         dap.adapters[adapter] = {
-          type = 'server',
-          host = 'localhost',
-          port = '${port}',
+          type = "server",
+          host = "localhost",
+          port = "${port}",
           executable = {
-            command = 'node',
+            command = "node",
             args = {
-              require('mason-registry').get_package('js-debug-adapter'):get_install_path()
-              .. '/js-debug/src/dapDebugServer.js',
-              '${port}',
+              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+                .. "/js-debug/src/dapDebugServer.js",
+              "${port}",
             },
           },
         }
@@ -244,22 +221,21 @@ return {
         "svelte",
       }
 
-
       for i, ext in ipairs(exts) do
         dap.configurations[ext] = {
           {
-            type = 'pwa-chrome',
-            request = 'launch',
+            type = "pwa-chrome",
+            request = "launch",
             name = 'Launch Chrome with "localhost"',
-            url = 'http://localhost:3000',
+            url = "http://localhost:3000",
             -- webRoot = '${workspaceFolder}/apps/cockpit/src',
-            webRoot = '${workspaceFolder}',
-            runtimeExecutable = '/usr/bin/brave-browser-beta',
-            runtimeArgs = { '--remote-debugging-port=9222' },
+            webRoot = "${workspaceFolder}",
+            runtimeExecutable = "/usr/bin/brave-browser-beta",
+            runtimeArgs = { "--remote-debugging-port=9222" },
             sourceMaps = true,
             skipFiles = {
-              '<node_internals>/**/*.js',
-              '**/node_modules/**',
+              "<node_internals>/**/*.js",
+              "**/node_modules/**",
             },
           },
           -- {
@@ -360,6 +336,6 @@ return {
           },
         }
       end
-    end
-  }
+    end,
+  },
 }
