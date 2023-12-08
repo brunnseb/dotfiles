@@ -2,15 +2,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      servers = { eslint = {} },
+      servers = {},
       setup = {
-        eslint = function()
-          require("lazyvim.util").lsp.on_attach(function(client)
-            if client.name == "eslint" then
-              client.server_capabilities.documentFormattingProvider = false
-            end
-          end)
-        end,
         tailwindcss = function()
           require("lazyvim.util").lsp.on_attach(function(client, bufnr)
             if client.server_capabilities.colorProvider then

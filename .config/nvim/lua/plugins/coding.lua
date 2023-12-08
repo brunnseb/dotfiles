@@ -74,7 +74,7 @@ return {
       { "<Leader>cv", "<CMD>TWValues<CR>", desc = "Tailwind CSS values" },
     },
     opts = {
-      border = "rounded", -- Valid window border style,
+      border = "rounded",          -- Valid window border style,
       show_unknown_classes = true, -- Shows the unknown classes popup
     },
   },
@@ -125,6 +125,7 @@ return {
       require("typescript-tools").setup({
         on_attach = function(client, bufnr)
           client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
         end,
         handlers = handlers,
         settings = {
@@ -161,18 +162,18 @@ return {
       })
     end,
   },
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        typescriptreact = { "eslint_d" },
-        typescript = { "eslint_d" },
-        javascriptreact = { "eslint_d" },
-        javascript = { "eslint_d" },
-        lua = { "stylua" },
-      },
-    },
-  },
+  -- {
+  --   "stevearc/conform.nvim",
+  --   opts = {
+  --     formatters_by_ft = {
+  --       typescriptreact = { "eslint_d" },
+  --       typescript = { "eslint_d" },
+  --       javascriptreact = { "eslint_d" },
+  --       javascript = { "eslint_d" },
+  --       lua = { "stylua" },
+  --     },
+  --   },
+  -- },
   {
     "malbertzard/inline-fold.nvim",
     cmd = { "InlineFoldToggle" },
@@ -183,13 +184,13 @@ return {
         -- Some examples you can use
         html = {
           { pattern = 'class="([^"]*)"', placeholder = "@" }, -- classes in html
-          { pattern = 'href="(.-)"' }, -- hrefs in html
-          { pattern = 'src="(.-)"' }, -- HTML img src attribute
+          { pattern = 'href="(.-)"' },                        -- hrefs in html
+          { pattern = 'src="(.-)"' },                         -- HTML img src attribute
         },
         typescriptreact = {
           { pattern = 'className="([^"]*)"', placeholder = "@" }, -- classes in tsx
-          { pattern = 'href="(.-)"' }, -- hrefs in tsx
-          { pattern = 'src="(.-)"' }, -- HTML img src attribute
+          { pattern = 'href="(.-)"' },                            -- hrefs in tsx
+          { pattern = 'src="(.-)"' },                             -- HTML img src attribute
         },
       },
     },
@@ -232,7 +233,7 @@ return {
             command = "node",
             args = {
               require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
+              .. "/js-debug/src/dapDebugServer.js",
               "${port}",
             },
           },
