@@ -2,6 +2,28 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
+    keys = {
+      { "<leader>/", "<cmd>Telescope live_grep_args<CR>", desc = "Grep" },
+      {
+        "<leader>ff",
+        function()
+          local path = vim.loop.cwd() .. "/.git"
+          local ok, err = vim.loop.fs_stat(path)
+          if not ok then
+            require("telescope.builtin").find_files()
+          else
+            require("telescope.builtin").git_files()
+          end
+          -- local git_repo = vim.fn.system("git rev-parse --show-toplevel 2> /dev/null")
+          -- if git_repo == nil then
+          -- require("telescope.builtin").find_files()
+          -- else
+          -- require("telescope.builtin").git_files()
+          -- end
+        end,
+        desc = "Find files",
+      },
+    },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope-live-grep-args.nvim" },

@@ -25,13 +25,3 @@ end
 vim.keymap.set("n", "<leader>cg", function()
   require("logsitter").log()
 end)
-
-vim.keymap.set("n", "<leader>/", "<cmd>Telescope live_grep_args<CR>", { desc = "Grep" })
-vim.keymap.set("n", "<leader>ff", function()
-  local git_repo = vim.fn.system("git rev-parse --show-toplevel 2> /dev/null")
-  if git_repo == nil then
-    require("telescope.builtin").find_files()
-  else
-    require("telescope.builtin").git_files()
-  end
-end, { desc = "Find files" })

@@ -379,7 +379,14 @@ return {
       -- local tokyonight_colors = require("tokyonight.colors").setup({})
       local package_info_present, package = pcall(require, "package-info")
 
-      -- Configuration {{{1
+      local function show_macro_recording()
+        local recording_register = vim.fn.reg_recording()
+        if recording_register == "" then
+          return nil
+        else
+          return "Recording @" .. recording_register
+        end
+      end
 
       -- Functions {{{2
       local function u(code)
@@ -806,6 +813,34 @@ return {
           },
         })
       end
+      table.insert(gls.right, {
+        RecordingStart = {
+          provider = function()
+            if show_macro_recording() then
+              return leftbracket
+            end
+          end,
+          highlight = { colors.typeicon, colors.bg },
+        },
+      })
+      table.insert(gls.right, {
+        Recording = {
+          provider = function()
+            return show_macro_recording()
+          end,
+          highlight = { colors.typebg, colors.typeicon },
+        },
+      })
+      table.insert(gls.right, {
+        RecordingMid = {
+          provider = function()
+            if show_macro_recording() then
+              return rightbracket .. " "
+            end
+          end,
+          highlight = { colors.typeicon, colors.typebg },
+        },
+      })
 
       -- Type {{{2
       table.insert(gls.right, {
