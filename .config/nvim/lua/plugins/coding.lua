@@ -1,44 +1,5 @@
 return {
   {
-    "mg979/vim-visual-multi",
-    config = function()
-      local hlslens = require("hlslens")
-      if hlslens then
-        local overrideLens = function(render, posList, nearest, idx, relIdx)
-          local _ = relIdx
-          local lnum, col = unpack(posList[idx])
-
-          local text, chunks
-          if nearest then
-            text = ("[%d/%d]"):format(idx, #posList)
-            chunks = { { " ", "Ignore" }, { text, "VM_Extend" } }
-          else
-            text = ("[%d]"):format(idx)
-            chunks = { { " ", "Ignore" }, { text, "HlSearchLens" } }
-          end
-          render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
-        end
-        local lensBak
-        local config = require("hlslens.config")
-        local gid = vim.api.nvim_create_augroup("VMlens", {})
-        vim.api.nvim_create_autocmd("User", {
-          pattern = { "visual_multi_start", "visual_multi_exit" },
-          group = gid,
-          callback = function(ev)
-            if ev.match == "visual_multi_start" then
-              lensBak = config.override_lens
-              config.override_lens = overrideLens
-            else
-              config.override_lens = lensBak
-            end
-            hlslens.start()
-          end,
-        })
-      end
-    end,
-    event = "BufEnter",
-  },
-  {
     "gaelph/logsitter.nvim",
     event = "BufEnter",
   },
@@ -97,90 +58,11 @@ return {
     },
   },
   {
-    "pmizio/typescript-tools.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    config = function()
-      local baseDefinitionHandler = vim.lsp.handlers["textDocument/definition"]
-
-      local filter = require("lsp.utils.filter").filter
-      local filterReactDTS = require("lsp.utils.filterReactDTS").filterReactDTS
-
-      local handlers = {
-        ["textDocument/definition"] = function(err, result, method, ...)
-          if vim.tbl_islist(result) and #result > 1 then
-            local filtered_result = filter(result, filterReactDTS)
-            return baseDefinitionHandler(err, filtered_result, method, ...)
-          end
-
-          baseDefinitionHandler(err, result, method, ...)
-        end,
-      }
-
-      require("typescript-tools").setup({
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        handlers = handlers,
-        settings = {
-          separate_diagnostic_server = true,
-          code_lens = "off",
-          tsserver_file_preferences = {
-            quotePreference = "auto",
-            importModuleSpecifierEnding = "auto",
-            jsxAttributeCompletionStyle = "auto",
-            allowTextChangesInNewFiles = true,
-            providePrefixAndSuffixTextForRename = true,
-            allowRenameOfImportPath = true,
-            includeAutomaticOptionalChainCompletions = true,
-            provideRefactorNotApplicableReason = true,
-            generateReturnInDocTemplate = true,
-            includeCompletionsForImportStatements = true,
-            includeCompletionsWithSnippetText = true,
-            includeCompletionsWithClassMemberSnippets = true,
-            includeCompletionsWithObjectLiteralMethodSnippets = true,
-            useLabelDetailsInCompletionEntries = true,
-            allowIncompleteCompletions = true,
-            displayPartsForJSDoc = true,
-            disableLineTextInReferences = true,
-            includeInlayParameterNameHints = "all",
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-          },
-        },
-      })
-    end,
-  },
-  -- {
-  --   "stevearc/conform.nvim",
-  --   opts = {
-  --     formatters_by_ft = {
-  --       typescriptreact = { "eslint_d" },
-  --       typescript = { "eslint_d" },
-  --       javascriptreact = { "eslint_d" },
-  --       javascript = { "eslint_d" },
-  --       lua = { "stylua" },
-  --     },
-  --   },
-  -- },
-  {
     "malbertzard/inline-fold.nvim",
     cmd = { "InlineFoldToggle" },
     opts = {
       defaultPlaceholder = "…",
       queries = {
-
-        -- Some examples you can use
         html = {
           { pattern = 'class="([^"]*)"', placeholder = "@" }, -- classes in html
           { pattern = 'href="(.-)"' }, -- hrefs in html
@@ -193,87 +75,5 @@ return {
         },
       },
     },
-  },
-  {
-
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      {
-        "rcarriga/nvim-dap-ui",
-        -- stylua: ignore
-        keys = {
-          { "<leader>dE", function() require("dapui").eval(vim.fn.input('Eval: ')) end, desc = "Eval input", mode = { "n" } },
-        },
-      },
-    },
-    opts = function(_, opts)
-      local dap = require("dap")
-      local dap_utils = require("dap.utils")
-
-      local adapters = {
-        "pwa-node",
-        "pwa-chrome",
-      }
-
-      for _, adapter in ipairs(adapters) do
-        dap.adapters[adapter] = {
-          type = "server",
-          host = "localhost",
-          port = "${port}",
-          executable = {
-            command = "node",
-            args = {
-              require("mason-registry").get_package("js-debug-adapter"):get_install_path()
-                .. "/js-debug/src/dapDebugServer.js",
-              "${port}",
-            },
-          },
-        }
-      end
-
-      -- ╭──────────────────────────────────────────────────────────╮
-      -- │ Configurations                                           │
-      -- ╰──────────────────────────────────────────────────────────╯
-      local exts = {
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        "vue",
-        "svelte",
-      }
-
-      for _, ext in ipairs(exts) do
-        dap.configurations[ext] = {
-          {
-            type = "pwa-chrome",
-            request = "launch",
-            name = 'Launch Chrome with "localhost"',
-            url = "http://localhost:3000",
-            -- webRoot = '${workspaceFolder}/apps/cockpit/src',
-            webRoot = "${workspaceFolder}",
-            runtimeExecutable = "/usr/bin/brave-browser-beta",
-            runtimeArgs = { "--remote-debugging-port=9222" },
-            sourceMaps = true,
-            skipFiles = {
-              "<node_internals>/**/*.js",
-              "**/node_modules/**",
-            },
-          },
-          {
-            type = "pwa-chrome",
-            request = "attach",
-            name = "Attach Program (pwa-chrome, select port)",
-            program = "${file}",
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-            port = function()
-              return vim.fn.input("Select port: ", 9222)
-            end,
-            webRoot = "${workspaceFolder}",
-          },
-        }
-      end
-    end,
   },
 }
