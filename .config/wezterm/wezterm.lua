@@ -5,7 +5,6 @@ local act = wezterm.action
 
 wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
-	-- window:gui_window():maximize()
 end)
 
 wezterm.on("toggle-opacity", function(window, pane)
@@ -20,12 +19,20 @@ wezterm.on("toggle-opacity", function(window, pane)
 	window:set_config_overrides(overrides)
 end)
 
+local config = {}
+
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
 -- This table will hold the configuration.
-local config = {
+config = {
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
 	window_background_opacity = 0.8,
 	window_close_confirmation = "NeverPrompt",
 	default_prog = { "/usr/bin/fish", "-l" },
@@ -52,11 +59,6 @@ local config = {
 		{ key = "0", mods = "CTRL", action = act.ResetFontSize },
 		{ key = "C", mods = "SHIFT|CTRL", action = act.CopyTo("Clipboard") },
 		{ key = "N", mods = "SHIFT|CTRL", action = act.SpawnWindow },
-		-- {
-		-- 	key = "U",
-		-- 	mods = "SHIFT|CTRL",
-		-- 	action = act.CharSelect({ copy_on_select = true, copy_to = "ClipboardAndPrimarySelection" }),
-		-- },
 		{ key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
 		{ key = "n", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 		{ key = "N", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
@@ -67,9 +69,6 @@ local config = {
 		{ key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
 		{ key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = false }) },
 		{ key = "q", mods = "ALT", action = act.CloseCurrentPane({ confirm = false }) },
-		-- { key = "b", mods = "LEADER|CTRL", action = act.SendString("\x02") },
-		-- { key = "Enter", mods = "LEADER", action = act.ActivateCopyMode },
-		-- { key = "p", mods = "LEADER", action = act.PastePrimarySelection },
 		{
 			key = "k",
 			mods = "CTRL|ALT",

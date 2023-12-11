@@ -54,88 +54,80 @@ return {
       --   end
       -- end
 
+      local util = require("catppuccin.utils.colors")
+      local catppuccin_colors = require("utils.colorscheme").catppucinn_colors
       -- Colours, maps and icons {{{2
       local colors = {
         bg = nil,
         modetext = "#000000",
 
-        giticon = "#FF8800",
-        gitbg = "#5C2C2E",
-        gittext = "#C5C5C5",
+        giticon = catppuccin_colors.peach,
+        gitbg = util.darken(catppuccin_colors.peach, 0.5),
+        gittext = catppuccin_colors.text,
 
-        diagerror = "#F44747",
-        diagwarn = "#FF8800",
-        diaghint = "#4FC1FF",
-        diaginfo = "#FFCC66",
+        diagerror = catppuccin_colors.red,
+        diagwarn = catppuccin_colors.peach,
+        diaghint = catppuccin_colors.teal,
+        diaginfo = catppuccin_colors.yellow,
 
-        lspicon = "#68AF00",
-        lspbg = "#304B2E",
-        lsptext = "#C5C5C5",
+        lspicon = util.darken(catppuccin_colors.teal, 0.3),
+        lspbg = catppuccin_colors.teal,
+        lsptext = "#000000",
 
-        typeicon = "#FF8800",
-        typebg = "#5C2C2E",
-        typetext = "#C5C5C5",
+        typeicon = catppuccin_colors.text,
+        typebg = catppuccin_colors.maroon,
+        typetext = catppuccin_colors.text,
 
-        statsicon = "#9CDCFE",
-        statsbg = "#5080A0",
+        statsicon = catppuccin_colors.sky,
+        statsbg = util.darken(catppuccin_colors.sky, 0.7),
         statstext = "#000000",
 
-        lineokfg = "#000000",
-        lineokbg = "#5080A0",
-        linelongerrorfg = "#FF0000",
-        linelongwarnfg = "#FFFF00",
-        linelongbg = "#5080A0",
+        linelongerrorfg = catppuccin_colors.red,
+        linelongwarnfg = catppuccin_colors.peach,
 
-        shortbg = "#DCDCAA",
-        shorttext = "#000000",
-
-        shortrightbg = "#3F3F3F",
-        shortrighttext = "#7C4C4E",
-
-        gpsbg = "#5C00A3",
-        gpstext = "#C5C5C5",
-
-        red = "#D16969",
-        yellow = "#DCDCAA",
-        magenta = "#D16D9E",
-        green = "#608B4E",
-        orange = "#FF8800",
-        purple = "#C586C0",
-        blue = "#569CD6",
-        cyan = "#4EC9B0",
+        shortbg = catppuccin_colors.pink,
+        shorttext = catppuccin_colors.text,
       }
 
       local mode_map = {
-        ["n"] = { "#569CD6", "NORMAL" },
-        ["i"] = { "#D16969", "INSERT" },
-        ["R"] = { "#D16969", "REPLACE" },
-        ["c"] = { "#608B4E", "COMMAND" },
-        ["v"] = { "#C586C0", "VISUAL" },
-        ["V"] = { "#C586C0", "VIS-LN" },
-        [""] = { "#C586C0", "VIS-BLK" },
-        ["s"] = { "#FF8800", "SELECT" },
-        ["S"] = { "#FF8800", "SEL-LN" },
-        [""] = { "#DCDCAA", "SEL-BLK" },
-        ["t"] = { "#569CD6", "TERMINAL" },
-        ["Rv"] = { "#D16D69", "VIR-REP" },
-        ["rm"] = { "#FF0000", "- More -" },
-        ["r"] = { "#FF0000", "- Hit-Enter -" },
-        ["r?"] = { "#FF0000", "- Confirm -" },
-        ["cv"] = { "#569CD6", "Vim Ex Mode" },
-        ["ce"] = { "#569CD6", "Normal Ex Mode" },
-        ["!"] = { "#569CD6", "Shell Running" },
-        ["ic"] = { "#DCDCAA", "Insert mode completion |compl-generic|" },
-        ["no"] = { "#DCDCAA", "Operator-pending" },
-        ["nov"] = { "#DCDCAA", "Operator-pending (forced charwise |o_v|)" },
-        ["noV"] = { "#DCDCAA", "Operator-pending (forced linewise |o_V|)" },
-        ["noCTRL-V"] = { "#DCDCAA", "Operator-pending (forced blockwise |o_CTRL-V|) CTRL-V is one character" },
-        ["niI"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Insert-mode|" },
-        ["niR"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Replace-mode|" },
-        ["niV"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Virtual-Replace-mode|" },
-        ["ix"] = { "#DCDCAA", "Insert mode |i_CTRL-X| completion" },
-        ["Rc"] = { "#DCDCAA", "Replace mode completion |compl-generic|" },
-        ["Rx"] = { "#DCDCAA", "Replace mode |i_CTRL-X| completion" },
+        ["n"] = { catppuccin_colors.blue, "NORMAL" },
+        ["i"] = { catppuccin_colors.maroon, "INSERT" },
+        ["R"] = { catppuccin_colors.maroon, "REPLACE" },
+        ["c"] = { catppuccin_colors.green, "COMMAND" },
+        ["v"] = { catppuccin_colors.pink, "VISUAL" },
+        ["V"] = { catppuccin_colors.pink, "VIS-LN" },
+        [""] = { catppuccin_colors.pink, "VIS-BLK" },
+        ["s"] = { catppuccin_colors.peach, "SELECT" },
+        ["S"] = { catppuccin_colors.peach, "SEL-LN" },
+        -- [""] = { "#DCDCAA", "SEL-BLK" },
+        -- ["t"] = { "#569CD6", "TERMINAL" },
+        -- ["Rv"] = { "#D16D69", "VIR-REP" },
+        -- ["rm"] = { "#FF0000", "- More -" },
+        -- ["r"] = { "#FF0000", "- Hit-Enter -" },
+        -- ["r?"] = { "#FF0000", "- Confirm -" },
+        -- ["cv"] = { "#569CD6", "Vim Ex Mode" },
+        -- ["ce"] = { "#569CD6", "Normal Ex Mode" },
+        -- ["!"] = { "#569CD6", "Shell Running" },
+        -- ["ic"] = { "#DCDCAA", "Insert mode completion |compl-generic|" },
+        -- ["no"] = { "#DCDCAA", "Operator-pending" },
+        -- ["nov"] = { "#DCDCAA", "Operator-pending (forced charwise |o_v|)" },
+        -- ["noV"] = { "#DCDCAA", "Operator-pending (forced linewise |o_V|)" },
+        -- ["noCTRL-V"] = { "#DCDCAA", "Operator-pending (forced blockwise |o_CTRL-V|) CTRL-V is one character" },
+        -- ["niI"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Insert-mode|" },
+        -- ["niR"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Replace-mode|" },
+        -- ["niV"] = { "#DCDCAA", "Normal using |i_CTRL-O| in |Virtual-Replace-mode|" },
+        -- ["ix"] = { "#DCDCAA", "Insert mode |i_CTRL-X| completion" },
+        -- ["Rc"] = { "#DCDCAA", "Replace mode completion |compl-generic|" },
+        -- ["Rx"] = { "#DCDCAA", "Replace mode |i_CTRL-X| completion" },
       }
+
+      local function getBg()
+        if vim.g.colors_name == "tokyonight" then
+          return require("tokyonight.colors").setup().bg
+        else
+          return catppuccin_colors.base
+        end
+      end
 
       -- Rag status function {{{2
       local function setLineWidthColours()
@@ -257,7 +249,7 @@ return {
           provider = "DiffAdd",
           condition = condition.check_git_workspace,
           icon = "  ",
-          highlight = { colors.green, colors.gitbg },
+          highlight = { catppuccin_colors.teal, colors.gitbg },
         },
       })
       table.insert(gls.left, {
@@ -265,7 +257,7 @@ return {
           provider = "DiffModified",
           condition = condition.check_git_workspace,
           icon = "  ",
-          highlight = { colors.blue, colors.gitbg },
+          highlight = { catppuccin_colors.yellow, colors.gitbg },
         },
       })
       table.insert(gls.left, {
@@ -273,7 +265,7 @@ return {
           provider = "DiffRemove",
           condition = condition.check_git_workspace,
           icon = "  ",
-          highlight = { colors.red, colors.gitbg },
+          highlight = { catppuccin_colors.red, colors.gitbg },
         },
       })
       table.insert(gls.left, {
@@ -325,7 +317,7 @@ return {
       table.insert(gls.left, {
         ShowLspClient = {
           provider = "GetLspClient",
-          highlight = { colors.textbg, colors.lspbg },
+          highlight = { colors.lsptext, colors.lspbg },
         },
       })
       table.insert(gls.left, {
@@ -340,61 +332,59 @@ return {
 
       -- Diagnostics {{{3
       table.insert(gls.left, {
-        DiagnosticError = {
-          provider = "DiagnosticError",
-          icon = icons.errorOutline,
-          separator_highlight = { colors.gitbg, colors.bg },
-          highlight = { colors.diagerror, colors.lspbg },
-        },
-      })
-      table.insert(gls.left, {
-        DiagnosticWarn = {
-          provider = "DiagnosticWarn",
-          icon = "  ",
-          highlight = { colors.diagwarn, colors.lspbg },
-        },
-      })
-      table.insert(gls.left, {
-        DiagnosticHint = {
-          provider = "DiagnosticHint",
-          icon = icons.lightbulbOutline,
-          highlight = { colors.diaghint, colors.lspbg },
-        },
-      })
-      table.insert(gls.left, {
-        DiagnosticInfo = {
-          provider = "DiagnosticInfo",
-          icon = icons.infoOutline,
-          highlight = { colors.diaginfo, colors.lspbg },
-        },
-      })
-      table.insert(gls.left, {
-        LspSectionEnd = {
+        LspEnd = {
           provider = function()
             return rightbracket .. " "
           end,
           highlight = { colors.lspbg, colors.bg },
         },
       })
+
+      table.insert(gls.left, {
+        DiagnosticStart = {
+          provider = function()
+            return leftbracket
+          end,
+          highlight = { getBg, "NONE" },
+        },
+      })
+      table.insert(gls.left, {
+        DiagnosticError = {
+          provider = "DiagnosticError",
+          icon = icons.errorOutline,
+          highlight = { colors.diagerror, getBg },
+        },
+      })
+      table.insert(gls.left, {
+        DiagnosticWarn = {
+          provider = "DiagnosticWarn",
+          icon = " ",
+          highlight = { colors.diagwarn, getBg },
+        },
+      })
+      table.insert(gls.left, {
+        DiagnosticHint = {
+          provider = "DiagnosticHint",
+          icon = icons.lightbulbOutline,
+          highlight = { colors.diaghint, getBg },
+        },
+      })
+      table.insert(gls.left, {
+        DiagnosticInfo = {
+          provider = "DiagnosticInfo",
+          icon = icons.infoOutline,
+          highlight = { colors.diaginfo, getBg },
+        },
+      })
+      table.insert(gls.left, {
+        DiagnosticEnd = {
+          provider = function()
+            return rightbracket
+          end,
+          highlight = { getBg, "NONE" },
+        },
+      })
       -- }}}3
-
-      -- GPS {{{3
-      -- table.insert(gls.left, {
-      --   nvimGPS = {
-      --     provider = function()
-      --       return gps.get_location()
-      --     end,
-      --     condition = function()
-      --       return gps.is_available() and #gps.get_location() > 0
-      --     end,
-      --     highlight = { colors.gpstext, colors.bg },
-      --   },
-      -- })
-      -- }}}3
-
-      -- }}}2
-
-      -- }}}1
 
       -- Right {{{1
       gls.right = {}
@@ -571,6 +561,16 @@ return {
         SearchResults = {
           separator = "? ",
           separator_highlight = { colors.statsicon, colors.statsbg },
+          condition = function()
+            local search_count = vim.fn.searchcount({
+              recompute = 1,
+              maxcount = -1,
+            })
+
+            local active_result = vim.v.hlsearch == 1 and search_count.total > 0
+
+            return active_result
+          end,
           provider = function()
             local search_term = vim.fn.getreg("/")
             local search_count = vim.fn.searchcount({

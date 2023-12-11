@@ -3,9 +3,6 @@
 -- Add any additional keymaps here
 vim.keymap.del({ "n", "i", "v" }, "<A-j>")
 vim.keymap.del({ "n", "i", "v" }, "<A-k>")
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-vim.keymap.del({ "n", "x", "o" }, "n")
-vim.keymap.del({ "n", "x", "o" }, "N")
 
 vim.keymap.set("n", "<leader>uc", function()
   require("utils.colorscheme").toggle()

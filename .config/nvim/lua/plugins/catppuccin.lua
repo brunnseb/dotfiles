@@ -255,6 +255,7 @@ return {
         styles = {
           keywords = { "italic" },
           booleans = { "italic" },
+          functions = { "italic" },
         },
       })
 
