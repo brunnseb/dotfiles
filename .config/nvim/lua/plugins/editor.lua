@@ -75,7 +75,6 @@ return {
     "silvercircle/outline.nvim",
     cmd = { "Outline" },
     keys = {
-      { "<leader>co", "<cmd>OutlineFocus<CR>", "Outline Focus" },
       { "<leader>cO", "<cmd>Outline<CR>", "Outline" },
     },
     config = true,
