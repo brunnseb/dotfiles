@@ -18,8 +18,6 @@ return {
         end
       end
 
-      -- Functions {{{2
-
       local function highlight(group, fg, bg, gui)
         local cmd = string.format("highlight %s guifg=%s guibg=%s", group, fg, bg)
 
@@ -30,18 +28,10 @@ return {
         vim.cmd(cmd)
       end
 
-      -- }}}2
-
-      -- Settings {{{2
       local lineLengthWarning = 80
       local lineLengthError = 120
       local leftbracket = "" -- Curve.
       local rightbracket = "" -- Curve.
-      -- local leftbracket = u 'e0b2' -- Angle filled.
-      -- local rightbracket = u 'e0b0' -- Angle filled.
-      -- local leftbracket = u 'e0b3' -- Angle.
-      -- local rightbracket = u 'e0b1' -- Angle.
-      -- }}}2
 
       gl.short_line_list = { "neo-tree", "vista", "dbui", "packer", "tagbar" }
       local gls = gl.section
@@ -173,6 +163,7 @@ return {
         ViModeLeft = {
           provider = function()
             highlight("ViModeHighlight", mode_map[vim.fn.mode()][1], colors.bg)
+
             return leftbracket
           end,
           highlight = "ViModeHighlight",
