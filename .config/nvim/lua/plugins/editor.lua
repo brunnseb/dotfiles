@@ -157,5 +157,4 @@ return {
     },
   },
   { "metakirby5/codi.vim" },
-  { "kevinhwang91/nvim-bqf" },
 }
