@@ -5,6 +5,16 @@ end
 
 return {
   {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gdo", "<cmd>DiffviewOpen<CR>", desc = "Diffview Open" },
+      { "<leader>gdd", "<cmd>DiffviewOpen origin/develop..HEAD<CR>", desc = "Diffview Open (develop)" },
+      { "<leader>gdh", "<cmd>DiffviewFileHistory<CR>", desc = "Diffview File History" },
+      { "<leader>gdH", "<cmd>DiffviewFileHistory %<CR>", desc = "Diffview File History (File)" },
+    },
+  },
+  {
     "Wansmer/symbol-usage.nvim",
     config = function()
       local function h(name)
@@ -106,14 +116,6 @@ return {
   {
     "folke/edgy.nvim",
     opts = function(_, opts)
-      -- opts.left = opts.left or {}
-      -- table.insert(opts.left, {
-      --   ft = "oil",
-      -- })
-
-      -- opts.top = {
-      --   { ft = "nnn", size = { height = 0.2 } },
-      -- }
       opts.right = {
         { ft = "Fm" },
         {
@@ -148,6 +150,9 @@ return {
   {
     "nvim-neotest/neotest",
     dependencies = {
+      "nvim-treesitter/nvim-treesitter", --
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
       "marilari88/neotest-vitest",
     },
     opts = {
