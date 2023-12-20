@@ -26,13 +26,22 @@ return {
     },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope-live-grep-args.nvim" },
+      "kkharji/sqlite.lua",
+      { "prochri/telescope-all-recent.nvim", opts = {} },
+      "debugloop/telescope-undo.nvim",
+      "natecraddock/telescope-zf-native.nvim",
       {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        cond = function()
-          return vim.fn.executable("make") == 1
-        end,
+        "nvim-telescope/telescope-live-grep-args.nvim",
+        version = "^1.0.0",
+      },
+      {
+        "danielfalk/smart-open.nvim",
+        branch = "0.2.x",
+        config = function() end,
+        dependencies = {
+          "kkharji/sqlite.lua",
+          { "nvim-telescope/telescope-fzy-native.nvim" },
+        },
       },
     },
     config = function()
@@ -72,13 +81,32 @@ return {
               },
             },
           },
+          ["zf-native"] = {
+            file = { -- options for sorting file-like items
+              enable = true, -- override default telescope file sorter
+              highlight_results = true, -- highlight matching text in results
+              match_filename = true, -- enable zf filename match priority
+            },
+            generic = { -- options for sorting all other items
+              enable = true, -- override default telescope generic item sorter
+              highlight_results = true, -- highlight matching text in results
+              match_filename = false, -- disable zf filename match priority
+            },
+          },
+          smart_open = {
+            cwd_only = true,
+            filename_first = true,
+          },
         },
       }
 
-      require("telescope").setup(opts)
-
-      require("telescope").load_extension("live_grep_args")
-      require("telescope").load_extension("fzf")
+      local telescope = require("telescope")
+      telescope.setup(opts)
+      telescope.load_extension("live_grep_args")
+      telescope.load_extension("smart_open")
+      telescope.load_extension("undo")
+      telescope.load_extension("zf-native")
+      telescope.load_extension("hbac")
     end,
   },
 }
