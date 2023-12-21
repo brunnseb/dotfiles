@@ -1,13 +1,13 @@
 return {
   {
     "robitx/gp.nvim",
-    cmd = { "GpChatNew", "GpChatToggle" },
+    cmd = { "GpChatNew", "GpChatToggle", "GpImplement", "GpDocument" },
     keys = {
       {
         "<leader>ad",
-        ":<C-u>'<,'>GpPrepend write docstring<CR>",
+        ":<C-u>'<,'>GpDocument<CR>",
         mode = "v",
-        desc = "Write docstring using TsDoc",
+        desc = "Write docstring",
       },
       {
         "<leader>at",
@@ -40,7 +40,6 @@ return {
     config = function()
       require("gp").setup({
         hooks = {
-          -- GpImplement rewrites the provided selection/range based on comments in it
           Implement = function(gp, params)
             local template = "Having following from {{filename}}:\n\n"
               .. "```{{filetype}}\n{{selection}}\n```\n\n"
@@ -48,11 +47,28 @@ return {
               .. "\n\nRespond exclusively with the snippet that should replace the selection above."
 
             local agent = gp.get_command_agent()
-            -- gp.Info("Implementing selection with agent: " .. agent.name)
 
             gp.Prompt(
               params,
               gp.Target.append,
+              nil, -- command will run directly without any prompting for user input
+              agent.model,
+              template,
+              agent.system_prompt
+            )
+          end,
+          -- GpImplement rewrites the provided selection/range based on comments in it
+          Document = function(gp, params)
+            local template = "Having following from {{filename}}:\n\n"
+              .. "```{{filetype}}\n{{selection}}\n```\n\n"
+              .. "Write really good documentation using best practices for the given language. Infer all possible properties from the used interface, ignore all properties inherited from standard html elements and do not document types for typescript files"
+              .. "\n\nOnly return the docstring and nothing else."
+
+            local agent = gp.get_command_agent()
+
+            gp.Prompt(
+              params,
+              gp.Target.prepend,
               nil, -- command will run directly without any prompting for user input
               agent.model,
               template,
