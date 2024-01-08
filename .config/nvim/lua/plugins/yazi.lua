@@ -6,6 +6,6 @@ return {
   },
 
   keys = {
-    { "<leader>fF", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+    { "<leader>fn", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
   },
 }

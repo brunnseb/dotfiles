@@ -81,13 +81,6 @@ return {
     },
   },
   {
-    "luukvbaal/nnn.nvim",
-    opts = {},
-    keys = {
-      { "<leader>fn", "<cmd>NnnPicker %:p:h<CR>", desc = "Nnn Picker" },
-    },
-  },
-  {
     "folke/flash.nvim",
     keys = {
       { "S", mode = { "x", "o" }, false },

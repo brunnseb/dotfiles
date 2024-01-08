@@ -23,6 +23,11 @@ return {
         end,
         desc = "Find files",
       },
+      {
+        "<leader>fF",
+        "<cmd>Telescope smart_open<CR>",
+        desc = "Smart open",
+      },
     },
     dependencies = {
       { "nvim-lua/plenary.nvim" },
