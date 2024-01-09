@@ -59,6 +59,7 @@ return {
             includeInlayPropertyDeclarationTypeHints = true,
             includeInlayFunctionLikeReturnTypeHints = true,
             includeInlayEnumMemberValueHints = true,
+            renameShorthandProperties = false,
           },
         },
       })

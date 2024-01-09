@@ -303,12 +303,12 @@ return {
           { name = "nvim_lua", priority = 5 },
           { name = "path", priority = 4 },
           { name = "calc", priority = 3 },
-          { name = "codeium", priority = 2 },
+          -- { name = "codeium", priority = 2 },
         },
         sorting = {
           priority_weight = 2,
           comparators = {
-            deprioritize_codeium,
+            -- deprioritize_codeium,
             -- deprioritize_snippet,
             -- copilot_cmp_comparators.prioritize or function() end,
             cmp.config.compare.exact,
