@@ -2,7 +2,7 @@ return {
   {
     "kevinhwang91/nvim-hlslens",
     dependencies = { "haya14busa/vim-asterisk" },
-    lazy = false,
+    event = "BufEnter",
     config = function()
       local hlslens = require("hlslens")
       hlslens.setup({

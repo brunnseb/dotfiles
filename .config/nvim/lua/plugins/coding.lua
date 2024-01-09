@@ -26,6 +26,7 @@ return {
   },
   {
     "johmsalas/text-case.nvim",
+    event = "BufEnter",
     config = true,
   },
 
@@ -41,6 +42,7 @@ return {
   },
   {
     "NvChad/nvim-colorizer.lua",
+    event = "BufEnter",
     opts = {
       filetypes = {
         "html",
