@@ -70,6 +70,8 @@ return {
               ["<C-p>"] = actions.cycle_history_prev,
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
+              ["<C-down>"] = actions.move_selection_next,
+              ["<C-up>"] = actions.move_selection_previous,
               ["<C-h>"] = actions.to_fuzzy_refine,
               ["<C-u>"] = false,
               ["<esc>"] = actions.close,
