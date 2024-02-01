@@ -558,7 +558,7 @@ return {
               maxcount = -1,
             })
 
-            local active_result = vim.v.hlsearch == 1 and search_count.total > 0
+            local active_result = vim.v.hlsearch == 1 and search_count.total ~= nil and search_count.total > 0
 
             return active_result
           end,

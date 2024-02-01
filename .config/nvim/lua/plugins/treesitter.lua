@@ -7,9 +7,9 @@ return {
       "andymass/vim-matchup",
     },
     opts = {
-      matchup = {
-        enable = true,
-      },
+      -- matchup = {
+      --   enable = true,
+      -- },
       autotag = {
         enable = true,
         enable_rename = true,
