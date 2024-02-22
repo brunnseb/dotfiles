@@ -3,13 +3,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
+    branch = "master",
     dependencies = {
       "andymass/vim-matchup",
     },
     opts = {
-      -- matchup = {
-      --   enable = true,
-      -- },
+      matchup = {
+        enable = true,
+      },
       autotag = {
         enable = true,
         enable_rename = true,

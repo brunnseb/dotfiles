@@ -2,7 +2,7 @@ return {
   {
     "pmizio/typescript-tools.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
@@ -12,6 +12,7 @@ return {
 
       local filter = require("lsp.utils.filter").filter
       local filterReactDTS = require("lsp.utils.filterReactDTS").filterReactDTS
+      local lspconfig = require("lspconfig")
 
       local handlers = {
         ["textDocument/definition"] = function(err, result, method, ...)
@@ -24,12 +25,11 @@ return {
         end,
       }
 
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
       require("typescript-tools").setup({
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        handlers = handlers,
+        capabilities,
         settings = {
           separate_diagnostic_server = false,
           code_lens = "off",
@@ -49,6 +49,26 @@ return {
             -- allowRenameOfImportPath = true,
             providePrefixAndSuffixTextForRename = false,
           },
+        },
+      })
+      lspconfig["typescript-tools"].setup({
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+        handlers = handlers,
+        filetypes = {
+          "javascript",
+          "js",
+          "jsx",
+          "ts",
+          "tsx",
+          "typescript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
         },
       })
     end,
