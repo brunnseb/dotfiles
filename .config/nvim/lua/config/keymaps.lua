@@ -1,34 +1,26 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
-vim.keymap.del({ "n", "i", "v" }, "<A-j>")
-vim.keymap.del({ "n", "i", "v" }, "<A-k>")
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set({ "n", "i", "v" }, "<C-Left>", "<C-w>h", { desc = "Go to left window", remap = true })
-vim.keymap.set({ "n", "i", "v" }, "<C-Down>", "<C-w>j", { desc = "Go to lower window", remap = true })
-vim.keymap.set({ "n", "i", "v" }, "<C-Up>", "<C-w>k", { desc = "Go to upper window", remap = true })
-vim.keymap.set({ "n", "i", "v" }, "<C-Right>", "<C-w>l", { desc = "Go to right window", remap = true })
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-vim.keymap.set("n", "<S-Left>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
 
-vim.keymap.set("n", "<leader>uI", "<cmd>InlineFoldToggle<cr>", { desc = "Toggle inline fold" })
+--  See `:help wincmd` for a list of all window commands
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set("n", "<leader>uc", function()
-  require("utils.colorscheme").toggle()
-end, { desc = "Toggle colorscheme" })
+vim.keymap.set('n', '<S-Left>', '<cmd>bprevious<cr>', { desc = 'Prev buffer' })
+vim.keymap.set('n', '<S-Right>', '<cmd>bnext<cr>', { desc = 'Next buffer' })
 
--- Wait for https://github.com/LazyVim/LazyVim/pull/2007 to get merged
--- if vim.lsp.inlay_hint then
---   vim.keymap.set("n", "<leader>uh", function()
---     if vim.lsp.inlay_hint.is_enabled() then
---       vim.lsp.inlay_hint.enable(0, false)
---     else
---       vim.lsp.inlay_hint.enable(0, true)
---     end
---   end, { desc = "Toggle Inlay Hints" })
--- end
-
-vim.keymap.set("n", "<leader>cg", function()
-  require("logsitter").log()
-end)
+vim.keymap.set('n', '<leader>-', '<C-W>s', { desc = 'Split window below', remap = true })
+vim.keymap.set('n', '<leader>|', '<C-W>v', { desc = 'Split window right', remap = true })
+vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete window', remap = true })
