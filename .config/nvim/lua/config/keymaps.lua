@@ -12,6 +12,8 @@ vim.keymap.set({ "n", "i", "v" }, "<C-Right>", "<C-w>l", { desc = "Go to right w
 vim.keymap.set("n", "<S-Left>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 vim.keymap.set("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
+vim.keymap.set("n", "<leader>uI", "<cmd>InlineFoldToggle<cr>", { desc = "Toggle inline fold" })
+
 vim.keymap.set("n", "<leader>uc", function()
   require("utils.colorscheme").toggle()
 end, { desc = "Toggle colorscheme" })

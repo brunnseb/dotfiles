@@ -1,6 +1,7 @@
 return {
   {
     "pmizio/typescript-tools.nvim",
+    enabled = false,
     event = { "BufReadPre", "BufNewFile" },
     -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     dependencies = {
@@ -22,6 +23,10 @@ return {
           end
 
           baseDefinitionHandler(err, result, method, ...)
+        end,
+        ["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+          require("ts-error-translator").translate_diagnostics(err, result, ctx, config)
+          vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
         end,
       }
 

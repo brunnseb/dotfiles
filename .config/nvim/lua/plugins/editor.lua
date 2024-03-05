@@ -65,7 +65,7 @@ return {
   },
   {
     "folke/edgy.nvim",
-    enable = false,
+    enabled = false,
     keys = {
       ["<c-up>"] = false,
       ["<c-down>"] = false,

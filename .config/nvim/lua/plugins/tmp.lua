@@ -1,10 +1,54 @@
 return {
   {
-    "lewis6991/satellite.nvim",
-    opts = {
-      width = 50,
+    "yioneko/nvim-vtsls",
+    config = function()
+      -- vim.lsp.commands["editor.action.showReferences"] = function(command, ctx)
+      --   vim.notify("showReferences")
+      --   local locations = command.arguments[3]
+      --   local client = vim.lsp.get_client_by_id(ctx.client_id)
+      --   if locations and #locations > 0 then
+      --     local items = vim.lsp.util.locations_to_items(locations, client.offset_encoding)
+      --     vim.fn.setloclist(0, {}, " ", { title = "References", items = items, context = ctx })
+      --     vim.api.nvim_command("lopen")
+      --   end
+      -- end
+      require("vtsls").config({
+        -- customize handlers for commands
+        -- handlers = {},
+        -- automatically trigger renaming of extracted symbol
+        -- refactor_auto_rename = true,
+        -- refactor_move_to_file = {
+        --   -- If dressing.nvim is installed, telescope will be used for selection prompt. Use this to customize
+        --   -- the opts for telescope picker.
+        --   telescope_opts = function(items, default) end,
+        -- }
+      })
+    end,
+  },
+  {
+    "anuvyklack/windows.nvim",
+    dependencies = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim",
+    },
+    config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+      require("windows").setup()
+    end,
+    keys = {
+      { "<leader>wo", "<cmd>WindowsMaximize<CR>", desc = "Maximize" },
+      { "<leader>wO", "<cmd>WindowsEqualize<CR>", desc = "Equalize" },
     },
   },
+  { "dmmulroy/ts-error-translator.nvim", config = true },
+  -- {
+  --   "lewis6991/satellite.nvim",
+  --   opts = {
+  --     width = 50,
+  --   },
+  -- },
   {
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
@@ -26,21 +70,4 @@ return {
       })
     end,
   },
-  -- {
-  --
-  --   "hinell/lsp-timeout.nvim",
-  --   dependencies = { "neovim/nvim-lspconfig" },
-  --   init = function()
-  --     vim.g.lspTimeoutConfig = {
-  --       stopTimeout = 1000 * 60 * 5, -- ms, timeout before stopping all LSPs
-  --       startTimeout = 1000 * 10, -- ms, timeout before restart
-  --       silent = false, -- true to suppress notifications
-  --       filetypes = {
-  --         ignore = { -- filetypes to ignore; empty by default
-  --           -- lsp-timeout is disabled completely
-  --         }, -- for these filetypes
-  --       },
-  --     }
-  --   end,
-  -- },
 }
