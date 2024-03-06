@@ -5,8 +5,4 @@ return {
     cmd = { 'SudaWrite', 'SudaRead' },
   },
   { 'pixelastic/vim-undodir-tree' },
-  {
-    'nvim-tree/nvim-web-devicons',
-    lazy = true,
-  },
 }

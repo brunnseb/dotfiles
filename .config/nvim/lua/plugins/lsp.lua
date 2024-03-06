@@ -2,45 +2,13 @@ return {
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs and related tools to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
-      -- Brief Aside: **What is LSP?**
-      --
-      -- LSP is an acronym you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -101,6 +69,14 @@ return {
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client.supports_method 'textDocument/inlayHint' then
+            local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+            if type(ih) == 'function' then
+              ih()
+            elseif type(ih) == 'table' and ih.enable then
+              ih.enable(0, true)
+            end
+          end
           if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -112,6 +88,30 @@ return {
               callback = vim.lsp.buf.clear_references,
             })
           end
+
+          local status_ok, codelens_supported = pcall(function()
+            return client and client.supports_method 'textDocument/codeLens'
+          end)
+          if not status_ok or not codelens_supported then
+            return
+          end
+          local group = 'lsp_code_lens_refresh'
+          local cl_events = { 'BufEnter', 'InsertLeave' }
+          local ok, cl_autocmds = pcall(vim.api.nvim_get_autocmds, {
+            group = group,
+            buffer = event.buf,
+            event = cl_events,
+          })
+
+          if ok and #cl_autocmds > 0 then
+            return
+          end
+          vim.api.nvim_create_augroup(group, { clear = false })
+          vim.api.nvim_create_autocmd(cl_events, {
+            group = group,
+            buffer = event.buf,
+            callback = vim.lsp.codelens.refresh,
+          })
         end,
       })
 
@@ -151,7 +151,27 @@ return {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
-
+        vtsls = {
+          settings = {
+            vtsls = { autoUseWorkspaceTsdk = true },
+            typescript = {
+              referencesCodeLens = { enabled = true, showOnAllFunctions = true },
+              implementationsCodeLens = { enabled = true, showOnInterfaceMethods = true },
+              inlayHints = {
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+              preferences = {
+                useAliasesForRenames = false,
+                renameShorthandProperties = false,
+              },
+            },
+          },
+        },
         lua_ls = {
           -- cmd = {...},
           -- filetypes { ...},
@@ -194,7 +214,6 @@ return {
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
         'vtsls',
-        'eslint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
