@@ -5,10 +5,12 @@ return {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false, dependencies = { 'nvim-lspconfig' } },
+      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+      require('neoconf').setup()
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -74,7 +76,7 @@ return {
             if type(ih) == 'function' then
               ih()
             elseif type(ih) == 'table' and ih.enable then
-              ih.enable(0, true)
+              ih.enable(0, not ih.is_enabled())
             end
           end
           if client and client.server_capabilities.documentHighlightProvider then
@@ -151,6 +153,7 @@ return {
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        tailwindcss = {},
         vtsls = {
           settings = {
             vtsls = { autoUseWorkspaceTsdk = true },
