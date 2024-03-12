@@ -7,9 +7,44 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
       { 'folke/neodev.nvim', opts = {} },
+      {
+        'SmiteshP/nvim-navbuddy',
+        dependencies = {
+          'SmiteshP/nvim-navic',
+          'MunifTanjim/nui.nvim',
+        },
+        keys = { { "<leader>cn", "<cmd>Navbuddy<CR>", desc = "Navbuddy" } },
+        opts = function(_, opts)
+          local actions = require("nvim-navbuddy.actions")
+          opts.lsp = { auto_attach = true }
+          opts.mappings = {
+            ["<left>"] = actions.parent(), -- Move to left panel
+            ["<right>"] = actions.children(),
+          }
+        end
+      },
     },
     config = function()
       require('neoconf').setup()
+
+      local baseDefinitionHandler = vim.lsp.handlers['textDocument/definition']
+      local filter = require('utils.filter').filter
+      local filterReactDTS = require('utils.filter').filterReactDTS
+
+      local handlers = {
+        ['textDocument/definition'] = function(err, result, method, ...)
+          if vim.tbl_islist(result) and #result > 1 then
+            local filtered_result = filter(result, filterReactDTS)
+            return baseDefinitionHandler(err, filtered_result, method, ...)
+          end
+
+          baseDefinitionHandler(err, result, method, ...)
+        end,
+        -- ['textDocument/publishDiagnostics'] = function(err, result, ctx, config)
+        --   require('ts-error-translator').translate_diagnostics(err, result, ctx, config)
+        --   vim.lsp.diagnostic.on_publish_diagnostics(err, result, ctx, config)
+        -- end,
+      }
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -27,7 +62,7 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-T>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
           map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -154,7 +189,9 @@ return {
         -- tsserver = {},
         --
         tailwindcss = {},
+        eslint = {},
         vtsls = {
+          handlers = handlers,
           settings = {
             vtsls = { autoUseWorkspaceTsdk = true },
             typescript = {
