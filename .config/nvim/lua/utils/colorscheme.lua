@@ -1,13 +1,5 @@
 local M = {}
 
-function M.toggle()
-  if vim.g.colors_name == 'tokyonight' then
-    vim.cmd [[colorscheme catppuccin-macchiato]]
-  else
-    vim.cmd [[colorscheme tokyonight]]
-  end
-end
-
 M.catppucinn_colors = {
   rosewater = '#dc8a78',
   flamingo = '#DD7878',

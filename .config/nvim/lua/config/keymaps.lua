@@ -3,20 +3,29 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic Error messages' })
+
+vim.keymap.set('n', '<leader>xo', '<cmd>cope<CR>', { desc = '[O]pen Quickfix' })
+vim.keymap.set('n', '[q', function()
+  if vim.bo.filetype == 'qf' then
+    vim.cmd 'colder'
+  end
+end, { desc = 'Go to previous [Q]uickfix' })
+vim.keymap.set('n', ']q', function()
+  if vim.bo.filetype == 'qf' then
+    vim.cmd 'cnext'
+  end
+end, { desc = 'Go to next [Q]uickfix' })
 
 vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save file' })
+-- Disable macro recording and use nvim-recorder instead
+vim.keymap.set({ 'x', 'n', 's' }, 'q', '<Nop>')
 
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<C-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-Left>', '<cmd>wincmd h<CR>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-Right>', '<cmd>wincmd l<CR>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-Down>', '<cmd>wincmd j<CR>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-Up>', '<cmd>wincmd k<CR>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('n', '<S-Left>', '<cmd>bprevious<cr>', { desc = 'Prev buffer' })
 vim.keymap.set('n', '<S-Right>', '<cmd>bnext<cr>', { desc = 'Next buffer' })

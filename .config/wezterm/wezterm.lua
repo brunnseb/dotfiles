@@ -50,8 +50,8 @@ config = {
 	},
 	disable_default_key_bindings = true,
 	keys = {
-		{ key = "l", mods = "ALT|SHIFT", action = act.ActivateTabRelative(1) },
-		{ key = "h", mods = "ALT|SHIFT", action = act.ActivateTabRelative(-1) },
+		{ key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
+		{ key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
 		{ key = "Enter", mods = "ALT", action = act.ActivateCopyMode },
 		{ key = "R", mods = "SHIFT|CTRL", action = act.ReloadConfiguration },
 		{ key = "=", mods = "CTRL", action = act.IncreaseFontSize },

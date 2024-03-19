@@ -1,11 +1,47 @@
 return {
   {
-    'folke/tokyonight.nvim',
-    lazy = false,
+    'aikow/base.nvim',
     priority = 1000,
+    lazy = false,
     opts = {},
     config = function()
-      vim.cmd [[colorscheme tokyonight-storm]]
+      require('base').setup {
+        integrations = {
+          'builtin.defaults',
+          'builtin.git',
+          'builtin.lsp',
+          -- 'builtin.semantic',
+          'builtin.syntax',
+          'builtin.treesitter',
+          'plugin.cmp',
+          'plugin.devicons',
+          -- 'plugin.fzf-lua',
+          -- 'plugin.indent-blankline',
+          'plugin.luasnip',
+          'plugin.mason',
+          'plugin.mini',
+          'plugin.neo-tree',
+          -- 'plugin.neorg',
+          'plugin.telescope',
+          'plugin.trouble',
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          {
+            highlights = function(_, colors)
+              return {
+                -- Alpha
+                NeovimDashboardLogo1 = { fg = colors.blue },
+                NeovimDashboardLogo2 = { fg = colors.green, bg = colors.blue },
+                NeovimDashboardLogo3 = { fg = colors.green },
+                -- Flash
+                FlashLabel = { fg = colors.pink, bold = true },
+                FlashMatch = { italic = true },
+              }
+            end,
+          },
+        },
+      }
+
+      vim.cmd 'colorscheme base-onedark'
     end,
   },
   {

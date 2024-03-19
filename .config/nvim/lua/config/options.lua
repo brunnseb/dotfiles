@@ -70,8 +70,8 @@ vim.g.VM_Insert_hl = 'MultiCursorInsert'
 
 vim.g.VM_leader = ','
 vim.g.VM_maps = {
-  ['Select Cursor Down'] = ',j',
-  ['Select Cursor Up'] = ',k',
+  ['Add Cursor Down'] = ',<Down>',
+  ['Add Cursor Up'] = ',<Up>',
   ['Add Cursor At Pos'] = ',,',
   ['Motion ,'] = ',;',
   ['Undo'] = 'u',

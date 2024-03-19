@@ -16,4 +16,26 @@ return {
       desc = 'Log symbol',
     } },
   },
+  {
+    'chrisgrieser/nvim-recorder',
+    dependencies = 'rcarriga/nvim-notify', -- optional
+    opts = {
+      mapping = {
+        startStopRecording = '<C-q>',
+        switchSlot = '<C-S-q>',
+      },
+    },
+  },
+  {
+    'kevinhwang91/nvim-bqf',
+    ft = 'qf',
+    dependencies = {
+      {
+        'junegunn/fzf',
+        run = function()
+          vim.fn['fzf#install']()
+        end,
+      },
+    },
+  },
 }

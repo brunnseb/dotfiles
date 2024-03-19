@@ -15,6 +15,18 @@ return {
           require('luasnip.loaders.from_vscode').load { paths = { '/home/brunnseb/.config/nvim/lua/snippets' } } -- load snippets paths
         end,
       },
+      {
+        'luckasRanarison/tailwind-tools.nvim',
+        opts = {
+          document_color = {
+            inline_symbol = '⏺ ',
+          },
+          conceal = {
+            enabled = true,
+          },
+        },
+      },
+      'onsails/lspkind-nvim',
     },
     event = 'InsertEnter',
     opts = function()
@@ -23,84 +35,41 @@ return {
         return
       end
 
-      local check_backspace = function()
-        local col = vim.fn.col '.' - 1
-        return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s'
-      end
-
-      local kind_icons = {
-        Text = '󰦨 ',
-        Method = ' ',
-        Function = '󰡱 ',
-        Constructor = '󱁤 ',
-        Field = ' ',
-        Variable = ' ',
-        Class = ' ',
-        Interface = ' ',
-        Module = '󱒌 ',
-        Property = ' ',
-        Unit = ' ',
-        Value = 'v',
-        Enum = ' ',
-        Keyword = ' ',
-        Snippet = ' ',
-        Color = ' ',
-        File = ' ',
-        Reference = ' ',
-        Folder = ' ',
-        EnumMember = ' ',
-        Constant = ' ',
-        Struct = ' ',
-        Event = ' ',
-        Operator = ' ',
-        TypeParameter = ' ',
-      }
-
       cmp.setup {
+        enabled = true,
         snippet = {
-          expand = function() end,
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end,
         },
         mapping = cmp.mapping.preset.insert {
-          ['<C-k>'] = cmp.mapping.select_prev_item(),
-          ['<C-j>'] = cmp.mapping.select_next_item(),
-          ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-2), { 'i', 'c' }),
-          ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
-          ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-          ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-          ['<C-e>'] = cmp.mapping {
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-          },
+          ['<C-k>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ['<C-j>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+          ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ['<Up>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ['<CR>'] = cmp.mapping.confirm {
-            -- this is the important line for Copilot
-            behavior = cmp.ConfirmBehavior.Replace,
+            behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           },
         },
+        ---@diagnostic disable-next-line: missing-fields
         formatting = {
           fields = { 'kind', 'abbr', 'menu' },
-          format = function(entry, vim_item)
-            vim_item.kind = kind_icons[vim_item.kind]
-            vim_item.menu = ({
-              nvim_lsp = '',
-              nvim_lua = '',
-              buffer = '',
-              path = '',
-              emoji = '',
-            })[entry.source.name]
-            return vim_item
-          end,
+          format = require('lspkind').cmp_format {
+            mode = 'symbol',
+            preset = 'codicons',
+            before = require('tailwind-tools.cmp').lspkind_format,
+          },
         },
         sources = {
           { name = 'nvim_lsp', max_item_count = 10 },
-          { name = 'nvim_lua', max_item_count = 3 },
           { name = 'luasnip', max_item_count = 3 },
           { name = 'buffer', max_item_count = 3 },
           { name = 'path', max_item_count = 3 },
         },
-        confirm_opts = {
-          select = false,
-        },
+        -- confirm_opts = {
+        --   select = false,
+        -- },
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),

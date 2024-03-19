@@ -11,10 +11,6 @@ return {
       return {
         autotag = {
           enable = true,
-          enable_rename = true,
-          enable_close = true,
-          enable_close_on_slash = true,
-          filetypes = { 'html', 'xml', 'typescriptreact', 'javascriptreact' },
         },
         context_commentstring = { enable = true, enable_autocmd = false },
         ensure_installed = {
@@ -27,6 +23,13 @@ return {
           'query',
           'vim',
           'vimdoc',
+          'tsx',
+          'json',
+          'scss',
+          'css',
+          'typescript',
+          'javascript',
+          'yaml',
         },
         highlight = {
           enable = true,
