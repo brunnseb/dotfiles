@@ -35,3 +35,12 @@ if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
     end
   end, { desc = 'Toggle Inlay Hints' })
 end
+
+-- restore the session for the current directory
+vim.api.nvim_set_keymap('n', '<leader>qs', [[<cmd>lua require("persistence").load()<cr>]], { desc = 'Restore session for current dir' })
+
+-- restore the last session
+vim.api.nvim_set_keymap('n', '<leader>ql', [[<cmd>lua require("persistence").load({ last = true })<cr>]], { desc = 'Restore last session' })
+
+-- stop Persistence => session won't be saved on exit
+vim.api.nvim_set_keymap('n', '<leader>qd', [[<cmd>lua require("persistence").stop()<cr>]], { desc = 'Stop session persistence' })

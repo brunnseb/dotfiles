@@ -7,22 +7,6 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
       { 'folke/neodev.nvim', opts = {} },
-      {
-        'SmiteshP/nvim-navbuddy',
-        dependencies = {
-          'SmiteshP/nvim-navic',
-          'MunifTanjim/nui.nvim',
-        },
-        keys = { { "<leader>cn", "<cmd>Navbuddy<CR>", desc = "Navbuddy" } },
-        opts = function(_, opts)
-          local actions = require("nvim-navbuddy.actions")
-          opts.lsp = { auto_attach = true }
-          opts.mappings = {
-            ["<left>"] = actions.parent(), -- Move to left panel
-            ["<right>"] = actions.children(),
-          }
-        end
-      },
     },
     config = function()
       require('neoconf').setup()
@@ -55,8 +39,9 @@ return {
           --
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
-          local map = function(keys, func, desc)
-            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          local map = function(keys, func, desc, mode)
+            local m = mode or 'n'
+            vim.keymap.set(m, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
           -- Jump to the definition of the word under your cursor.
@@ -90,7 +75,7 @@ return {
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap
@@ -106,14 +91,14 @@ return {
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client.supports_method 'textDocument/inlayHint' then
-            local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-            if type(ih) == 'function' then
-              ih()
-            elseif type(ih) == 'table' and ih.enable then
-              ih.enable(0, not ih.is_enabled())
-            end
-          end
+          -- if client.supports_method 'textDocument/inlayHint' then
+          --   local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+          --   if type(ih) == 'function' then
+          --     ih()
+          --   elseif type(ih) == 'table' and ih.enable then
+          --     ih.enable(0, not ih.is_enabled())
+          --   end
+          -- end
           if client and client.server_capabilities.documentHighlightProvider then
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
