@@ -9,32 +9,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Inline Fold
--- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
---   pattern = { '*.html', '*.tsx' },
---   callback = function(_)
---     if not require('inline-fold.module').isHidden then
---       vim.cmd 'InlineFoldToggle'
---     end
---   end,
--- })
-
--- Barbecue
-vim.api.nvim_create_autocmd({
-  'WinScrolled', -- or WinResized on NVIM-v0.9 and higher
-  'BufWinEnter',
-  'CursorHold',
-  'InsertLeave',
-
-  -- include this if you have set `show_modified` to `true`
-  'BufModifiedSet',
-}, {
-  group = vim.api.nvim_create_augroup('barbecue.updater', {}),
-  callback = function()
-    require('barbecue.ui').update()
-  end,
-})
-
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('q_close', {}),
   pattern = {
