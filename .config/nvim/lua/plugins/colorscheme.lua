@@ -1,27 +1,3 @@
-local wrap_component = function(component, color, opts, condition)
-  local left = {
-    provider = '',
-    hl = { fg = color },
-    condition = condition,
-  }
-  local right = {
-    provider = '',
-    hl = { fg = color },
-    condition = condition,
-  }
-  local separator = {
-    provider = ' ',
-    hl = 'Normal',
-  }
-
-  return {
-    left,
-    component(vim.tbl_deep_extend('force', { surround = { separator = 'none', color = color } }, opts or {})),
-    right,
-    separator,
-  }
-end
-
 return {
   {
     'aikow/base.nvim',
@@ -38,18 +14,13 @@ return {
           'builtin.defaults',
           'builtin.git',
           'builtin.lsp',
-          -- 'builtin.semantic',
+          'builtin.semantic',
           'builtin.syntax',
           'builtin.treesitter',
           'plugin.cmp',
           'plugin.devicons',
-          -- 'plugin.fzf-lua',
-          -- 'plugin.indent-blankline',
           'plugin.luasnip',
           'plugin.mason',
-          'plugin.mini',
-          'plugin.neo-tree',
-          -- 'plugin.neorg',
           'plugin.telescope',
           'plugin.trouble',
           ---@diagnostic disable-next-line: assign-type-mismatch
@@ -63,10 +34,84 @@ return {
                 -- Flash
                 FlashLabel = { fg = colors.pink, bold = true },
                 FlashMatch = { italic = true },
+                -- Winbar
+                Winbar = { bg = colors.bg_1 },
+                WinbarNC = { bg = colors.bg_1 },
               }
             end,
             after = function(theme, colors)
               local lib = require 'heirline-components.all'
+
+              local wrap_component = function(component, color, opts, condition)
+                local left = {
+                  provider = '',
+                  hl = { fg = color, bg = colors.bg_statusline },
+                  condition = condition,
+                }
+                local right = {
+                  provider = '',
+                  hl = { fg = color, bg = colors.bg_statusline },
+                  condition = condition,
+                }
+                local separator = {
+                  provider = ' ',
+                  hl = { bg = colors.bg_statusline },
+                }
+
+                return {
+                  left,
+                  component(vim.tbl_deep_extend('force', { surround = { separator = 'none', color = color } }, opts or {})),
+                  right,
+                  separator,
+                }
+              end
+              local Spacer = { provider = ' ' }
+              local function rpad(child)
+                return {
+                  condition = child.condition,
+                  child,
+                  Spacer,
+                }
+              end
+              local function OverseerTasksForStatus(status)
+                return {
+                  condition = function(self)
+                    return self.tasks[status]
+                  end,
+                  provider = function(self)
+                    return string.format('%s%d', self.symbols[status], #self.tasks[status])
+                  end,
+                  hl = function(self)
+                    return {
+                      fg = colors.orange,
+                    }
+                  end,
+                }
+              end
+
+              local Overseer = {
+                condition = function()
+                  return package.loaded.overseer
+                end,
+                init = function(self)
+                  local tasks = require('overseer.task_list').list_tasks { unique = true }
+                  local tasks_by_status = require('overseer.util').tbl_group_by(tasks, 'status')
+                  self.tasks = tasks_by_status
+                end,
+                static = {
+                  symbols = {
+                    ['CANCELED'] = ' ',
+                    ['FAILURE'] = '󰅚 ',
+                    ['SUCCESS'] = '󰄴 ',
+                    ['RUNNING'] = '󰑮 ',
+                  },
+                },
+
+                rpad(OverseerTasksForStatus 'CANCELED'),
+                rpad(OverseerTasksForStatus 'RUNNING'),
+                rpad(OverseerTasksForStatus 'SUCCESS'),
+                rpad(OverseerTasksForStatus 'FAILURE'),
+              }
 
               local opts = {
                 opts = {},
@@ -77,39 +122,75 @@ return {
                   lib.component.numbercolumn(),
                   lib.component.signcolumn(),
                 } or nil,
-                statusline = { -- UI statusbar
-                  lib.component.mode(),
-                  wrap_component(lib.component.git_branch, colors.green, {}, lib.condition.is_git_repo),
-                  wrap_component(lib.component.file_info, theme.base01),
-                  wrap_component(lib.component.git_diff, colors.orange, {}, lib.condition.git_changed),
-                  wrap_component(lib.component.diagnostics, colors.green, {}, lib.condition.has_diagnostics),
-                  lib.component.fill {
-                    hl = 'Normal',
+                statusline = {
+                  fallthrough = false,
+                  {
+                    condition = function()
+                      return lib.condition.buffer_matches({
+                        buftype = { 'nofile', 'prompt', 'help', 'quickfix', 'terminal' },
+                        filetype = { '^git.*', 'fugitive', 'aerial', 'OverseerList' },
+                      }, vim.api.nvim_get_current_buf())
+                    end,
+                    lib.component.fill {
+                      hl = { bg = colors.bg_statusline },
+                    },
+                    wrap_component(lib.component.file_info, theme.base02, { hl = { fg = theme.base07, italic = true } }),
+                    lib.component.fill {
+                      hl = { bg = colors.bg_statusline },
+                    },
                   },
-                  wrap_component(lib.component.cmd_info, colors.red, {}, function()
-                    return lib.condition.is_hlsearch() or lib.condition.is_macro_recording() or lib.condition.is_statusline_showcmd()
-                  end),
-
-                  lib.component.fill {
-                    hl = 'Normal',
+                  { -- UI statusbar
+                    lib.component.mode { hl = { bg = colors.bg_statusline } },
+                    wrap_component(lib.component.git_branch, theme.base02, { hl = { fg = theme.base09, bold = true } }, lib.condition.is_git_repo),
+                    wrap_component(lib.component.file_info, theme.base02, { hl = { fg = theme.base07, italic = true } }),
+                    wrap_component(lib.component.git_diff, theme.base02, {}, lib.condition.git_changed),
+                    wrap_component(lib.component.diagnostics, theme.base02, {}, lib.condition.has_diagnostics),
+                    lib.component.fill {
+                      hl = { bg = colors.bg_statusline },
+                    },
+                    wrap_component(lib.component.cmd_info, colors.pink, {}, function()
+                      return lib.condition.is_hlsearch() or lib.condition.is_macro_recording() or lib.condition.is_statusline_showcmd()
+                    end),
+                    lib.component.fill {
+                      hl = { bg = colors.bg_statusline },
+                    },
+                    Overseer,
+                    wrap_component(
+                      lib.component.lsp,
+                      colors.dark_purple,
+                      { lsp_progress = false, lsp_client_names = { truncate = 0.33, integrations = { null_ls = false, conform = false, lint = false } } }
+                    ),
+                    -- lib.component.compiler_state(),
+                    wrap_component(lib.component.nav, colors.teal),
+                    -- lib.component.mode { surround = { separator = 'right' } },
                   },
-                  wrap_component(
-                    lib.component.lsp,
-                    colors.pink,
-                    { lsp_progress = false, lsp_client_names = { truncate = 0.33, integrations = { null_ls = false, conform = false, lint = false } } }
-                  ),
-                  -- lib.component.compiler_state(),
-                  wrap_component(lib.component.nav, colors.teal),
-                  -- lib.component.mode { surround = { separator = 'right' } },
                 },
                 winbar = { -- UI breadcrumbs bar
-                  hl = { bg = theme.base0C },
+                  hl = 'Normal',
                   init = function(self)
                     self.bufnr = vim.api.nvim_get_current_buf()
                   end,
                   fallthrough = false,
-                  -- lib.component.breadcrumbs_when_inactive(),
-                  lib.component.breadcrumbs { hl = 'Normal' },
+
+                  {
+                    condition = function()
+                      return lib.condition.buffer_matches({
+                        buftype = { 'nofile', 'prompt', 'help', 'quickfix', 'terminal' },
+                        filetype = { '^git.*', 'fugitive', 'aerial', 'OverseerList' },
+                      }, vim.api.nvim_get_current_buf())
+                    end,
+                  },
+                  {
+                    fallthrough = false,
+                    lib.component.winbar_when_inactive(),
+                    {
+                      lib.component.breadcrumbs { hl = { bg = colors.bg_statusline } },
+                      lib.component.fill {
+                        hl = { bg = colors.bg_statusline },
+                      },
+                      lib.component.aerial(),
+                    },
+                  },
                 },
               }
 
@@ -125,7 +206,7 @@ return {
         },
       }
 
-      vim.cmd 'colorscheme base-onedark'
+      vim.cmd 'colorscheme base-bearded-arc'
     end,
   },
 }

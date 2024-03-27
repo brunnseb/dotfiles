@@ -18,6 +18,9 @@ return {
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('neotest').setup {
+        consumers = {
+          overseer = require 'neotest.consumers.overseer',
+        },
         adapters = {
           require 'neotest-vitest' {
             is_test_file = function(file_path)

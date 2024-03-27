@@ -5,7 +5,12 @@ return {
       { '<leader>cn', '<cmd>AerialNavToggle<CR>', desc = 'Toggle Navigation' },
       { '<leader>cO', '<cmd>AerialOpen<CR>', desc = 'Open Overview' },
     },
+    event = { 'BufEnter' },
     opts = {
+      backends = {
+        ['_'] = { 'treesitter', 'lsp' },
+        lua = { 'lsp' },
+      },
       keymaps = {
         ['<Left>'] = 'actions.tree_open',
         ['<S-Left>'] = 'actions.tree_open_recursive',

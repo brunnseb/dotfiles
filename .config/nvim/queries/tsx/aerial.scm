@@ -100,7 +100,7 @@
 ;; Destructured array variables
 (lexical_declaration
   (variable_declarator
-    name: (array_pattern) @name
+    name: (array_pattern (identifier) @name (#gsub! @name "^.*$" "[ %1, .. ]")) 
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
@@ -108,7 +108,7 @@
 ;; Destructured object variables
 (lexical_declaration
   (variable_declarator
-    name: (object_pattern (shorthand_property_identifier_pattern)) @name
+    name: (object_pattern (shorthand_property_identifier_pattern) @name (#gsub! @name "^.*$" "{ %1, .. }")) 
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
