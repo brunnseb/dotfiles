@@ -98,12 +98,26 @@
   ) @symbol
 
 ;; Destructured array variables
+; (lexical_declaration
+;   (variable_declarator
+;     name: (array_pattern (identifier) @name (#gsub! @name "^.*$" "[ %1, .. ]")) 
+;     value: (_) @var_type) @symbol
+;   (#set! "kind" "Variable")
+;   ) @start
+
 (lexical_declaration
   (variable_declarator
-    name: (array_pattern (identifier) @name (#gsub! @name "^.*$" "[ %1, .. ]")) 
+    name: (array_pattern (identifier) )@name (#gsub! @name "%s+" "") 
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
+; (lexical_declaration
+;   (variable_declarator
+;     name: (array_pattern (_ 
+;                            ([(identifier) ] )@name)) 
+;     value: (_) @var_type) @symbol
+;   (#set! "kind" "Variable")
+;   ) @start
 
 ;; Destructured object variables
 (lexical_declaration
@@ -116,8 +130,5 @@
 ;; React hooks: useEffect and useLayoutEffect
 (call_expression
   function: (identifier) @method @name (#any-of? @method "useEffect" "useLayoutEffect")
-  arguments: (arguments
-    (string
-      (string_fragment) @name @string))?
   (#set! "kind" "Function")
   ) @symbol @selection
