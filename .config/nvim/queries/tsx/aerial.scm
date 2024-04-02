@@ -82,7 +82,7 @@
   ) @symbol @selection
 
 
-;; Jsx elements
+; Jsx elements
 (_
   [
     (jsx_opening_element (identifier) @name)
@@ -91,43 +91,43 @@
 ) @symbol
 
 
-;; Self closing jsx elements
+; Self closing jsx elements
 (jsx_self_closing_element
   name: (identifier) @name
   (#set! "kind" "Struct")
   ) @symbol
 
-;; Destructured array variables
-; (lexical_declaration
-;   (variable_declarator
-;     name: (array_pattern (identifier) @name (#gsub! @name "^.*$" "[ %1, .. ]")) 
-;     value: (_) @var_type) @symbol
-;   (#set! "kind" "Variable")
-;   ) @start
-
+; Destructured array variables
 (lexical_declaration
   (variable_declarator
-    name: (array_pattern (identifier) )@name (#gsub! @name "%s+" "") 
-    value: (_) @var_type) @symbol
-  (#set! "kind" "Variable")
-  ) @start
-; (lexical_declaration
-;   (variable_declarator
-;     name: (array_pattern (_ 
-;                            ([(identifier) ] )@name)) 
-;     value: (_) @var_type) @symbol
-;   (#set! "kind" "Variable")
-;   ) @start
-
-;; Destructured object variables
-(lexical_declaration
-  (variable_declarator
-    name: (object_pattern (shorthand_property_identifier_pattern) @name (#gsub! @name "^.*$" "{ %1, .. }")) 
+    name: (array_pattern ((_)(_)(_))) @name (#gsub! @name "^%[(.-)%,(.-)%,(.*)$" "[%1, %2, ..]") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
 
-;; React hooks: useEffect and useLayoutEffect
+(lexical_declaration
+  (variable_declarator
+    name: (array_pattern ((_) (_)*))@name (#gsub! @name "%s+" "") ; trim whitespaces
+    value: (_) @var_type) @symbol
+  (#set! "kind" "Variable")
+  ) @start
+
+; Destructured object variables
+(lexical_declaration
+  (variable_declarator
+    name: (object_pattern((_)(_)(_))) @name (#gsub! @name "^%{(.-)%,(.-)%,(.*)$" "{%1, %2, ..}") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
+    value: (_) @var_type) @symbol
+  (#set! "kind" "Variable")
+  ) @start
+
+(lexical_declaration
+  (variable_declarator
+    name: (object_pattern ((_) (_)*))@name (#gsub! @name "%s+" "") ; trim whitespaces
+    value: (_) @var_type) @symbol
+  (#set! "kind" "Variable")
+  ) @start
+
+; React hooks: useEffect and useLayoutEffect
 (call_expression
   function: (identifier) @method @name (#any-of? @method "useEffect" "useLayoutEffect")
   (#set! "kind" "Function")

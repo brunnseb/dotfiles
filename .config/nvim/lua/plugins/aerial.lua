@@ -1,7 +1,6 @@
 return {
   {
     'stevearc/aerial.nvim',
-    -- dir = '/home/brunnseb/Development/aerial.nvim/',
     keys = {
       { '<leader>cn', '<cmd>AerialNavToggle<CR>', desc = 'Toggle Navigation' },
       { '<leader>cO', '<cmd>AerialOpen<CR>', desc = 'Open Overview' },
@@ -34,20 +33,6 @@ return {
       },
       on_first_symbols = function(bufnr)
         require('aerial').tree_set_collapse_level(bufnr, 2)
-      end,
-
-      post_parse_symbol = function(bufnr, item, ctx)
-        local first_element = item.name:match '^%[(.-)%,'
-        if first_element then
-          -- local count = 0
-          -- for k, v in item.name:gmatch '([^%,]+)' do
-          --   count = count + 1
-          -- end
-          local value, count = string.gsub(item.name, '%,', '')
-          vim.notify('value ' .. value)
-          item.name = '[ ' .. first_element .. ', +' .. count - 1 .. ' ]'
-        end
-        return true
       end,
     },
     -- Optional dependencies
