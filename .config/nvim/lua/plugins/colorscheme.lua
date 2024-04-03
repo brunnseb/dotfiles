@@ -65,28 +65,18 @@ return {
                   separator,
                 }
               end
-              local Spacer = { provider = ' ' }
-              local function rpad(child)
-                return {
-                  condition = child.condition,
-                  child,
-                  Spacer,
-                }
-              end
+
               local function OverseerTasksForStatus(status)
-                return {
-                  condition = function(self)
-                    return self.tasks[status]
-                  end,
-                  provider = function(self)
-                    return string.format('%s%d', self.symbols[status], #self.tasks[status])
-                  end,
-                  hl = function(self)
-                    return {
-                      fg = colors.orange,
-                    }
-                  end,
-                }
+                return function(opts)
+                  return vim.tbl_deep_extend('force', {
+                    condition = function(self)
+                      return self.tasks[status]
+                    end,
+                    provider = function(self)
+                      return string.format('%s%d', self.symbols[status], #self.tasks[status])
+                    end,
+                  }, opts)
+                end
               end
 
               local Overseer = {
@@ -107,10 +97,18 @@ return {
                   },
                 },
 
-                rpad(OverseerTasksForStatus 'CANCELED'),
-                rpad(OverseerTasksForStatus 'RUNNING'),
-                rpad(OverseerTasksForStatus 'SUCCESS'),
-                rpad(OverseerTasksForStatus 'FAILURE'),
+                wrap_component(OverseerTasksForStatus 'CANCELED', colors.grey, { hl = { bg = colors.grey, fg = colors.white } }, function(self)
+                  return self.tasks['CANCELED']
+                end),
+                wrap_component(OverseerTasksForStatus 'RUNNING', colors.orange, { hl = { bg = colors.orange, fg = colors.bg_statusline } }, function(self)
+                  return self.tasks['RUNNING']
+                end),
+                wrap_component(OverseerTasksForStatus 'SUCCESS', colors.green, { hl = { bg = colors.green, fg = colors.bg_statusline } }, function(self)
+                  return self.tasks['SUCCESS']
+                end),
+                wrap_component(OverseerTasksForStatus 'FAILURE', colors.red, { hl = { bg = colors.red, fg = colors.bg_statusline } }, function(self)
+                  return self.tasks['FAILURE']
+                end),
               }
 
               local opts = {

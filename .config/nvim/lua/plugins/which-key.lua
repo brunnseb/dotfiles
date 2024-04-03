@@ -14,7 +14,7 @@ return {
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>o'] = { name = '[O]llama', _ = 'which_key_ignore' },
+        ['<leader>o'] = { name = '[O]verseer', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
         ['<leader>u'] = { name = '[U]I', _ = 'which_key_ignore' },
         ['<leader>x'] = { name = 'Fi[x]', _ = 'which_key_ignore' },

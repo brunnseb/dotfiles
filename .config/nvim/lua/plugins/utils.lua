@@ -1,4 +1,8 @@
 return {
+  {
+    'stevearc/stickybuf.nvim',
+    opts = {},
+  },
   { 'tpope/vim-sleuth' },
   {
     'lambdalisue/suda.vim',
