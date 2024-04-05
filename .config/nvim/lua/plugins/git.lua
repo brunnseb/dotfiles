@@ -74,9 +74,30 @@ return {
     keys = { { '<leader>gg', '<cmd>Neogit<CR>', desc = 'Neogit' } },
     dependencies = {
       'nvim-lua/plenary.nvim', -- required
-      { 'sindrets/diffview.nvim', keys = {
-        { '<leader>gd', '<cmd>DiffviewOpen<CR>', desc = 'Diff this' },
-      } }, -- optional - Diff integration
+      {
+        'sindrets/diffview.nvim',
+        keys = {
+          { '<leader>gd', '<cmd>DiffviewOpen origin/HEAD...HEAD<CR>', desc = 'Diff this' },
+          { '<leader>gD', '<cmd>DiffviewOpen origin/HEAD...HEAD -- %<CR>', desc = 'Diff this File' },
+        },
+        opts = function(_, opts)
+          local actions = require 'diffview.actions'
+          opts.default_args = {
+            DiffviewOpen = { '--imply-local' },
+          }
+          opts.keymaps = {
+            view = {
+              { 'n', 'q', actions.close, { desc = 'Close' } },
+            },
+            file_panel = {
+              { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close' } },
+            },
+            file_history_panel = {
+              { 'n', 'q', '<cmd>DiffviewClose<CR>', { desc = 'Close' } },
+            },
+          }
+        end,
+      }, -- optional - Diff integration
 
       -- Only one of these is needed, not both.
       'nvim-telescope/telescope.nvim', -- optional
