@@ -49,6 +49,7 @@ config = {
 		font = wezterm.font({ family = "MonoLisa", weight = "Bold", italic = true }),
 	},
 	disable_default_key_bindings = true,
+	enable_wayland = false,
 	keys = {
 		{ key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
 		{ key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
