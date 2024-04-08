@@ -9,7 +9,8 @@
 
 
 (defsrc
-   caps a   s   d   f   g   h   j   k   l   ;
+  caps a    s    d    f    g    h    j    k    l    ;
+  lmet lalt
 )
 
 
@@ -23,12 +24,18 @@
     sft_o (tap-hold-next-release 200 ; rsft)
 )
 (defalias caps bspc)
+(defalias lalt lmet)
+(defalias lmet lalt)
 (defalias f (tap-hold-next-release 200 f (layer-toggle arrows)))
 
 (deflayer homerowmods
 @caps @sft_a   @ctl_r   @alt_s   @f   g   h   j  @alt_e   @ctl_i   @sft_o   
+
+@lmet @lalt
 )
 
 (deflayer arrows
 @caps a   s   d   f   g    left    down    up    right  ;   
+
+@lmet @lalt
 )
