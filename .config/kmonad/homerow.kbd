@@ -1,0 +1,34 @@
+(defcfg
+  ;; For Linux
+  input  (device-file "/dev/input/by-id/usb-DOKING_Duet_5_USB_Composite_Device_DK_8231_001-event-kbd")
+  output (uinput-sink "homerowmods")
+
+  ;; This option tells KMonad to let non-configured keys act normal
+  fallthrough true
+)
+
+
+(defsrc
+   caps a   s   d   f   g   h   j   k   l   ;
+)
+
+
+(defalias
+    sft_a (tap-hold-next-release 200 a lsft)
+    ctl_r (tap-hold-next-release 200 s lctl)
+    alt_s (tap-hold-next-release 200 d lalt)
+
+    alt_e (tap-hold-next-release 200 k lalt)
+    ctl_i (tap-hold-next-release 200 l rctl)
+    sft_o (tap-hold-next-release 200 ; rsft)
+)
+(defalias caps bspc)
+(defalias f (tap-hold-next-release 200 f (layer-toggle arrows)))
+
+(deflayer homerowmods
+@caps @sft_a   @ctl_r   @alt_s   @f   g   h   j  @alt_e   @ctl_i   @sft_o   
+)
+
+(deflayer arrows
+@caps a   s   d   f   g    left    down    up    right  ;   
+)
