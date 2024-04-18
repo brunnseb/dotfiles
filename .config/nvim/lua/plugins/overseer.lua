@@ -11,6 +11,7 @@ return {
     },
     keys = {
       { '<leader>oo', '<cmd>OverseerOpen<CR>', desc = '[O]pen' },
+      { '<leader>ot', '<cmd>OverseerToggle<CR>', desc = '[T]oggle' },
       { '<leader>or', '<cmd>OverseerRun<CR>', desc = '[R]un' },
       { '<leader>oa', '<cmd>OverseerQuickAction<CR>', desc = 'Quick[A]ction' },
     },

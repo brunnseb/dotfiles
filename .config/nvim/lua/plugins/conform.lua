@@ -1,4 +1,5 @@
 return {
+
   {
     'stevearc/conform.nvim',
     opts = {
@@ -13,6 +14,9 @@ return {
         typescript = { 'eslint_d' },
         javascriptreact = { 'eslint_d' },
         javascript = { 'eslint_d' },
+        scss = { 'prettierd' },
+        css = { 'prettierd' },
+        json = { 'prettierd' },
       },
     },
   },
