@@ -1,0 +1,175 @@
+return {
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
+      { 'folke/neodev.nvim', opts = {} },
+    },
+    config = function()
+      require('neoconf').setup()
+
+      vim.diagnostic.config {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = 'if_many',
+          prefix = '●',
+        },
+        severity_sort = true,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = ' ',
+            [vim.diagnostic.severity.WARN] = ' ',
+            [vim.diagnostic.severity.HINT] = ' ',
+            [vim.diagnostic.severity.INFO] = ' ',
+          },
+        },
+      }
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+        callback = function(event)
+          local map = function(keys, func, desc, mode)
+            local m = mode or 'n'
+            vim.keymap.set(m, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          end
+
+          map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gy', require('telescope.builtin').lsp_type_definitions, 'T[y]pe Definition')
+          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
+          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+          if client and client.name == 'tailwindcss' then
+            map('<leader>uc', '<cmd>TailwindConcealToggle<CR>', 'Toggle tailwind conceal')
+            map('<leader>ct', '<cmd>TailwindSort<CR>', 'Sort tailwind classes')
+          end
+
+          if client and client.name == 'typescript-tools' then
+            map('<leader>co', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
+            map('<leader>ci', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
+            map('<leader>cu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
+            map('<leader>cf', '<cmd>TSToolsRenameFile<CR>', 'Rename file')
+            map('<leader>cR', '<cmd>CodeActions all<CR>', 'Refactor')
+          end
+
+          if client and client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = event.buf,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = event.buf,
+              callback = vim.lsp.buf.clear_references,
+            })
+          end
+        end,
+      })
+
+      local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = false,
+          },
+        },
+      })
+
+      local servers = {
+        cssls = {
+          settings = {
+            css = { validate = true, lint = {
+              unknownAtRules = 'ignore',
+            } },
+            scss = { validate = true, lint = {
+              unknownAtRules = 'ignore',
+            } },
+            less = { validate = true, lint = {
+              unknownAtRules = 'ignore',
+            } },
+          },
+        },
+        eslint = {
+          settings = {
+            workingDirectories = { mode = 'auto' },
+            format = 'false',
+          },
+        },
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              workspace = {
+                checkThirdParty = false,
+                -- Tells lua_ls where to find all the Lua files that you have loaded
+                -- for your neovim configuration.
+                library = {
+                  '${3rd}/luv/library',
+                  unpack(vim.api.nvim_get_runtime_file('', true)),
+                },
+              },
+              completion = {
+                callSnippet = 'Replace',
+              },
+            },
+          },
+        },
+        tailwindcss = {
+          filetypes = {
+            'astro',
+            'handlebars',
+            'html',
+            'css',
+            'less',
+            'postcss',
+            'sass',
+            'scss',
+            'javascriptreact',
+            'reason',
+            'rescript',
+            'typescriptreact',
+            'vue',
+            'svelte',
+          },
+        },
+      }
+
+      require('mason').setup()
+
+      local ensure_installed = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure_installed, {
+        'stylua',
+        'cssls',
+        'jsonls',
+        'bashls',
+        'tailwindcss',
+        'docker_compose_language_service',
+        'html',
+        'yamlls',
+        'eslint',
+      })
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('mason-lspconfig').setup {
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
+          end,
+        },
+      }
+    end,
+  },
+}
