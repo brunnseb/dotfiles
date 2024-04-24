@@ -98,34 +98,43 @@
   ) @symbol
 
 ; Destructured array variables
-(lexical_declaration
-  (variable_declarator
-    name: (array_pattern ((_)(_)(_))) @name (#gsub! @name "^%[(.-)%,(.-)%,(.*)$" "[%1, %2, ..]") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
-    value: (_) @var_type) @symbol
-  (#set! "kind" "Variable")
-  ) @start
+; (lexical_declaration
+;   (variable_declarator
+;     name: (array_pattern ((_)(_)(_))) @name (#gsub! @name "^%[(.-)%,(.-)%,(.*)$" "[%1, %2, ..]") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
+;     value: (_) @var_type) @symbol
+;   (#set! "kind" "Variable")
+;   ) @start
 
 (lexical_declaration
   (variable_declarator
-    name: (array_pattern ((_) (_)*))@name (#gsub! @name "%s+" "") ; trim whitespaces
+    name: (array_pattern ((_)@first (_)@second (_)*@third))@name (#gsub! @name "%s+" "") ; trim whitespaces
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
 
 ; Destructured object variables
+; (lexical_declaration
+;   (variable_declarator
+;     name: (object_pattern((shorthand_property_identifier_pattern)(shorthand_property_identifier_pattern)(_))) @name (#gsub! @name "^%{(.-)%,(.-)%,(.*)$" "{%1, %2, ..}") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
+;     value: (_) @var_type) @symbol
+;   (#set! "kind" "Variable")
+;   ) @start
+
+; (lexical_declaration
+;   (variable_declarator
+;     name: (object_pattern . (pair_pattern
+;                             value: (array_pattern)) . (shorthand_property_identifier_pattern)) @name (#gsub! @name "^%{(%[.-%])%,(.-)%,(.*)$" "{%1, %2, ..}") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
+;     value: (_) @var_type) @symbol
+;   (#set! "kind" "Variable")
+;   ) @start
+
 (lexical_declaration
   (variable_declarator
-    name: (object_pattern((_)(_)(_))) @name (#gsub! @name "^%{(.-)%,(.-)%,(.*)$" "{%1, %2, ..}") (#gsub! @name "%s+" "") ; trim whitespaces and truncate if there are more than 2 array items
+    name: (object_pattern ((_)@first (_)@second (_)*@third))@name (#gsub! @name "%s+" "") ; trim whitespaces
     value: (_) @var_type) @symbol
   (#set! "kind" "Variable")
   ) @start
 
-(lexical_declaration
-  (variable_declarator
-    name: (object_pattern ((_) (_)*))@name (#gsub! @name "%s+" "") ; trim whitespaces
-    value: (_) @var_type) @symbol
-  (#set! "kind" "Variable")
-  ) @start
 
 ; React hooks: useEffect and useLayoutEffect
 (call_expression
