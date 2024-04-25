@@ -39,11 +39,11 @@ return {
           end
 
           map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('gy', require('telescope.builtin').lsp_type_definitions, 'T[y]pe Definition')
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
+          map('gI', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
+          map('gy', require('fzf-lua').lsp_typedefs, 'T[y]pe Definition')
+          map('<leader>ds', require('fzf-lua').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>ws', require('fzf-lua').lsp_live_workspace_symbols, '[W]orkspace [S]ymbols')
           map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')

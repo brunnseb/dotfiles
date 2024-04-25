@@ -37,7 +37,7 @@ config = {
 	window_close_confirmation = "NeverPrompt",
 	default_prog = { "/usr/bin/fish", "-l" },
 	color_scheme = "Tokyo Night Moon",
-	font = wezterm.font({ family = "MonoLisa", weight = "Medium" }),
+	font = wezterm.font_with_fallback({ { family = "MonoLisa", weight = "Medium" }, "Symbola" }),
 	inactive_pane_hsb = {
 		saturation = 0.8,
 		brightness = 0.7,
@@ -46,7 +46,7 @@ config = {
 	scrollback_lines = 5000,
 	adjust_window_size_when_changing_font_size = false,
 	window_frame = {
-		font = wezterm.font({ family = "MonoLisa", weight = "Bold", italic = true }),
+		font = wezterm.font_with_fallback({ { family = "MonoLisa", weight = "Bold", italic = true }, "Symbola" }),
 	},
 	disable_default_key_bindings = true,
 	keys = {

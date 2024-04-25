@@ -30,6 +30,8 @@ return {
           'typescript',
           'javascript',
           'yaml',
+          'regex',
+          'jsonc',
         },
         highlight = {
           enable = true,
