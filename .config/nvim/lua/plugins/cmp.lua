@@ -6,6 +6,7 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
+      'windwp/nvim-autopairs',
       {
         'L3MON4D3/LuaSnip',
         -- install jsregexp. This is technically optional, but is required for 1:1 parity with VSCode snippets.
@@ -78,6 +79,9 @@ return {
           hl_group = 'Comment',
         },
       }
+
+      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
+      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
 }
