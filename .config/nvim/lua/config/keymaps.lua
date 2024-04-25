@@ -40,7 +40,7 @@ if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
     if type(ih) == 'function' then
       ih()
     elseif type(ih) == 'table' and ih.enable then
-      ih.enable(0, not ih.is_enabled())
+      ih.enable(not ih.is_enabled())
     end
   end, { desc = 'Toggle Inlay Hints' })
 end
