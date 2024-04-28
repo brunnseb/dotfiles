@@ -27,6 +27,7 @@ end
 
 -- This table will hold the configuration.
 config = {
+	enable_wayland = false,
 	window_padding = {
 		left = 0,
 		right = 0,
