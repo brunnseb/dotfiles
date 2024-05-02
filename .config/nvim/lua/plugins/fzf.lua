@@ -12,14 +12,23 @@ return {
       } }
 
       fzf.register_ui_select(function(_, items)
-        local min_h, max_h = 0.15, 0.70
-        local h = (#items + 4) / vim.o.lines
-        if h < min_h then
-          h = min_h
-        elseif h > max_h then
-          h = max_h
-        end
-        return { winopts = { height = h, width = 0.60, row = 0.40 } }
+        return {
+          winopts_fn = function()
+            local maxHeight = math.floor(vim.o.lines * 0.2)
+
+            local numberOfItems = 0
+            for _ in pairs(items) do
+              numberOfItems = numberOfItems + 1
+            end
+
+            local height = numberOfItems
+            if numberOfItems > 10 then
+              height = maxHeight
+            end
+
+            return { split = 'belowright new | resize ' .. tostring(height) }
+          end,
+        }
       end)
 
       vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
@@ -32,7 +41,7 @@ return {
       vim.keymap.set('n', '<leader>s.', fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<CR>', { desc = '[S]earch [U]ndotree' })
       vim.keymap.set('n', '<leader><leader>', function()
-        fzf.buffers()
+        fzf.buffers { winopts = { split = 'belowright new | resize 10', preview = { hidden = 'hidden' } } }
       end, { desc = '[ ] Find existing buffers' })
 
       -- Shortcut for searching your neovim configuration files
