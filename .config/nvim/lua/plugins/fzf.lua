@@ -15,6 +15,7 @@ return {
         return {
           winopts_fn = function()
             local maxHeight = math.floor(vim.o.lines * 0.2)
+            local minHeight = 5
 
             local numberOfItems = 0
             for _ in pairs(items) do
@@ -24,6 +25,8 @@ return {
             local height = numberOfItems
             if numberOfItems > 10 then
               height = maxHeight
+            elseif numberOfItems < minHeight then
+              height = minHeight
             end
 
             return { split = 'belowright new | resize ' .. tostring(height) }

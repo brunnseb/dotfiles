@@ -47,7 +47,8 @@ return {
         openai_api_endpoint = 'http://localhost:11434/v1/chat/completions',
         openai_api_key = 'dummy',
         model = {
-          model = 'mistral:7b-instruct-v0.2-q4_K_M',
+          -- model = 'mistral:7b-instruct-v0.2-q4_K_M',
+          model = 'llama3:8b-instruct-q4_K_M',
           num_ctx = 8192,
         },
         system_prompt = 'You are a general AI assistant.',
@@ -61,23 +62,34 @@ return {
           end,
           -- GpImplement rewrites the provided selection/range based on comments in it
           Document = function(gp, params)
-            local template = 'Having following from {{filename}}:\n\n'
-              .. '```{{filetype}}\n{{selection}}\n```\n\n'
-              .. 'Write really good documentation using best practices for the given language. Infer all possible properties from the used interface, ignore all properties inherited from standard html elements and do not document types for typescript files'
-              .. '\n\nOnly return the docstring and NOTHING else please, also do not append any parts of the provided code snippet.'
+            local template = 'In the file {{filename}} with type {{filetype}} we have the following code:\n\n'
+              .. '{{selection}}\n\n'
+              .. 'Please write a correct, concise yet short docstring to document all important factors of the code using best practices for the given language.\n'
+              .. 'Make sure to only respond with the generated docstring and do NOT add anything else.'
+            -- .. 'Take the following example:\n'
+            -- .. 'const Component: FC = ()=> <div>Component</div>\n'
+            -- .. 'This should result in: \n'
+            -- .. '/*\n'
+            -- .. '* A component which returns a div with the text Component\n'
+            -- .. '*/\n'
+            -- .. 'and not:\n'
+            -- .. '/*\n'
+            -- .. '* A component which returns a div with the text Component\n'
+            -- .. '*/\n'
+            -- .. 'const Component: FC = ()=> <div>// code here</div>\n'
 
-            local agent = gp.get_command_agent()
+            -- local agent = gp.get_command_agent()
 
             gp.Prompt(
               params,
               gp.Target.prepend,
               nil, -- command will run directly without any prompting for user input
-              'mistral:7b-instruct-v0.2-q4_K_M',
+              'llama3:8b-instruct-q4_K_M',
               template,
               'You are an AI working as a code editor providing answers.\n\n'
                 .. 'Use 4 SPACES FOR INDENTATION.\n'
                 .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
-                .. 'START AND END YOUR ANSWER WITH:\n\n```\n'
+                .. 'START AND END YOUR ANSWER WITH:\n\n'
             )
           end,
         },
