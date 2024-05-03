@@ -64,7 +64,7 @@ return {
           Document = function(gp, params)
             local template = 'In the file {{filename}} with type {{filetype}} we have the following code:\n\n'
               .. '{{selection}}\n\n'
-              .. 'Please write a correct, concise yet short docstring to document all important factors of the code using best practices for the given language.\n'
+              .. 'Please write a correct, concise yet short docstring using best practices for the given language.\n'
               .. 'Make sure to only respond with the generated docstring and do NOT add anything else.'
             -- .. 'Take the following example:\n'
             -- .. 'const Component: FC = ()=> <div>Component</div>\n'

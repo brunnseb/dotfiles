@@ -9,7 +9,7 @@ return {
       -- additional arguments for the cmd
       args = { 'dev' },
       -- the name of the task (defaults to the cmd of the task)
-      name = 'pnpm dev',
+      name = 'Cockpit-Core DEV server',
       -- set the working directory for the task
       cwd = '/home/brunnseb/Development/SUISA/cockpit/libs/cockpit-core/',
       -- additional environment variables
