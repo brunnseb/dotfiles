@@ -10,7 +10,7 @@ return {
     'lambdalisue/suda.vim',
     cmd = { 'SudaWrite', 'SudaRead' },
   },
-  { 'pixelastic/vim-undodir-tree' },
+  { 'pixelastic/vim-undodir-tree', event = 'BufEnter' },
   {
     'gaelph/logsitter.nvim',
     event = 'BufEnter',

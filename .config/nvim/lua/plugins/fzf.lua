@@ -5,11 +5,17 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local fzf = require 'fzf-lua'
-      fzf.setup { 'telescope', winopts = {
-        preview = {
-          layout = 'flex',
+      fzf.setup {
+        'telescope',
+        defaults = {
+          formatter = 'path.filename_first',
         },
-      } }
+        winopts = {
+          preview = {
+            layout = 'flex',
+          },
+        },
+      }
 
       fzf.register_ui_select(function(_, items)
         return {
