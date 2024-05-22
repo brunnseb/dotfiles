@@ -12,8 +12,11 @@ return {
         -- install jsregexp. This is technically optional, but is required for 1:1 parity with VSCode snippets.
         -- Read more about the impacts of the need for jsregexp with LuaSnip [here](https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#transformations)
         build = 'make install_jsregexp',
+        dependencies = { { 'rafamadriz/friendly-snippets' } },
         config = function()
-          require('luasnip.loaders.from_vscode').load { paths = { '/home/brunnseb/.config/nvim/lua/snippets' } } -- load snippets paths
+          require('luasnip.loaders.from_vscode').load {
+            paths = { '/home/brunnseb/.config/nvim/lua/snippets', '/home/brunnseb/.local/share/nvim/lazy/friendly-snippets/' },
+          } -- load snippets paths
         end,
       },
       {
@@ -30,6 +33,31 @@ return {
       'onsails/lspkind-nvim',
     },
     event = 'InsertEnter',
+    keys = {
+      {
+        '<tab>',
+        function()
+          return require('luasnip').jumpable(1) and '<Plug>luasnip-jump-next' or '<tab>'
+        end,
+        expr = true,
+        silent = true,
+        mode = 'i',
+      },
+      {
+        '<tab>',
+        function()
+          require('luasnip').jump(1)
+        end,
+        mode = 's',
+      },
+      {
+        '<s-tab>',
+        function()
+          require('luasnip').jump(-1)
+        end,
+        mode = { 'i', 's' },
+      },
+    },
     opts = function()
       local cmp_status_ok, cmp = pcall(require, 'cmp')
       if not cmp_status_ok then
@@ -48,6 +76,18 @@ return {
           ['<C-j>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
           ['<Up>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<S-CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          },
+          ['<C-CR>'] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
           ['<CR>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,

@@ -1,11 +1,15 @@
 return {
   {
+    'folke/ts-comments.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  },
+  {
     'windwp/nvim-autopairs',
     dependencies = { 'hrsh7th/nvim-cmp' },
     event = 'InsertEnter',
     opts = {},
   },
-  { 'numToStr/Comment.nvim', opts = {} },
   {
     'kylechui/nvim-surround',
     version = '*',

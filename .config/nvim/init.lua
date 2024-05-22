@@ -10,6 +10,13 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Remove as soon as https://github.com/pmizio/typescript-tools.nvim/pull/267 is merged
+vim.tbl_add_reverse_lookup = function(tbl)
+  for k, v in pairs(tbl) do
+    tbl[v] = k
+  end
+end
+
 require('lazy').setup {
   { import = 'plugins' },
 }

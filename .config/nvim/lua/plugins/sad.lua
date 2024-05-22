@@ -26,6 +26,7 @@ return {
           ['='] = '\\=',
           ["'"] = "\\'",
           ['"'] = '\\"',
+          [':'] = '\\:',
         }
 
         escape_string = function(s)
@@ -52,7 +53,7 @@ return {
           lines[1] = escape_string(string.sub(lines[1], start_col))
           lines[#lines] = escape_string((string.sub(lines[#lines], 1, end_col)))
         end
-
+        vim.notify(table.concat(lines, '\\n'))
         return '(' .. table.concat(lines, '\\n') .. ')'
       end
 

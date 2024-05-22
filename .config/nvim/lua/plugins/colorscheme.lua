@@ -6,7 +6,7 @@ return {
     opts = {},
     dependencies = {
       'rebelot/heirline.nvim',
-      'zeioth/heirline-components.nvim',
+      { dir = '/home/brunnseb/Development/heirline-components.nvim/' },
     },
     config = function()
       require('base').setup {
