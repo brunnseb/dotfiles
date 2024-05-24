@@ -4,13 +4,9 @@ return {
     build = ':TSUpdate',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      { 'windwp/nvim-ts-autotag' },
     },
     opts = function()
       return {
-        autotag = {
-          enable = true,
-        },
         context_commentstring = { enable = true, enable_autocmd = false },
         ensure_installed = {
           'bash',

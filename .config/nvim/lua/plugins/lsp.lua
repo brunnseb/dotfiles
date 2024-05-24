@@ -54,6 +54,8 @@ return {
           if client and client.name == 'tailwindcss' then
             map('<leader>uc', '<cmd>TailwindConcealToggle<CR>', 'Toggle tailwind conceal')
             map('<leader>ct', '<cmd>TailwindSort<CR>', 'Sort tailwind classes')
+            map('[c', '<cmd>TailwindPrevClass<CR>', 'Go to previous class')
+            map(']c', '<cmd>TailwindNextClass<CR>', 'Go to next class')
           end
 
           if client and client.name == 'typescript-tools' then
@@ -61,7 +63,29 @@ return {
             map('<leader>ci', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
             map('<leader>cu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
             map('<leader>cf', '<cmd>TSToolsRenameFile<CR>', 'Rename file')
-            map('<leader>cR', '<cmd>CodeActions all<CR>', 'Refactor')
+            map('<leader>cb', '<cmd>CodeActions toggle_arrow_function_braces<CR>', 'Refactor')
+          end
+
+          if client and client.name == 'tsserver' then
+            local applyCodeAction = function(code_action)
+              vim.lsp.buf.code_action {
+                apply = true,
+                context = {
+                  only = { code_action },
+                  diagnostics = {},
+                },
+              }
+            end
+            map('<leader>co', function()
+              applyCodeAction 'source.organizeImports.ts'
+            end, 'Organize imports')
+            map('<leader>ci', function()
+              applyCodeAction 'source.addMissingImports.ts'
+            end, 'Add missing imports')
+            map('<leader>cu', function()
+              applyCodeAction 'source.removeUnused.ts'
+            end, 'Remove unused')
+            map('<leader>cb', '<cmd>CodeActions toggle_arrow_function_braces<CR>', 'Refactor')
           end
 
           if client and client.server_capabilities.documentHighlightProvider then
@@ -86,7 +110,31 @@ return {
         },
       })
 
+      local inlay_hints_settings = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'literal',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+      }
+
       local servers = {
+        tsserver = {
+          settings = {
+            typescript = {
+              inlayHints = inlay_hints_settings,
+            },
+            javascript = {
+              inlayHints = inlay_hints_settings,
+            },
+            completions = {
+              completeFunctionCalls = true,
+            },
+          },
+        },
         cssls = {
           settings = {
             css = { validate = true, lint = {
