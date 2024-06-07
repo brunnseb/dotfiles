@@ -1,6 +1,48 @@
 return {
-  -- lua with packer.nvim
-
+  {
+    'gbprod/yanky.nvim',
+    opts = {},
+    keys = {
+      {
+        'p',
+        '<Plug>(YankyPutAfter)',
+        mode = { 'n', 'x' },
+      },
+      {
+        'P',
+        '<Plug>(YankyPutBefore)',
+        mode = { 'n', 'x' },
+      },
+      {
+        'gp',
+        '<Plug>(YankyGPutAfter)',
+        mode = { 'n', 'x' },
+      },
+      {
+        'gP',
+        '<Plug>(YankyGPutBefore)',
+        mode = { 'n', 'x' },
+      },
+      {
+        '[y',
+        '<Plug>(YankyPreviousEntry)',
+      },
+      {
+        ']y',
+        '<Plug>(YankyNextEntry)',
+      },
+    },
+  },
+  {
+    'rachartier/tiny-devicons-auto-colors.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    event = 'VeryLazy',
+    config = function()
+      require('tiny-devicons-auto-colors').setup()
+    end,
+  },
   {
     'stevearc/stickybuf.nvim',
     opts = {},
@@ -10,10 +52,9 @@ return {
     'lambdalisue/suda.vim',
     cmd = { 'SudaWrite', 'SudaRead' },
   },
-  { 'pixelastic/vim-undodir-tree', event = 'BufEnter' },
+  { 'pixelastic/vim-undodir-tree', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' } },
   {
     'gaelph/logsitter.nvim',
-    event = 'BufEnter',
     keys = { {
       '<leader>cg',
       function()

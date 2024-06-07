@@ -5,7 +5,6 @@ return {
       { '<leader>cn', '<cmd>AerialNavToggle<CR>', desc = 'Toggle Navigation' },
       { '<leader>cO', '<cmd>AerialOpen<CR>', desc = 'Open Overview' },
     },
-    event = { 'BufEnter' },
     opts = {
       backends = {
         ['_'] = { 'treesitter', 'lsp' },
