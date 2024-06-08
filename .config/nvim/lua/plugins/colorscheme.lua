@@ -37,6 +37,10 @@ return {
                 -- Winbar
                 Winbar = { bg = colors.bg_1 },
                 WinbarNC = { bg = colors.bg_1 },
+                -- Multi Cursor
+                VM_Mono = { bg = colors.orange, fg = colors.black, italic = true },
+                VM_Extend = { bg = colors.orange, fg = colors.black, italic = true },
+                VM_Insert = { bg = colors.orange, fg = colors.black },
               }
             end,
             after = function(theme, colors)
