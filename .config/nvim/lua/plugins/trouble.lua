@@ -16,7 +16,7 @@ return {
   -- in your project and loads them into a browsable list.
   {
     'folke/todo-comments.nvim',
-    cmd = { 'TodoTrouble', 'TodoTelescope' },
+    cmd = { 'TodoTrouble' },
     event = 'VimEnter',
     config = true,
     -- stylua: ignore

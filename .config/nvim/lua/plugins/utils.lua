@@ -66,6 +66,7 @@ return {
   {
     'chrisgrieser/nvim-recorder',
     dependencies = 'rcarriga/nvim-notify', -- optional
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {
       mapping = {
         startStopRecording = '<C-q>',

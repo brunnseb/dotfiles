@@ -32,7 +32,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
       'onsails/lspkind-nvim',
-      'windwp/nvim-autopairs',
+      -- 'windwp/nvim-autopairs',
     },
     event = 'InsertEnter',
     version = false,
@@ -133,13 +133,6 @@ return {
           { name = 'path', priority = 250 },
         },
       }
-    end,
-    config = function(_, opts)
-      local cmp = require 'cmp'
-      cmp.setup(opts)
-
-      local cmp_autopairs = require 'nvim-autopairs.completion.cmp'
-      cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
     end,
   },
 }

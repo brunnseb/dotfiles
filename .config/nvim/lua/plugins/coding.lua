@@ -13,12 +13,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {},
   },
-  {
-    'windwp/nvim-autopairs',
-    dependencies = { 'hrsh7th/nvim-cmp' },
-    event = 'InsertEnter',
-    opts = {},
-  },
+  { 'echasnovski/mini.pairs', version = false, event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
   {
     'kylechui/nvim-surround',
     version = '*',
