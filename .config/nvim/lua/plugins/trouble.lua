@@ -3,12 +3,35 @@ return {
   {
     'folke/trouble.nvim',
     cmd = { 'TroubleToggle', 'Trouble' },
-    opts = { use_diagnostic_signs = true },
+    opts = {
+      use_diagnostic_signs = true,
+      modes = {
+        diagnostics_buffer = {
+          mode = 'diagnostics', -- inherit from diagnostics mode
+          filter = { buf = 0 }, -- filter diagnostics to the current buffer
+        },
+        diagnostics_project = {
+          mode = 'diagnostics', -- inherit from diagnostics mode
+          filter = {
+            any = {
+              buf = 0, -- current buffer
+              {
+                severity = vim.diagnostic.severity.ERROR, -- errors only
+                -- limit to files in the current project
+                function(item)
+                  return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+                end,
+              },
+            },
+          },
+        },
+      },
+    },
     keys = {
-      { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-      { '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
-      { '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xx', '<cmd>Trouble diagnostics_buffer<cr>', desc = 'Document Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics_project<cr>', desc = 'Workspace Diagnostics (Trouble)' },
+      { '<leader>xL', '<cmd>Trouble loclist<cr>', desc = 'Location List (Trouble)' },
+      { '<leader>xQ', '<cmd>Trouble quickfix<cr>', desc = 'Quickfix List (Trouble)' },
     },
   },
 
