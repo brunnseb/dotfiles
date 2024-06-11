@@ -2,9 +2,8 @@ return {
   -- better diagnostics list and others
   {
     'folke/trouble.nvim',
-    cmd = { 'TroubleToggle', 'Trouble' },
     opts = {
-      use_diagnostic_signs = true,
+      auto_preview = false,
       modes = {
         diagnostics_buffer = {
           mode = 'diagnostics', -- inherit from diagnostics mode
@@ -28,10 +27,10 @@ return {
       },
     },
     keys = {
-      { '<leader>xx', '<cmd>Trouble diagnostics_buffer<cr>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<cmd>Trouble diagnostics_project<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-      { '<leader>xL', '<cmd>Trouble loclist<cr>', desc = 'Location List (Trouble)' },
-      { '<leader>xQ', '<cmd>Trouble quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xx', '<cmd>Trouble diagnostics_buffer toggle focus=true<cr>', desc = 'Document Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics_project toggle focus=true<cr>', desc = 'Workspace Diagnostics (Trouble)' },
+      { '<leader>xQ', '<cmd>Trouble quickfix toggle focus=true<cr>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xf', '<cmd>Trouble fzf_files toggle focus=true<cr>', desc = 'Fzf List (Trouble)' },
     },
   },
 

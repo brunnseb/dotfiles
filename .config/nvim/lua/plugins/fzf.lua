@@ -5,6 +5,8 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       local fzf = require 'fzf-lua'
+      local actions = require('trouble.sources.fzf').actions
+
       fzf.setup {
         'telescope',
         defaults = {
@@ -13,6 +15,11 @@ return {
         winopts = {
           preview = {
             layout = 'flex',
+          },
+        },
+        actions = {
+          files = {
+            ['ctrl-t'] = actions.open,
           },
         },
       }

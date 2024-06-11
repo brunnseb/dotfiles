@@ -34,6 +34,9 @@ vim.keymap.set('n', '<leader>-', '<C-W>s', { desc = 'Split window below', remap 
 vim.keymap.set('n', '<leader>|', '<C-W>v', { desc = 'Split window right', remap = true })
 vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete window', remap = true })
 
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
   vim.keymap.set('n', '<leader>uh', function()
     local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint

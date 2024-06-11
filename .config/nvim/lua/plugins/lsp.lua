@@ -1,9 +1,9 @@
 return {
-  { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', opts = {} },
+  { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
   {
     'zeioth/garbage-day.nvim',
     dependencies = 'neovim/nvim-lspconfig',
-    event = 'VeryLazy',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {},
   },
   {
