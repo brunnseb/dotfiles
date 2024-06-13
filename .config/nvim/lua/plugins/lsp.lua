@@ -1,4 +1,11 @@
 return {
+  {
+    'smjonas/inc-rename.nvim',
+    opts = {},
+    keys = {
+      { '<leader>cr', ':IncRename ', desc = 'Rename' },
+    },
+  },
   { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
   {
     'zeioth/garbage-day.nvim',
@@ -16,8 +23,8 @@ return {
       { '<leader>cf', '<cmd>Lspsaga finder<CR>', desc = 'Finder' },
     },
     dependencies = {
-      'nvim-treesitter/nvim-treesitter', -- optional
-      'nvim-tree/nvim-web-devicons', -- optional
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
     },
   },
   {
@@ -31,23 +38,21 @@ return {
       { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
       {
         'folke/lazydev.nvim',
-        ft = 'lua', -- only load on lua files
+        ft = 'lua',
         opts = {
           library = {
-            -- See the configuration section for more details
-            -- Load luvit types when the `vim.uv` word is found
             { path = 'luvit-meta/library', words = { 'vim%.uv' } },
           },
         },
       },
-      { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
-      { -- optional completion source for require statements and module annotations
+      { 'Bilal2453/luvit-meta', lazy = true },
+      {
         'hrsh7th/nvim-cmp',
         opts = function(_, opts)
           opts.sources = opts.sources or {}
           table.insert(opts.sources, {
             name = 'lazydev',
-            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            group_index = 0,
           })
         end,
       },
@@ -86,7 +91,6 @@ return {
           map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
           map('gI', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
           map('gy', require('fzf-lua').lsp_typedefs, 'T[y]pe Definition')
-          -- map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
           map('<leader>ca', '<cmd>FzfLua lsp_code_actions previewer=false<CR>', '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -100,14 +104,6 @@ return {
             map(']c', '<cmd>TailwindNextClass<CR>', 'Go to next class')
           end
 
-          if client and client.name == 'typescript-tools' then
-            map('<leader>co', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
-            map('<leader>ci', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
-            map('<leader>cu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
-            map('<leader>cF', '<cmd>TSToolsRenameFile<CR>', 'Rename file')
-            map('<leader>cb', '<cmd>CodeActions toggle_arrow_function_braces<CR>', 'Refactor')
-          end
-
           if client and client.name == 'vtsls' then
             require('lspconfig.configs').vtsls = require('vtsls').lspconfig
 
@@ -117,28 +113,6 @@ return {
             map('<leader>cF', '<cmd>VtsExec rename_file<CR>', 'Rename file')
             map('<leader>cs', '<cmd>VtsExec source_actions<CR>', 'Source actions')
             map('<leader>cR', '<cmd>VtsExec restart_tsserver<CR>', 'Restart server')
-          end
-
-          if client and client.name == 'tsserver' then
-            local applyCodeAction = function(action)
-              vim.lsp.buf.code_action {
-                apply = true,
-                context = {
-                  only = { action },
-                  diagnostics = {},
-                },
-              }
-            end
-            map('<leader>co', function()
-              applyCodeAction 'source.organizeImports.ts'
-            end, 'Organize imports')
-            map('<leader>ci', function()
-              applyCodeAction 'source.addMissingImports.ts'
-            end, 'Add missing imports')
-            map('<leader>cu', function()
-              applyCodeAction 'source.removeUnused.ts'
-            end, 'Remove unused')
-            map('<leader>cb', '<cmd>CodeActions toggle_arrow_function_braces<CR>', 'Refactor')
           end
 
           if client and client.server_capabilities.documentHighlightProvider then
@@ -162,17 +136,6 @@ return {
           },
         },
       })
-
-      local inlay_hints_settings = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = 'literal',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      }
 
       local servers = {
         vtsls = {
@@ -210,20 +173,6 @@ return {
                 propertyDeclarationTypes = { enabled = true },
                 variableTypes = { enabled = false },
               },
-            },
-          },
-        },
-        tsserver = {
-          enabled = false,
-          settings = {
-            typescript = {
-              inlayHints = inlay_hints_settings,
-            },
-            javascript = {
-              inlayHints = inlay_hints_settings,
-            },
-            completions = {
-              completeFunctionCalls = true,
             },
           },
         },

@@ -159,9 +159,7 @@ return {
                       colors.dark_purple,
                       { lsp_progress = false, lsp_client_names = { truncate = 0.33, integrations = { null_ls = false, conform = false, lint = false } } }
                     ),
-                    -- lib.component.compiler_state(),
                     wrap_component(lib.component.nav, colors.teal),
-                    -- lib.component.mode { surround = { separator = 'right' } },
                   },
                 },
               }

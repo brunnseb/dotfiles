@@ -13,15 +13,13 @@ return {
   },
   {
     'L3MON4D3/LuaSnip',
-    -- install jsregexp. This is technically optional, but is required for 1:1 parity with VSCode snippets.
-    -- Read more about the impacts of the need for jsregexp with LuaSnip [here](https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#transformations)
     build = 'make install_jsregexp',
     dependencies = { { 'rafamadriz/friendly-snippets' } },
     event = 'InsertEnter',
     config = function()
       require('luasnip.loaders.from_vscode').load {
         paths = { '/home/brunnseb/.config/nvim/lua/snippets', '/home/brunnseb/.local/share/nvim/lazy/friendly-snippets/' },
-      } -- load snippets paths
+      }
     end,
   },
   {
@@ -33,17 +31,14 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'onsails/lspkind-nvim',
       'rcarriga/cmp-dap',
-      -- 'windwp/nvim-autopairs',
     },
     event = 'InsertEnter',
     version = false,
     opts = function()
-      -- ensure dependencies exist
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       local lspkind = require 'lspkind'
 
-      -- border opts
       local border_opts = {
         border = 'rounded',
         winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None',
@@ -56,12 +51,10 @@ return {
       })
 
       return {
-
         enabled = function()
           return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt' or require('cmp_dap').is_dap_buffer()
         end,
         preselect = cmp.PreselectMode.None,
-
         formatting = {
           fields = { 'kind', 'abbr', 'menu' },
           format = lspkind.cmp_format {
