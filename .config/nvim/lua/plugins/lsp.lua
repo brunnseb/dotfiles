@@ -7,12 +7,27 @@ return {
     opts = {},
   },
   {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup {}
+    end,
+    event = 'LspAttach',
+    keys = {
+      { '<leader>cf', '<cmd>Lspsaga finder<CR>', desc = 'Finder' },
+    },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter', -- optional
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+  },
+  {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'yioneko/nvim-vtsls',
       { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
       {
         'folke/lazydev.nvim',
@@ -48,11 +63,6 @@ return {
           only_current_line = true,
           highlight_whole_line = false,
         },
-        -- virtual_text = {
-        --   spacing = 4,
-        --   source = 'if_many',
-        --   prefix = '●',
-        -- },
         severity_sort = true,
         signs = {
           text = {
@@ -76,8 +86,8 @@ return {
           map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
           map('gI', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
           map('gy', require('fzf-lua').lsp_typedefs, 'T[y]pe Definition')
-          map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          -- map('<leader>cr', vim.lsp.buf.rename, '[R]ename')
+          map('<leader>ca', '<cmd>FzfLua lsp_code_actions previewer=false<CR>', '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
@@ -94,16 +104,27 @@ return {
             map('<leader>co', '<cmd>TSToolsOrganizeImports<CR>', 'Organize imports')
             map('<leader>ci', '<cmd>TSToolsAddMissingImports<CR>', 'Add missing imports')
             map('<leader>cu', '<cmd>TSToolsRemoveUnused<CR>', 'Remove unused')
-            map('<leader>cf', '<cmd>TSToolsRenameFile<CR>', 'Rename file')
+            map('<leader>cF', '<cmd>TSToolsRenameFile<CR>', 'Rename file')
             map('<leader>cb', '<cmd>CodeActions toggle_arrow_function_braces<CR>', 'Refactor')
           end
 
+          if client and client.name == 'vtsls' then
+            require('lspconfig.configs').vtsls = require('vtsls').lspconfig
+
+            map('<leader>co', '<cmd>VtsExec organize_imports<CR>', 'Organize imports')
+            map('<leader>ci', '<cmd>VtsExec add_missing_imports<CR>', 'Add missing imports')
+            map('<leader>cu', '<cmd>VtsExec remove_unused<CR>', 'Remove unused')
+            map('<leader>cF', '<cmd>VtsExec rename_file<CR>', 'Rename file')
+            map('<leader>cs', '<cmd>VtsExec source_actions<CR>', 'Source actions')
+            map('<leader>cR', '<cmd>VtsExec restart_tsserver<CR>', 'Restart server')
+          end
+
           if client and client.name == 'tsserver' then
-            local applyCodeAction = function(code_action)
+            local applyCodeAction = function(action)
               vim.lsp.buf.code_action {
                 apply = true,
                 context = {
-                  only = { code_action },
+                  only = { action },
                   diagnostics = {},
                 },
               }
@@ -154,7 +175,46 @@ return {
       }
 
       local servers = {
+        vtsls = {
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            'javascript',
+            'javascriptreact',
+            'javascript.jsx',
+            'typescript',
+            'typescriptreact',
+            'typescript.tsx',
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
         tsserver = {
+          enabled = false,
           settings = {
             typescript = {
               inlayHints = inlay_hints_settings,
@@ -238,9 +298,9 @@ return {
         'html',
         'yamlls',
         'eslint',
+        'js-debug-adapter',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
       require('mason-lspconfig').setup {
         handlers = {
           function(server_name)

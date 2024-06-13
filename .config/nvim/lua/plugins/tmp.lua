@@ -1,5 +1,12 @@
 return {
   {
+    'smjonas/inc-rename.nvim',
+    opts = {},
+    keys = {
+      { '<leader>cr', ':IncRename ', desc = 'Rename' },
+    },
+  },
+  {
     'abecodes/tabout.nvim',
     opts = {},
     dependencies = {

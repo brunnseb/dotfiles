@@ -34,9 +34,6 @@ return {
                 -- Flash
                 FlashLabel = { fg = colors.pink, bold = true },
                 FlashMatch = { italic = true },
-                -- Winbar
-                Winbar = { bg = colors.bg_1 },
-                WinbarNC = { bg = colors.bg_1 },
                 -- Multi Cursor
                 VM_Mono = { bg = colors.orange, fg = colors.black, italic = true },
                 VM_Extend = { bg = colors.orange, fg = colors.black, italic = true },
@@ -165,33 +162,6 @@ return {
                     -- lib.component.compiler_state(),
                     wrap_component(lib.component.nav, colors.teal),
                     -- lib.component.mode { surround = { separator = 'right' } },
-                  },
-                },
-                winbar = { -- UI breadcrumbs bar
-                  hl = 'Normal',
-                  init = function(self)
-                    self.bufnr = vim.api.nvim_get_current_buf()
-                  end,
-                  fallthrough = false,
-
-                  {
-                    condition = function()
-                      return lib.condition.buffer_matches({
-                        buftype = { 'nofile', 'prompt', 'help', 'quickfix', 'terminal' },
-                        filetype = { '^git.*', 'fugitive', 'aerial', 'OverseerList' },
-                      }, vim.api.nvim_get_current_buf())
-                    end,
-                  },
-                  {
-                    fallthrough = false,
-                    lib.component.winbar_when_inactive(),
-                    {
-                      lib.component.breadcrumbs { hl = { bg = colors.bg_statusline } },
-                      lib.component.fill {
-                        hl = { bg = colors.bg_statusline },
-                      },
-                      lib.component.aerial(),
-                    },
                   },
                 },
               }
