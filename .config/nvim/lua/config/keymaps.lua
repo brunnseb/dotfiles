@@ -1,8 +1,12 @@
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump { count = 1 }
+end, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump { count = -1 }
+end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic Error messages' })
 
 vim.keymap.set('n', '<leader>xo', '<cmd>cope<CR>', { desc = '[O]pen Quickfix' })
@@ -36,6 +40,10 @@ vim.keymap.set('n', '<leader>wd', '<C-W>c', { desc = 'Delete window', remap = tr
 
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
+
+vim.keymap.set('n', '<leader>bDt', '<cmd>windo diffthis<CR>', { desc = 'Diff this' })
+vim.keymap.set('n', '<leader>bDo', '<cmd>windo diffoff<CR>', { desc = 'Diff off' })
+vim.keymap.set('n', '<leader>bDs', '<cmd>windo diffsplit<CR>', { desc = 'Diff split' })
 
 if vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint then
   vim.keymap.set('n', '<leader>uh', function()

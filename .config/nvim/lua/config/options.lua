@@ -24,7 +24,7 @@ opt.mouse = 'a' -- Enable mouse mode
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.relativenumber = true -- Relative line numbers
+opt.relativenumber = false -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
 opt.shiftround = true -- Round indent
@@ -72,7 +72,6 @@ if vim.fn.has 'nvim-0.10' == 1 then
   opt.foldmethod = 'expr'
   opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
   opt.foldtext = ''
-  opt.fillchars = 'fold: '
 else
   opt.foldmethod = 'indent'
 end
@@ -88,7 +87,6 @@ vim.g.markdown_recommended_style = 0
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 opt.hlsearch = true
 
-opt.fillchars = { eob = ' ' }
 -- Vim Multi Cursor Highlights
 vim.g.VM_Mono_hl = 'MultiCursorMono'
 vim.g.VM_Extend_hl = 'MultiCursorExtend'
