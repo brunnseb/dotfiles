@@ -100,8 +100,8 @@ return {
           if client and client.name == 'tailwindcss' then
             map('<leader>uc', '<cmd>TailwindConcealToggle<CR>', 'Toggle tailwind conceal')
             map('<leader>ct', '<cmd>TailwindSort<CR>', 'Sort tailwind classes')
-            map('[c', '<cmd>TailwindPrevClass<CR>', 'Go to previous class')
-            map(']c', '<cmd>TailwindNextClass<CR>', 'Go to next class')
+            map('[C', '<cmd>TailwindPrevClass<CR>', 'Go to previous class')
+            map(']C', '<cmd>TailwindNextClass<CR>', 'Go to next class')
           end
 
           if client and client.name == 'vtsls' then

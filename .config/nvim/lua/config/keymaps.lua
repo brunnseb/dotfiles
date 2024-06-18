@@ -25,6 +25,8 @@ vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Sav
 -- Disable macro recording and use nvim-recorder instead
 vim.keymap.set({ 'x', 'n', 's' }, 'q', '<Nop>')
 
+vim.keymap.set({ 't' }, '<esc>', '<C-\\><C-n>')
+
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-Left>', '<cmd>wincmd h<CR>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-Right>', '<cmd>wincmd l<CR>', { desc = 'Move focus to the right window' })

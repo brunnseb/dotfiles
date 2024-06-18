@@ -1,12 +1,16 @@
 return {
   { -- The task runner we use
     'stevearc/overseer.nvim',
+    dependencies = { { 'akinsho/toggleterm.nvim', version = '*', config = true } },
     opts = {
+      strategy = {
+        'toggleterm',
+        use_shell = true,
+        auto_scroll = true,
+        open_on_start = false,
+      },
       task_list = {
-        direction = 'bottom',
-        min_height = 25,
-        max_height = 25,
-        default_detail = 1,
+        direction = 'left',
       },
     },
     keys = {

@@ -150,7 +150,7 @@ return {
               end
             end,
             webRoot = '${workspaceFolder}',
-            runtimeExecutable = '/usr/bin/chromium',
+            runtimeExecutable = '/urs/bin/brave',
             runtimeArgs = { '--remote-debugging-port=9222' },
             sourceMaps = true,
             skipFiles = {

@@ -127,6 +127,8 @@ return {
           end,
         },
         { title = 'Neotest Output', ft = 'neotest-output-panel', size = { height = 15 } },
+        { title = 'Overseer', ft = 'OverseerList' },
+        { ft = 'toggleterm' },
       },
       left = {
         {
