@@ -18,7 +18,7 @@ vim.tbl_add_reverse_lookup = function(tbl)
 end
 
 require('lazy').setup {
-  { import = 'plugins' },
+  { import = 'plugins', change_detection = false },
 }
 
 require 'config.keymaps'

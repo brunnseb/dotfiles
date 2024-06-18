@@ -43,6 +43,13 @@ return {
       routes = {
         {
           filter = {
+            event = 'notify',
+            find = 'Reloading',
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
             event = 'msg_show',
             any = {
               { find = '%d+L, %d+B' },
@@ -72,7 +79,7 @@ return {
       },
     },
   },
-  { 'MunifTanjim/nui.nvim', lazy = true },
+  { 'MunifTanjim/nui.nvim', version = false, lazy = true },
   {
     'nvim-tree/nvim-web-devicons',
     lazy = true,

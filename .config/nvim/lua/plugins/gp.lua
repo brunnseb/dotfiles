@@ -44,13 +44,14 @@ return {
     },
     config = function()
       require('gp').setup {
-        openai_api_endpoint = 'http://localhost:11434/v1/chat/completions',
+        openai_api_endpoint = 'http://media:7869/v1/chat/completions',
         openai_api_key = 'dummy',
-        model = {
-          -- model = 'mistral:7b-instruct-v0.2-q4_K_M',
-          model = 'llama3:8b-instruct-q4_K_M',
-          num_ctx = 8192,
-        },
+        -- model = {
+        --   -- model = 'mistral:7b-instruct-v0.2-q4_K_M',
+        --   model = 'llama3:8b-instruct-q4_K_M',
+        --   num_ctx = 8192,
+        -- },
+        chat_topic_gen_model = 'llama3:8b-instruct-q4_K_M',
         system_prompt = 'You are a general AI assistant.',
         hooks = {
           CodeReview = function(gp, params)
