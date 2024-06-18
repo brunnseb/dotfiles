@@ -1,5 +1,36 @@
 return {
   {
+    'huynle/ogpt.nvim',
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>an',
+        function()
+          -- Hack until https://github.com/MunifTanjim/nui.nvim/pull/367 gets resolved
+          require('lazy').reload { plugins = { 'ogpt.nvim' } }
+          vim.cmd [[OGPT]]
+        end,
+        desc = 'New chat',
+      },
+    },
+    opts = {
+      default_provider = 'ollama',
+      edgy = true, -- enable this!
+      single_window = false, -- set this to true if you want only one OGPT window to appear at a time
+      providers = {
+        ollama = {
+          api_host = 'http://media:7869',
+          model = 'llama3:8b-instruct-q4_K_M',
+        },
+      },
+    },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+  },
+  {
     'robitx/gp.nvim',
     cmd = { 'GpChatNew', 'GpChatToggle', 'GpImplement', 'GpDocument', 'GpCodeReview' },
     keys = {
@@ -22,24 +53,9 @@ return {
         desc = 'Implement',
       },
       {
-        '<leader>at',
-        '<cmd>GpChatToggle<CR>',
-        desc = 'Toggle Chat',
-      },
-      {
-        '<leader>aq',
-        '<cmd>GpChatDelete<CR>',
-        desc = 'Delete Chat',
-      },
-      {
         '<leader>as',
         '<cmd>GpStop<CR>',
         desc = 'Stop output',
-      },
-      {
-        '<leader>an',
-        '<cmd>GpChatNew<CR>',
-        desc = 'New Chat',
       },
     },
     config = function()
@@ -59,7 +75,7 @@ return {
               .. '```{{filetype}}\n{{selection}}\n```\n\n'
               .. 'Please analyze for code smells and suggest improvements.'
             local agent = gp.get_chat_agent()
-            gp.Prompt(params, gp.Target.enew 'markdown', nil, 'mistral:7b-instruct-v0.2-q4_K_M', template, agent.system_prompt)
+            gp.Prompt(params, gp.Target.enew 'markdown', nil, 'llama3:8b-instruct-q4_K_M', template, agent.system_prompt)
           end,
           -- GpImplement rewrites the provided selection/range based on comments in it
           Document = function(gp, params)

@@ -1,5 +1,36 @@
 return {
   {
+    'huynle/ogpt.nvim',
+    event = 'VeryLazy',
+    keys = {
+      {
+        '<leader>an',
+        function()
+          -- Hack until https://github.com/MunifTanjim/nui.nvim/pull/367 gets resolved
+          require('lazy').reload { plugins = { 'ogpt.nvim' } }
+          vim.cmd [[OGPT]]
+        end,
+        desc = 'New chat',
+      },
+    },
+    opts = {
+      default_provider = 'ollama',
+      edgy = true, -- enable this!
+      single_window = false, -- set this to true if you want only one OGPT window to appear at a time
+      providers = {
+        ollama = {
+          api_host = 'http://media:7869',
+          model = 'llama3:8b-instruct-q4_K_M',
+        },
+      },
+    },
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+    },
+  },
+  {
     'abecodes/tabout.nvim',
     opts = {},
     dependencies = {
