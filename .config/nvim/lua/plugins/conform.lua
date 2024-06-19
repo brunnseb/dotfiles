@@ -6,7 +6,7 @@ return {
       notify_on_error = true,
       format_on_save = {
         timeout_ms = 500,
-        lsp_fallback = false,
+        lsp_format = 'fallback',
       },
       formatters_by_ft = {
         lua = { 'stylua' },

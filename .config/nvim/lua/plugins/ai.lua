@@ -1,7 +1,6 @@
 return {
   {
     'huynle/ogpt.nvim',
-    event = 'VeryLazy',
     keys = {
       {
         '<leader>an',

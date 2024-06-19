@@ -192,7 +192,7 @@ return {
         eslint = {
           settings = {
             workingDirectories = { mode = 'auto' },
-            format = 'false',
+            format = false,
           },
         },
         lua_ls = {
