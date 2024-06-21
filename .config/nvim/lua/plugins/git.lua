@@ -13,9 +13,6 @@ return {
         untracked = { text = '▎' },
       },
       current_line_blame = true,
-      yadm = {
-        enable = true,
-      },
     },
     config = function(_, opts)
       require('gitsigns').setup(vim.tbl_deep_extend('force', opts, {
@@ -72,7 +69,6 @@ return {
   },
   {
     'NeogitOrg/neogit',
-    commit = 'dab4e50be18eab8f337b908cd871ab5f4dd031d3',
     keys = { { '<leader>gg', '<cmd>Neogit<CR>', desc = 'Neogit' } },
     dependencies = {
       'nvim-lua/plenary.nvim', -- required
