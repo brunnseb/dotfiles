@@ -24,26 +24,26 @@ return {
         },
       }
 
-      fzf.register_ui_select(function(_, items)
-        return {
-          winopts_fn = function()
-            local maxHeight = math.floor(vim.o.lines * 0.2)
-
-            local numberOfItems = 0
-            for _ in pairs(items) do
-              numberOfItems = numberOfItems + 1
-            end
-
-            local height = numberOfItems + 3 -- Add 3 rows for the prompt and top padding
-
-            if numberOfItems > 10 then
-              height = maxHeight
-            end
-
-            return { split = 'belowright new | resize ' .. tostring(height) }
-          end,
-        }
-      end)
+      -- fzf.register_ui_select(function(_, items)
+      --   return {
+      --     winopts_fn = function()
+      --       local maxHeight = math.floor(vim.o.lines * 0.2)
+      --
+      --       local numberOfItems = 0
+      --       for _ in pairs(items) do
+      --         numberOfItems = numberOfItems + 1
+      --       end
+      --
+      --       local height = numberOfItems + 3 -- Add 3 rows for the prompt and top padding
+      --
+      --       if numberOfItems > 10 then
+      --         height = maxHeight
+      --       end
+      --
+      --       return { split = 'belowright new | resize ' .. tostring(height) }
+      --     end,
+      --   }
+      -- end)
 
       vim.keymap.set('n', '<leader>sh', fzf.helptags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = '[S]earch [K]eymaps' })
