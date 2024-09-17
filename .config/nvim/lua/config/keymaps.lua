@@ -4,10 +4,18 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump { count = 1 }
+  if vim.fn.has 'nvim-0.11' == 1 then
+    vim.diagnostic.jump { count = 1 }
+  else
+    vim.diagnostic.goto_next()
+  end
 end, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump { count = -1 }
+  if vim.fn.has 'nvim-0.11' == 1 then
+    vim.diagnostic.jump { count = -1 }
+  else
+    vim.diagnostic.goto_prev()
+  end
 end, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic Error messages' })
 

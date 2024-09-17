@@ -1,2 +1,3 @@
 .config/nvim/plugin/
 .config/nvim/cd-project.nvim.json
+.aider*

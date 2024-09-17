@@ -1,16 +1,16 @@
 return {
-  {
-    'luckasRanarison/tailwind-tools.nvim',
-    event = 'InsertEnter',
-    opts = {
-      document_color = {
-        inline_symbol = '⏺ ',
-      },
-      conceal = {
-        enabled = true,
-      },
-    },
-  },
+  -- {
+  --   'luckasRanarison/tailwind-tools.nvim',
+  --   event = 'InsertEnter',
+  --   opts = {
+  --     document_color = {
+  --       inline_symbol = '⏺ ',
+  --     },
+  --     conceal = {
+  --       enabled = true,
+  --     },
+  --   },
+  -- },
   {
     'L3MON4D3/LuaSnip',
     build = 'make install_jsregexp',
@@ -60,7 +60,7 @@ return {
           format = lspkind.cmp_format {
             mode = 'symbol_text',
             preset = 'codicons',
-            before = require('tailwind-tools.cmp').lspkind_format,
+            -- before = require('tailwind-tools.cmp').lspkind_format,
           },
         },
         snippet = {

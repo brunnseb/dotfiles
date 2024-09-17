@@ -1,7 +1,15 @@
 return {
-  { 'famiu/bufdelete.nvim', cmd = { 'Bdelete', 'Bwipeout' }, keys = {
-    { '<leader>bd', '<cmd>Bdelete<CR>', desc = 'Delete' },
-  } },
+  {
+    'jghauser/mkdir.nvim',
+  },
+  {
+    'famiu/bufdelete.nvim',
+    cmd = { 'Bdelete', 'Bwipeout' },
+    keys = {
+      { '<leader>bd', '<cmd>Bdelete<CR>', desc = 'Delete' },
+      { '<leader>bo', '<cmd>%bdelete | e # | normal `"<CR>', desc = 'Delete other' },
+    },
+  },
   {
     'gbprod/cutlass.nvim',
     opts = { cut_key = 'x' },

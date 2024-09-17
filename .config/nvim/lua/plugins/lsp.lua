@@ -3,16 +3,17 @@ return {
     'smjonas/inc-rename.nvim',
     opts = {},
     keys = {
-      { '<leader>cr', ':IncRename ', desc = 'Rename' },
+      {
+        '<leader>cr',
+        function()
+          return ':IncRename ' .. vim.fn.expand '<cword>'
+        end,
+        desc = 'Rename',
+        expr = true,
+      },
     },
   },
   { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
-  {
-    'zeioth/garbage-day.nvim',
-    dependencies = 'neovim/nvim-lspconfig',
-    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
-    opts = {},
-  },
   {
     'nvimdev/lspsaga.nvim',
     config = function()
@@ -35,7 +36,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'yioneko/nvim-vtsls',
-      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = false },
+      { 'folke/neoconf.nvim', cmd = 'Neoconf', config = true },
       {
         'folke/lazydev.nvim',
         ft = 'lua',
@@ -58,7 +59,7 @@ return {
       },
     },
     config = function()
-      require('neoconf').setup()
+      -- require('neoconf').setup()
 
       vim.diagnostic.config {
         underline = true,
@@ -87,10 +88,10 @@ return {
             vim.keymap.set(m, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+          map('gd', '<cmd>Lspsaga goto_definition<CR>', '[G]oto [D]efinition')
           map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
           map('gI', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
-          map('gy', require('fzf-lua').lsp_typedefs, 'T[y]pe Definition')
+          map('gy', '<cmd>Lspsaga goto_type_definition<CR>', 'T[y]pe Definition')
           map('<leader>ca', '<cmd>FzfLua lsp_code_actions previewer=false<CR>', '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')

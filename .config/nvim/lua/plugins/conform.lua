@@ -5,15 +5,15 @@ return {
     opts = {
       notify_on_error = true,
       format_on_save = {
-        timeout_ms = 500,
+        timeout_ms = 1000,
         lsp_format = 'fallback',
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescriptreact = { 'eslint_d' },
-        typescript = { 'eslint_d' },
-        javascriptreact = { 'eslint_d' },
-        javascript = { 'eslint_d' },
+        typescriptreact = { 'prettierd' },
+        typescript = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        javascript = { 'prettierd' },
         scss = { 'prettierd' },
         css = { 'prettierd' },
         json = { 'prettierd' },

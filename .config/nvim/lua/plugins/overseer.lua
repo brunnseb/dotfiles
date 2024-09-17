@@ -5,7 +5,7 @@ return {
     opts = {
       strategy = {
         'toggleterm',
-        use_shell = true,
+        use_shell = false,
         auto_scroll = true,
         open_on_start = false,
       },
@@ -43,9 +43,12 @@ return {
           '/home/brunnseb/Development/SUISA/cockpit/',
           '/home/brunnseb/Development/SUISA/cockpit/libs/cockpit-core/',
           '/home/brunnseb/Development/SUISA/cockpit/libs/cockpit-widgets',
+          '/home/brunnseb/Development/SUISA/ipi',
+          '/home/brunnseb/Development/SUISA/ipi/libs/ipi-core',
+          '/home/brunnseb/Development/SUISA/ipi/libs/ipi-master-domain',
         },
         module = '^npm$',
-      }, function(task_defn, util)
+      }, function(task_defn, _)
         task_defn.cmd = 'pnpm'
       end)
       -- overseer.add_template_hook({

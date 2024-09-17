@@ -38,6 +38,7 @@ config = {
 	default_prog = { "/usr/bin/fish", "-l" },
 	color_scheme = "Tokyo Night Moon",
 	font = wezterm.font_with_fallback({ { family = "MonoLisa", weight = "Medium" }, "Symbola" }),
+	line_height = 1.1,
 	inactive_pane_hsb = {
 		saturation = 0.8,
 		brightness = 0.7,

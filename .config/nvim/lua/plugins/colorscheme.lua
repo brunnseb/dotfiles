@@ -83,6 +83,12 @@ return {
                 DiffAddText = { bg = '#345565' },
                 -- Neogit
                 NeogitChangeDeleted = { fg = colors.red },
+                NeogitDiffDelete = { fg = colors.red },
+                NeogitDiffDeleteHighlight = { fg = colors.red },
+                NeogitDiffDeleteCursor = { fg = colors.red },
+                NeogitDiffDeletions = { fg = colors.red },
+                NeogitGraphRed = { fg = colors.red },
+                NeogitGraphBoldRed = { fg = colors.red, bold = true },
                 NeogitChangeModified = { fg = colors.orange },
               }
             end,

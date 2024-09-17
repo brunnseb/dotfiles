@@ -6,10 +6,10 @@ return {
       'nvim-treesitter/nvim-treesitter', --
       'nvim-lua/plenary.nvim',
       'antoinemadec/FixCursorHold.nvim',
-      'marilari88/neotest-vitest',
+      { 'marilari88/neotest-vitest' },
     },
     keys = {
-      { '<leader>tt', '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', desc = 'Run test file' },
+      { '<leader>tt', '<cmd>lua require("neotest").run.run(vim.fn.expand("%:p"))<CR>', desc = 'Run test file' },
       { '<leader>tl', '<cmd>lua require("neotest").run.run()<CR>', desc = 'Run last test' },
       { '<leader>ts', '<cmd>lua require("neotest").summary.toggle()<CR>', desc = 'Open test summary' },
       { '<leader>to', '<cmd>lua require("neotest").output_panel.toggle()<CR>', desc = 'Open output panel' },
@@ -18,16 +18,16 @@ return {
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('neotest').setup {
-        consumers = {
-          overseer = require 'neotest.consumers.overseer',
-        },
+        -- consumers = {
+        --   -- overseer = require 'neotest.consumers.overseer',
+        -- },
         adapters = {
           require 'neotest-vitest' {
+            -- -- Filter directories when searching for test files. Useful in large projects (see Filter directories notes).
+            filter_dir = function(name, rel_path, root)
+              return name ~= 'node_modules' and name ~= 'packages' and name ~= 'dist' and name ~= 'build'
+            end,
             is_test_file = function(file_path)
-              if string.match(file_path, 'my-project') then
-                return string.match(file_path, '/src/')
-              end
-
               return true
             end,
           },

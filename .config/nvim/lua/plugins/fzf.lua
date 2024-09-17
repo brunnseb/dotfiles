@@ -55,7 +55,7 @@ return {
       vim.keymap.set('n', '<leader>s.', fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>su', '<cmd>Telescope undo<CR>', { desc = '[S]earch [U]ndotree' })
       vim.keymap.set('n', '<leader><leader>', function()
-        fzf.buffers { winopts = { split = 'belowright new | resize 10', preview = { hidden = 'hidden' } } }
+        fzf.buffers { winopts = { height = 0.3, preview = { hidden = 'hidden' } } }
       end, { desc = '[ ] Find existing buffers' })
 
       -- Shortcut for searching your neovim configuration files
