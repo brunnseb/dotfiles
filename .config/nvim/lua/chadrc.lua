@@ -60,7 +60,7 @@ local options = {
     },
 
     buttons = {
-      { txt = '  Find File', keys = 'ff', cmd = 'FzfLua find_files' },
+      { txt = '  Find File', keys = 'ff', cmd = 'FzfLua files' },
       { txt = '  Recent Files', keys = 'fo', cmd = 'FzfLua oldfiles' },
       { txt = '󰈭  Find Word', keys = 'fw', cmd = 'FzfLua live_grep' },
       { txt = '󱥚  Themes', keys = 'th', cmd = ":lua require('nvchad.themes').open()" },

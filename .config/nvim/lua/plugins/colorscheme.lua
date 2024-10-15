@@ -5,6 +5,9 @@ return {
     config = function()
       require 'nvchad'
     end,
+    keys = {
+      { '<leader>cr', '<cmd>lua require "nvchad.lsp.renamer"()<CR>', desc = '[R]ename' },
+    },
   },
   {
     'nvchad/base46',

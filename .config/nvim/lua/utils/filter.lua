@@ -1,15 +1,6 @@
 local M = {}
 
-M.filterReactDTS = function(value)
-  -- Depending on typescript version either uri or targetUri is returned
-  if value.uri then
-    return string.match(value.uri, '%.d.ts') == nil
-  elseif value.targetUri then
-    return string.match(value.targetUri, '%.d.ts') == nil
-  end
-end
-
-M.filter = function(arr, fn)
+local function filter(arr, fn)
   if type(arr) ~= 'table' then
     return arr
   end
@@ -22,6 +13,20 @@ M.filter = function(arr, fn)
   end
 
   return filtered
+end
+
+local function filterReactDTS(value)
+  return string.match(value.filename, 'react/index.d.ts') == nil
+end
+
+M.on_list = function(options)
+  local items = options.items
+  if #items > 1 then
+    items = filter(items, filterReactDTS)
+  end
+
+  vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
+  vim.api.nvim_command 'cfirst' -- or maybe you want 'copen' instead of 'cfirst'
 end
 
 return M
