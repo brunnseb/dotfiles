@@ -1,21 +1,21 @@
 {
-  "reactFunctionComponent": {
-    "prefix": "fc",
-    "body": "import { FC } from 'react';\n\nexport const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
-    "description": "Creates a React functional component without props"
-  },
   "reactFunctionComponentWithProps": {
+    "description": "Creates a React functional component with props",
     "prefix": "fcp",
-    "body": "import { FC } from 'react';\n\ninterface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props {\n${1/([^,]+)([,\\s]*|)/$1:any;\n/g}\n}\n\n export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props> = ({$1}) => {\n\treturn (\n\t\t<div>${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}$0</div>\n\t)\n}",
-    "description": "Creates a React functional component with props"
+    "body": "import { FC } from 'react';\n\ninterface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props {\n${1/([^,]+)([,\\s]*|)/$1:any;\n/g}\n}\n\n export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}Props> = ({$1}) => {\n\treturn (\n\t\t<div>${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}$0</div>\n\t)\n}"
+  },
+  "reactFunctionComponent": {
+    "description": "Creates a React functional component without props",
+    "prefix": "fc",
+    "body": "import { FC } from 'react';\n\nexport const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}: FC = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}"
   },
   "ControlledInputField": {
     "prefix": "ci",
     "body": "<Controlled${1:InputField} control={control} name='$2' label='${3:Label}'/>"
   },
   "useStateWithType": {
+    "description": "use state hook with type",
     "prefix": "ust",
-    "body": "const [${1:setterName}, set${1/(.*)/${1:/capitalize}/g}] = useState<${3:type}>(${2:defVal})$0",
-    "description": "use state hook with type"
+    "body": "const [${1:setterName}, set${1/(.*)/${1:/capitalize}/g}] = useState<${3:type}>(${2:defVal})$0"
   }
 }

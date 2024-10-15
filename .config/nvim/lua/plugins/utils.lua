@@ -40,7 +40,11 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'L3MON4D3/LuaSnip',
-      'hrsh7th/nvim-cmp',
+
+      {
+        'xzbdmw/nvim-cmp',
+        branch = 'dynamic', -- Wait until https://github.com/hrsh7th/nvim-cmp/pull/1955 is merged
+      },
     },
     event = 'InsertCharPre',
   },
@@ -81,7 +85,7 @@ return {
   {
     'rachartier/tiny-devicons-auto-colors.nvim',
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
+      { 'nvim-tree/nvim-web-devicons', commit = '9154484705968658e9aab2b894d1b2a64bf9f83d' },
     },
     event = 'VeryLazy',
     config = function()

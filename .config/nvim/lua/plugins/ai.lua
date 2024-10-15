@@ -1,146 +1,370 @@
 return {
-  -- {
-  --   -- 'huynle/ogpt.nvim',
-  --   dir = '/home/brunnseb/Development/ogpt.nvim/',
-  --   keys = {
-  --     {
-  --       '<leader>an',
-  --       function()
-  --         -- Hack until https://github.com/MunifTanjim/nui.nvim/pull/367 gets resolved
-  --         require('lazy').reload { plugins = { 'ogpt.nvim' } }
-  --         vim.cmd [[OGPT]]
-  --       end,
-  --       desc = 'New chat',
-  --     },
-  --   },
-  --   opts = {
-  --     default_provider = 'ollama',
-  --     edgy = true, -- enable this!
-  --     single_window = false, -- set this to true if you want only one OGPT window to appear at a time
-  --     providers = {
-  --       ollama = {
-  --         api_host = 'http://media:7869',
-  --         model = 'llama3.1:8b-instruct-q4_K_S',
-  --         -- model = 'codeqwen:7b-chat-v1.5-q4_1',
-  --         api_chat_params = {
-  --           temperature = 1.2,
-  --           top_p = 0.9,
-  --         },
-  --       },
-  --     },
-  --     -- chat = { system = 'Use the pattern ```{filetype}{code}``` for nested code snippets' },
-  --     chat = { system = 'Always answer with I do not know!' },
-  --     actions = {
-  --
-  --       doc = {
-  --         -- type = "popup", -- could be a string or table to override
-  --         type = 'completions',
-  --         -- strategy = 'prepend',
-  --         -- provider = 'ollama', -- default to "default_provider" if not provided
-  --         -- model = 'llama3:8b-instruct-q4_K_M', -- default to "provider.<default_provider>.model" if not provided
-  --         template = 'Write a concise docstring using the {{{filetype}}} programming language:\n\n```{{{input}}}```',
-  --         system = 'You are a helpful senior software engineer, given a code snippet please write a concise and short docstring using best practices in the given programming language. Return ONLY the docstring.',
-  --         params = {
-  --           temperature = 0.3,
-  --         },
-  --       },
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     vim.treesitter.language.register('markdown', 'ogpt-window')
-  --
-  --     require('ogpt').setup(opts)
-  --   end,
-  --   dependencies = {
-  --     'MunifTanjim/nui.nvim',
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-telescope/telescope.nvim',
-  --   },
-  -- },
-  -- {
-  --   'robitx/gp.nvim',
-  --   cmd = { 'GpChatNew', 'GpChatToggle', 'GpImplement', 'GpDocument', 'GpCodeReview' },
-  --   keys = {
-  --     {
-  --       '<leader>ad',
-  --       ":<C-u>'<,'>GpDocument<CR>",
-  --       mode = 'v',
-  --       desc = 'Write docstring',
-  --     },
-  --     {
-  --       '<leader>at',
-  --       ":<C-u>'<,'>GpEnew write tests using vitest and react testing library while importing all needed functions from vitest<CR>",
-  --       mode = 'v',
-  --       desc = 'Write tests into new file',
-  --     },
-  --     {
-  --       '<leader>ai',
-  --       ":<C-u>'<,'>GpImplement<CR>",
-  --       mode = 'v',
-  --       desc = 'Implement',
-  --     },
-  --     {
-  --       '<leader>as',
-  --       '<cmd>GpStop<CR>',
-  --       desc = 'Stop output',
-  --     },
-  --   },
-  --   config = function()
-  --     require('gp').setup {
-  --       openai_api_endpoint = 'http://media:7869/v1/chat/completions',
-  --       openai_api_key = 'dummy',
-  --       -- model = {
-  --       --   -- model = 'mistral:7b-instruct-v0.2-q4_K_M',
-  --       --   model = 'llama3:8b-instruct-q4_K_M',
-  --       --   num_ctx = 8192,
-  --       -- },
-  --       chat_topic_gen_model = 'codeqwen:7b-chat-v1.5-q4_1',
-  --       system_prompt = 'You are a general AI assistant.',
-  --       hooks = {
-  --         CodeReview = function(gp, params)
-  --           local template = 'I have the following code from {{filename}}:\n\n'
-  --             .. '```{{filetype}}\n{{selection}}\n```\n\n'
-  --             .. 'Please analyze for code smells and suggest improvements.'
-  --           local agent = gp.get_chat_agent()
-  --           gp.Prompt(params, gp.Target.enew 'markdown', nil, 'codeqwen:7b-chat-v1.5-q4_1', template, agent.system_prompt)
-  --         end,
-  --         -- GpImplement rewrites the provided selection/range based on comments in it
-  --         Document = function(gp, params)
-  --           local template = 'In the file {{filename}} with type {{filetype}} we have the following code:\n\n'
-  --             .. '{{selection}}\n\n'
-  --             .. 'Please write a correct, concise yet short docstring using best practices for the given language.\n'
-  --             .. 'ONLY return the docstring, no other code or explanations and also do not include the provided code snippet in the response'
-  --             .. 'Take the following example:\n'
-  --             .. 'const Component: FC = ()=> <div>Component</div>\n'
-  --             .. 'This should result in: \n'
-  --             .. '/*\n'
-  --             .. '* A component which returns a div with the text Component\n'
-  --             .. '*/\n'
-  --             .. 'and not:\n'
-  --             .. '/*\n'
-  --             .. '* A component which returns a div with the text Component\n'
-  --             .. '*/\n'
-  --             .. 'const Component: FC = ()=> <div>// code here</div>\n'
-  --
-  --           gp.Prompt(
-  --             params,
-  --             gp.Target.prepend,
-  --             nil, -- command will run directly without any prompting for user input
-  --             { model = 'codeqwen:7b-chat-v1.5-q4_1', temperature = 1.2, top = 0.99 },
-  --             template,
-  --             'You are an AI working as a code editor providing answers.\n\n'
-  --               .. 'Use 4 SPACES FOR INDENTATION.\n'
-  --               .. 'Please AVOID COMMENTARY OUTSIDE OF THE SNIPPET RESPONSE.\n'
-  --               .. 'START AND END YOUR ANSWER WITH:\n\n'
-  --           )
-  --         end,
-  --       },
-  --     }
-  --
-  --     -- or setup with your own config (see Install > Configuration in Readme)
-  --     -- require("gp").setup(config)
-  --
-  --     -- shortcuts might be setup here (see Usage > Shortcuts in Readme)
-  --   end,
-  -- },
+  {
+    'milanglacier/minuet-ai.nvim',
+    keys = { { '<A-y>', '<cmd>lua require("minuet").make_cmp_map()<CR>' } },
+    config = function()
+      require('minuet').setup {
+        enabled = false,
+        notify = 'verbose',
+        provider = 'openai_fim_compatible',
+        request_timeout = 20000,
+        provider_options = {
+          -- openai_fim_compatible = {
+          --   model = 'deepseek-coder',
+          --   end_point = 'https://api.deepseek.com/beta/completions',
+          --   api_key = 'DEEPSEEK_API_KEY',
+          --   name = 'Deepseek',
+          --   stream = true,
+          --   optional = {
+          --     max_tokens = 256,
+          --     stop = { '\n\n' },
+          --   },
+          -- },
+          openai_fim_compatible = {
+            name = 'Supermaven',
+            model = 'deepseek-coder-v2:16b-lite-instruct-q5_0',
+            end_point = 'http://192.168.0.191:7869/v1/completions',
+            api_key = 'OLLAMA_API_KEY',
+            stream = true,
+            -- optional = {
+            --   max_tokens = 256,
+            --   stop = { '\n\n' },
+            -- },
+          },
+          codestral = {
+            name = 'Supermaven',
+            model = 'codestral-latest',
+            end_point = 'https://codestral.mistral.ai/v1/fim/completions',
+            api_key = 'CODESTRAL_API_KEY',
+            stream = true,
+            optional = {
+              max_tokens = 256,
+              stop = { '\n\n' },
+            },
+          },
+        },
+      }
+    end,
+  },
+  {
+    'jondkinney/aider.nvim',
+    opts = {
+      default_bindings = false,
+    },
+    keys = {
+      { '<leader>an', '<cmd>AiderOpen --no-auto-commits --model=deepseek/deepseek-coder <CR>', desc = 'aider open' },
+      -- { '<leader>an', '<cmd>AiderOpen --no-auto-commits --model=codestral/codestral-latest<CR>', desc = 'aider open' },
+      -- { '<leader>an', '<cmd>AiderOpen --no-auto-commits --model=ollama/llama3.1:8b<CR>', desc = 'aider open' },
+    },
+  },
+  {
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
+    lazy = false,
+    opts = {
+      system_prompt = [[
+       You are an expert in TypeScript, Node.js, React Router v6, React, Shadcn UI, Radix UI, and Tailwind.
+
+       Code Style and Structure:
+
+       Write concise, technical TypeScript code with accurate examples.
+       Use functional and declarative programming patterns; avoid classes.
+       Prefer iteration and modularization over code duplication.
+       Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+       Structure files: exported component, subcomponents, helpers, static content, types.
+
+
+       Naming Conventions
+
+       Use lowercase with dashes for directories (e.g., components/auth-wizard).
+       Favor named exports for components.
+
+
+       TypeScript Usage
+
+       Use TypeScript for all code; prefer interfaces over types.
+       Avoid enums when few options; use union string type instead
+       Use functional components with TypeScript interfaces (const preferred)
+
+
+       Syntax and Formatting
+
+       Use the "function" keyword for pure functions.
+       Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+       Use declarative TSX.
+       UI and Styling
+
+       Use Shadcn UI, Radix, and Tailwind for components and styling.
+       Implement responsive design with Tailwind CSS.
+
+
+       Performance Optimization
+
+       Minimize 'useEffect', and 'setState'.
+
+      ]],
+      provider = 'ollama',
+      auto_suggestions_provider = 'codestral_suggest',
+      behaviour = {
+        -- auto_suggestions = true,
+        -- auto_set_keymaps = false,
+        -- auto_apply_diff_after_generation = true,
+      },
+      mappings = {
+        suggestion = {
+          accept = '<A-e>',
+          next = '<A-o>',
+          prev = '<A-i>',
+          dismiss = '<A-.>',
+        },
+      },
+      claude = {
+        endpoint = 'https://api.anthropic.com',
+        model = 'claude-3-haiku-20240307',
+        temperature = 0,
+        max_tokens = 4096,
+      },
+      vendors = {
+        ollama_suggest_test = {
+          ['local'] = true,
+          endpoint = '192.168.0.191:7869/api/generate',
+          model = 'starcoder2:3b',
+          -- model = 'qwen2.5-coder:7b-instruct-q3_K_S',
+          parse_curl_args = function(opts, code_opts)
+            local startIdx = string.find(code_opts.user_prompts[1], 'L1')
+            local endIdx = string.find(code_opts.user_prompts[1], '```', startIdx)
+
+            local questionIdx = string.find(code_opts.user_prompts[2], 'QUESTION:')
+            if questionIdx and startIdx and endIdx then
+              local code = string.sub(code_opts.user_prompts[1], startIdx, endIdx - 1)
+              local question = string.sub(code_opts.user_prompts[2], questionIdx + 9)
+
+              local questionTable = vim.fn.json_decode(question)
+              local promptIdx = string.find(code, 'L' .. questionTable.position.row) + questionTable.position.col
+              if promptIdx then
+                local prompt = string.sub(code, 1, promptIdx)
+                local suffix = string.sub(code, promptIdx)
+
+                local body = {
+                  model = opts.model,
+                  prompt = prompt,
+                  suffix = suffix,
+                  -- messages = require('avante.providers').copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                  max_tokens = 8192,
+                  temperature = 0,
+                  stream = true,
+                }
+                print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:149 -> body: ' .. vim.inspect(body))
+
+                return {
+                  url = opts.endpoint,
+                  headers = {
+                    ['Accept'] = 'application/json',
+                    ['Content-Type'] = 'application/json',
+                  },
+                  body = body,
+                }
+              end
+            end
+
+            -- TODO: look at https://github.com/ollama/ollama/pull/5207 for suggestions
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:162 -> event_state: ' .. vim.inspect(event_state))
+            print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:162 -> data_stream: ' .. vim.inspect(data_stream))
+            require('avante.providers').openai.parse_response(data_stream, event_state, opts)
+          end,
+        },
+        codestral_suggest = {
+          endpoint = 'https://codestral.mistral.ai/v1/fim/completions',
+          model = 'codestral-latest',
+          api_key_name = 'MISTRAL_API_KEY',
+          parse_curl_args = function(opts, code_opts)
+            local startIdx = string.find(code_opts.user_prompts[1], 'L1')
+            local endIdx = string.find(code_opts.user_prompts[1], '```', startIdx)
+
+            local trim = function(content)
+              return vim
+                .iter(vim.split(content, '\n'))
+                :map(function(line)
+                  local new_line = line:gsub('^L%d+: ', '')
+                  return new_line
+                end)
+                :join '\n'
+            end
+
+            local questionIdx = string.find(code_opts.user_prompts[2], 'QUESTION:')
+            if questionIdx and startIdx and endIdx then
+              local code = string.sub(code_opts.user_prompts[1], startIdx, endIdx - 1)
+              local question = string.sub(code_opts.user_prompts[2], questionIdx + 9)
+
+              local questionTable = vim.fn.json_decode(question)
+              local promptIdx = string.find(code, 'L' .. questionTable.position.row) + questionTable.position.col + 5
+              if promptIdx then
+                local prompt = string.sub(code, 1, promptIdx)
+                local suffix = string.sub(code, promptIdx)
+
+                local body = {
+                  model = opts.model,
+                  prompt = trim(prompt),
+                  suffix = trim(suffix),
+                  -- messages = require('avante.providers').copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                  max_tokens = 8192,
+                  temperature = 0,
+                  top_p = 1,
+                  stream = false,
+                }
+                print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:149 -> body: ' .. vim.inspect(body))
+
+                return {
+                  url = opts.endpoint,
+                  headers = {
+                    ['Accept'] = 'application/json',
+                    ['Content-Type'] = 'application/json',
+                    ['Authorization'] = 'Bearer ' .. os.getenv(opts.api_key_name),
+                  },
+                  body = body,
+                }
+              end
+            end
+          end,
+          parse_response_without_stream = function(data_stream, event_state, opts)
+            print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> opts: ' .. vim.inspect(opts))
+            print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> event_state: ' .. vim.inspect(event_state))
+            print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> data_stream: ' .. vim.inspect(data_stream))
+            local obj = data_stream
+            require('avante.providers').copilot.parse_response(data_stream, event_state, opts)
+          end,
+          -- parse_response_data = function(data_stream, event_state, opts)
+          --   print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> opts: ' .. vim.inspect(opts))
+          --   print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> event_state: ' .. vim.inspect(event_state))
+          --   print('[LS] -> /home/brunnseb/.config/nvim/lua/plugins/tmp.lua:197 -> data_stream: ' .. vim.inspect(data_stream))
+          --   require('avante.providers').copilot.parse_response(data_stream, event_state, opts)
+          -- end,
+        },
+        ollama_suggest = {
+          ['local'] = true,
+          endpoint = '192.168.0.191:7869/v1',
+          model = 'starcoder2:3b',
+          -- model = 'deepseek-coder-v2:16b-lite-instruct-q5_0',
+          -- model = 'llama3.1:8b-instruct-q8_0',
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint .. '/chat/completions',
+              headers = {
+                ['Accept'] = 'application/json',
+                ['Content-Type'] = 'application/json',
+              },
+              body = {
+                model = opts.model,
+                messages = require('avante.providers').copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                max_tokens = 4096,
+                temperature = 0,
+                stream = false,
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require('avante.providers').openai.parse_response(data_stream, event_state, opts)
+          end,
+        },
+        ollama = {
+          ['local'] = true,
+          endpoint = '192.168.0.191:7869/v1',
+          model = 'qwen2.5-coder:7b-instruct-q8_0',
+          -- model = 'deepseek-coder-v2:16b-lite-instruct-q5_0',
+          -- model = 'llama3.1:8b-instruct-q8_0',
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint .. '/chat/completions',
+              headers = {
+                ['Accept'] = 'application/json',
+                ['Content-Type'] = 'application/json',
+              },
+              body = {
+                model = opts.model,
+                messages = require('avante.providers').copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                max_tokens = 8192,
+                temperature = 0.1,
+                stream = true,
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require('avante.providers').openai.parse_response(data_stream, event_state, opts)
+          end,
+        },
+        ---@type AvanteProvider
+        deepseek = {
+          endpoint = 'https://api.deepseek.com/chat/completions',
+          model = 'deepseek-coder',
+          api_key_name = 'DEEPSEEK_API_KEY',
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint,
+              headers = {
+                ['Accept'] = 'application/json',
+                ['Content-Type'] = 'application/json',
+                ['Authorization'] = 'Bearer ' .. os.getenv(opts.api_key_name),
+              },
+              body = {
+                model = opts.model,
+                messages = require('avante.providers').copilot.parse_message(code_opts), -- you can make your own message, but this is very advanced
+                temperature = 0,
+                max_tokens = 4096,
+                stream = true, -- this will be set by default.
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require('avante.providers').copilot.parse_response(data_stream, event_state, opts)
+          end,
+        },
+      },
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = 'make',
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+      {
+        -- support for image pasting
+        'HakonHarnes/img-clip.nvim',
+        event = 'VeryLazy',
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'markdown', 'Avante' },
+          log_level = 'debug',
+          overrides = {
+            buftype = {
+              nofile = {
+                render_modes = { 'n', 'c', 'i' },
+                debounce = 5,
+              },
+            },
+            filetype = {},
+          },
+        },
+        ft = { 'markdown', 'Avante' },
+      },
+    },
+  },
 }

@@ -1,16 +1,4 @@
 return {
-  -- {
-  --   'luckasRanarison/tailwind-tools.nvim',
-  --   event = 'InsertEnter',
-  --   opts = {
-  --     document_color = {
-  --       inline_symbol = '⏺ ',
-  --     },
-  --     conceal = {
-  --       enabled = true,
-  --     },
-  --   },
-  -- },
   {
     'L3MON4D3/LuaSnip',
     build = 'make install_jsregexp',
@@ -23,13 +11,12 @@ return {
     end,
   },
   {
-    'hrsh7th/nvim-cmp',
+    'iguanacucumber/magazine.nvim',
     dependencies = {
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-nvim-lsp',
-      'onsails/lspkind-nvim',
       'rcarriga/cmp-dap',
     },
     event = 'InsertEnter',
@@ -37,7 +24,6 @@ return {
     opts = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
-      local lspkind = require 'lspkind'
 
       local border_opts = {
         border = 'rounded',
@@ -50,23 +36,21 @@ return {
         },
       })
 
-      return {
+      local options = {
         enabled = function()
           return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt' or require('cmp_dap').is_dap_buffer()
         end,
-        preselect = cmp.PreselectMode.None,
-        formatting = {
-          fields = { 'kind', 'abbr', 'menu' },
-          format = lspkind.cmp_format {
-            mode = 'symbol_text',
-            preset = 'codicons',
-            -- before = require('tailwind-tools.cmp').lspkind_format,
-          },
+        experimental = {
+          ghost_text = true,
         },
+        preselect = cmp.PreselectMode.None,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+        performance = {
+          fetching_timeout = 2000,
         },
         duplicates = {
           nvim_lsp = 1,
@@ -82,7 +66,11 @@ return {
           completion = cmp.config.window.bordered(border_opts),
           documentation = cmp.config.window.bordered(border_opts),
         },
+        completion = {
+          autocompletet = false,
+        },
         mapping = {
+          ['<A-y>'] = require('minuet').make_cmp_map(),
           ['<C-k>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
           ['<C-j>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
@@ -95,11 +83,11 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
           },
-          ['<C-CR>'] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-          ['<CR>'] = cmp.mapping.confirm {
+          ['<C-CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+          },
+          ['<Right>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           },
@@ -125,6 +113,10 @@ return {
           { name = 'path', priority = 250 },
         },
       }
+
+      options = vim.tbl_deep_extend('force', options, require 'nvchad.cmp')
+
+      return options
     end,
   },
 }

@@ -1,6 +1,7 @@
 return {
   {
     'nvim-neotest/neotest',
+    event = 'LspAttach',
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-treesitter/nvim-treesitter', --
@@ -24,12 +25,12 @@ return {
         adapters = {
           require 'neotest-vitest' {
             -- -- Filter directories when searching for test files. Useful in large projects (see Filter directories notes).
-            filter_dir = function(name, rel_path, root)
-              return name ~= 'node_modules' and name ~= 'packages' and name ~= 'dist' and name ~= 'build'
-            end,
-            is_test_file = function(file_path)
-              return true
-            end,
+            -- filter_dir = function(name, rel_path, root)
+            --   return name ~= 'node_modules' and name ~= 'packages' and name ~= 'dist' and name ~= 'build'
+            -- end,
+            -- is_test_file = function(file_path)
+            --   return true
+            -- end,
           },
         },
       }
