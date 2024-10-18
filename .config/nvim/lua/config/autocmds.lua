@@ -33,11 +33,11 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'AlphaReady',
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'nvdash',
   command = 'set laststatus=0',
 })
 
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
-  command = 'set laststatus=2',
+  command = 'set laststatus=3',
 })

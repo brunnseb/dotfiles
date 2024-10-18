@@ -38,70 +38,9 @@ return {
       },
       right = {
         {
-          title = 'OGPT Popup',
-          ft = 'ogpt-popup',
-          size = { width = 0.2 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPT Parameters',
-          ft = 'ogpt-parameters-window',
-          size = { height = 6 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPT Template',
-          ft = 'ogpt-template',
-          size = { height = 6 },
-        },
-        {
-          title = 'OGPT Sessions',
-          ft = 'ogpt-sessions',
-          size = { height = 6 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPT System Input',
-          ft = 'ogpt-system-window',
-          size = { height = 6 },
-        },
-        {
-          title = 'OGPT',
-          ft = 'ogpt-window',
-          size = { height = 0.5 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPT {{{selection}}}',
-          ft = 'ogpt-selection',
-          size = { width = 80, height = 4 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPt {{{instruction}}}',
-          ft = 'ogpt-instruction',
-          size = { width = 80, height = 4 },
-          wo = {
-            wrap = true,
-          },
-        },
-        {
-          title = 'OGPT Chat',
-          ft = 'ogpt-input',
-          size = { width = 80, height = 4 },
-          wo = {
-            wrap = true,
-          },
+          ft = 'codecompanion',
+          title = 'CodeCompanion',
+          size = { width = 70 },
         },
       },
       bottom = {

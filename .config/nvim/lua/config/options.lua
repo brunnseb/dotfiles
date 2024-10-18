@@ -18,7 +18,7 @@ opt.grepformat = '%f:%l:%c:%m'
 opt.grepprg = 'rg --vimgrep'
 opt.ignorecase = true -- Ignore case
 opt.inccommand = 'nosplit' -- preview incremental substitute
-opt.laststatus = 3 -- global statusline
+-- opt.laststatus = 3 -- global statusline
 opt.list = true -- Show some invisible characters (tabs...
 opt.mouse = 'a' -- Enable mouse mode
 opt.number = true -- Print line number
@@ -87,6 +87,7 @@ vim.g.markdown_recommended_style = 0
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 opt.hlsearch = true
 
+vim.g.laststatus = 3
 -- Vim Multi Cursor Highlights
 vim.g.VM_Mono_hl = 'MultiCursorMono'
 vim.g.VM_Extend_hl = 'MultiCursorExtend'

@@ -22,6 +22,8 @@ return {
         { '<leader>f_', hidden = true },
         { '<leader>g', group = '[G]it' },
         { '<leader>g_', hidden = true },
+        { '<leader>l', group = '[L]og' },
+        { '<leader>l_', hidden = true },
         { '<leader>o', group = '[O]verseer' },
         { '<leader>o_', hidden = true },
         { '<leader>p', group = '[P]roject' },

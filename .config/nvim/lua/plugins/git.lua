@@ -241,7 +241,7 @@ return {
           }
         end,
       },
-      'ibhagwan/fzf-lua',
+      -- 'ibhagwan/fzf-lua',
     },
     opts = {},
   },

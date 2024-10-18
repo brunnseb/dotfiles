@@ -8,6 +8,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       'yioneko/nvim-vtsls',
+      'nvim-telescope/telescope.nvim',
       { 'folke/neoconf.nvim', cmd = 'Neoconf', config = true },
       {
         'folke/lazydev.nvim',
@@ -62,8 +63,8 @@ return {
           map('gd', function()
             vim.lsp.buf.definition { on_list = require('utils.filter').on_list }
           end, '[G]oto [D]efinition')
-          map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
-          map('gI', require('fzf-lua').lsp_implementations, '[G]oto [I]mplementation')
+          map('gr', '<cmd>Telescope lsp_references<CR>', '[G]oto [R]eferences')
+          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('gy', vim.lsp.buf.type_definition, 'T[y]pe Definition')
           map('<leader>ca', '<cmd>FzfLua lsp_code_actions previewer=false<CR>', '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')

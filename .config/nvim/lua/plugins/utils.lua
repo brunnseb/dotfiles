@@ -103,16 +103,6 @@ return {
   },
   { 'pixelastic/vim-undodir-tree', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' } },
   {
-    'gaelph/logsitter.nvim',
-    keys = { {
-      '<leader>cg',
-      function()
-        require('logsitter').log()
-      end,
-      desc = 'Log symbol',
-    } },
-  },
-  {
     'chrisgrieser/nvim-recorder',
     dependencies = 'rcarriga/nvim-notify', -- optional
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
