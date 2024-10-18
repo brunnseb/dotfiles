@@ -14,24 +14,16 @@ return {
       { '<leader>tl', '<cmd>lua require("neotest").run.run()<CR>', desc = 'Run last test' },
       { '<leader>ts', '<cmd>lua require("neotest").summary.toggle()<CR>', desc = 'Open test summary' },
       { '<leader>to', '<cmd>lua require("neotest").output_panel.toggle()<CR>', desc = 'Open output panel' },
-      { '<leader>tw', '<cmd>lua require("neotest").watch.toggle(vim.fn.expand("%"))<CR>', desc = 'Open output panel' },
+      { '<leader>tw', '<cmd>lua require("neotest").watch.toggle(vim.fn.expand("%"))<CR>', desc = 'Watch test' },
     },
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('neotest').setup {
-        -- consumers = {
-        --   -- overseer = require 'neotest.consumers.overseer',
-        -- },
+        consumers = {
+          -- overseer = require 'neotest.consumers.overseer',
+        },
         adapters = {
-          require 'neotest-vitest' {
-            -- -- Filter directories when searching for test files. Useful in large projects (see Filter directories notes).
-            -- filter_dir = function(name, rel_path, root)
-            --   return name ~= 'node_modules' and name ~= 'packages' and name ~= 'dist' and name ~= 'build'
-            -- end,
-            -- is_test_file = function(file_path)
-            --   return true
-            -- end,
-          },
+          require 'neotest-vitest' {},
         },
       }
     end,

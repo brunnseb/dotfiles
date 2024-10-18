@@ -44,6 +44,7 @@ return {
         },
       },
       bottom = {
+        { ft = 'undotreeDiff' },
         {
           ft = 'trouble',
           title = 'Trouble',
@@ -74,6 +75,7 @@ return {
           ft = 'aerial',
           title = 'Symbols Outline',
         },
+        { ft = 'undotree' },
         { ft = 'neotest-summary' },
       },
     },

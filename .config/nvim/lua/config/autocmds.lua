@@ -35,6 +35,11 @@ vim.api.nvim_create_autocmd('FileType', {
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'nvdash',
+  command = 'set ma',
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'nvdash',
   command = 'set laststatus=0',
 })
 

@@ -5,10 +5,8 @@ local ts_select_dir_for_grep = function(prompt_bufnr)
   local current_line = action_state.get_current_line()
 
   fb.file_browser {
-    files = false,
-    depth = false,
     attach_mappings = function(prompt_bufnr)
-      require('telescope.actions').select_default:replace(function()
+      require('telescope.actions').select_horizontal:replace(function()
         local entry_path = action_state.get_selected_entry().Path
         local dir = entry_path:is_dir() and entry_path or entry_path:parent()
         local relative = dir:make_relative(vim.fn.getcwd())
