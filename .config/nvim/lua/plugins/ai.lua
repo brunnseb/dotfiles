@@ -53,7 +53,7 @@ return {
       vendors = {
         ollama_suggest_test = {
           ['local'] = true,
-          endpoint = '192.168.0.191:7869/api/generate',
+          endpoint = 'media:7869/api/generate',
           model = 'starcoder2:3b',
           -- model = 'qwen2.5-coder:7b-instruct-q3_K_S',
           parse_curl_args = function(opts, code_opts)
@@ -160,7 +160,7 @@ return {
         },
         ollama_suggest = {
           ['local'] = true,
-          endpoint = '192.168.0.191:7869/v1',
+          endpoint = 'media:7869/v1',
           model = 'starcoder2:3b',
           -- model = 'deepseek-coder-v2:16b-lite-instruct-q5_0',
           -- model = 'llama3.1:8b-instruct-q8_0',
@@ -186,7 +186,7 @@ return {
         },
         ollama = {
           ['local'] = true,
-          endpoint = '192.168.0.191:7869/v1',
+          endpoint = 'media:7869/v1',
           model = 'qwen2.5:14b-instruct-q5_0',
           parse_curl_args = function(opts, code_opts)
             return {
@@ -293,7 +293,7 @@ return {
     config = function()
       require('codecompanion').setup {
         opts = {
-          log_level = 'DEBUG',
+          -- log_level = 'DEBUG',
         },
         display = {
           chat = {
@@ -397,7 +397,7 @@ return {
                 -- },
               },
               env = {
-                url = 'http://192.168.0.191:7869',
+                url = 'http://media:7869',
               },
               headers = {
                 ['Content-Type'] = 'application/json',
@@ -423,7 +423,7 @@ return {
           openai_compatible = {
             -- model = 'mistral-nemo:12b-instruct-2407-q6_K',
             model = 'qwen2.5:14b-instruct-q5_0',
-            end_point = 'http://192.168.0.191:7869/v1/chat/completions',
+            end_point = 'http://media:7869/v1/chat/completions',
             api_key = 'OLLAMA_API_KEY',
             name = 'Supermaven',
             stream = true,

@@ -2,7 +2,7 @@ return {
   { 'nvchad/volt', lazy = true },
   {
     'nvchad/ui',
-    priority = 20000,
+    priority = 1000,
     lazy = false,
     config = function()
       require 'nvchad'

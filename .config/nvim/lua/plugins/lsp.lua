@@ -66,7 +66,7 @@ return {
           map('gr', '<cmd>Telescope lsp_references<CR>', '[G]oto [R]eferences')
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
           map('gy', vim.lsp.buf.type_definition, 'T[y]pe Definition')
-          map('<leader>ca', '<cmd>FzfLua lsp_code_actions previewer=false<CR>', '[C]ode [A]ction', { 'n', 'x' })
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
