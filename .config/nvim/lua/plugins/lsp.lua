@@ -1,5 +1,5 @@
 return {
-  { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
+  -- { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
@@ -37,10 +37,10 @@ return {
         underline = true,
         update_in_insert = false,
         virtual_text = false,
-        virtual_lines = {
-          only_current_line = true,
-          highlight_whole_line = false,
-        },
+        -- virtual_lines = {
+        --   only_current_line = true,
+        --   highlight_whole_line = false,
+        -- },
         severity_sort = true,
         signs = {
           text = {

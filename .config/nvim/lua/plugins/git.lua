@@ -12,7 +12,7 @@ return {
         changedelete = { text = '▎' },
         untracked = { text = '▎' },
       },
-      current_line_blame = true,
+      current_line_blame = false,
     },
     config = function(_, opts)
       require('gitsigns').setup(vim.tbl_deep_extend('force', opts, {
@@ -71,7 +71,7 @@ return {
     'NeogitOrg/neogit',
     keys = { { '<leader>gg', '<cmd>Neogit<CR>', desc = 'Neogit' } },
     dependencies = {
-      'nvim-lua/plenary.nvim', -- required
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- required
       {
         'sindrets/diffview.nvim',
         keys = {

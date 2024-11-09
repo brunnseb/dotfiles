@@ -44,6 +44,14 @@ return {
         {
           filter = {
             event = 'notify',
+            kind = 'error',
+            find = 'post http://media:7869',
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = 'notify',
             find = 'Reloading',
           },
           opts = { skip = true },

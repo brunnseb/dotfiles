@@ -1,7 +1,72 @@
 return {
   {
+    dir = '/home/brunnseb/Development/bropilot.nvim/',
+    -- 'meeehdi-dev/bropilot.nvim',
+    event = 'VeryLazy', -- preload model on start
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'j-hui/fidget.nvim',
+    },
+    opts = {
+      auto_suggest = true,
+      excluded_filetypes = { 'something', 'codecompanion', 'gitcommit' },
+      model = 'qwen2.5-coder:1.5b-base-fp16',
+      model_params = {
+        num_ctx = 16384,
+        num_predict = -2,
+        temperature = 0,
+        top_p = 0.95,
+        stop = { '<|fim_pad|>', '<|endoftext|>' },
+      },
+      -- model_params = {
+      --   mirostat = 0,
+      --   mirostat_eta = 0.1,
+      --   mirostat_tau = 5.0,
+      --   num_ctx = 2048,
+      --   repeat_last_n = 64,
+      --   repeat_penalty = 1.1,
+      --   temperature = 0.8,
+      --   seed = 0,
+      --   stop = {},
+      --   tfs_z = 1,
+      --   num_predict = 128,
+      --   top_k = 40,
+      --   top_p = 0.9,
+      --   min_p = 0.0,
+      -- },
+      prompt = {
+        prefix = '<|fim_prefix|>',
+        suffix = '<|fim_suffix|>',
+        middle = '<|fim_middle|>',
+      },
+      debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
+      keymap = {
+        accept_word = '<C-Right>',
+        accept_line = '<S-Right>',
+        accept_block = '<C-Up>',
+        suggest = '<C-Down>',
+      },
+      ollama_url = 'http://media:7869/api',
+    },
+    config = function(_, opts)
+      require('bropilot').setup(opts)
+    end,
+  },
+  {
+    'chrisgrieser/nvim-lsp-endhints',
+    event = 'LspAttach',
+    opts = {}, -- required, even if empty
+  },
+  {
+    'rachartier/tiny-inline-diagnostic.nvim',
+    event = 'VeryLazy', -- Or `LspAttach`
+    config = function()
+      require('tiny-inline-diagnostic').setup()
+    end,
+  },
+  {
     'jiaoshijie/undotree',
-    dependencies = 'nvim-lua/plenary.nvim',
+    dependencies = { { 'nvim-lua/plenary.nvim', branch = 'master' } },
     config = function()
       local undotree = require 'undotree'
 

@@ -5,7 +5,7 @@ return {
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-treesitter/nvim-treesitter', --
-      'nvim-lua/plenary.nvim',
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
       'antoinemadec/FixCursorHold.nvim',
       { 'marilari88/neotest-vitest' },
     },

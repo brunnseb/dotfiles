@@ -9,6 +9,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Automatically close certain file types with 'q'
+-- This applies to buffers of the specified file types and sets 'q' to close the buffer
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('q_close', {}),
   pattern = {

@@ -41,7 +41,7 @@ return {
           return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt' or require('cmp_dap').is_dap_buffer()
         end,
         experimental = {
-          ghost_text = true,
+          ghost_text = false,
         },
         preselect = cmp.PreselectMode.None,
         snippet = {
