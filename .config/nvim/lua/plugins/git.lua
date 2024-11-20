@@ -243,6 +243,8 @@ return {
       },
       -- 'ibhagwan/fzf-lua',
     },
-    opts = {},
+    opts = {
+      process_spinner = false,
+    },
   },
 }

@@ -45,6 +45,14 @@ return {
           filter = {
             event = 'notify',
             kind = 'error',
+            find = 'model manifest',
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = 'notify',
+            kind = 'error',
             find = 'post http://media:7869',
           },
           opts = { skip = true },

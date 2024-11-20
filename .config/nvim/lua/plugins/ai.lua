@@ -7,11 +7,13 @@ return {
       'hrsh7th/nvim-cmp', -- Optional: For using slash commands and variables in the chat buffer
       { 'stevearc/dressing.nvim', opts = {} }, -- Optional: Improves `vim.ui.select`
       { 'echasnovski/mini.diff', version = false },
-      { 'MeanderingProgrammer/render-markdown.nvim', ft = { 'markdown', 'codecompanion' }, opts = { render_modes = true } },
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        ft = { 'markdown', 'codecompanion', 'Avante' },
+        opts = { render_modes = true, file_types = { 'markdown', 'codecompanion', 'Avante' } },
+      },
     },
     config = function()
-      local current_filetype = vim.bo.filetype
-      vim.notify('🪚 current_filetype: ' .. tostring(current_filetype))
       require('codecompanion').setup {
         opts = {
           -- log_level = 'DEBUG',
@@ -100,23 +102,22 @@ return {
             return require('codecompanion.adapters').extend('ollama', {
               schema = {
                 model = {
-                  default = 'vanilj/supernova-medius:q4_k_m',
+                  default = 'qwen2.5-coder-32b-instruct',
+                  -- default = 'qwen2.5:32b-instruct-q3_K_M',
+                  -- default = 'vanilj/supernova-medius:q4_k_m',
                   -- default = 'qwen2.5:14b-instruct-q5_0',
                   -- default = 'mistral-nemo:12b-instruct-2407-q6_K',
                   -- default = 'codestral:22b-v0.1-q4_0',
                   -- default = 'deepseek-coder-v2:16b-lite-instruct-q4_1',
                 },
-                temperature = {
-                  default = 0.1,
-                },
-                mirostat = {
-                  default = 1,
-                },
-                repeat_penalty = {
-                  default = 1,
-                },
+                -- mirostat = {
+                --   default = 1,
+                -- },
+                -- repeat_penalty = {
+                --   default = 1,
+                -- },
                 num_ctx = {
-                  default = 8192,
+                  default = 16384,
                 },
               },
               env = {
