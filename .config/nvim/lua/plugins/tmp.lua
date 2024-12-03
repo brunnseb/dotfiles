@@ -6,18 +6,43 @@ return {
     version = false, -- set this if you want to always pull the latest change
     opts = {
       provider = 'ollama',
+      auto_suggestions_provider = 'ollama_suggest',
       vendors = {
-        ollama = {
-          api_key_name = '',
-          endpoint = 'media:7869/v1',
-          model = 'qwen2.5-coder-32b-instruct',
+        ollama_suggest = {
+          api_key_name = 'bc2bef2f3fd5062fe2932722d50083f6',
+          endpoint = 'media:5010/v1',
+          model = 'lucyknada_Qwen_Qwen2.5-Coder-1.5B-Instruct-exl2',
           parse_curl_args = function(opts, code_opts)
             return {
               url = opts.endpoint .. '/chat/completions',
               headers = {
                 ['Accept'] = 'application/json',
                 ['Content-Type'] = 'application/json',
-                ['x-api-key'] = 'ollama',
+                ['x-api-key'] = 'bc2bef2f3fd5062fe2932722d50083f6',
+              },
+              body = {
+                model = opts.model,
+                messages = require('avante.providers').copilot.parse_messages(code_opts), -- you can make your own message, but this is very advanced
+                max_tokens = 8192,
+                stream = true,
+              },
+            }
+          end,
+          parse_response_data = function(data_stream, event_state, opts)
+            require('avante.providers').openai.parse_response(data_stream, event_state, opts)
+          end,
+        },
+        ollama = {
+          api_key_name = 'bc2bef2f3fd5062fe2932722d50083f6',
+          endpoint = 'media:5010/v1',
+          model = 'bartowski_Qwen2.5-Coder-32B-Instruct-exl2',
+          parse_curl_args = function(opts, code_opts)
+            return {
+              url = opts.endpoint .. '/chat/completions',
+              headers = {
+                ['Accept'] = 'application/json',
+                ['Content-Type'] = 'application/json',
+                ['x-api-key'] = 'bc2bef2f3fd5062fe2932722d50083f6',
               },
               body = {
                 model = opts.model,
@@ -69,57 +94,57 @@ return {
     },
   },
 
-  {
-    'meeehdi-dev/bropilot.nvim',
-    event = 'VeryLazy', -- preload model on start
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'j-hui/fidget.nvim',
-    },
-    opts = {
-      auto_suggest = false,
-      excluded_filetypes = { 'something', 'codecompanion', 'gitcommit' },
-      -- model = 'qwen2.5-coder-7b-base',
-      model = 'qwen2.5-coder:14b-base-q2_k',
-      model_params = {
-        num_predict = -2,
-        top_p = 0.95,
-        stop = { '<|fim_pad|>', '<|endoftext|>' },
-      },
-      -- model_params = {
-      --   mirostat = 0,
-      --   mirostat_eta = 0.1,
-      --   mirostat_tau = 5.0,
-      --   num_ctx = 2048,
-      --   repeat_last_n = 64,
-      --   repeat_penalty = 1.1,
-      --   temperature = 0.8,
-      --   seed = 0,
-      --   stop = {},
-      --   tfs_z = 1,
-      --   num_predict = 128,
-      --   top_k = 40,
-      --   top_p = 0.9,
-      --   min_p = 0.0,
-      -- },
-      prompt = {
-        prefix = '<|fim_prefix|>',
-        suffix = '<|fim_suffix|>',
-        middle = '<|fim_middle|>',
-      },
-      debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
-      keymap = {
-        accept_word = '<C-Right>',
-        accept_line = '<S-Right>',
-        accept_block = '<C-Up>',
-        suggest = '<C-Down>',
-      },
-      ollama_url = 'http://media:7869/api',
-    },
-    config = function(_, opts)
-      require('bropilot').setup(opts)
-    end,
-  },
+  -- {
+  --   'meeehdi-dev/bropilot.nvim',
+  --   event = 'VeryLazy', -- preload model on start
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'j-hui/fidget.nvim',
+  --   },
+  --   opts = {
+  --     auto_suggest = false,
+  --     excluded_filetypes = { 'something', 'codecompanion', 'gitcommit' },
+  --     -- model = 'qwen2.5-coder-7b-base',
+  --     model = 'Handgun1773_Qwen2.5-Coder-7B-BASE-8.0bpw-exl2',
+  --     model_params = {
+  --       num_predict = -2,
+  --       top_p = 0.95,
+  --       stop = { '<|fim_pad|>', '<|endoftext|>' },
+  --     },
+  --     -- model_params = {
+  --     --   mirostat = 0,
+  --     --   mirostat_eta = 0.1,
+  --     --   mirostat_tau = 5.0,
+  --     --   num_ctx = 2048,
+  --     --   repeat_last_n = 64,
+  --     --   repeat_penalty = 1.1,
+  --     --   temperature = 0.8,
+  --     --   seed = 0,
+  --     --   stop = {},
+  --     --   tfs_z = 1,
+  --     --   num_predict = 128,
+  --     --   top_k = 40,
+  --     --   top_p = 0.9,
+  --     --   min_p = 0.0,
+  --     -- },
+  --     prompt = {
+  --       prefix = '<|fim_prefix|>',
+  --       suffix = '<|fim_suffix|>',
+  --       middle = '<|fim_middle|>',
+  --     },
+  --     debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
+  --     keymap = {
+  --       accept_word = '<C-Right>',
+  --       accept_line = '<S-Right>',
+  --       accept_block = '<C-Up>',
+  --       suggest = '<C-Down>',
+  --     },
+  --     ollama_url = 'http://media:5010/v1',
+  --   },
+  --   config = function(_, opts)
+  --     require('bropilot').setup(opts)
+  --   end,
+  -- },
   {
     'chrisgrieser/nvim-lsp-endhints',
     event = 'LspAttach',

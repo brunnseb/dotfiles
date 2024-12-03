@@ -70,7 +70,7 @@ return {
           autocompletet = false,
         },
         mapping = {
-          ['<A-y>'] = require('minuet').make_cmp_map(),
+          -- ['<A-y>'] = require('minuet').make_cmp_map(),
           ['<C-k>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
           ['<C-j>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
           ['<Down>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },

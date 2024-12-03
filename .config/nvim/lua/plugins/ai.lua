@@ -1,6 +1,8 @@
 return {
+
   {
     'olimorris/codecompanion.nvim',
+
     dependencies = {
       { 'nvim-lua/plenary.nvim', branch = 'master' },
       'nvim-treesitter/nvim-treesitter',
@@ -10,6 +12,7 @@ return {
       {
         'MeanderingProgrammer/render-markdown.nvim',
         ft = { 'markdown', 'codecompanion', 'Avante' },
+
         opts = { render_modes = true, file_types = { 'markdown', 'codecompanion', 'Avante' } },
       },
     },
@@ -99,10 +102,10 @@ return {
             })
           end,
           ['mistral-nemo'] = function()
-            return require('codecompanion.adapters').extend('ollama', {
+            return require('codecompanion.adapters').extend('openai', {
               schema = {
                 model = {
-                  default = 'qwen2.5-coder-32b-instruct',
+                  default = 'bartowski_Qwen2.5-Coder-32B-Instruct-exl2',
                   -- default = 'qwen2.5:32b-instruct-q3_K_M',
                   -- default = 'vanilj/supernova-medius:q4_k_m',
                   -- default = 'qwen2.5:14b-instruct-q5_0',
@@ -120,8 +123,11 @@ return {
                   default = 16384,
                 },
               },
+
+              url = 'http://media:5010/v1/chat/completions',
               env = {
-                url = 'http://media:7869',
+                api_key = 'e79fc6f6e89fe2072e20be5a91d57b67',
+                -- url = 'http://media:5010',
               },
               headers = {
                 ['Content-Type'] = 'application/json',
@@ -135,57 +141,42 @@ return {
       }
     end,
   },
-  {
-    'milanglacier/minuet-ai.nvim',
-    config = function()
-      require('minuet').setup {
-        enabled = false,
-        notify = 'verbose',
-        provider = 'openai_compatible',
-        request_timeout = 20,
-        provider_options = {
-          openai_compatible = {
-            -- model = 'mistral-nemo:12b-instruct-2407-q6_K',
-            -- model = 'qwen2.5:14b-instruct-q5_0',
-            model = 'vanilj/supernova-medius:q4_k_m',
-            end_point = 'http://media:7869/v1/chat/completions',
-            api_key = 'OLLAMA_API_KEY',
-            name = 'Supermaven',
-            stream = true,
-            optional = {
-              -- temperature = 0.3,
-              -- mirostat = 1,
-              -- repeat_penalty = 1,
-              -- max_tokens = 8192,
-              -- stop = { '\n\n' },
-            },
-          },
-          openai_fim_compatible = {
-            model = 'deepseek-coder',
-            end_point = 'https://api.deepseek.com/beta/completions',
-            api_key = 'DEEPSEEK_API_KEY',
-            name = 'Supermaven',
-            stream = true,
-            optional = {
-              max_tokens = 256,
-              stop = { '\n\n' },
-            },
-          },
-          codestral = {
-            name = 'Supermaven',
-            model = 'codestral-latest',
-            end_point = 'https://codestral.mistral.ai/v1/fim/completions',
-            api_key = 'CODESTRAL_API_KEY',
-            stream = true,
-            optional = {
-              max_tokens = 256,
-              stop = { '\n\n' },
-            },
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   'milanglacier/minuet-ai.nvim',
+  --   config = function()
+  --     require('minuet').setup {
+  --       enabled = false,
+  --       notify = 'verbose',
+  --       provider = 'openai_compatible',
+  --       request_timeout = 20,
+  --       provider_options = {
+  --         -- openai_compatible = {
+  --         --   -- model = 'mistral-nemo:12b-instruct-2407-q6_K',
+  --         --   -- model = 'qwen2.5:14b-instruct-q5_0',
+  --         --   model = 'Handgun1773_Qwen2.5-Coder-7B-BASE-8.0bpw-exl2',
+  --         --   end_point = 'http://media:5010/v1/chat/completions',
+  --         --   api_key = 'bc2bef2f3fd5062fe2932722d50083f6',
+  --         --   name = 'Supermaven',
+  --         --   stream = true,
+  --         --   optional = {
+  --         --     -- temperature = 0.3,
+  --         --     -- mirostat = 1,
+  --         --     -- repeat_penalty = 1,
+  --         --     -- max_tokens = 8192,
+  --         --     -- stop = { '\n\n' },
+  --         --   },
+  --         -- },
+  --         openai_compatible = {
+  --           model = 'lucyknada_Qwen_Qwen2.5-Coder-1.5B-Instruct-exl2',
+  --           end_point = 'http://media:5010/v1/chat/completions',
+  --           api_key = 'bc2bef2f3fd5062fe2932722d50083f6',
+  --           name = 'Supermaven',
+  --           stream = true,
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     'jondkinney/aider.nvim',
     opts = {
