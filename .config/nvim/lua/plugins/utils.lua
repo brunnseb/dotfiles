@@ -16,7 +16,6 @@ return {
   },
   {
     'fedepujol/move.nvim',
-
     keys = {
       { '<C-S-Down>', ':MoveBlock(1)<CR>', mode = { 'v' }, silent = true },
       { '<C-S-Up>', ':MoveBlock(-1)<CR>', mode = { 'v' }, silent = true },
@@ -34,20 +33,20 @@ return {
       --- Config
     },
   },
-  {
-    'abecodes/tabout.nvim',
-    opts = {},
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-      'L3MON4D3/LuaSnip',
-
-      {
-        'xzbdmw/nvim-cmp',
-        branch = 'dynamic', -- Wait until https://github.com/hrsh7th/nvim-cmp/pull/1955 is merged
-      },
-    },
-    event = 'InsertCharPre',
-  },
+  -- {
+  --   'abecodes/tabout.nvim',
+  --   opts = {},
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'L3MON4D3/LuaSnip',
+  --
+  --     {
+  --       'xzbdmw/nvim-cmp',
+  --       branch = 'dynamic', -- Wait until https://github.com/hrsh7th/nvim-cmp/pull/1955 is merged
+  --     },
+  --   },
+  --   event = 'InsertCharPre',
+  -- },
   {
     'gbprod/yanky.nvim',
     opts = {},
@@ -82,16 +81,16 @@ return {
       },
     },
   },
-  {
-    'rachartier/tiny-devicons-auto-colors.nvim',
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons', commit = '9154484705968658e9aab2b894d1b2a64bf9f83d' },
-    },
-    event = 'VeryLazy',
-    config = function()
-      require('tiny-devicons-auto-colors').setup()
-    end,
-  },
+  -- {
+  --   'rachartier/tiny-devicons-auto-colors.nvim',
+  --   dependencies = {
+  --     { 'nvim-tree/nvim-web-devicons', commit = '9154484705968658e9aab2b894d1b2a64bf9f83d' },
+  --   },
+  --   event = 'VeryLazy',
+  --   config = function()
+  --     require('tiny-devicons-auto-colors').setup()
+  --   end,
+  -- },
   {
     'stevearc/stickybuf.nvim',
     opts = {},

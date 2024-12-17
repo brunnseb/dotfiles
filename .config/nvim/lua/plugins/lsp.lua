@@ -1,5 +1,4 @@
 return {
-  -- { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' }, opts = {} },
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
@@ -20,27 +19,12 @@ return {
         },
       },
       { 'Bilal2453/luvit-meta', lazy = true },
-      {
-
-        'iguanacucumber/magazine.nvim',
-        opts = function(_, opts)
-          opts.sources = opts.sources or {}
-          table.insert(opts.sources, {
-            name = 'lazydev',
-            group_index = 0,
-          })
-        end,
-      },
     },
     config = function()
       vim.diagnostic.config {
         underline = true,
         update_in_insert = false,
         virtual_text = false,
-        -- virtual_lines = {
-        --   only_current_line = true,
-        --   highlight_whole_line = false,
-        -- },
         severity_sort = true,
         signs = {
           text = {
@@ -97,13 +81,15 @@ return {
         end,
       })
 
-      local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
-        workspace = {
-          didChangeWatchedFiles = {
-            dynamicRegistration = false,
-          },
-        },
-      })
+      -- local capabilities = vim.tbl_deep_extend('force', vim.lsp.protocol.make_client_capabilities(), {
+      --   workspace = {
+      --     didChangeWatchedFiles = {
+      --       dynamicRegistration = false,
+      --     },
+      --   },
+      -- })
+
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
         vtsls = {
