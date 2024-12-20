@@ -1,5 +1,19 @@
 return {
   {
+    "folke/which-key.nvim",
+    opts = {
+      spec = {
+        {
+          mode = { "n", "v" },
+          { "<leader>a", group = "ai", icon = { icon = "󱚥 " } },
+          { "<leader>p", group = "project", icon = { icon = " " } },
+          { "<leader>l", group = "log", icon = { icon = " ", color = "green" } },
+          { "<leader>o", group = "overseer", icon = { icon = "󰜎 ", color = "cyan" } },
+        },
+      },
+    },
+  },
+  {
     "stevearc/overseer.nvim",
     config = function(_, opts)
       local overseer = require("overseer")

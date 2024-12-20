@@ -55,12 +55,26 @@ return {
   {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanionChat", "CodeCompanion" },
+    keys = {
+      { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "New chat" },
+    },
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
       "nvim-treesitter/nvim-treesitter",
-      -- 'hrsh7th/nvim-cmp', -- Optional: For using slash commands and variables in the chat buffer
-      -- { "stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
-      -- { "echasnovski/mini.diff", version = false },
+      {
+        "folke/edgy.nvim",
+        optional = true,
+        opts = function(_, opts)
+          opts.right = opts.right or {}
+          table.insert(opts.right, {
+            title = "CodeCompanion",
+            ft = "codecompanion",
+            size = {
+              width = 0.45,
+            },
+          })
+        end,
+      },
       {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion", "Avante" },
