@@ -54,6 +54,7 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
+    cmd = { "CodeCompanionChat", "CodeCompanion" },
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
       "nvim-treesitter/nvim-treesitter",
