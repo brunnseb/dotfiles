@@ -2,14 +2,16 @@ return {
   {
     "saghen/blink.cmp",
     opts = {
-      per_filetype = {
-        codecompanion = { "codecompanion", "path" },
-      },
-      providers = {
-        codecompanion = {
-          name = "CodeCompanion",
-          module = "codecompanion.providers.completion.blink",
-          enabled = true,
+      sources = {
+        per_filetype = {
+          codecompanion = { "codecompanion", "path" },
+        },
+        providers = {
+          codecompanion = {
+            name = "CodeCompanion",
+            module = "codecompanion.providers.completion.blink",
+            enabled = true,
+          },
         },
       },
     },
