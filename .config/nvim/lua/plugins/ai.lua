@@ -1,11 +1,11 @@
 return {
   {
-    dir = '/home/media/Development/bropilot.nvim/',
+    dir = "/home/media/Development/bropilot.nvim/",
     -- 'meeehdi-dev/bropilot.nvim',
-    event = 'VeryLazy', -- preload model on start
+    event = "VeryLazy",
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'j-hui/fidget.nvim',
+      "nvim-lua/plenary.nvim",
+      "j-hui/fidget.nvim",
     },
     opts = {
       auto_suggest = false,
@@ -17,7 +17,7 @@ return {
         num_ctx = 8192,
         -- max_tokens = 100,
         -- speculative_ngram = true,
-        stop = { '<|fim_pad|>', '<|endoftext|>' },
+        stop = { "<|fim_pad|>", "<|endoftext|>" },
       },
       -- model_params = {
       --   mirostat = 0,
@@ -35,49 +35,49 @@ return {
       --   min_p = 0.0,
       -- },
       prompt = {
-        prefix = '<|fim_prefix|>',
-        suffix = '<|fim_suffix|>',
-        middle = '<|fim_middle|>',
+        prefix = "<|fim_prefix|>",
+        suffix = "<|fim_suffix|>",
+        middle = "<|fim_middle|>",
       },
       -- debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
       keymap = {
-        accept_word = '<C-Right>',
-        accept_line = '<S-Right>',
-        accept_block = '<C-Up>',
-        suggest = '<C-Down>',
+        accept_word = "<C-Right>",
+        accept_line = "<S-Right>",
+        accept_block = "<C-Up>",
+        suggest = "<C-Down>",
       },
-      ollama_url = 'http://media:5010/v1',
+      ollama_url = "http://media:5010/v1",
     },
     config = function(_, opts)
-      require('bropilot').setup(opts)
+      require("bropilot").setup(opts)
     end,
   },
   {
-    'olimorris/codecompanion.nvim',
+    "olimorris/codecompanion.nvim",
     dependencies = {
-      { 'nvim-lua/plenary.nvim', branch = 'master' },
-      'nvim-treesitter/nvim-treesitter',
+      { "nvim-lua/plenary.nvim", branch = "master" },
+      "nvim-treesitter/nvim-treesitter",
       -- 'hrsh7th/nvim-cmp', -- Optional: For using slash commands and variables in the chat buffer
-      { 'stevearc/dressing.nvim', opts = {} }, -- Optional: Improves `vim.ui.select`
-      { 'echasnovski/mini.diff', version = false },
+      -- { "stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
+      -- { "echasnovski/mini.diff", version = false },
       {
-        'MeanderingProgrammer/render-markdown.nvim',
-        ft = { 'markdown', 'codecompanion', 'Avante' },
-        opts = { render_modes = true, file_types = { 'markdown', 'codecompanion', 'Avante' } },
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown", "codecompanion", "Avante" },
+        opts = { render_modes = true, file_types = { "markdown", "codecompanion", "Avante" } },
       },
     },
     config = function()
-      local group = vim.api.nvim_create_augroup('CodeCompanionHooks', {})
+      local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
 
-      vim.api.nvim_create_autocmd({ 'User' }, {
-        pattern = 'CodeCompanionInline*',
+      vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = "CodeCompanionInline*",
         group = group,
         callback = function(request)
-          vim.notify(vim.inspect(request), nil, { title = '🪚 request', ft = 'lua' })
+          vim.notify(vim.inspect(request), nil, { title = "🪚 request", ft = "lua" })
 
-          if request.match == 'CodeCompanionInlineFinished' then
+          if request.match == "CodeCompanionInlineFinished" then
             -- Format the buffer after the inline request has completed
-            require('conform').format { bufnr = request.buf }
+            require("conform").format({ bufnr = request.buf })
           end
         end,
       })
@@ -119,10 +119,10 @@ return {
       --   end,
       -- })
 
-      require('codecompanion').setup {
+      require("codecompanion").setup({
         opts = {
           system_prompt = function(opts)
-            local language = opts.language or 'English'
+            local language = opts.language or "English"
             return string.format(
               [[You are Qwen, created by Alibaba Cloud. You are a helpful assistant.
 You are currently plugged in to the Neovim text editor on a user's machine.
@@ -172,68 +172,68 @@ When given a task:
         },
         strategies = {
           chat = {
-            adapter = 'tabby_api_32b',
+            adapter = "tabby_api_32b",
             keymaps = {
               close = {
                 modes = {
-                  n = 'q',
+                  n = "q",
                 },
                 index = 3,
-                callback = 'keymaps.close',
-                description = 'Close Chat',
+                callback = "keymaps.close",
+                description = "Close Chat",
               },
               stop = {
                 modes = {
-                  n = '<C-c>',
-                  i = '<C-c>',
+                  n = "<C-c>",
+                  i = "<C-c>",
                 },
                 index = 4,
-                callback = 'keymaps.stop',
-                description = 'Stop Request',
+                callback = "keymaps.stop",
+                description = "Stop Request",
               },
               codeblock = {
                 modes = {
-                  n = 'gc',
+                  n = "gc",
                 },
                 index = 6,
-                callback = 'keymaps.codeblock',
-                description = 'Insert Codeblock',
+                callback = "keymaps.codeblock",
+                description = "Insert Codeblock",
               },
               change_adapter = {
                 modes = {
-                  n = 'gA',
+                  n = "gA",
                 },
                 index = 11,
-                callback = 'keymaps.change_adapter',
-                description = 'Change adapter',
+                callback = "keymaps.change_adapter",
+                description = "Change adapter",
               },
               fold_code = {
                 modes = {
-                  n = 'gf',
+                  n = "gf",
                 },
                 index = 12,
-                callback = 'keymaps.fold_code',
-                description = 'Fold code',
+                callback = "keymaps.fold_code",
+                description = "Fold code",
               },
               debug = {
                 modes = {
-                  n = 'gd',
+                  n = "gd",
                 },
                 index = 13,
-                callback = 'keymaps.debug',
-                description = 'View debug info',
+                callback = "keymaps.debug",
+                description = "View debug info",
               },
             },
           },
           inline = {
-            adapter = 'tabby_api_32b',
+            adapter = "tabby_api_32b",
           },
           agent = {
-            adapter = 'tabby_api_32b',
+            adapter = "tabby_api_32b",
             tools = {
-              ['bag'] = {
-                callback = 'strategies.chat.tools.rag',
-                description = 'Supplement the LLM with real-time info from the internet',
+              ["bag"] = {
+                callback = "strategies.chat.tools.rag",
+                description = "Supplement the LLM with real-time info from the internet",
                 opts = {
                   hide_output = false,
                 },
@@ -243,27 +243,27 @@ When given a task:
         },
         adapters = {
           anthropic = function()
-            return require('codecompanion.adapters').extend('anthropic', {
+            return require("codecompanion.adapters").extend("anthropic", {
               env = {
-                api_key = 'ANTHROPIC_API_KEY',
+                api_key = "ANTHROPIC_API_KEY",
               },
             })
           end,
 
-          ['tabby_api_7b'] = function()
-            return require('codecompanion.adapters').extend('openai', {
+          ["tabby_api_7b"] = function()
+            return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  default = 'lucyknada_Qwen_Qwen2.5-Coder-7B-Instruct-exl2',
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-7B-Instruct-exl2",
                 },
               },
 
-              url = 'http://media:5010/v1/chat/completions',
+              url = "http://media:5010/v1/chat/completions",
               env = {
-                api_key = 'TABBY_API_KEY',
+                api_key = "TABBY_API_KEY",
               },
               headers = {
-                ['Content-Type'] = 'application/json',
+                ["Content-Type"] = "application/json",
               },
               parameters = {
                 -- sync = true,
@@ -271,11 +271,11 @@ When given a task:
             })
           end,
 
-          ['tabby_api_14b'] = function()
-            return require('codecompanion.adapters').extend('openai', {
+          ["tabby_api_14b"] = function()
+            return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  default = 'lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2',
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
                 },
                 top_p = { default = 0.8 },
                 top_k = { default = 20 },
@@ -284,23 +284,23 @@ When given a task:
                 num_ctx = { default = 16384 },
               },
 
-              url = 'http://media:5010/v1/chat/completions',
+              url = "http://media:5010/v1/chat/completions",
               env = {
-                api_key = 'e79fc6f6e89fe2072e20be5a91d57b67',
+                api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
               },
               headers = {
-                ['Content-Type'] = 'application/json',
+                ["Content-Type"] = "application/json",
               },
               parameters = {
                 -- sync = true,
               },
             })
           end,
-          ['tabby_api_32b'] = function()
-            return require('codecompanion.adapters').extend('openai', {
+          ["tabby_api_32b"] = function()
+            return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  default = 'lucyknada_Qwen_Qwen2.5-Coder-32B-Instruct-exl2',
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-32B-Instruct-exl2",
                 },
                 top_p = { default = 0.8 },
                 top_k = { default = 20 },
@@ -308,18 +308,18 @@ When given a task:
                 temperature = { default = 0.2 },
                 num_ctx = { default = 16384 },
               },
-              url = 'http://media:5010/v1/chat/completions',
+              url = "http://media:5010/v1/chat/completions",
               env = {
-                api_key = 'e79fc6f6e89fe2072e20be5a91d57b67',
+                api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
               },
               headers = {
-                ['Content-Type'] = 'application/json',
+                ["Content-Type"] = "application/json",
               },
               parameters = {},
             })
           end,
         },
-      }
+      })
     end,
   },
 }

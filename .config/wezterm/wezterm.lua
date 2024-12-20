@@ -49,6 +49,7 @@ config = {
 	window_frame = {
 		font = wezterm.font_with_fallback({ { family = "MonoLisa", weight = "Bold", italic = true }, "Symbola" }),
 	},
+	enable_wayland = false,
 	disable_default_key_bindings = true,
 	keys = {
 		{ key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
