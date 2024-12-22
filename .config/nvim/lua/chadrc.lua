@@ -1,7 +1,7 @@
 local options = {
 
   base46 = {
-    theme = "bearded-arc", -- default theme
+    theme = "material-lighter", -- default theme
     hl_add = {},
     hl_override = {},
     integrations = {},

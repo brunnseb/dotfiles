@@ -111,9 +111,12 @@ return {
   },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
+    priority = 1000,
     event = "VeryLazy", -- Or `LspAttach`
     config = function()
-      require("tiny-inline-diagnostic").setup()
+      require("tiny-inline-diagnostic").setup({
+        preset = "powerline",
+      })
     end,
   },
 }

@@ -2,6 +2,13 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 vim.lsp.set_log_level("off")
+vim.diagnostic.config({
+  underline = true,
+  update_in_insert = false,
+  virtual_text = false,
+  severity_sort = true,
+  signs = false,
+})
 
 -- Opt
 vim.opt.syntax = "off"
