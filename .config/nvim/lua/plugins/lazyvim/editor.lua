@@ -185,6 +185,11 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "whichkey")
+
+      require("which-key").setup(opts)
+    end,
   },
   {
     "stevearc/overseer.nvim",
@@ -224,5 +229,12 @@ return {
     keys = {
       { "<leader>uC", false },
     },
+  },
+  {
+    "folke/trouble.nvim",
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "trouble")
+      require("trouble").setup(opts)
+    end,
   },
 }

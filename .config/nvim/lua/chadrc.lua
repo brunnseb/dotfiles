@@ -1,11 +1,37 @@
 local options = {
 
   base46 = {
-    theme = "material-lighter", -- default theme
+    theme = "solarized_osaka", -- default theme
     hl_add = {},
-    hl_override = {},
-    integrations = {},
-    changed_themes = {},
+    hl_override = {
+      ["@keyword"] = { italic = true },
+      ["@keyword.return"] = { italic = true, bold = true },
+      ["@keyword.operator"] = { italic = true },
+      ["@keyword.conditional"] = { italic = true },
+      ["@tag.attribute"] = { italic = true },
+      ["@comment"] = { italic = true },
+    },
+    integrations = {
+      "diffview",
+      "git-conflict",
+      "git",
+      "lsp",
+      "mason",
+      "neogit",
+      "notify",
+      "semantic_tokens",
+      "syntax",
+      "todo",
+      "treesitter",
+      "whichkey",
+      "trouble",
+    },
+    changed_themes = {
+      ["solarized_osaka"] = {
+
+        ["@tag.attribute"] = { fg = "blue" },
+      },
+    },
     transparency = false,
     theme_toggle = { "onedark", "one_light" },
   },

@@ -1,5 +1,14 @@
 return {
-  { "akinsho/git-conflict.nvim", event = "BufEnter", version = "*", config = true },
+  {
+    "akinsho/git-conflict.nvim",
+    event = "BufEnter",
+    version = "*",
+    config = function()
+      dofile(vim.g.base46_cache .. "git-conflict")
+
+      require("git-conflict").setup()
+    end,
+  },
   {
     "NeogitOrg/neogit",
     keys = { { "<leader>gg", "<cmd>Neogit<CR>", desc = "Neogit" } },
@@ -12,6 +21,7 @@ return {
           { "<leader>gD", "<cmd>DiffviewOpen -uno origin/HEAD...HEAD -- %<CR>", desc = "Diff this File" },
         },
         config = function()
+          dofile(vim.g.base46_cache .. "diffview")
           local actions = require("diffview.actions")
 
           require("diffview").setup({
@@ -188,5 +198,10 @@ return {
     opts = {
       process_spinner = false,
     },
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "neogit")
+
+      require("neogit").setup(opts)
+    end,
   },
 }
