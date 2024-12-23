@@ -1,7 +1,8 @@
-local options = {
+local colors = dofile(vim.g.base46_cache .. "colors")
 
+local options = {
   base46 = {
-    theme = "solarized_osaka", -- default theme
+    theme = "bearded-arc", -- default theme
     hl_add = {},
     hl_override = {
       ["@keyword"] = { italic = true },
@@ -10,6 +11,7 @@ local options = {
       ["@keyword.conditional"] = { italic = true },
       ["@tag.attribute"] = { italic = true },
       ["@comment"] = { italic = true },
+      ["@punctuation.bracket"] = { bold = true },
     },
     integrations = {
       "diffview",
@@ -27,11 +29,15 @@ local options = {
       "trouble",
     },
     changed_themes = {
-      ["solarized_osaka"] = {
-
-        ["@tag.attribute"] = { fg = "blue" },
+      ["bearded-arc"] = {
+        polish_hl = {
+          treesitter = {
+            ["@tag.attribute"] = { fg = colors.blue },
+          },
+        },
       },
     },
+
     transparency = false,
     theme_toggle = { "onedark", "one_light" },
   },
