@@ -237,4 +237,5 @@ return {
       require("trouble").setup(opts)
     end,
   },
+  { "lambdalisue/vim-suda", cmd = { "SudaWrite", "SudaRead" } },
 }
