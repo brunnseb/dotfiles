@@ -1,5 +1,9 @@
 return {
   {
+    "xzbdmw/colorful-menu.nvim",
+    config = true,
+  },
+  {
     "nekowasabi/aider.vim",
     dependencies = "vim-denops/denops.vim",
     event = "VeryLazy",

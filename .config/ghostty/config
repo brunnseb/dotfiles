@@ -1,8 +1,11 @@
+font-family = Symbols Nerd Font Mono
 font-family = MonoLisa
-
+theme = tokyonight_moon
 
 keybind = alt+n=new_split:right
 keybind = alt+t=new_tab
 keybind = alt+w=close_surface
 keybind = alt+right=goto_split:right
 keybind = alt+left=goto_split:left
+keybind = alt+]=next_tab
+keybind = alt+[=previous_tab
