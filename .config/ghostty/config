@@ -1,0 +1,8 @@
+font-family = MonoLisa
+
+
+keybind = alt+n=new_split:right
+keybind = alt+t=new_tab
+keybind = alt+w=close_surface
+keybind = alt+right=goto_split:right
+keybind = alt+left=goto_split:left
