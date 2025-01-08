@@ -1,6 +1,6 @@
 return {
   {
-    dir = "/home/media/Development/bropilot.nvim/",
+    dir = "/home/brunnseb/Development/bropilot.nvim/",
     -- 'meeehdi-dev/bropilot.nvim',
     event = "VeryLazy",
     dependencies = {
