@@ -9,7 +9,8 @@ vim.diagnostic.config({
   severity_sort = true,
   signs = false,
 })
-
+vim.g.lazyvim_prettier_needs_config = true
+vim.g.lazyvim_eslint_auto_format = false
 -- Opt
 vim.opt.syntax = "off"
 vim.opt.foldenable = false

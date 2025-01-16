@@ -2,6 +2,7 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 local act = wezterm.action
+local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
 wezterm.on("gui-startup", function()
 	local tab, pane, window = mux.spawn_window({})
@@ -63,18 +64,10 @@ config = {
 		{ key = "N", mods = "SHIFT|CTRL", action = act.SpawnWindow },
 		{ key = "v", mods = "SHIFT|CTRL", action = act.PasteFrom("Clipboard") },
 		{ key = "n", mods = "ALT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-		{ key = "N", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-		{ key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-		{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-		{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
-		{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-		{ key = "LeftArrow", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-		{ key = "RightArrow", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-		{ key = "DownArrow", mods = "ALT", action = act.ActivatePaneDirection("Down") },
-		{ key = "UpArrow", mods = "ALT", action = act.ActivatePaneDirection("Up") },
+		{ key = "v", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		{ key = "t", mods = "ALT", action = act.SpawnTab("CurrentPaneDomain") },
 		{ key = "w", mods = "ALT", action = act.CloseCurrentTab({ confirm = false }) },
-		{ key = "q", mods = "ALT", action = act.CloseCurrentPane({ confirm = false }) },
+		{ key = "d", mods = "ALT", action = act.CloseCurrentPane({ confirm = false }) },
 		{
 			key = "k",
 			mods = "CTRL|ALT",
@@ -101,6 +94,24 @@ config.mouse_bindings = {
 		action = wezterm.action.StartWindowDrag,
 	},
 }
+
+smart_splits.apply_to_config(config, {
+	-- the default config is here, if you'd like to use the default keys,
+	-- you can omit this configuration table parameter and just use
+	-- smart_splits.apply_to_config(config)
+
+	-- directional keys to use in order of: left, down, up, right
+	direction_keys = { "LeftArrow", "DownArrow", "UpArrow", "RightArrow" },
+	-- if you want to use separate direction keys for move vs. resize, you
+	-- can also do this:
+	-- modifier keys to combine with direction_keys
+	modifiers = {
+		move = "CTRL", -- modifier to use for pane movement, e.g. CTRL+h to move left
+		resize = "META", -- modifier to use for pane resize, e.g. META+h to resize to the left
+	},
+	-- log level to use: info, warn, error
+	log_level = "info",
+})
 
 -- and finally, return the configuration to wezterm
 return config

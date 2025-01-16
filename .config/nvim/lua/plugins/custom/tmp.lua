@@ -1,4 +1,5 @@
 return {
+  { "mrjones2014/smart-splits.nvim" },
   {
     "xzbdmw/colorful-menu.nvim",
     config = true,
@@ -55,7 +56,7 @@ return {
           typescript = [[console.log("%log_marker %log_target", %log_target)]],
           jsx = [[console.log("%log_marker %log_target", %log_target)]],
           tsx = [[console.log("%log_marker %log_target", %log_target)]],
-          lua = [[print("%log_marker %log_target", %log_target)]],
+          lua = [[print("%log_marker %log_target", vim.inspect(%log_target))]],
           ruby = [[puts("%log_marker %log_target #{%log_target}")]],
           go = [[log.Printf("%log_marker %log_target: %v\n", %log_target)]],
           rust = [[println!("%log_marker %log_target: {:#?}", %log_target);]],
@@ -89,7 +90,7 @@ return {
           typescript = [[console.log("%log_marker", { %repeat<"%log_target": %log_target><, > })]],
           jsx = [[console.log("%log_marker", { %repeat<"%log_target": %log_target><, > })]],
           tsx = [[console.log("%log_marker", { %repeat<"%log_target": %log_target><, > })]],
-          lua = [[print("%log_marker " .. string.format("%repeat<%log_target=%s><, >", %repeat<%log_target><, >))]],
+          lua = [[print("%log_marker " .. string.format("%repeat<%log_target=%s><, >", %repeat<vim.inspect(%log_target)><, >))]],
         },
       },
       keymaps = {
