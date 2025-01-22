@@ -1,5 +1,26 @@
 return {
   {
+    "stevearc/aerial.nvim",
+    opts = {
+      backends = {
+        ["_"] = { "treesitter", "lsp" },
+        lua = { "lsp" },
+      },
+      keymaps = {
+        ["<Right>"] = "actions.tree_open",
+        ["<S-Right>"] = "actions.tree_open_recursive",
+        ["<Left>"] = "actions.tree_close",
+        ["<S-Left>"] = "actions.tree_close_recursive",
+      },
+      icons = {
+        Struct = " ",
+      },
+      on_first_symbols = function(bufnr)
+        require("aerial").tree_set_collapse_level(bufnr, 2)
+      end,
+    },
+  },
+  {
     "nvim-neotest/neotest",
     dependencies = {
       { "marilari88/neotest-vitest" },

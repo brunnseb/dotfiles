@@ -11,17 +11,11 @@ vim.diagnostic.config({
 })
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_eslint_auto_format = false
+vim.g.lazyvim_blink_main = true
 -- Opt
 vim.opt.syntax = "off"
 vim.opt.foldenable = false
 vim.opt.spell = false
-
--- Global
-vim.g.matchparen_timeout = 2
-vim.g.matchparen_insert_timeout = 2
-
--- blink.cmp
-vim.g.lazyvim_blink_main = true
 
 -- Vim Multi Cursor Highlights
 vim.g.VM_Mono_hl = "MultiCursorMono"

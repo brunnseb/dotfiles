@@ -1,4 +1,9 @@
 return {
+  {
+    "chrisgrieser/nvim-recorder",
+    dependencies = "rcarriga/nvim-notify", -- optional
+    opts = {}, -- required even with default settings, since it calls `setup()`
+  },
   { "mrjones2014/smart-splits.nvim" },
   {
     "xzbdmw/colorful-menu.nvim",
