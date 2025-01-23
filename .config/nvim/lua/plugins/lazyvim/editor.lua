@@ -224,11 +224,6 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "whichkey")
-
-      require("which-key").setup(opts)
-    end,
   },
   {
     "stevearc/overseer.nvim",
@@ -270,13 +265,6 @@ return {
       { "<leader>sg", LazyVim.pick("live_grep_glob"), desc = "Grep (Root Dir)" },
       { "<leader>sG", LazyVim.pick("live_grep_glob", { root = false }), desc = "Grep (cwd)" },
     },
-  },
-  {
-    "folke/trouble.nvim",
-    config = function(_, opts)
-      dofile(vim.g.base46_cache .. "trouble")
-      require("trouble").setup(opts)
-    end,
   },
   { "lambdalisue/vim-suda", cmd = { "SudaWrite", "SudaRead" } },
 }
