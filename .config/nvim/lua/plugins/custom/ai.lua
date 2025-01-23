@@ -59,6 +59,7 @@ return {
       { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "New chat" },
     },
     dependencies = {
+      { "echasnovski/mini.diff", version = "*" },
       { "nvim-lua/plenary.nvim", branch = "master" },
       "nvim-treesitter/nvim-treesitter",
       {
@@ -98,19 +99,24 @@ return {
       })
 
       require("codecompanion").setup({
-        opts = {},
+        opts = {
+          -- system_prompt = function()
+          --   return "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step."
+          -- end,
+        },
         display = {
           chat = {
-            -- show_settings = true,
-            -- render_headers = false,
+            show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
+            start_in_insert_mode = true, -- Open the chat buffer in insert mode?
           },
           diff = {
             -- enabled = true,
+            provider = "mini_diff",
           },
         },
         strategies = {
           chat = {
-            adapter = "tabby_api_32b",
+            adapter = "qwen_r1",
             keymaps = {
               close = {
                 modes = {
@@ -137,14 +143,14 @@ return {
                 callback = "keymaps.codeblock",
                 description = "Insert Codeblock",
               },
-              change_adapter = {
-                modes = {
-                  n = "gA",
-                },
-                index = 11,
-                callback = "keymaps.change_adapter",
-                description = "Change adapter",
-              },
+              -- change_adapter = {
+              --   modes = {
+              --     n = "<C-,>",
+              --   },
+              --   index = 11,
+              --   callback = "keymaps.change_adapter",
+              --   description = "Change adapter",
+              -- },
               fold_code = {
                 modes = {
                   n = "gf",
@@ -161,10 +167,18 @@ return {
                 callback = "keymaps.debug",
                 description = "View debug info",
               },
+              system_prompt = {
+                modes = {
+                  n = "<C-;>",
+                },
+                index = 17,
+                callback = "keymaps.toggle_system_prompt",
+                description = "Toggle the system prompt",
+              },
             },
           },
           inline = {
-            adapter = "tabby_api_32b",
+            adapter = "qwen_r1",
           },
         },
         adapters = {
@@ -175,13 +189,33 @@ return {
               },
             })
           end,
-
-          ["tabby_api_32b"] = function()
+          ["qwen_r1"] = function()
             return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
-                  -- default = "lucyknada_Qwen_Qwen2.5-Coder-32B-Instruct-exl2",
-                  default = "bartwoski_Qwen2.5-Coder-32B-Instruct-exl2",
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
+                },
+                -- top_p = { default = 0.95 },
+                -- top_k = { default = 20 },
+                -- repetition_penalty = { default = 1.05 },
+                -- temperature = { default = 0.6 },
+                num_ctx = { default = 16384 },
+              },
+              url = "http://media:5020/v1/chat/completions",
+              env = {
+                api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+              },
+              parameters = {},
+            })
+          end,
+          ["qwen_coder"] = function()
+            return require("codecompanion.adapters").extend("openai", {
+              schema = {
+                model = {
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-7B-Instruct-exl2",
                 },
                 top_p = { default = 0.8 },
                 top_k = { default = 20 },
@@ -189,6 +223,7 @@ return {
                 temperature = { default = 0.2 },
                 num_ctx = { default = 16384 },
               },
+              -- url = "http://media:5020/v1/chat/completions",
               url = "http://media:5010/v1/chat/completions",
               env = {
                 api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
