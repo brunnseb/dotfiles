@@ -4,7 +4,9 @@
 vim.lsp.set_log_level("off")
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_eslint_auto_format = false
-vim.g.lazyvim_blink_main = true
+vim.g.lazyvim_blink_main = false
+vim.g.ai_cmp = true
+vim.g.timeoutlen = 200
 -- Opt
 vim.opt.syntax = "off"
 vim.opt.foldenable = false

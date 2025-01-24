@@ -12,6 +12,7 @@ local options = {
       ["@tag.attribute"] = { italic = true },
       ["@comment"] = { italic = true },
       ["@punctuation.bracket"] = { bold = true },
+      ["DiffviewDiffDelete"] = { link = "Comment" },
     },
     integrations = {
       "diffview",

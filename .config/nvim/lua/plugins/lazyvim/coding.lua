@@ -2,12 +2,17 @@ return {
   {
     "saghen/blink.cmp",
     opts = {
-      completion = {
-        accept = { auto_brackets = { enabled = false } },
-        documentation = { auto_show = false },
+      keymap = {
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+        ["<Tab>"] = { "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "snippet_backward", "fallback" },
       },
-      keymap = { preset = "super-tab" },
-      signature = { enabled = false },
+      -- completion = {
+      --   accept = { auto_brackets = { enabled = false } },
+      --   documentation = { auto_show = false },
+      -- },
+      -- signature = { enabled = false },
       sources = {
         per_filetype = {
           codecompanion = { "codecompanion", "path" },
@@ -18,20 +23,14 @@ return {
             module = "codecompanion.providers.completion.blink",
             enabled = true,
           },
+          snippets = {
+            name = "Snippets",
+            module = "blink.cmp.sources.snippets",
+            score_offset = 0,
+          },
         },
       },
     },
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    config = function()
-      require("luasnip.loaders.from_vscode").load({
-        paths = {
-          vim.fn.expand("$HOME/.config/nvim/lua/snippets"),
-          vim.fn.expand("$HOME/.local/share/nvim/lazy/friendly-snippets/"),
-        },
-      })
-    end,
   },
   {
     "gbprod/yanky.nvim",

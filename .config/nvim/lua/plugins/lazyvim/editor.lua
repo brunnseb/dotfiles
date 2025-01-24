@@ -37,7 +37,6 @@ return {
       })
     end,
   },
-  { "mrjones2014/smart-splits.nvim" },
   {
     "ibhagwan/fzf-lua",
     opts = function(_, opts)
@@ -266,5 +265,4 @@ return {
       { "<leader>sG", LazyVim.pick("live_grep_glob", { root = false }), desc = "Grep (cwd)" },
     },
   },
-  { "lambdalisue/vim-suda", cmd = { "SudaWrite", "SudaRead" } },
 }
