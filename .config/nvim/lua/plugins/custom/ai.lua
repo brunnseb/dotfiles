@@ -1,58 +1,5 @@
 return {
   {
-    dir = vim.fn.expand("$HOME/Development/bropilot.nvim/"),
-    -- 'meeehdi-dev/bropilot.nvim',
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "j-hui/fidget.nvim",
-    },
-    opts = {
-      auto_suggest = false,
-      model_params = {
-        top_p = 0.8,
-        top_k = 20,
-        repetition_penalty = 1.05,
-        temperature = 0.2,
-        num_ctx = 8192,
-        -- max_tokens = 100,
-        -- speculative_ngram = true,
-        stop = { "<|fim_pad|>", "<|endoftext|>" },
-      },
-      -- model_params = {
-      --   mirostat = 0,
-      --   mirostat_eta = 0.1,
-      --   mirostat_tau = 5.0,
-      --   repeat_last_n = 64,
-      --   repeat_penalty = 1.1,
-      --   temperature = 0.8,
-      --   seed = 0,
-      --   stop = {},
-      --   tfs_z = 1,
-      --   num_predict = 128,
-      --   top_k = 40,
-      --   top_p = 0.9,
-      --   min_p = 0.0,
-      -- },
-      prompt = {
-        prefix = "<|fim_prefix|>",
-        suffix = "<|fim_suffix|>",
-        middle = "<|fim_middle|>",
-      },
-      -- debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
-      keymap = {
-        accept_word = "<C-Right>",
-        accept_line = "<S-Right>",
-        accept_block = "<C-Up>",
-        suggest = "<C-Down>",
-      },
-      ollama_url = "http://media:5010/v1",
-    },
-    config = function(_, opts)
-      require("bropilot").setup(opts)
-    end,
-  },
-  {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanionChat", "CodeCompanion" },
     keys = {
@@ -116,7 +63,7 @@ return {
         },
         strategies = {
           chat = {
-            adapter = "qwen_r1",
+            adapter = "qwen_coder",
             keymaps = {
               close = {
                 modes = {
@@ -178,7 +125,7 @@ return {
             },
           },
           inline = {
-            adapter = "qwen_r1",
+            adapter = "qwen_coder",
           },
         },
         adapters = {
@@ -189,44 +136,21 @@ return {
               },
             })
           end,
-          ["qwen_r1"] = function()
+          ["qwen_coder"] = function()
             return require("codecompanion.adapters").extend("openai", {
               schema = {
                 model = {
                   default = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
                 },
-                -- top_p = { default = 0.95 },
-                -- top_k = { default = 20 },
-                -- repetition_penalty = { default = 1.05 },
-                -- temperature = { default = 0.6 },
-                num_ctx = { default = 16384 },
-              },
-              url = "http://media:5020/v1/chat/completions",
-              env = {
-                api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-              },
-              parameters = {},
-            })
-          end,
-          ["qwen_coder"] = function()
-            return require("codecompanion.adapters").extend("openai", {
-              schema = {
-                model = {
-                  default = "lucyknada_Qwen_Qwen2.5-Coder-7B-Instruct-exl2",
-                },
                 top_p = { default = 0.8 },
                 top_k = { default = 20 },
                 repetition_penalty = { default = 1.05 },
                 temperature = { default = 0.2 },
-                num_ctx = { default = 16384 },
+                num_ctx = { default = 32768 },
               },
-              -- url = "http://media:5020/v1/chat/completions",
               url = "http://media:5010/v1/chat/completions",
               env = {
-                api_key = "e79fc6f6e89fe2072e20be5a91d57b67",
+                api_key = vim.fn.expand("$TABBY_API_KEY"),
               },
               headers = {
                 ["Content-Type"] = "application/json",

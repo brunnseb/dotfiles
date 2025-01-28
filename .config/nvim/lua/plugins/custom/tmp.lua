@@ -6,8 +6,8 @@ return {
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
 
-      provider = "qwen_r1",
-      auto_suggestions_provider = "qwen_r1",
+      provider = "qwen_coder",
+      auto_suggestions_provider = "qwen_coder",
       behaviour = {
         auto_suggestions = true,
         auto_suggestions_respect_ignore = false,
@@ -21,17 +21,10 @@ return {
       vendors = {
         qwen_coder = {
           __inherited_from = "openai",
-          api_key_name = "OPENAI_API_KEY",
+          api_key_name = "TABBY_API_KEY",
           endpoint = "http://media:5010/v1",
-          model = "lucyknada_Qwen_Qwen2.5-Coder-7B-Instruct-exl2",
-        },
-        qwen_r1 = {
-          __inherited_from = "openai",
-          api_key_name = "OPENAI_API_KEY",
-          endpoint = "http://media:5015/v1",
           model = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
           temperature = 0.2,
-          -- model = "cgus_DeepSeek-R1-Distill-Qwen-14B-exl2",
         },
       },
     },
