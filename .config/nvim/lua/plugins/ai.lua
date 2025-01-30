@@ -46,18 +46,13 @@ return {
       })
 
       require("codecompanion").setup({
-        opts = {
-          -- system_prompt = function()
-          --   return "You are a helpful and harmless assistant. You are Qwen developed by Alibaba. You should think step-by-step."
-          -- end,
-        },
+        opts = {},
         display = {
           chat = {
             show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
             start_in_insert_mode = true, -- Open the chat buffer in insert mode?
           },
           diff = {
-            -- enabled = true,
             provider = "mini_diff",
           },
         },
@@ -90,13 +85,6 @@ return {
                 callback = "keymaps.codeblock",
                 description = "Insert Codeblock",
               },
-              -- change_adapter = {
-              --   modes = {
-              --     n = "<C-,>",
-              --   },
-              --   index = 11,
-              --   callback = "keymaps.change_adapter",
-              --   description = "Change adapter",
               -- },
               fold_code = {
                 modes = {

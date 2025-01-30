@@ -1,49 +1,61 @@
 return {
   {
-    "yetone/avante.nvim",
+    dir = vim.fn.expand("$HOME/Development/bropilot.nvim/"),
     event = "VeryLazy",
-    lazy = false,
-    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-    opts = {
-
-      provider = "qwen_coder",
-      auto_suggestions_provider = "qwen_coder",
-      behaviour = {
-        auto_suggestions = true,
-        auto_suggestions_respect_ignore = false,
-        -- auto_set_highlight_group = true,
-        -- auto_set_keymaps = true,
-        -- auto_apply_diff_after_generation = false,
-        -- jump_result_buffer_on_finish = false,
-        -- support_paste_from_clipboard = false,
-        -- minimize_diff = true,
-      },
-      vendors = {
-        qwen_coder = {
-          __inherited_from = "openai",
-          api_key_name = "TABBY_API_KEY",
-          endpoint = "http://media:5010/v1",
-          model = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
-          temperature = 0.2,
-        },
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
-      "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
+      "j-hui/fidget.nvim",
     },
+    opts = {
+      auto_suggest = false,
+      model_params = {
+        top_p = 0.8,
+        top_k = 20,
+        repetition_penalty = 1.05,
+        temperature = 0.2,
+        num_ctx = 32768,
+        -- max_tokens = 100,
+        speculative_ngram = true,
+        stop = { "<|fim_pad|>", "<|endoftext|>" },
+      },
+      -- model_params = {
+      --   mirostat = 0,
+      --   mirostat_eta = 0.1,
+      --   mirostat_tau = 5.0,
+      --   repeat_last_n = 64,
+      --   repeat_penalty = 1.1,
+      --   temperature = 0.8,
+      --   seed = 0,
+      --   stop = {},
+      --   tfs_z = 1,
+      --   num_predict = 128,
+      --   top_k = 40,
+      --   top_p = 0.9,
+      --   min_p = 0.0,
+      -- },
+      prompt = {
+        prefix = "<|fim_prefix|>",
+        suffix = "<|fim_suffix|>",
+        middle = "<|fim_middle|>",
+      },
+      -- debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
+      keymap = {
+        accept_word = "<C-Right>",
+        accept_line = "<S-Right>",
+        accept_block = "<C-Up>",
+        suggest = "<C-Down>",
+      },
+      ollama_url = "http://media:5010/v1",
+    },
+    config = function(_, opts)
+      require("bropilot").setup(opts)
+    end,
+  },
+  {
+    "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = { "Typr", "TyprStats" },
   },
   { "lambdalisue/vim-suda", cmd = { "SudaWrite", "SudaRead" } },
   {
@@ -52,35 +64,6 @@ return {
     opts = {}, -- required even with default settings, since it calls `setup()`
   },
   { "mrjones2014/smart-splits.nvim" },
-  {
-    "nekowasabi/aider.vim",
-    dependencies = "vim-denops/denops.vim",
-    event = "VeryLazy",
-    config = function()
-      vim.g.aider_command = "aider --no-auto-commits --model openai/cgus_DeepSeek-R1-Distill-Qwen-14B-exl2"
-      vim.g.aider_buffer_open_type = "floating"
-      vim.g.aider_floatwin_width = 100
-      vim.g.aider_floatwin_height = 20
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "AiderOpen",
-        callback = function(args)
-          vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = args.buf })
-          vim.keymap.set("n", "<Esc>", "<cmd>AiderHide<CR>", { buffer = args.buf })
-        end,
-      })
-      -- vim.api.nvim_set_keymap('n', '<leader>at', ':AiderRun<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>aa', ':AiderAddCurrentFile<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>ar', ':AiderAddCurrentFileReadOnly<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>aw', ':AiderAddWeb<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>ax', ':AiderExit<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>ai', ':AiderAddIgnoreCurrentFile<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>aI', ':AiderOpenIgnore<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>aI', ':AiderPaste<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('n', '<leader>ah', ':AiderHide<CR>', { noremap = true, silent = true })
-      -- vim.api.nvim_set_keymap('v', '<leader>av', ':AiderVisualTextWithPrompt<CR>', { noremap = true, silent = true })
-    end,
-  },
   {
     "Goose97/timber.nvim",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
