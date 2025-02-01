@@ -1,5 +1,41 @@
 return {
   {
+    dir = vim.fn.expand("$HOME/Development/bropilot.nvim/"),
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "j-hui/fidget.nvim",
+    },
+    opts = {
+      auto_suggest = false,
+      model_params = {
+        top_p = 0.8,
+        top_k = 20,
+        repetition_penalty = 1.05,
+        temperature = 0.2,
+        num_ctx = 32768,
+        speculative_ngram = true,
+        stop = { "<|fim_pad|>", "<|endoftext|>" },
+      },
+      prompt = {
+        prefix = "<|fim_prefix|>",
+        suffix = "<|fim_suffix|>",
+        middle = "<|fim_middle|>",
+      },
+      -- debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
+      keymap = {
+        accept_word = "<C-Right>",
+        accept_line = "<S-Right>",
+        accept_block = "<C-Up>",
+        suggest = "<C-Down>",
+      },
+      ollama_url = "http://media:5010/v1",
+    },
+    config = function(_, opts)
+      require("bropilot").setup(opts)
+    end,
+  },
+  {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanionChat", "CodeCompanion" },
     keys = {
