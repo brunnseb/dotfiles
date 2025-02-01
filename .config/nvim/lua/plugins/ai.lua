@@ -22,7 +22,7 @@ return {
         suffix = "<|fim_suffix|>",
         middle = "<|fim_middle|>",
       },
-      -- debounce = 500, -- careful with this setting when auto_suggest is enabled, can lead to curl jobs overload
+      debounce = 500,
       keymap = {
         accept_word = "<C-Right>",
         accept_line = "<S-Right>",
