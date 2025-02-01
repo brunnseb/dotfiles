@@ -16,14 +16,8 @@ return {
           undo = {
             layout = "sidebar",
           },
-          git_log = {
-            layout = "sidebar",
-          },
-          git_log_file = {
-            layout = "sidebar",
-          },
-          git_log_line = {
-            layout = "sidebar",
+          grep_word = {
+            layout = "ivy_split",
           },
         },
       },
