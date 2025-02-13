@@ -161,7 +161,7 @@ return {
             })
           end,
           ["qwen_coder"] = function()
-            return require("codecompanion.adapters").extend("openai", {
+            return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
                   default = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
@@ -172,8 +172,32 @@ return {
                 temperature = { default = 0.2 },
                 num_ctx = { default = 32768 },
               },
-              url = "http://media:5010/v1/chat/completions",
               env = {
+                url = "http://media:5010",
+                chat_url = "/v1/chat/completions",
+                api_key = vim.fn.expand("$TABBY_API_KEY"),
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+              },
+              parameters = {},
+            })
+          end,
+          ["mistral_small"] = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              schema = {
+                model = {
+                  default = "jacobi_Mistral-Small-24B-Instruct-2501-exl",
+                },
+                -- top_p = { default = 0.8 },
+                -- top_k = { default = 20 },
+                -- repetition_penalty = { default = 1.05 },
+                -- temperature = { default = 0.2 },
+                -- num_ctx = { default = 32768 },
+              },
+              env = {
+                url = "http://media:5010",
+                chat_url = "/v1/chat/completions",
                 api_key = vim.fn.expand("$TABBY_API_KEY"),
               },
               headers = {
