@@ -57,6 +57,8 @@ return {
               width = 0.45,
             },
           })
+
+          opts.keys = {}
         end,
       },
       {
