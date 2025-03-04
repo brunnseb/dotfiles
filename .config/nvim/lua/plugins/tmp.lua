@@ -29,4 +29,5 @@ return {
     opts = {},
     cmd = { "Typr", "TyprStats" },
   },
+  { "dmmulroy/tsc.nvim", config = true },
 }

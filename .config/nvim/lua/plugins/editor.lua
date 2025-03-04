@@ -1,4 +1,5 @@
 return {
+  { "pixelastic/vim-undodir-tree" },
   { "lambdalisue/vim-suda", cmd = { "SudaWrite", "SudaRead" } },
   { "mrjones2014/smart-splits.nvim" },
   {
