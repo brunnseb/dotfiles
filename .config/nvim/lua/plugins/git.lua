@@ -184,13 +184,13 @@ return {
   },
   {
     "NeogitOrg/neogit",
-    commit = "cfea08ebb2fda22f1357e413d4ea45dcda6fcab5",
     keys = { { "<leader>gg", "<cmd>Neogit<CR>", desc = "Neogit" } },
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" }, -- required
     },
     opts = {
       process_spinner = false,
+      disable_signs = true,
     },
   },
 }

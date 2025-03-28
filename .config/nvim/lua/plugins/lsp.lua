@@ -58,6 +58,10 @@ return {
           },
         },
         vtsls = {
+          root_dir = function()
+            local lazyvimRoot = require("lazyvim.util.root")
+            return lazyvimRoot.git()
+          end,
           settings = {
             complete_function_calls = false,
             typescript = {
@@ -68,6 +72,10 @@ return {
               },
               suggest = {
                 completeFunctionCalls = true,
+              },
+              tsserver = {
+                nodePath = "$HOME/.volta/bin/node",
+                maxTsServerMemory = 16384,
               },
             },
             javascript = {

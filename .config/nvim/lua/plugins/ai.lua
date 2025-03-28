@@ -1,41 +1,5 @@
 return {
   {
-    dir = vim.fn.expand("$HOME/Development/bropilot.nvim/"),
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "j-hui/fidget.nvim",
-    },
-    opts = {
-      auto_suggest = false,
-      model_params = {
-        top_p = 0.8,
-        top_k = 20,
-        repetition_penalty = 1.05,
-        temperature = 0.2,
-        num_ctx = 32768,
-        speculative_ngram = true,
-        stop = { "<|fim_pad|>", "<|endoftext|>" },
-      },
-      prompt = {
-        prefix = "<|fim_prefix|>",
-        suffix = "<|fim_suffix|>",
-        middle = "<|fim_middle|>",
-      },
-      debounce = 500,
-      keymap = {
-        accept_word = "<C-Right>",
-        accept_line = "<S-Right>",
-        accept_block = "<C-Up>",
-        suggest = "<C-Down>",
-      },
-      ollama_url = "http://media:5010/v1",
-    },
-    config = function(_, opts)
-      require("bropilot").setup(opts)
-    end,
-  },
-  {
     "olimorris/codecompanion.nvim",
     cmd = { "CodeCompanionChat", "CodeCompanion" },
     keys = {
@@ -45,22 +9,6 @@ return {
       { "echasnovski/mini.diff", version = "*" },
       { "nvim-lua/plenary.nvim", branch = "master" },
       "nvim-treesitter/nvim-treesitter",
-      {
-        "folke/edgy.nvim",
-        optional = true,
-        opts = function(_, opts)
-          opts.right = opts.right or {}
-          table.insert(opts.right, {
-            title = "CodeCompanion",
-            ft = "codecompanion",
-            size = {
-              width = 0.45,
-            },
-          })
-
-          opts.keys = {}
-        end,
-      },
       {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion", "Avante" },
@@ -166,30 +114,7 @@ return {
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
-                  default = "lucyknada_Qwen_Qwen2.5-Coder-14B-Instruct-exl2",
-                },
-                top_p = { default = 0.8 },
-                top_k = { default = 20 },
-                repetition_penalty = { default = 1.05 },
-                temperature = { default = 0.2 },
-                num_ctx = { default = 32768 },
-              },
-              env = {
-                url = "http://media:5010",
-                chat_url = "/v1/chat/completions",
-                api_key = vim.fn.expand("$TABBY_API_KEY"),
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-              },
-              parameters = {},
-            })
-          end,
-          ["mistral_small"] = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              schema = {
-                model = {
-                  default = "jacobi_Mistral-Small-24B-Instruct-2501-exl",
+                  default = "lucyknada_Qwen_Qwen2.5-Coder-32B-Instruct-exl2",
                 },
                 -- top_p = { default = 0.8 },
                 -- top_k = { default = 20 },
@@ -198,7 +123,7 @@ return {
                 -- num_ctx = { default = 32768 },
               },
               env = {
-                url = "http://media:5010",
+                url = "http://ai:5010",
                 chat_url = "/v1/chat/completions",
                 api_key = vim.fn.expand("$TABBY_API_KEY"),
               },
