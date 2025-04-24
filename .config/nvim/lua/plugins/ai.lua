@@ -114,12 +114,12 @@ return {
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
-                  default = "lucyknada_Qwen_Qwen2.5-Coder-32B-Instruct-exl2",
+                  default = "/models/bartowski_Qwen2.5-Coder-32B-Instruct-GGUF/Qwen2.5-Coder-32B-Instruct-IQ4_XS.gguf",
                 },
-                -- top_p = { default = 0.8 },
-                -- top_k = { default = 20 },
-                -- repetition_penalty = { default = 1.05 },
-                -- temperature = { default = 0.2 },
+                top_p = { default = 0.8 },
+                top_k = { default = 20 },
+                repetition_penalty = { default = 1.05 },
+                temperature = { default = 0.2 },
                 -- num_ctx = { default = 32768 },
               },
               env = {

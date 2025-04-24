@@ -44,6 +44,8 @@ return {
         ["Undo"] = "u",
         ["Redo"] = "<C-r>",
         ["I Return"] = "<S-CR>",
+        ["I Down Arrow"] = "",
+        ["I Up Arrow"] = "",
       }
     end,
   },

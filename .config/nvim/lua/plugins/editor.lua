@@ -11,6 +11,7 @@ return {
         },
       },
       picker = {
+        layout = { cycle = false },
         sources = {
           explorer = {
             auto_close = true,
@@ -23,7 +24,7 @@ return {
             layout = "sidebar",
           },
           grep_word = {
-            layout = "ivy_split",
+            layout = { "ivy_split" },
           },
         },
       },
