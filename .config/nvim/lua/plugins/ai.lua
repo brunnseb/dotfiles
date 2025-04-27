@@ -1,10 +1,13 @@
 return {
   {
+    -- Code companion configuration with various strategies and adapters
     "olimorris/codecompanion.nvim",
+    -- Key mappings for code companion chat interface
     cmd = { "CodeCompanionChat", "CodeCompanion" },
     keys = {
       { "<leader>ac", "<cmd>CodeCompanionChat<CR>", desc = "New chat" },
     },
+    -- Plugin dependencies for proper functionality
     dependencies = {
       { "echasnovski/mini.diff", version = "*" },
       { "nvim-lua/plenary.nvim", branch = "master" },
@@ -15,9 +18,11 @@ return {
         opts = { render_modes = true, file_types = { "markdown", "codecompanion", "Avante" } },
       },
     },
+    -- Configure code companion plugin with custom options
     config = function()
       local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
 
+      -- Autocommands for handling code companion events
       vim.api.nvim_create_autocmd({ "User" }, {
         pattern = "CodeCompanionInline*",
         group = group,
@@ -33,6 +38,7 @@ return {
 
       require("codecompanion").setup({
         opts = {},
+        -- Display configuration for chat and diff interface
         display = {
           chat = {
             show_references = true, -- Show references (from slash commands and variables) in the chat buffer?
@@ -43,6 +49,7 @@ return {
           },
         },
         strategies = {
+          -- Chat strategy configuration with key bindings and behavior
           chat = {
             adapter = "qwen_coder",
             keymaps = {
@@ -98,10 +105,12 @@ return {
               },
             },
           },
+          -- Inline strategy configuration for code completion and suggestions
           inline = {
             adapter = "qwen_coder",
           },
         },
+        -- Adapter configurations for different AI providers
         adapters = {
           anthropic = function()
             return require("codecompanion.adapters").extend("anthropic", {
@@ -110,11 +119,12 @@ return {
               },
             })
           end,
+          -- Configuration for Qwen Coder adapter with custom parameters
           ["qwen_coder"] = function()
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
-                  default = "/models/bartowski_Qwen2.5-Coder-32B-Instruct-GGUF/Qwen2.5-Coder-32B-Instruct-IQ4_XS.gguf",
+                  default = "glm",
                 },
                 top_p = { default = 0.8 },
                 top_k = { default = 20 },
@@ -123,7 +133,7 @@ return {
                 -- num_ctx = { default = 32768 },
               },
               env = {
-                url = "http://ai:5010",
+                url = "http://ai:8080",
                 chat_url = "/v1/chat/completions",
                 api_key = vim.fn.expand("$TABBY_API_KEY"),
               },

@@ -23,9 +23,9 @@ return {
         },
         provider_options = {
           openai_fim_compatible = {
-            model = "LLMJapan_OlympicCoder-7B_exl2_8.0bpw",
-            end_point = "http://ai:5011/v1/completions",
-            api_key = "TABBY_API_KEY",
+            model = "qwen-coder-14b",
+            end_point = "http://ai:8080/v1/completions",
+            api_key = "TERM",
             name = "VLLM",
             stream = true,
             template = {
