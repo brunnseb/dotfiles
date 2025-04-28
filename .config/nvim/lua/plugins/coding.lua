@@ -87,6 +87,12 @@ return {
           codecompanion = { "codecompanion", "path" },
         },
         providers = {
+          path = {
+            opts = {
+              trailing_slash = false,
+              label_trailing_slash = false,
+            },
+          },
           codecompanion = {
             name = "CodeCompanion",
             module = "codecompanion.providers.completion.blink",
