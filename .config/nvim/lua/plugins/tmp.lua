@@ -3,6 +3,7 @@ return {
     "milanglacier/minuet-ai.nvim",
     config = function()
       require("minuet").setup({
+        -- provider = "openai_compatible",
         provider = "openai_fim_compatible",
         virtualtext = {
           auto_trigger_ft = {},
@@ -22,8 +23,24 @@ return {
           },
         },
         provider_options = {
+          openai_compatible = {
+            -- model = "glm-9",
+            model = "cogito-14",
+            -- system = "see [Prompt] section for the default value",
+            -- few_shots = "see [Prompt] section for the default value",
+            -- chat_input = "See [Prompt Section for default value]",
+            stream = true,
+            end_point = "http://ai:8080/v1/chat/completions",
+            api_key = "TERM",
+
+            name = "VLLM",
+            optional = {
+              stop = nil,
+              max_tokens = nil,
+            },
+          },
           openai_fim_compatible = {
-            model = "qwen-coder-14b",
+            model = "qwen-coder-14",
             end_point = "http://ai:8080/v1/completions",
             api_key = "TERM",
             name = "VLLM",
