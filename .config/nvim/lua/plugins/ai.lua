@@ -83,7 +83,7 @@ return {
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
-                  default = "rombo",
+                  default = "qwen3-30",
                 },
               },
               env = {

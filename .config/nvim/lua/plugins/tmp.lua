@@ -1,5 +1,13 @@
 return {
   {
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    opts = {
+      -- your options here
+    },
+  },
+  {
     "milanglacier/minuet-ai.nvim",
     config = function()
       require("minuet").setup({

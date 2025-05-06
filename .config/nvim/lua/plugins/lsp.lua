@@ -63,7 +63,7 @@ return {
             typescript = {
               preferences = {
                 useAliasesForRenames = false,
-                importModuleSpecifier = "shortest",
+                importModuleSpecifier = "relative",
                 importModuleSpecifierEndingt = "minimal",
               },
               suggest = {
