@@ -23,9 +23,6 @@ return {
           undo = {
             layout = "sidebar",
           },
-          grep_word = {
-            layout = { "ivy_split" },
-          },
         },
       },
     },
@@ -75,6 +72,7 @@ return {
         projects_config_filepath = vim.fs.normalize(vim.fn.stdpath("config") .. "/cd-project.nvim.json"),
         project_dir_pattern = { ".git", ".gitignore", "Cargo.toml", "package.json", "go.mod" },
         choice_format = "both", -- optional, you can switch to "name" or "path"
+        projects_picker = "vim-ui",
         hooks = {
           {
             callback = function(dir)

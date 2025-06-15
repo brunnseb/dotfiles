@@ -14,6 +14,36 @@ return {
         },
       },
     },
+    keys = {
+      {
+        "<leader>rp",
+        function()
+          require("refactoring").debug.printf({ below = true })
+        end,
+        desc = "Debug Print",
+      },
+      {
+        "<leader>rP",
+        function()
+          require("refactoring").debug.printf({ below = false })
+        end,
+        desc = "Debug Print",
+      },
+      {
+        "<leader>rv",
+        function()
+          require("refactoring").debug.print_var({ normal = true, below = true })
+        end,
+        desc = "Debug Print Variable Below",
+      },
+      {
+        "<leader>rV",
+        function()
+          require("refactoring").debug.print_var({ normal = true, below = false })
+        end,
+        desc = "Debug Print Variable Below",
+      },
+    },
   },
   {
     "chrisgrieser/nvim-recorder",
@@ -104,23 +134,6 @@ return {
             score_offset = 0,
           },
         },
-      },
-    },
-  },
-  {
-    "gbprod/yanky.nvim",
-    keys = {
-      {
-        "<leader>P",
-        function()
-          if LazyVim.pick.picker.name == "telescope" then
-            require("telescope").extensions.yank_history.yank_history({})
-          else
-            vim.cmd([[YankyRingHistory]])
-          end
-        end,
-        mode = { "n", "x" },
-        desc = "Open Yank History",
       },
     },
   },

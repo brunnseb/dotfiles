@@ -31,12 +31,12 @@ return {
         strategies = {
           -- Chat strategy configuration with key bindings and behavior
           chat = {
-            adapter = "llama-swap",
+            adapter = "openai_compatible",
           },
 
           -- Inline strategy configuration for code completion and suggestions
           inline = {
-            adapter = "llama-swap",
+            adapter = "openai_compatible",
             keymaps = {
               accept_change = {
                 modes = {
@@ -57,29 +57,15 @@ return {
             },
           },
         },
-        prompt_library = {
-          ["My New Prompt"] = {
-            strategy = "chat",
-            description = "Some cool custom prompt you can do",
-            prompts = {
-              {
-                role = "system",
-                content = "Enable deep thinking subroutine.",
-              },
-              {
-                role = "user",
-                content = "",
-              },
-            },
-          },
-        },
+        prompt_library = {},
         -- Adapter configurations for different AI providers
         adapters = {
           opts = {
+            show_model_choices = true,
             show_defaults = false,
           },
           -- Configuration for Qwen Coder adapter with custom parameters
-          ["llama-swap"] = function()
+          openai_compatible = function()
             return require("codecompanion.adapters").extend("openai_compatible", {
               schema = {
                 model = {
@@ -90,21 +76,12 @@ return {
                 url = "http://ai:8080",
                 chat_url = "/v1/chat/completions",
                 api_key = vim.fn.expand("$TABBY_API_KEY"),
+                models_endpoint = "/v1/models",
               },
               headers = {
                 ["Content-Type"] = "application/json",
               },
               parameters = {},
-              handlers = {
-                chat_output = function(self, data)
-                  local openai = require("codecompanion.adapters.openai")
-                  local result = openai.handlers.chat_output(self, data)
-                  if result ~= nil then
-                    result.output.role = "llm" -- "assistant"  works as well
-                  end
-                  return result
-                end,
-              },
             })
           end,
         },
