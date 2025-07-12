@@ -1,5 +1,5 @@
-font-family = Symbols Nerd Font Mono
 font-family = MonoLisa
+
 theme = tokyonight_moon
 
 keybind = alt+n=new_split:right
