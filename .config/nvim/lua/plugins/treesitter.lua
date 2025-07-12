@@ -1,16 +1,15 @@
+if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
+-- Customize Treesitter
+
+---@type LazySpec
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "gm",
-          node_incremental = "m",
-          scope_incremental = false,
-          node_decremental = "n",
-        },
-      },
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    ensure_installed = {
+      "lua",
+      "vim",
+      -- add more arguments for adding more treesitter parsers
     },
   },
 }
