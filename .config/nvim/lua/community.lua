@@ -62,7 +62,7 @@ return {
   { import = "astrocommunity.pack.fish" },
   { import = "astrocommunity.pack.json" },
   { import = "astrocommunity.pack.nginx" },
-  -- { import = "astrocommunity.pack.nvchad-ui" },
+  { import = "astrocommunity.pack.nvchad-ui" },
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.typescript" },
@@ -76,7 +76,7 @@ return {
 
   -- { import = "astrocommunity.recipes.ai" },
   -- { import = "astrocommunity.recipes.astrolsp-no-insert-inlay-hints" },
-  -- { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
+  { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
   -- { import = "astrocommunity.recipes.picker-lsp-mappings" },
   { import = "astrocommunity.recipes.picker-nvchad-theme" },
 
