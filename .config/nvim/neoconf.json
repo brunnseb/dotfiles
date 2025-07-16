@@ -1,0 +1,25 @@
+{
+  "neodev": {
+    "library": {
+      "enabled": true,
+      "plugins": true
+    }
+  },
+  "neoconf": {
+    "import": {
+      "vscode": false,
+      "coc": false,
+      "nlsp": false,
+    },
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      }
+    }
+  },
+  "lspconfig": {
+    "lua_ls": {
+      "Lua.format.enable": false
+    }
+  }
+}

@@ -33,6 +33,51 @@ return {
       emmet_ls = {
         enabled = false,
       },
+      cssls = {
+        settings = {
+          css = { validate = true, lint = {
+            unknownAtRules = "ignore",
+          } },
+          scss = { validate = true, lint = {
+            unknownAtRules = "ignore",
+          } },
+          less = { validate = true, lint = {
+            unknownAtRules = "ignore",
+          } },
+        },
+      },
+      vtsls = {
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            preferences = {
+              useAliasesForRenames = false,
+              importModuleSpecifier = "relative",
+            },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
+        },
+      },
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
     },
     -- customize how language servers are attached
