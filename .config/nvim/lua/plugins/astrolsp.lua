@@ -30,6 +30,9 @@ return {
       -- "pyright"
     },
     config = {
+      emmet_ls = {
+        enabled = false,
+      },
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
     },
     -- customize how language servers are attached

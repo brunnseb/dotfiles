@@ -12,18 +12,18 @@ return {
   { import = "astrocommunity.comment.ts-comments-nvim" },
   -- { import = "astrocommunity.completion.blink-cmp" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
-  { import = "astrocommunity.docker.lazydocker" },
+  -- { import = "astrocommunity.docker.lazydocker" },
   { import = "astrocommunity.editing-support.bigfile-nvim" },
 
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
 
   { import = "astrocommunity.editing-support.conform-nvim" },
-  { import = "astrocommunity.editing-support.mcphub-nvim" },
   { import = "astrocommunity.editing-support.mini-operators" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.editing-support.nvim-origami" },
-  { import = "astrocommunity.editing-support.nvim-treesitter-context" },
+  -- { import = "astrocommunity.bars-and-lines.dropbar-nvim" },
+  -- { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   -- { import = "astrocommunity.editing-support.quick-scope" },
   { import = "astrocommunity.editing-support.refactoring-nvim" },
   { import = "astrocommunity.editing-support.suda-vim" },
@@ -37,13 +37,13 @@ return {
   { import = "astrocommunity.indent.snacks-indent-hlchunk" },
 
   -- { import = "astrocommunity.lsp.delimited-nvim" },
-  { import = "astrocommunity.lsp.dev-tools-nvim" },
+  -- { import = "astrocommunity.lsp.dev-tools-nvim" },
   { import = "astrocommunity.lsp.lsp-lens-nvim" },
   { import = "astrocommunity.lsp.lsplinks-nvim" },
   { import = "astrocommunity.lsp.nvim-lsp-endhints" },
   { import = "astrocommunity.lsp.ts-error-translator-nvim" },
   -- { import = "astrocommunity.lsp.sonarlint-nvim" },
-  { import = "astrocommunity.lsp.nvim-lsp-file-operations" },
+  -- { import = "astrocommunity.lsp.nvim-lsp-file-operations" },
 
   { import = "astrocommunity.motion.flash-nvim" },
   { import = "astrocommunity.motion.mini-ai" },
@@ -85,8 +85,8 @@ return {
   { import = "astrocommunity.search.grug-far-nvim" },
   { import = "astrocommunity.search.nvim-hlslens" },
 
-  { import = "astrocommunity.split-and-window.colorful-winsep-nvim" },
-  { import = "astrocommunity.split-and-window.mini-map" },
+  -- { import = "astrocommunity.split-and-window.colorful-winsep-nvim" },
+  -- { import = "astrocommunity.split-and-window.mini-map" },
 
   { import = "astrocommunity.test.neotest" },
 

@@ -39,8 +39,8 @@ reveal = [
   { run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-  { run = 'unar "$1"', desc = "Extract here", for = "unix" },
-  { run = 'unar "%1"', desc = "Extract here", for = "windows" },
+	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
 play = [
   { run = 'mpv "$@"', orphan = true, for = "unix" },
