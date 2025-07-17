@@ -65,6 +65,8 @@ return {
         ["<A-Down>"] = { function() require("smart-splits").resize_down() end, desc = "Resize split down" },
         ["<A-Left>"] = { function() require("smart-splits").resize_left() end, desc = "Resize split left" },
         ["<A-Right>"] = { function() require("smart-splits").resize_right() end, desc = "Resize split right" },
+        ["<Left>"] = { function() require("origami").h() end },
+        ["<Right>"] = { function() require("origami").l() end },
       },
       i = {
         ["<C-S>"] = "<CMD>w<CR>",
