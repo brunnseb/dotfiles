@@ -1,1 +1,1 @@
-return { "suisa.cockpit", "suisa.cockpit-widgets", "suisa.cockpit-core", "suisa.outlook-plugin" }
+return { "suisa.cockpit", "suisa.outlook-plugin" }

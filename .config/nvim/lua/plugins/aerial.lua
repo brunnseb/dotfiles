@@ -26,7 +26,14 @@ return {
         },
         preview = true,
       },
-      on_first_symbols = function(bufnr) require("aerial").tree_set_collapse_level(bufnr, 2) end,
+      -- on_first_symbols = function(bufnr) require("aerial").tree_set_collapse_level(bufnr, 2) end,
+    },
+    keys = {
+      { "z0", "<CMD>lua require('aerial').tree_set_collapse_level(0, 0)<CR>", desc = "Fold collapse level 0" },
+      { "z1", "<CMD>lua require('aerial').tree_set_collapse_level(0, 1)<CR>", desc = "Fold collapse level 1" },
+      { "z2", "<CMD>lua require('aerial').tree_set_collapse_level(0, 2)<CR>", desc = "Fold collapse level 2" },
+      { "z3", "<CMD>lua require('aerial').tree_set_collapse_level(0, 3)<CR>", desc = "Fold collapse level 3" },
+      { "z4", "<CMD>lua require('aerial').tree_set_collapse_level(0, 4)<CR>", desc = "Fold collapse level 4" },
     },
   },
 }
