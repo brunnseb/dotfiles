@@ -3,6 +3,11 @@ return {
     "olimorris/codecompanion.nvim",
     keys = {
       {
+        "<leader>ai",
+        ":CodeCompanion ",
+        desc = "Inline",
+      },
+      {
         "<leader>ac",
         "<cmd>CodeCompanionChat<CR>",
         desc = "New Chat",
