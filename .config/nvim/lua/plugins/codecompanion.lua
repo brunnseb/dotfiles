@@ -60,6 +60,12 @@ return {
         },
       },
       extensions = {
+        spinner = {
+          opts = {
+            -- Your spinner configuration goes here
+            style = "lualine",
+          },
+        },
         mcphub = {
           callback = "mcphub.extensions.codecompanion",
           opts = {
@@ -71,7 +77,7 @@ return {
       },
     },
     dependencies = {
-      "nvim-lua/plenary.nvim",
+      "lalitmee/codecompanion-spinners.nvim",
       {
         "ravitemer/mcphub.nvim",
         dependencies = {
