@@ -82,8 +82,8 @@ config = {
 			mods = "CTRL",
 			action = wezterm.action.EmitEvent("toggle-opacity"),
 		},
-		{ key = "UpArrow", mods = "SHIFT|CTRL", action = act.ScrollByPage(-1) },
-		{ key = "DownArrow", mods = "SHIFT|CTRL", action = act.ScrollByPage(1) },
+		{ key = "UpArrow", mods = "SHIFT|CTRL|ALT", action = act.ScrollByPage(-1) },
+		{ key = "DownArrow", mods = "SHIFT|CTRL|ALT", action = act.ScrollByPage(1) },
 	},
 }
 
