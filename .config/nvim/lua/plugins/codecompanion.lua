@@ -1,86 +1,6 @@
 return {
   {
     "olimorris/codecompanion.nvim",
-    keys = {
-      {
-        "<leader>ai",
-        ":CodeCompanion ",
-        desc = "Inline",
-      },
-      {
-        "<leader>ac",
-        "<cmd>CodeCompanionChat<CR>",
-        desc = "New Chat",
-      },
-    },
-    opts = {
-      strategies = {
-        chat = {
-          adapter = "llamacpp",
-        },
-        inline = {
-          adapter = "llamacpp",
-        },
-        cmd = {
-          adapter = "llamacpp",
-        },
-      },
-      adapters = {
-        acp = {
-          opts = {
-            show_defaults = false,
-          },
-        },
-        http = {
-          llamacpp = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-              schema = {
-                model = {
-                  default = "qwen3-30-coder",
-                },
-                think = {
-                  default = false,
-                },
-                keep_alive = {
-                  default = "5m",
-                },
-              },
-              env = {
-                url = "http://ai:8080",
-                chat_url = "/v1/chat/completions",
-                api_key = vim.fn.expand("$TABBY_API_KEY"),
-                models_endpoint = "/v1/models",
-              },
-              headers = {
-                ["Content-Type"] = "application/json",
-              },
-              parameters = {},
-            })
-          end,
-          opts = {
-            show_model_choices = true,
-            show_defaults = false,
-          },
-          -- Define your custom adapters here
-        },
-      },
-      extensions = {
-        spinner = {
-          opts = {
-            -- Your spinner configuration goes here
-            style = "lualine",
-          },
-        },
-        mcphub = {
-          callback = "mcphub.extensions.codecompanion",
-          opts = {
-            make_vars = true,
-            make_slash_commands = true,
-            show_result_in_chat = true,
-          },
-        },
-      },
-    },
     dependencies = {
       "lalitmee/codecompanion-spinners.nvim",
       {
@@ -103,18 +23,98 @@ return {
               tag = {
                 buf = { icon = " ", highlight = "CodeCompanionChatVariable" },
                 file = { icon = " ", highlight = "CodeCompanionChatVariable" },
+                group = { icon = " ", highlight = "CodeCompanionChatToolGroup" },
                 help = { icon = "󰘥 ", highlight = "CodeCompanionChatVariable" },
                 image = { icon = " ", highlight = "CodeCompanionChatVariable" },
                 symbols = { icon = " ", highlight = "CodeCompanionChatVariable" },
-                url = { icon = "󰖟 ", highlight = "CodeCompanionChatVariable" },
-                var = { icon = " ", highlight = "CodeCompanionChatVariable" },
                 tool = { icon = " ", highlight = "CodeCompanionChatTool" },
+                url = { icon = "󰖟 ", highlight = "CodeCompanionChatVariable" },
                 user_prompt = { icon = " ", highlight = "CodeCompanionChatTool" },
-                group = { icon = " ", highlight = "CodeCompanionChatToolGroup" },
+                var = { icon = " ", highlight = "CodeCompanionChatVariable" },
               },
             },
           })
         end,
+      },
+    },
+    keys = {
+      {
+        "<leader>ai",
+        ":CodeCompanion ",
+        desc = "Inline",
+      },
+      {
+        "<leader>ac",
+        "<cmd>CodeCompanionChat<CR>",
+        desc = "New Chat",
+      },
+    },
+    opts = {
+      adapters = {
+        acp = {
+          opts = {
+            show_defaults = false,
+          },
+        },
+        http = {
+          llamacpp = function()
+            return require("codecompanion.adapters").extend("openai_compatible", {
+              schema = {
+                keep_alive = {
+                  default = "5m",
+                },
+                model = {
+                  default = "qwen3-30-coder",
+                },
+                think = {
+                  default = false,
+                },
+              },
+              env = {
+                api_key = vim.fn.expand("$TABBY_API_KEY"),
+                chat_url = "/v1/chat/completions",
+                models_endpoint = "/v1/models",
+                url = "http://ai:8080",
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+              },
+              parameters = {},
+            })
+          end,
+          opts = {
+            show_model_choices = true,
+            show_defaults = false,
+          },
+          -- Define your custom adapters here
+        },
+      },
+      extensions = {
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_slash_commands = true,
+            make_vars = true,
+            show_result_in_chat = true,
+          },
+        },
+        spinner = {
+          opts = {
+            -- Your spinner configuration goes here
+            style = "lualine",
+          },
+        },
+      },
+      strategies = {
+        chat = {
+          adapter = "llamacpp",
+        },
+        inline = {
+          adapter = "llamacpp",
+        },
+        cmd = {
+          adapter = "llamacpp",
+        },
       },
     },
   },
