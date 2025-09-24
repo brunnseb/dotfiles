@@ -34,7 +34,7 @@ config = {
 		top = 0,
 		bottom = 0,
 	},
-	window_background_opacity = 0.8,
+	window_background_opacity = 0.9,
 	window_close_confirmation = "NeverPrompt",
 	default_prog = { "/usr/bin/fish", "-l" },
 	color_scheme = "Tokyo Night Moon",
