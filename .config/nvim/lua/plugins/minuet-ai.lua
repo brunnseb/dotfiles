@@ -41,7 +41,7 @@ return {
           },
         },
         virtualtext = {
-          auto_trigger_ft = { "typescriptreact", "typescript", "yaml" },
+          -- auto_trigger_ft = { "typescriptreact", "typescript", "yaml" },
           keymap = {
             -- accept whole completion
             accept = "<C-Tab>",
