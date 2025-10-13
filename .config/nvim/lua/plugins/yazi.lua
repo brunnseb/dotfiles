@@ -11,8 +11,8 @@ return {
       },
       {
         "<leader>yy",
-        "<cmd>Yazi toggle<cr>",
-        desc = "Resume the last yazi session",
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi",
       },
     },
     opts = {

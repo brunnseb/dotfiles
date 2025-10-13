@@ -44,6 +44,7 @@ config = {
 		saturation = 0.8,
 		brightness = 0.7,
 	},
+	front_end = "WebGpu",
 	use_dead_keys = false,
 	scrollback_lines = 5000,
 	adjust_window_size_when_changing_font_size = false,
