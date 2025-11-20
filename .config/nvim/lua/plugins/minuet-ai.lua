@@ -4,13 +4,13 @@ return {
     config = function()
       require("minuet").setup({
         provider = "openai_fim_compatible",
-        n_completions = 5, -- recommend for local model for resource saving
+        n_completions = 2, -- recommend for local model for resource saving
         -- I recommend beginning with a small context window size and incrementally
         -- expanding it, depending on your local computing power. A context window
         -- of 512, serves as an good starting point to estimate your computing
         -- power. Once you have a reliable estimate of your local computing power,
         -- you should adjust the context window to a larger value.
-        context_window = 2048,
+        context_window = 8192,
         provider_options = {
           openai_fim_compatible = {
             -- For Windows users, TERM may not be present in environment variables.
@@ -22,8 +22,8 @@ return {
             -- post-launch.
             model = "qwen3-30-coder",
             optional = {
-              max_tokens = 56,
-              top_p = 0.9,
+              max_tokens = 128,
+              -- top_p = 0.9,
             },
             -- Llama.cpp does not support the `suffix` option in FIM completion.
             -- Therefore, we must disable it and manually populate the special
