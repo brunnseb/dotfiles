@@ -27,6 +27,7 @@ return {
           },
         },
         dim_inactive = { enabled = true, percentage = 0.4 },
+        transparent_background = true,
         flavour = "mocha",
         color_overrides = {
           mocha = {

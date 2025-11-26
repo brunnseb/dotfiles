@@ -5,6 +5,11 @@ return {
     notify = {
       enabled = false,
     },
+    lsp = {
+      signature = {
+        enabled = false,
+      },
+    },
     -- views = {
     --   cmdline_popup = {
     --     border = {
