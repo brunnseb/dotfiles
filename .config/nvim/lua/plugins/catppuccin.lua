@@ -18,7 +18,7 @@ return {
           notify = true,
           rainbow_delimiters = true,
           which_key = true,
-          diffview = true,
+          diffview = false,
           nvim_surround = true,
           overseer = true,
           snacks = {
