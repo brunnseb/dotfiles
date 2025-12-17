@@ -17,7 +17,7 @@ return {
             -- Consider using APPDATA instead.
             api_key = "TERM",
             name = "Llama.cpp",
-            end_point = "http://ai:8080/v1/completions",
+            end_point = "http://ai.headscale.com:8080/v1/completions",
             -- The model is set by the llama-cpp server and cannot be altered
             -- post-launch.
             model = "qwen3-30-coder",

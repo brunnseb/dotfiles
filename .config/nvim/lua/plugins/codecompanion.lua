@@ -84,7 +84,7 @@ return {
                   -- api_key = vim.fn.expand("$TABBY_API_KEY"),
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://ai:8080",
+                  url = "http://ai.headscale.com:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
