@@ -277,5 +277,3 @@ input {
     kb_variant = altgr-intl, colemak_dh
     kb_options = grp:ctrl_space_toggle
 }
-
-source = ./dms/cursor.conf

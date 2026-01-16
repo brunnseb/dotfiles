@@ -5,25 +5,29 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "llamacpp",
       "options": {
-        "baseURL": "http://ai.headscale.com:8080/v1"
+        "baseURL": "http://100.64.0.7:8080/v1"
       },
       "models": {
+        "qwen3-next": {
+          "name": "Qwen3 Next"
+        },
         "qwen3-30-coder": {
           "name": "Qwen3 Coder 30b"
         },
-        "devstral-small": {
-          "name": "Devstral Small"
+        "glm45air": {
+          "name": "GLM 4.5 Air"
         },
-        "gpt-oss-120b": {
-          "name": "GPT OSS 120b"
+        "minimax-m2.1": {
+          "name": "Minimax M2.1"
         },
-        "glm45-air": {
-          "name": "GLM 4.5 Air Reap"
+        "devstral": {
+          "name": "Devstral 2 Small"
         },
-        "minimax": {
-          "name": "Minimax M2 Reap"
+        "qwen3-vl": {
+          "name": "Qwen3 VL 32b"
         }
       }
     }
-  }
+  },
+  "plugin": ["oh-my-opencode"]
 }
