@@ -10,16 +10,6 @@ return {
       "lalitmee/codecompanion-spinners.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
-        "ravitemer/mcphub.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-        },
-        build = "pnpm add --global mcp-hub@latest", -- Installs `mcp-hub` node binary globally
-        config = function()
-          require("mcphub").setup()
-        end,
-      },
-      {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion" },
         config = function()
@@ -81,7 +71,7 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "devstral",
+                    default = "gpt-oss-120",
                   },
                   think = {
                     default = false,
@@ -91,7 +81,7 @@ return {
                   -- api_key = vim.fn.expand("$TABBY_API_KEY"),
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://100.64.0.7:8080",
+                  url = "http://100.64.0.2:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
