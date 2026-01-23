@@ -2,11 +2,6 @@ return {
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
-      {
-        "Davidyz/VectorCode",
-        version = "*", -- optional, depending on whether you're on nightly or release
-        dependencies = { "nvim-lua/plenary.nvim" },
-      },
       "lalitmee/codecompanion-spinners.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
