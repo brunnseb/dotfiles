@@ -1,5 +1,4 @@
 return {
-  { "windwp/nvim-ts-autotag", enabled = false },
   {
     "folke/edgy.nvim",
     opts = {

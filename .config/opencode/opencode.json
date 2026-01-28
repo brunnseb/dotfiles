@@ -1,33 +1,76 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "disabled_providers": ["llama"],
   "provider": {
-    "llamacpp": {
+    "media": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "llamacpp",
+      "name": "media",
       "options": {
-        "baseURL": "http://100.64.0.7:8080/v1"
+        "baseURL": "http://100.64.0.4:9292/v1"
       },
       "models": {
-        "qwen3-next": {
-          "name": "Qwen3 Next"
+        "orchestrator": {
+          "name": "Nemotron Orchestrator 8B"
         },
-        "qwen3-30-coder": {
-          "name": "Qwen3 Coder 30b"
+        "glm-4.7-flash": {
+          "name": "GLM 4.7 Flash"
         },
-        "glm45air": {
+        "miro": {
+          "name": "MiroThinker 1.5 30B A3B"
+        }
+      }
+    },
+    "ai": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "ai",
+      "options": {
+        "baseURL": "http://100.64.0.2:8080/v1"
+      },
+      "models": {
+        "mini": {
+          "name": "mini"
+        },
+        "glm-4.5-air": {
           "name": "GLM 4.5 Air"
         },
+        "glm-4.7": {
+          "name": "GLM 4.7"
+        },
+        "qwen3-coder": {
+          "name": "Qwen3 Coder 30B A3B"
+        },
+        "qwen3-vl-8b": {
+          "name": "Qwen3 VL 8B"
+        },
         "minimax-m2.1": {
-          "name": "Minimax M2.1"
+          "name": "MiniMax M2.1"
         },
-        "devstral": {
-          "name": "Devstral 2 Small"
-        },
-        "qwen3-vl": {
-          "name": "Qwen3 VL 32b"
+        "gpt-oss-120": {
+          "name": "GPT OSS 120B"
         }
       }
     }
   },
-  "plugin": ["oh-my-opencode"]
+  "plugin": ["@tarquinen/opencode-dcp@latest"],
+  "mcp": {
+    "supabase": {
+      "type": "local",
+      "enabled": false,
+      "command": [
+        "npx",
+        "-y",
+        "@supabase/mcp-server-supabase@latest",
+        "--access-token",
+        "sbp_dffae8c51410d4eb78f3812a3fd27700066f9aa5"
+      ]
+    }
+  },
+  "permission": {
+    "read": {
+      "~/.config/opencode/get-shit-done/*": "allow"
+    },
+    "external_directory": {
+      "~/.config/opencode/get-shit-done/*": "allow"
+    }
+  }
 }

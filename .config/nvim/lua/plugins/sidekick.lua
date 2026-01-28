@@ -1,16 +1,7 @@
 return {
   {
     "folke/sidekick.nvim",
-    keys = {
-      {
-        "<c-.>",
-        function()
-          require("sidekick.cli").toggle()
-        end,
-        desc = "Sidekick Toggle",
-        mode = { "n", "t", "i", "x" },
-      },
-    },
+    keys = {},
     opts = {
       nes = {
         enabled = false,
@@ -18,6 +9,27 @@ return {
       copilot = {
         status = {
           enabled = false,
+        },
+      },
+      cli = {
+        mux = {
+          backend = "tmux",
+          enabled = false,
+          create = "split",
+        },
+        tools = {
+          pi = {
+            cmd = { "pi" },
+            -- Optional: custom keymaps for this tool
+            -- keys = {
+            --   submit = {
+            --     "<c-s>",
+            --     function(t)
+            --       t:send("\n")
+            --     end,
+            --   },
+            -- },
+          },
         },
       },
     },
