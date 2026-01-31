@@ -9,14 +9,50 @@
         "baseURL": "http://100.64.0.4:9292/v1"
       },
       "models": {
-        "orchestrator": {
-          "name": "Nemotron Orchestrator 8B"
+        "nemotron": {
+          "name": "Nemotron 30B A3B",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
+        },
+        "jan-v3": {
+          "name": "Jan V3 Base Instruct"
+        },
+        "jan-v2-vl": {
+          "name": "Jan V2 VL High"
         },
         "glm-4.7-flash": {
-          "name": "GLM 4.7 Flash"
+          "name": "GLM 4.7 Flash",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
         },
-        "miro": {
-          "name": "MiroThinker 1.5 30B A3B"
+        "gpt-oss-20b": {
+          "name": "GPT OSS 20B",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
         }
       }
     },
@@ -24,35 +60,57 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "ai",
       "options": {
-        "baseURL": "http://100.64.0.2:8080/v1"
+        "baseURL": "http://100.64.0.5:8080/v1"
       },
       "models": {
-        "mini": {
-          "name": "mini"
-        },
         "glm-4.5-air": {
-          "name": "GLM 4.5 Air"
+          "name": "GLM 4.5 Air",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
         },
         "glm-4.7": {
-          "name": "GLM 4.7"
-        },
-        "qwen3-coder": {
-          "name": "Qwen3 Coder 30B A3B"
-        },
-        "qwen3-vl-8b": {
-          "name": "Qwen3 VL 8B"
+          "name": "GLM 4.7",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
         },
         "minimax-m2.1": {
-          "name": "MiniMax M2.1"
-        },
-        "gpt-oss-120": {
-          "name": "GPT OSS 120B"
+          "name": "MiniMax M2.1",
+          "variants": {
+            "high": {
+              "chat_template_kwargs": {
+                "enable_thinking": true
+              }
+            },
+            "low": {
+              "chat_template_kwargs": { "enable_thinking": false }
+            }
+          }
         }
       }
     }
   },
-  "plugin": ["@tarquinen/opencode-dcp@latest"],
+  "plugin": ["@tarquinen/opencode-dcp@latest", "oh-my-opencode@3.1.9"],
   "mcp": {
+    "hindsight-me": {
+      "type": "remote",
+      "url": "http://100.64.0.5:8888/mcp/me/"
+    },
     "supabase": {
       "type": "local",
       "enabled": false,
@@ -63,6 +121,10 @@
         "--access-token",
         "sbp_dffae8c51410d4eb78f3812a3fd27700066f9aa5"
       ]
+    },
+    "repomix": {
+      "type": "local",
+      "command": ["npx", "-y", "repomix", "--mcp"]
     }
   },
   "permission": {
@@ -72,5 +134,8 @@
     "external_directory": {
       "~/.config/opencode/get-shit-done/*": "allow"
     }
+  },
+  "keybinds": {
+    "command_list": "ctrl+l"
   }
 }

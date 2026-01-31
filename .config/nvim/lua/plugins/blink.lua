@@ -40,7 +40,7 @@ return {
           },
         },
         documentation = {
-          auto_show = true,
+          auto_show = false,
           auto_show_delay_ms = 100,
           update_delay_ms = 50,
           treesitter_highlighting = true,

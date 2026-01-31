@@ -66,7 +66,7 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "gpt-oss-120",
+                    default = "minimax-m2.1",
                   },
                   think = {
                     default = false,
@@ -76,7 +76,7 @@ return {
                   -- api_key = vim.fn.expand("$TABBY_API_KEY"),
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://100.64.0.2:8080",
+                  url = "http://100.64.0.5:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
