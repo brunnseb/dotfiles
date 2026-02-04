@@ -28,9 +28,19 @@ return {
         end,
       },
     },
+    keys = {
+      { "<leader>ac", ":CodeCompanion", desc = "CodeCompanion", mode = { "n", "x" } },
+    },
     opts = function()
       local layout = vim.env.CC_LAYOUT_OVERRIDE or "vertical"
       return {
+        prompt_library = {
+          markdown = {
+            dirs = {
+              "/home/brunnseb/.config/prompts",
+            },
+          },
+        },
         display = {
           chat = {
             window = {
@@ -66,7 +76,7 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "minimax-m2.1",
+                    default = "glm-4.7-flash",
                   },
                   think = {
                     default = false,
@@ -76,7 +86,7 @@ return {
                   -- api_key = vim.fn.expand("$TABBY_API_KEY"),
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://100.64.0.5:8080",
+                  url = "http://100.64.0.4:9292",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",

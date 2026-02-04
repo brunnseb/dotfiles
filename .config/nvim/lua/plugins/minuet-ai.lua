@@ -17,12 +17,13 @@ return {
             -- Consider using APPDATA instead.
             api_key = "TERM",
             name = "Llama.cpp",
-            end_point = "http://100.64.0.2:8080/v1/completions",
-            -- The model is set by the llama-cpp server and cannot be altered
+            end_point = "http://100.64.0.4:9292/v1/completions",
+            -- The model is set by the llama-cpp server and cannot  be altered
             -- post-launch.
-            model = "qwen3-30-coder",
+            model = "glm-4.7-flash",
             optional = {
               max_tokens = 128,
+              temperature = 0.0,
               -- top_p = 0.9,
             },
             -- Llama.cpp does not support the `suffix` option in FIM completion.
@@ -30,11 +31,11 @@ return {
             -- tokens required for FIM completion.
             template = {
               prompt = function(context_before_cursor, context_after_cursor, _)
-                return "<|fim_prefix|>"
+                return "<|code_prefix|>"
                   .. context_before_cursor
-                  .. "<|fim_suffix|>"
+                  .. "<|code_suffix|>"
                   .. context_after_cursor
-                  .. "<|fim_middle|>"
+                  .. "<|code_middle|>"
               end,
               suffix = false,
             },

@@ -1,141 +1,45 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "disabled_providers": ["llama"],
   "provider": {
-    "media": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "media",
-      "options": {
-        "baseURL": "http://100.64.0.4:9292/v1"
-      },
-      "models": {
-        "nemotron": {
-          "name": "Nemotron 30B A3B",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
-        },
-        "jan-v3": {
-          "name": "Jan V3 Base Instruct"
-        },
-        "jan-v2-vl": {
-          "name": "Jan V2 VL High"
-        },
-        "glm-4.7-flash": {
-          "name": "GLM 4.7 Flash",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
-        },
-        "gpt-oss-20b": {
-          "name": "GPT OSS 20B",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
-        }
-      }
-    },
     "ai": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "ai",
-      "options": {
-        "baseURL": "http://100.64.0.5:8080/v1"
-      },
+      "api": "http://100.64.0.5:8080/v1",
       "models": {
+        "minimax-m2.1": {
+          "name": "Minimax M2.1"
+        },
         "glm-4.5-air": {
-          "name": "GLM 4.5 Air",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
+          "name": "GLM 4.5 Air"
         },
         "glm-4.7": {
-          "name": "GLM 4.7",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
+          "name": "GLM 4.7"
         },
-        "minimax-m2.1": {
-          "name": "MiniMax M2.1",
-          "variants": {
-            "high": {
-              "chat_template_kwargs": {
-                "enable_thinking": true
-              }
-            },
-            "low": {
-              "chat_template_kwargs": { "enable_thinking": false }
-            }
-          }
+        "qwen3-coder-next": {
+          "name": "Qwen3 Coder Next"
+        }
+      }
+    },
+    "media": {
+      "api": "http://100.64.0.4:9292/v1",
+      "models": {
+        "nemotron": {
+          "name": "Nemotron 30B A3B"
+        },
+        "glm-4.7-flash": {
+          "name": "GLM 4.7 Flash"
+        },
+        "devstral": {
+          "name": "Devstral 2 Small"
         }
       }
     }
   },
-  "plugin": ["@tarquinen/opencode-dcp@latest", "oh-my-opencode@3.1.9"],
   "mcp": {
-    "hindsight-me": {
-      "type": "remote",
-      "url": "http://100.64.0.5:8888/mcp/me/"
-    },
-    "supabase": {
+    "websearch": {
       "type": "local",
-      "enabled": false,
-      "command": [
-        "npx",
-        "-y",
-        "@supabase/mcp-server-supabase@latest",
-        "--access-token",
-        "sbp_dffae8c51410d4eb78f3812a3fd27700066f9aa5"
-      ]
-    },
-    "repomix": {
-      "type": "local",
-      "command": ["npx", "-y", "repomix", "--mcp"]
+      "command": ["npx", "-y", "mcp-searxng"],
+      "environment": {
+        "SEARXNG_URL": "http://100.64.0.4:8888"
+      }
     }
-  },
-  "permission": {
-    "read": {
-      "~/.config/opencode/get-shit-done/*": "allow"
-    },
-    "external_directory": {
-      "~/.config/opencode/get-shit-done/*": "allow"
-    }
-  },
-  "keybinds": {
-    "command_list": "ctrl+l"
   }
 }

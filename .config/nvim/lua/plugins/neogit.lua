@@ -1,6 +1,11 @@
 return {
   {
-    "NeogitOrg/neogit",
+    "sotte/neogit",
+    branch = "support-vscode-diff",
+    opts = {
+      diff_viewer = "codediff",
+    },
+    -- "NeogitOrg/neogit",
     keys = {
       {
         "<leader>gg",
