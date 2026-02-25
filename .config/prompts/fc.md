@@ -5,7 +5,7 @@ description: Create Functional Component
 opts:
   alias: fc
   adapter:
-    name: llamacpp
+    name: media
     model: glm-4.7-flash
 ---
 

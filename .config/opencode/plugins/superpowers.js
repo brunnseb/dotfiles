@@ -1,0 +1,1 @@
+/home/brunnseb/.config/opencode/superpowers/.opencode/plugins/superpowers.js

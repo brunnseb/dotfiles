@@ -5,7 +5,7 @@ description: Add docstring or comment to selection
 opts:
   alias: doc
   adapter:
-    name: llamacpp
+    name: media
     model: devstral
 ---
 

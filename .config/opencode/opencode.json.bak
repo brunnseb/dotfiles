@@ -1,0 +1,96 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ai": {
+      "api": "http://100.64.0.5:8080/v1",
+      "models": {
+        "minimax-m2.1": {
+          "name": "Minimax M2.1"
+        },
+        "glm-4.5-air": {
+          "name": "GLM 4.5 Air"
+        },
+        "glm-4.7": {
+          "name": "GLM 4.7"
+        },
+        "qwen3-coder-next": {
+          "name": "Qwen3 Coder Next"
+        },
+        "step-3.5-flash": {
+          "name": "Step 3.5 Flash"
+        }
+      }
+    },
+    "media": {
+      "api": "http://100.64.0.4:9292/v1",
+      "models": {
+        "nemotron": {
+          "name": "Nemotron 30B A3B"
+        },
+        "glm-4.7-flash": {
+          "name": "GLM 4.7 Flash"
+        },
+        "devstral": {
+          "name": "Devstral 2 Small"
+        }
+      }
+    }
+  },
+  "keybinds": {
+    "command_list": "ctrl+l"
+  },
+  "mcp": {
+    "websearch": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-searxng"
+      ],
+      "environment": {
+        "SEARXNG_URL": "http://100.64.0.4:8888"
+      }
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": true
+    },
+    "CodeGraphContext": {
+      "type": "local",
+      "command": [
+        "/home/brunnseb/.local/bin/cgc",
+        "mcp",
+        "start"
+      ],
+      "environment": {
+        "DEFAULT_DATABASE": "falkordb",
+        "FALKORDB_PATH": "/home/brunnseb/.codegraphcontext/falkordb.db",
+        "FALKORDB_SOCKET_PATH": "/home/brunnseb/.codegraphcontext/falkordb.sock",
+        "INDEX_VARIABLES": "true",
+        "ALLOW_DB_DELETION": "false",
+        "DEBUG_LOGS": "false",
+        "DEBUG_LOG_PATH": "/home/brunnseb/mcp_debug.log",
+        "ENABLE_APP_LOGS": "CRITICAL",
+        "LOG_FILE_PATH": "/home/brunnseb/.codegraphcontext/logs/cgc.log",
+        "MAX_FILE_SIZE_MB": "10",
+        "IGNORE_TEST_FILES": "false",
+        "IGNORE_HIDDEN_FILES": "true",
+        "ENABLE_AUTO_WATCH": "false",
+        "COMPLEXITY_THRESHOLD": "10",
+        "MAX_DEPTH": "unlimited",
+        "PARALLEL_WORKERS": "4",
+        "CACHE_ENABLED": "true",
+        "IGNORE_DIRS": "node_modules,venv,.venv,env,.env,dist,build,target,out,.git,.idea,.vscode,__pycache__",
+        "INDEX_SOURCE": "true"
+      }
+    }
+  },
+  "plugin": [
+    "oh-my-opencode-slim"
+  ]
+}

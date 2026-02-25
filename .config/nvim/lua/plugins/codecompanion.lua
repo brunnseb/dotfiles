@@ -1,7 +1,9 @@
 return {
   {
     "olimorris/codecompanion.nvim",
+    cmd = { "CodeCompanionChat", "CodeCompanion" },
     dependencies = {
+      "j-hui/fidget.nvim",
       "lalitmee/codecompanion-spinners.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
@@ -12,6 +14,7 @@ return {
             html = {
               enabled = true,
               tag = {
+                -- Icons and highlights for different message types in the chat interface
                 buf = { icon = " ", highlight = "CodeCompanionChatVariable" },
                 file = { icon = " ", highlight = "CodeCompanionChatVariable" },
                 group = { icon = " ", highlight = "CodeCompanionChatToolGroup" },
@@ -48,11 +51,12 @@ return {
             },
           },
           diff = {
-            provider_opts = {
-              inline = {
-                layout = "buffer",
-              },
-            },
+            enabled = false,
+            -- provider_opts = {
+            --   inline = {
+            --     enabled = false,
+            --   },
+            -- },
           },
         },
         adapters = {
@@ -69,17 +73,14 @@ return {
             },
           },
           http = {
-            llamacpp = function()
+            media = function()
               return require("codecompanion.adapters").extend("openai_compatible", {
                 schema = {
                   keep_alive = {
                     default = "5m",
                   },
                   model = {
-                    default = "glm-4.7-flash",
-                  },
-                  think = {
-                    default = false,
+                    default = "devstral",
                   },
                 },
                 env = {
@@ -87,6 +88,28 @@ return {
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
                   url = "http://100.64.0.4:9292",
+                },
+                headers = {
+                  ["Content-Type"] = "application/json",
+                },
+                parameters = {},
+              })
+            end,
+            ai = function()
+              return require("codecompanion.adapters").extend("openai_compatible", {
+                schema = {
+                  keep_alive = {
+                    default = "5m",
+                  },
+                  model = {
+                    default = "step-3.5-flash",
+                  },
+                },
+                env = {
+                  -- api_key = vim.fn.expand("$TABBY_API_KEY"),
+                  chat_url = "/v1/chat/completions",
+                  models_endpoint = "/v1/models",
+                  url = "http://100.64.0.5:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
@@ -105,19 +128,19 @@ return {
           spinner = {
             opts = {
               -- Your spinner configuration goes here
-              style = "native",
+              style = "fidget",
             },
           },
         },
         strategies = {
           chat = {
-            adapter = "llamacpp",
+            adapter = "ai",
           },
           inline = {
-            adapter = "llamacpp",
+            adapter = "media",
           },
           cmd = {
-            adapter = "llamacpp",
+            adapter = "media",
           },
         },
       }

@@ -5,7 +5,7 @@ description: Translate to French
 opts:
   alias: fr
   adapter:
-    name: llamacpp
+    name: media
     model: devstral
 ---
 

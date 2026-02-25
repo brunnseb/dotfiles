@@ -4,17 +4,17 @@
     "ai": {
       "api": "http://100.64.0.5:8080/v1",
       "models": {
+        "minimax-m2.5": {
+          "name": "Minimax M2.5"
+        },
         "minimax-m2.1": {
           "name": "Minimax M2.1"
         },
-        "glm-4.5-air": {
-          "name": "GLM 4.5 Air"
-        },
-        "glm-4.7": {
-          "name": "GLM 4.7"
-        },
         "qwen3-coder-next": {
           "name": "Qwen3 Coder Next"
+        },
+        "step-3.5-flash": {
+          "name": "Step 3.5 Flash"
         }
       }
     },
@@ -33,6 +33,9 @@
       }
     }
   },
+  "keybinds": {
+    "command_list": "ctrl+l"
+  },
   "mcp": {
     "websearch": {
       "type": "local",
@@ -40,6 +43,31 @@
       "environment": {
         "SEARXNG_URL": "http://100.64.0.4:8888"
       }
+    },
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "enabled": true
+    },
+    "cognee": {
+      "type": "remote",
+      "url": "http://100.64.0.5:8888/mcp",
+      "headers": {
+        "Authorization": "bearer=1FPywjS9oh2Crhx6bcvKXxVxFcgCZ5NG"
+      }
+    }
+  },
+  "plugin": [
+    "oh-my-opencode-slim",
+    "opencode-beads",
+    "@tarquinen/opencode-dcp@latest"
+  ],
+  "agent": {
+    "explore": {
+      "disable": false
+    },
+    "general": {
+      "disable": false
     }
   }
 }

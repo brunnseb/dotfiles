@@ -5,7 +5,7 @@ description: Wrap statement with useMemo
 opts:
   alias: useMemo
   adapter:
-    name: llamacpp
+    name: media
     model: devstral
 ---
 

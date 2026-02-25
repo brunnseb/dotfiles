@@ -5,7 +5,7 @@ description: Wrap statement with useCallback
 opts:
   alias: useCallback
   adapter:
-    name: llamacpp
+    name: media
     model: devstral
 ---
 

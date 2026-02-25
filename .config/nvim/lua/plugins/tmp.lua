@@ -1,88 +1,124 @@
 return {
-
+  { "folke/flash.nvim", enabled = false },
   {
-    "leonardcser/cursortab.nvim",
-    -- version = "*",  -- Use latest tagged version for more stability
-    build = "cd server && go build",
-    enabled = false,
-    config = function()
-      require("cursortab").setup({
-        provider = {
-          type = "sweep",
-          url = "http://100.64.0.4:9292",
-          model = "sweep",
-          max_tokens = 512,
-          max_diff_history_tokens = 0,
-          temperature = 0.5,
-          top_k = 20,
-        },
-        keymaps = {
-          accept = "<Tab>", -- Keymap to accept completion, or false to disable
-          partial_accept = "<S-Tab>", -- Keymap to partially accept, or false to disable
-          trigger = "<A-a>", -- Keymap to manually trigger completion, or false to disable
-        },
-      })
-    end,
+    "FluxxField/smart-motion.nvim",
+    opts = {
+      presets = {
+        words = true, -- w, b, e, ge
+        lines = true, -- j, k
+        search = true, -- s, S, f, F, t, T, ;, ,
+        delete = true, -- d + any motion
+        yank = true, -- y + any motion
+        change = true, -- c + any motion
+        treesitter = true, -- ]], [[, af, if, ac, ic, aa, ia, fn, saa, gS, R
+        diagnostics = true, -- ]d, [d, ]e, [e
+        misc = true, -- . g. g1-g9 gp gP gA-gZ gmd gmy (repeat, history, pins, multi-cursor)
+      },
+    },
   },
   {
-    "BlinkResearchLabs/blink-edit.nvim",
-    enabled = false,
+    "ThePrimeagen/99",
+    keys = {
+      {
+        "<leader>9f",
+        function()
+          require("99").fill_in_function()
+        end,
+        mode = "n",
+        desc = "99: Fill in function",
+      },
+      {
+        "<leader>9v",
+        function()
+          require("99").visual()
+        end,
+        mode = "v",
+        desc = "99: Visual",
+      },
+      {
+        "<leader>9s",
+        function()
+          require("99").stop_all_requests()
+        end,
+        mode = "v",
+        desc = "99: Stop all requests",
+      },
+      {
+        "<leader>99",
+        function()
+          require("99").visual_prompt({})
+        end,
+        mode = "v",
+        desc = "99: Visual prompt",
+      },
+      {
+        "<leader>9fd",
+        function()
+          require("99").fill_in_function()
+        end,
+        mode = "n",
+        desc = "99: Fill in function (debug)",
+      },
+    },
+
     config = function()
-      require("blink-edit").setup({
-        llm = {
-          provider = "generic",
-          backend = "openai",
-          url = "http://100.64.0.4:9292",
-          model = "glm-4.7-flash",
-          temperature = 0.1, -- Sampling temperature (0 = deterministic)
-          max_tokens = 512, -- Max tokens to generate
+      local _99 = require("99")
+
+      -- For logging that is to a file if you wish to trace through requests
+      -- for reporting bugs, i would not rely on this, but instead the provided
+      -- logging mechanisms within 99.  This is for more debugging purposes
+      local cwd = vim.uv.cwd()
+      local basename = vim.fs.basename(cwd)
+      _99.setup({
+        model = "media/devstral",
+        logger = {
+          level = _99.INFO,
+          -- path = '/tmp/' .. basename .. '.99.debug',
+          path = "/tmp/99.debug",
+          print_on_error = true,
         },
 
-        -- context = {
-        --   enabled = true, -- Master switch for context collection
-        --   lines_before = 200,
-        --   lines_after = 100, -- Lines after cursor (nil = provider default)
-        --   max_tokens = 2048, -- Token budget for context
-        --
-        --   selection = {
-        --     enabled = true, -- Include visual selection in context
-        --     max_lines = 50, -- Max lines from selection
-        --   },
-        --
-        --   lsp = {
-        --     enabled = true, -- Fetch LSP references for cursor symbol
-        --     max_definitions = 2, -- Max definition locations
-        --     max_references = 2, -- Max reference locations
-        --     timeout_ms = 100, -- LSP request timeout
-        --   },
-        --
-        --   same_file = {
-        --     enabled = true, -- Include surrounding lines from same file
-        --     max_lines_before = 400, -- Lines above the window
-        --     max_lines_after = 400, -- Lines below the window
-        --   },
-        --
-        --   history = {
-        --     enabled = true, -- Include recent edit history
-        --     max_items = 10, -- Number of history entries
-        --     max_tokens = 16384, -- Token budget for history
-        --     max_files = 5, -- Max files in history
-        --     global = false, -- Share history across buffers
-        --   },
-        -- },
-        --
-        -- ui = {
-        --   progress = true, -- Show "thinking..." indicator
-        --   suppress_lsp_floats = true, -- Hide LSP floats while prediction visible
-        -- },
-        --
-        -- prefetch = {
-        --   enabled = true, -- Speculative prefetch (uses extra tokens)
-        --   strategy = "n-1", -- Prefetch when one hunk remains
-        -- },
-        --
-        -- normal_mode = {
-        --   enabled = true, -- Trigger predictions on idle in normal mode
+        --- A new feature that is centered around tags
+        completion = {
+          --- Defaults to .cursor/rules
+          -- I am going to disable these until i understand the
+          -- problem better.  Inside of cursor rules there is also
+          -- application rules, which means i need to apply these
+          -- differently
+          -- cursor_rules = "<custom path to cursor rules>"
+
+          --- A list of folders where you have your own SKILL.md
+          --- Expected format:
+          --- /path/to/dir/<skill_name>/SKILL.md
+          ---
+          --- Example:
+          --- Input Path:
+          --- "scratch/custom_rules/"
+          ---
+          --- Output Rules:
+          --- {path = "scratch/custom_rules/vim/SKILL.md", name = "vim"},
+          --- ... the other rules in that dir ...
+          ---
+          -- custom_rules = {
+          --   'scratch/custom_rules/',
+          -- },
+
+          --- What autocomplete do you use.  We currently only
+          --- support cmp right now
+          -- source = 'cmp',
+        },
+
+        --- WARNING: if you change cwd then this is likely broken
+        --- ill likely fix this in a later change
+        ---
+        --- md_files is a list of files to look for and auto add based on the location
+        --- of the originating request.  That means if you are at /foo/bar/baz.lua
+        --- the system will automagically look for:
+        --- /foo/bar/AGENT.md
+        --- /foo/AGENT.md
+        --- assuming that /foo is project root (based on cwd)
+        -- md_files = {
+        --   'AGENT.md',
         -- },
       })
     end,

@@ -1,23 +1,23 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        vtsls = {
-          settings = {
-            typescript = {
-              format = { enable = false },
-              preferences = {
-                useAliasesForRenames = false,
-                preferTypeOnlyAutoImports = true,
-              },
-              tsserver = {
-                maxTsServerMemory = 8192,
-              },
-            },
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "neovim/nvim-lspconfig",
+  --   opts = {
+  --     servers = {
+  --       vtsls = {
+  --         settings = {
+  --           typescript = {
+  --             format = { enable = false },
+  --             preferences = {
+  --               useAliasesForRenames = false,
+  --               preferTypeOnlyAutoImports = true,
+  --             },
+  --             tsserver = {
+  --               maxTsServerMemory = 8192,
+  --             },
+  --           },
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 }
