@@ -2,33 +2,33 @@
   "$schema": "https://opencode.ai/config.json",
   "provider": {
     "ai": {
-      "api": "http://100.64.0.5:8080/v1",
+      "api": "http://100.64.0.4:8080/v1",
       "models": {
         "minimax-m2.5": {
           "name": "Minimax M2.5"
         },
-        "minimax-m2.1": {
-          "name": "Minimax M2.1"
-        },
-        "qwen3-coder-next": {
+        "qwen-coder-next": {
           "name": "Qwen3 Coder Next"
         },
-        "step-3.5-flash": {
+        "step-3.5": {
           "name": "Step 3.5 Flash"
+        },
+        "qwen3.5-122b": {
+          "name": "Qwen3.5 122B A10B"
         }
       }
     },
     "media": {
-      "api": "http://100.64.0.4:9292/v1",
+      "api": "http://100.64.0.2:9292/v1",
       "models": {
-        "nemotron": {
-          "name": "Nemotron 30B A3B"
-        },
         "glm-4.7-flash": {
           "name": "GLM 4.7 Flash"
         },
-        "devstral": {
-          "name": "Devstral 2 Small"
+        "qwen3.5-35b": {
+          "name": "Qwen3.5 35B A3B"
+        },
+        "qwen3.5-27b": {
+          "name": "Qwen3.5 27B"
         }
       }
     }
@@ -39,35 +39,17 @@
   "mcp": {
     "websearch": {
       "type": "local",
-      "command": ["npx", "-y", "mcp-searxng"],
+      "command": [
+        "npx",
+        "-y",
+        "mcp-searxng"
+      ],
       "environment": {
-        "SEARXNG_URL": "http://100.64.0.4:8888"
-      }
-    },
-    "context7": {
-      "type": "local",
-      "command": ["npx", "-y", "@upstash/context7-mcp"],
-      "enabled": true
-    },
-    "cognee": {
-      "type": "remote",
-      "url": "http://100.64.0.5:8888/mcp",
-      "headers": {
-        "Authorization": "bearer=1FPywjS9oh2Crhx6bcvKXxVxFcgCZ5NG"
+        "SEARXNG_URL": "http://100.64.0.2:8888"
       }
     }
   },
   "plugin": [
-    "oh-my-opencode-slim",
-    "opencode-beads",
-    "@tarquinen/opencode-dcp@latest"
-  ],
-  "agent": {
-    "explore": {
-      "disable": false
-    },
-    "general": {
-      "disable": false
-    }
-  }
+    "oh-my-opencode@latest"
+  ]
 }

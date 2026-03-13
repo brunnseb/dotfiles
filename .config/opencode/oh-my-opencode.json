@@ -1,0 +1,61 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/dev/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "ai/qwen-coder-next"
+    },
+    "hephaestus": {
+      "model": "ai/step-3.5"
+    },
+    "oracle": {
+      "model": "ai/qwen3.5-122b"
+    },
+    "librarian": {
+      "model": "media/qwen3.5-35b"
+    },
+    "explore": {
+      "model": "media/qwen3.5-35b"
+    },
+    "multimodal-looker": {
+      "model": "ai/qwen3.5-122b"
+    },
+    "prometheus": {
+      "model": "ai/minimax-m2.5"
+    },
+    "metis": {
+      "model": "media/qwen3.5-27b"
+    },
+    "momus": {
+      "model": "media/qwen3.5-27b"
+    },
+    "atlas": {
+      "model": "media/qwen3.5-27b"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "ai/qwen3.5-122b"
+    },
+    "ultrabrain": {
+      "model": "ai/step-3.5"
+    },
+    "deep": {
+      "model": "ai/qwen3.5-122b"
+    },
+    "artistry": {
+      "model": "ai/qwen3.5-122b"
+    },
+    "quick": {
+      "model": "media/qwen3.5-35b"
+    },
+    "unspecified-low": {
+      "model": "media/qwen3.5-35b"
+    },
+    "unspecified-high": {
+      "model": "ai/step-3.5"
+    },
+    "writing": {
+      "model": "ai/qwen3.5-122b"
+    }
+  }
+}
