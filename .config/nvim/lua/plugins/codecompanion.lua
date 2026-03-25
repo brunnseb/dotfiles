@@ -61,6 +61,50 @@ return {
         },
         adapters = {
           acp = {
+
+            cursor_cli = function()
+              return {
+                name = "cursor_cli",
+                formatted_name = "Cursor CLI",
+                type = "acp",
+                roles = {
+                  llm = "assistant",
+                  user = "user",
+                },
+                commands = {
+                  default = { "pi-acp" },
+                },
+                defaults = {
+                  timeout = 20000,
+                },
+                parameters = {
+                  protocolVersion = 1,
+                  clientCapabilities = {
+                    fs = { readTextFile = true, writeTextFile = true },
+                  },
+                  clientInfo = {
+                    name = "CodeCompanion.nvim",
+                    version = "1.0.0",
+                  },
+                },
+                handlers = {
+                  setup = function(self)
+                    vim.notify("Launching Cursor CLI")
+                    return true
+                  end,
+
+                  auth = function(self)
+                    return true
+                  end,
+
+                  form_messages = function(self, messages, capabilities)
+                    return codecompanion_helpers.form_messages(self, messages, capabilities)
+                  end,
+
+                  on_exit = function(self, code) end,
+                },
+              }
+            end,
             opencode = function()
               return require("codecompanion.adapters").extend("opencode", {
                 -- env = {
@@ -73,28 +117,6 @@ return {
             },
           },
           http = {
-            media = function()
-              return require("codecompanion.adapters").extend("openai_compatible", {
-                schema = {
-                  keep_alive = {
-                    default = "5m",
-                  },
-                  model = {
-                    default = "devstral",
-                  },
-                },
-                env = {
-                  -- api_key = vim.fn.expand("$TABBY_API_KEY"),
-                  chat_url = "/v1/chat/completions",
-                  models_endpoint = "/v1/models",
-                  url = "http://100.64.0.4:9292",
-                },
-                headers = {
-                  ["Content-Type"] = "application/json",
-                },
-                parameters = {},
-              })
-            end,
             ai = function()
               return require("codecompanion.adapters").extend("openai_compatible", {
                 schema = {
@@ -102,7 +124,7 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "step-3.5-flash",
+                    default = "qwen3.5-27b",
                   },
                 },
                 env = {
@@ -137,10 +159,10 @@ return {
             adapter = "ai",
           },
           inline = {
-            adapter = "media",
+            adapter = "ai",
           },
           cmd = {
-            adapter = "media",
+            adapter = "ai",
           },
         },
       }

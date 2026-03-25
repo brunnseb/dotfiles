@@ -19,3 +19,13 @@ vim.keymap.set("n", "<leader><leader><left>", require("smart-splits").swap_buf_l
 vim.keymap.set("n", "<leader><leader><down>", require("smart-splits").swap_buf_down, { desc = "Swap buffer down" })
 vim.keymap.set("n", "<leader><leader><up>", require("smart-splits").swap_buf_up, { desc = "Swap buffer up" })
 vim.keymap.set("n", "<leader><leader><right>", require("smart-splits").swap_buf_right, { desc = "Swap buffer right" })
+
+vim.keymap.set("n", "<leader>co", function()
+  vim.lsp.buf.code_action({
+    context = {
+      only = { "source.organizeImports" },
+      diagnostics = {},
+    },
+    apply = true,
+  })
+end, { desc = "Organize imports" })

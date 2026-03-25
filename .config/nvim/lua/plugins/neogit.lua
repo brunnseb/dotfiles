@@ -1,7 +1,6 @@
 return {
   {
-    "sotte/neogit",
-    branch = "support-vscode-diff",
+    "neogitorg/neogit",
     opts = {
       diff_viewer = "codediff",
     },

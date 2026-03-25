@@ -11,3 +11,5 @@ vim.o.foldenable = false
 
 vim.g.snacks_animate = false
 vim.lsp.log.set_level("off")
+
+vim.g.lazyvim_ts_lsp = "tsgo"
