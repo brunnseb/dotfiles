@@ -23,7 +23,7 @@ return {
         javascript = { "prettierd", lsp_format = "never" },
         javascriptreact = { "prettierd", lsp_format = "never" },
         typescript = { "prettierd", lsp_format = "never" },
-        typescriptreact = { "prettierd", lsp_format = "never" },
+        typescriptreact = { "prettierd", "eslint_d", lsp_format = "never", timeout = 5000 },
       },
     },
   },

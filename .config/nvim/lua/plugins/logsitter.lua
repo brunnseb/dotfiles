@@ -27,8 +27,8 @@ return {
       })
 
       require("logsitter").setup({
-        path_format = "default",
-        prefix = "[LS] ->",
+        path_format = "short",
+        prefix = "💣️",
         separator = "->",
       })
     end,

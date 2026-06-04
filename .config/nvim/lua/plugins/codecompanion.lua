@@ -50,6 +50,7 @@ local handlers = {
 return {
   {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     dependencies = {
       "ravitemer/codecompanion-history.nvim",
       "cairijun/codecompanion-agentskills.nvim",
@@ -153,13 +154,13 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "qwen3.6-35b",
+                    default = "qwen3.5-122b",
                   },
                 },
                 env = {
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://100.64.0.5:8080",
+                  url = "http://100.64.0.6:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
@@ -175,13 +176,13 @@ return {
                     default = "5m",
                   },
                   model = {
-                    default = "nemotron",
+                    default = "gemma4-e2b",
                   },
                 },
                 env = {
                   chat_url = "/v1/chat/completions",
                   models_endpoint = "/v1/models",
-                  url = "http://100.64.0.5:8080",
+                  url = "http://100.64.0.6:8080",
                 },
                 headers = {
                   ["Content-Type"] = "application/json",
